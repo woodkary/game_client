@@ -1,0 +1,4 @@
+name: KillingRecording
+version: '${project.version}'
+main: com.kary.karyplugin.killingrecording.KillingRecording
+api-version: '1.20'
