@@ -17,18 +17,19 @@ public class SoloPVPExecutor implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
-        if("soloPVP".equals(args[0])&&commandSender instanceof Player){
-            if(matchingPlayers==null){
-                matchingPlayers= (Player) commandSender;
+        boolean result = false;
+        if ("soloPVP".equals(args[0]) && commandSender instanceof Player) {
+            if (matchingPlayers == null) {
+                matchingPlayers = (Player) commandSender;
                 ((Player) commandSender).sendRawMessage("请等待其他玩家加入游戏");
-            }else{
+            } else {
                 playersFighting.put(matchingPlayers, (Player) commandSender);
-                playersFighting.put((Player) commandSender,matchingPlayers);
+                playersFighting.put((Player) commandSender, matchingPlayers);
                 ((Player) commandSender).sendRawMessage("成功加入游戏");
-                matchingPlayers=null;
+                matchingPlayers = null;
             }
-            return true;
+            result = true;
         }
-        return false;
+        return result;
     }
 }
