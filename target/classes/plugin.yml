@@ -1,4 +1,0 @@
-name: KillingRecording
-version: '1.0-SNAPSHOT'
-main: com.kary.karyplugin.killingrecording.KillingRecording
-api-version: '1.20'
