@@ -5,11 +5,11 @@ import com.kary.karyplugin.gamemodeExecutors.SoloPVPExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class KaryPlugin extends JavaPlugin {
-    private Map<Player,Integer> playersMatchingGamemode=new HashMap<>();
+    private Map<Player,Integer> playersMatchingGamemode=new ConcurrentHashMap<>();
     //1=Solo，2=起床
     @Override
     public void onEnable() {

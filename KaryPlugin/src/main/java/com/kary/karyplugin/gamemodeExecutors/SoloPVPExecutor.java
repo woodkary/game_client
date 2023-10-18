@@ -11,12 +11,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 //gamemode==1才符合
 public class SoloPVPExecutor implements CommandExecutor, Listener {
-    private Map<Player,Player> playersInSoloPVP=new HashMap<>();
+    private Map<Player,Player> playersInSoloPVP=new ConcurrentHashMap<>();
     private Map<Player,Integer> playersMatchingGamemode;
     private Player matchingPlayer;
 
