@@ -28,6 +28,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
         if(playersInSoloPVP.size()==0){
             return;
         }
+        //有人退出游戏，则另一人胜利
         Player loser=playerQuitEvent.getPlayer();
         Player winner=playersInSoloPVP.remove(loser);
         playersInSoloPVP.remove(winner);
@@ -40,7 +41,9 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
         if(playersInSoloPVP.size()==0){
             return;
         }
+        //有人被杀死了
         Player loser=event.getEntity();
+        //从集合中清楚两者
         Player winner=playersInSoloPVP.remove(loser);
         playersInSoloPVP.remove(winner);
         Bukkit.getServer().broadcastMessage("玩家"+winner.getName()+"击败了"+loser.getName());
