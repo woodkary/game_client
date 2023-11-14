@@ -48,11 +48,8 @@ public class LoginController {
                 myAccount.setPassword(password);
                 myAccount.setScore(userInDatabase.getScore());
                 myAccount.setEmail(userInDatabase.getEmail());
-                myAccount.setCode(userInDatabase.getCode());
                 model.addAttribute("myAccount",myAccount);
                 session.setAttribute("myAccount",myAccount);
-                String thisComputerCode=userInDatabase.getCode();
-                MailUtil.setAuthorCode(thisComputerCode);
                 return "views/loginSuccess";
             }
         }

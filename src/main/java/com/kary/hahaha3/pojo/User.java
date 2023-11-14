@@ -21,5 +21,4 @@ public class User {
     private String password;
     private int score;
     private String email;
-    private String code;
 }

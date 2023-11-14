@@ -14,18 +14,12 @@ import java.util.Properties;
  * @author:123
  */
 public class MailUtil {
-    @Getter
-    @Setter
-    private static String authorCode = null;
+    private static String authorCode = "bmqdkfqwluctbefh";
     private static String email="834479572@qq.com";
     @Getter
     @Setter
     private static String toEmail;
     private static String qqMail="smtp.qq.com";
-
-    public static void setAuthorCode(String authorCode) {
-        MailUtil.authorCode = authorCode;
-    }
     public static String getRandom6Digit(){
         byte[] bytes=new byte[6];
         for (int i = 0; i < 6; i++) {

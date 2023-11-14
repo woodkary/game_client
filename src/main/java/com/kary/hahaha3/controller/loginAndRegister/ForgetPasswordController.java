@@ -74,17 +74,17 @@ public class ForgetPasswordController {
                 model.addAttribute("showPopup","请输入合法的邮箱");
                 return "index";
             }else {
-                MailUtil.setAuthorCode(userInDatabase.getCode());
                 model.addAttribute("username",username);
                 model.addAttribute("password",password);
                 model.addAttribute("email",email);
                 session.setAttribute("username",username);
                 session.setAttribute("password",password);
+                session.setAttribute("email",email);
                 return "views/forgetPassword";
             }
         }
     }
-    @PostMapping("/forgetPassword/typeVeriCode")
+    @PostMapping("/forgetPassword/typeVeriCode2")
     public String typeVeriCode(@RequestParam(value = "veriCode")String veriCode,HttpSession session,Model model){
         if(verificationCode==null){
             model.addAttribute("showPopup","请先发验证码");
@@ -93,7 +93,10 @@ public class ForgetPasswordController {
             model.addAttribute("showPopup","验证码错误");
             return "views/forgetPassword";
         }else{
-            userMapper.updateUserPassword((String) session.getAttribute("username"), (String) session.getAttribute("password"));
+            String password=(String) session.getAttribute("password");
+            password=aesEncoder.encrypt(password);
+            userMapper.updateUserPassword((String) session.getAttribute("username"), password);
+            //TODO 忘记设修改密码成功的页面了，所以跳到注册页面
             return "views/registerSuccess";
         }
     }
