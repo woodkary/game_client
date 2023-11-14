@@ -34,41 +34,41 @@ public class MailUtil {
         return new String(bytes, StandardCharsets.UTF_8);
     }
     public static void sendMail(String toAddr,String text,String title) throws MessagingException {
-            final Properties props=new Properties();
-            props.put("mail.smtp.auth", "true");
-            //注意发送邮件的方法中，发送给谁的，发送给对应的app，
-            //要改成对应的app。扣扣的改成qq的，网易的要改成网易的。
-            //props.put("mail.smtp.host", "smtp.qq.com");
-            props.put("mail.smtp.host", qqMail);
-            //QQ邮箱账号
-            props.put("mail.user",email);
-            //授权码
-            props.put("mail.password",authorCode);
-            //构建授权信息，用于身份验证
-            Authenticator authenticator = new Authenticator() {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    // 用户名、密码
-                    String userName = props.getProperty("mail.user");
-                    String password = props.getProperty("mail.password");
-                    return new PasswordAuthentication(userName, password);
-                }
-            };
-            //使用环境属性和授权信息，创健邮件会话
-            Session mailSession=Session.getInstance(props,authenticator);
-            //创健邮件消息
-            MimeMessage message=new MimeMessage(mailSession);
-            //发件人
-            InternetAddress fromAddress=new InternetAddress(email);
-            message.setFrom(fromAddress);
-            //收件人
-            InternetAddress toAddress=new InternetAddress(toAddr);
-            message.setRecipient(Message.RecipientType.TO,toAddress);
-            //标题
-            message.setSubject(title);
-            //内容
-            message.setContent(text,"text/plain;charset=UTF-8");
-            //发送
+        final Properties props=new Properties();
+        props.put("mail.smtp.auth", "true");
+        //注意发送邮件的方法中，发送给谁的，发送给对应的app，
+        //要改成对应的app。扣扣的改成qq的，网易的要改成网易的。
+        //props.put("mail.smtp.host", "smtp.qq.com");
+        props.put("mail.smtp.host", qqMail);
+        //QQ邮箱账号
+        props.put("mail.user",email);
+        //授权码
+        props.put("mail.password",authorCode);
+        //构建授权信息，用于身份验证
+        Authenticator authenticator = new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                // 用户名、密码
+                String userName = props.getProperty("mail.user");
+                String password = props.getProperty("mail.password");
+                return new PasswordAuthentication(userName, password);
+            }
+        };
+        //使用环境属性和授权信息，创健邮件会话
+        Session mailSession=Session.getInstance(props,authenticator);
+        //创健邮件消息
+        MimeMessage message=new MimeMessage(mailSession);
+        //发件人
+        InternetAddress fromAddress=new InternetAddress(email);
+        message.setFrom(fromAddress);
+        //收件人
+        InternetAddress toAddress=new InternetAddress(toAddr);
+        message.setRecipient(Message.RecipientType.TO,toAddress);
+        //标题
+        message.setSubject(title);
+        //内容
+        message.setContent(text,"text/plain;charset=UTF-8");
+        //发送
         System.out.println(authorCode);
         Transport.send(message);
     }
