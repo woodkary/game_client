@@ -1,4 +1,4 @@
-package com.kary.hahaha3.controller.loginAndRegister;
+package com.kary.hahaha3.controller.pagesAndIndexControllers;
 
 import com.kary.hahaha3.mapper.UserMapper;
 import com.kary.hahaha3.pojo.User;

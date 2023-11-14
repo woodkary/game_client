@@ -1,4 +1,4 @@
-package com.kary.hahaha3.controller.loginAndRegister;
+package com.kary.hahaha3.controller.pagesAndIndexControllers;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
