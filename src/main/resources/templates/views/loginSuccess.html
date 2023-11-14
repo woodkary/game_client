@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>登陆成功</title>
+</head>
+<body>
+<div>
+    <script th:inline="javascript">
+        var showPopup = "登录成功！";
+        alert(showPopup);
+    </script>
+</div>
+<div>
+    <a class="item" th:href="@{/}" th:text="${myAccount}">登录成功！点此回到首页</a>
+</div>
+</body>
+
+
+</html>

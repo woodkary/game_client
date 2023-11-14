@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>我们将向您的邮箱发送验证码，请输入</title>
+    <!--semantic-ui-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+<div th:if="${showPopup}">
+    <script th:inline="javascript">
+        var showPopup = [[${showPopup}]];
+        alert(showPopup);
+    </script>
+</div>
+
+<!--主容器-->
+<div class="ui container">
+
+    <div class="ui segment">
+
+        <div style="text-align: center">
+            <h1 class="header">输入验证码</h1>
+        </div>
+
+        <div class="ui placeholder segment">
+            <div class="ui column very relaxed stackable grid">
+                <div class="column">
+                    <div class="ui form">
+                        <form th:action="@{/getAuthorCode}" method="post">
+                            <div class="field">
+                                <label>如果您是第一次使用该软件，请先在您的邮箱中开启POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务，先确认授权码，再发送验证码</label>
+                                <div class="ui left icon input">
+                                    <input placeholder="授权码" name="authorCode" th:text="${authorCode}">
+                                    <i class="lock icon"></i>
+                                </div>
+                                <button class="ui label" type="submit">确认授权码</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="ui form">
+                        <div class="field">
+                            <form th:action="@{/sendVeriCode}" method="post">
+                                <button class="ui label" type="submit">发送验证码</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="ui form">
+                        <form th:action="@{/typeVeriCodeToRegister}" method="post">
+                            <div class="field">
+                                <label>输入验证码</label>
+                                <div class="ui left icon input">
+                                    <input placeholder="验证码" name="veriCode">
+                                    <i class="lock icon"></i>
+                                </div>
+                            </div>
+                            <input type="submit" class="ui blue submit button">
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script th:src="@{/qinjiang/js/jquery-3.1.1.min.js}"></script>
+<script th:src="@{/qinjiang/js/semantic.min.js}"></script>
+
+</body>
+
+</html>

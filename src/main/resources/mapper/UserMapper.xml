@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kary.hahaha3.mapper.UserMapper">
+    <select id="selectUserByName" resultType="com.kary.hahaha3.pojo.User" parameterType="string">
+        select * from user where username=#{username}
+    </select>
+    <insert id="insertUser">
+        insert into user (username,password,score,email,code) values (#{username},#{password},0,#{email},#{code});
+    </insert>
+    <select id="selectUserLimit" resultType="com.kary.hahaha3.pojo.User" parameterType="_int">
+        select * from user order by username limit 3 offset #{x}
+    </select>
+    <update id="updateUserPassword">
+        update user set password=#{password} where username=#{username}
+    </update>
+    <select id="selectUserByCode" resultType="com.kary.hahaha3.pojo.User">
+        select * from user where code=#{code}
+    </select>
+</mapper>
