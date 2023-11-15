@@ -14,8 +14,8 @@ import java.util.Properties;
  * @author:123
  */
 public class MailUtil {
-    private static String authorCode = "bmqdkfqwluctbefh";
-    private static String email="834479572@qq.com";
+    private static final String authorCode = "bmqdkfqwluctbefh";
+    private static final String email="834479572@qq.com";
     @Getter
     @Setter
     private static String toEmail;
