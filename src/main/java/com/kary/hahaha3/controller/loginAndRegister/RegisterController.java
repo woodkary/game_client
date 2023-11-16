@@ -38,22 +38,22 @@ public class RegisterController {
                                Model model, HttpSession session){
         if(username==null){
             model.addAttribute("showPopup","用户名为空");
-            return "index";
+            return "views/register";
         }else if(password==null){
             model.addAttribute("showPopup","密码为空");
-            return "index";
+            return "views/register";
         }else if(retypePassword==null){
             model.addAttribute("showPopup","请重输密码");
-            return "index";
+            return "views/register";
         }else if(!password.equals(retypePassword)){
             model.addAttribute("showPopup","请输入一致的密码");
-            return "index";
+            return "views/register";
         }else if (userMapper.selectUserByName(username)!=null) {
             model.addAttribute("showPopup","该用户已注册");
-            return "index";
+            return "views/register";
         }else if(!MailUtil.legalQQMail(email)){
             model.addAttribute("showPopup","请输入合法的邮箱");
-            return "index";
+            return "views/register";
         }else{
                 password=aesEncoder.encrypt(password);
                 session.setAttribute("username",username);

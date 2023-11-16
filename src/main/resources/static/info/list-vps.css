@@ -1,0 +1,79 @@
+@charset "utf-8";
+body,div,ul,li,a{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+body{
+	background: url(bg.jpg) no-repeat fixed;
+	background-size: 100%;
+	-moz-background-size: 100%;
+}
+#headr{
+	margin: 20px auto;
+	text-align: center;
+	height: 80px;
+	width: 1100px;
+	border: solid 5px red;
+	background-color: rgba(255, 255, 255, 0.7);
+	box-shadow: 1px 1px 5px 5px #ffbcc263;
+	border-radius: 60px 60px 0 0;
+	transition: all 0.5s ease-in 0s;
+}
+#headr a{
+	color: black;
+}
+#title{
+	font-size: 59px;
+	padding-left: 10px;
+}
+#home{
+	height: 555px;
+	width: 1100px;
+	margin: -25px auto;
+	background-color: rgba(255, 255, 255, 0.7);
+	border:solid 5px blueviolet;
+	box-shadow: 1px 1px 5px 5px #ffbcc263;
+	border-radius: 0 0 60px 60px;
+	transition: all 0.5s ease-in 0s;
+}
+#footer{
+	text-align: center;
+	margin: 30px auto;
+	width: 1100px;
+	height: 16px;
+}
+#home table{
+	margin: 0 auto;
+	border-spacing: 0px;
+}
+#home th{
+	border-bottom: #000000 solid 2px;
+	font-size: 20px;
+	padding: 8px 52px 8px 52px;
+}
+#home th:hover{
+	color: black;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+#home td{
+	text-align: center;
+	font-size: 20px;
+	height: 62px;
+}
+#home .h:hover{
+	background-color: rgba(204, 255, 255, 0.3);
+}
+td a{
+	color: red;
+	text-shadow: 0px 0px 20px red;
+}
+td a:hover{
+	text-shadow: 0px 1px 1px orange;
+}
+#info{
+	padding-left: 30px;
+	font-size: 20px;
+	text-shadow: 0px 0px 20px deeppink;
+}

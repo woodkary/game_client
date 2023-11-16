@@ -20,6 +20,7 @@ import javax.mail.MessagingException;
 /**
  * @author:123
  */
+//todo 重新输入密码和输入邮箱放一起了，是否需要把他们分开？
 @Controller
 public class ForgetPasswordController {
     @Autowired
@@ -29,13 +30,19 @@ public class ForgetPasswordController {
     private UserMapper userMapper;
     private String verificationCode;
     @PostMapping("/forgetPassword/sendMail")
-    public String sendMail(Model model,HttpSession session){
+    public String sendMail(@RequestParam(value = "username")String username,
+                           @RequestParam(value = "password")String password,
+                           @RequestParam(value = "retypePassword")String retypePassword,
+                           @RequestParam(value = "email")String email,
+                           HttpSession session,
+                           Model model){
         verificationCode=MailUtil.getRandom6Digit();
         try {
             MailUtil.sendMail((String) session.getAttribute("email"),verificationCode,"重设密码");
-            model.addAttribute("username",model.getAttribute("username"));
-            model.addAttribute("password",model.getAttribute("password"));
-            model.addAttribute("email",model.getAttribute("email"));
+            model.addAttribute("username",username);
+            model.addAttribute("password",password);
+            model.addAttribute("retypePassword",retypePassword);
+            model.addAttribute("email",email);
             return "views/forgetPassword";
         } catch (MessagingException e) {
             throw new RuntimeException(e);
@@ -55,28 +62,29 @@ public class ForgetPasswordController {
                                 Model model) {
         if(username==null){
             model.addAttribute("showPopup","用户名为空");
-            return "index";
+            return "views/forgetPassword";
         }else if(password==null){
             model.addAttribute("showPopup","密码为空");
-            return "index";
+            return "views/forgetPassword";
         }else if(retypePassword==null){
             model.addAttribute("showPopup","请重输密码");
-            return "index";
+            return "views/forgetPassword";
         }else if(!password.equals(retypePassword)){
             model.addAttribute("showPopup","请输入一致的密码");
-            return "index";
+            return "views/forgetPassword";
         }else{
             User userInDatabase=userMapper.selectUserByName(username);
             if(userInDatabase==null){
                 model.addAttribute("showPopup","该用户名不存在");
-                return "index";
+                return "views/forgetPassword";
             }else if(!MailUtil.legalQQMail(email)){
                 model.addAttribute("showPopup","请输入合法的邮箱");
-                return "index";
+                return "views/forgetPassword";
             }else {
                 model.addAttribute("username",username);
                 model.addAttribute("password",password);
                 model.addAttribute("email",email);
+                model.addAttribute("retypePassword",retypePassword);
                 session.setAttribute("username",username);
                 session.setAttribute("password",password);
                 session.setAttribute("email",email);

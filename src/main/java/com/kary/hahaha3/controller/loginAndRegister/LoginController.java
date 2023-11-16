@@ -36,13 +36,13 @@ public class LoginController {
         //找不到
         if(userInDatabase==null){
             model.addAttribute("showPopup","该用户未注册");
-            return "index";
+            return "views/login";
         //密码错误
         }else {
             String userPassword=aesEncoder.encrypt(password);
             if(!userInDatabase.getPassword().equals(userPassword)){
                 model.addAttribute("showPopup","密码错误");
-                return "index";
+                return "views/login";
             }else{
                 myAccount.setUsername(username);
                 myAccount.setPassword(password);

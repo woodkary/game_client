@@ -36,11 +36,12 @@ public class EmailVerificationController {
     }
     @PostMapping("/typeVeriCodeToRegister")
     @Operation(summary = "验证发送的验证码")
-    public String typeVeriCodeToRegister(@RequestParam(value="veriCode")String veriCode, HttpSession session){
+    public String typeVeriCodeToRegister(@RequestParam(value="veriCode")String veriCode, HttpSession session,Model model){
         if(verificationCode.equals(veriCode)){
             userMapper.insertUser((String) session.getAttribute("username"), (String) session.getAttribute("password"), (String) session.getAttribute("email"));
             return "views/registerSuccess";
         }else{
+            model.addAttribute("showPopup","验证码错误，请重试");
             return "views/emailVerification";
         }
     }

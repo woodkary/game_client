@@ -9,6 +9,15 @@
 </head>
 <body>
 
+
+<div th:if="${showPopup}">
+    <script th:inline="javascript">
+        var showPopup = [[${showPopup}]];
+        alert(showPopup);
+    </script>
+</div>
+
+
 <!--主容器-->
 <div class="ui container">
 

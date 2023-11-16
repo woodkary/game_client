@@ -10,10 +10,4 @@ import java.sql.SQLException;
 
 @SpringBootTest
 class HaHaHa3ApplicationTests {
-    DriverManagerDataSource dataSource;
-    @Test
-    void contextLoads() throws SQLException {
-        System.out.println(dataSource.getConnection());
-    }
-
 }
