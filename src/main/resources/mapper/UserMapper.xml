@@ -4,15 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kary.hahaha3.mapper.UserMapper">
     <select id="selectUserByName" resultType="com.kary.hahaha3.pojo.User" parameterType="string">
-        select * from user where game_id=#{game_id}
+        select * from user where username=#{username}
     </select>
     <insert id="insertUser">
-        insert into user (game_id,pwd,score_total,email,regdate,game_count) values (#{game_id},#{pwd},0,#{email},now(),0);
+        insert into user (username,pwd,score_total,email,regdate,game_count,game_id) values (#{username},#{pwd},0,#{email},now(),0,"");
     </insert>
     <select id="selectUserLimit" resultType="com.kary.hahaha3.pojo.User" parameterType="_int">
         select * from user order by username limit 3 offset #{x}
     </select>
     <update id="updateUserPassword">
-        update user set pwd=#{pwd} where game_id=#{game_id}
+        update user set pwd=#{pwd} where username=#{username}
     </update>
+    <select id="selectGameIdByName">
+        select game_id from user where username=#{username}
+    </select>
 </mapper>

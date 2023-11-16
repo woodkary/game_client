@@ -5,6 +5,7 @@ import jdk.jfr.DataAmount;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -18,7 +19,10 @@ import java.util.Objects;
 @Tag(name = "User")
 public class User {
     private String username;
-    private String password;
-    private int score;
+    private String pwd;
+    private int scoreTotal;
     private String email;
+    private Date regdate;
+    private int gameCount;
+    private String gameId;
 }

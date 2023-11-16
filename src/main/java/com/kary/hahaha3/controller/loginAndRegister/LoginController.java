@@ -40,14 +40,17 @@ public class LoginController {
         //密码错误
         }else {
             String userPassword=aesEncoder.encrypt(password);
-            if(!userInDatabase.getPassword().equals(userPassword)){
+            if(!userInDatabase.getPwd().equals(userPassword)){
                 model.addAttribute("showPopup","密码错误");
                 return "views/login";
             }else{
                 myAccount.setUsername(username);
-                myAccount.setPassword(password);
-                myAccount.setScore(userInDatabase.getScore());
+                myAccount.setPwd(password);
+                myAccount.setScoreTotal(userInDatabase.getScoreTotal());
                 myAccount.setEmail(userInDatabase.getEmail());
+                myAccount.setRegdate(userInDatabase.getRegdate());
+                myAccount.setGameCount(userInDatabase.getGameCount());
+                myAccount.setGameId(userInDatabase.getGameId());
                 model.addAttribute("myAccount",myAccount);
                 session.setAttribute("myAccount",myAccount);
                 return "views/loginSuccess";

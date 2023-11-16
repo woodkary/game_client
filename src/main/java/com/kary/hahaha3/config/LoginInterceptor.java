@@ -15,9 +15,9 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Object user=request.getSession().getAttribute("myAccount");
         if(user==null){
-            String showPopup= "您尚未登录";
+            String showPopup= "您尚未登录，请先登录，若还没有账号，请先注册在登录";
             request.setAttribute("showPopup",showPopup);
-            request.getRequestDispatcher("/").forward(request,response);
+            request.getRequestDispatcher("/toLogin").forward(request,response);
             return false;
         }
         return true;

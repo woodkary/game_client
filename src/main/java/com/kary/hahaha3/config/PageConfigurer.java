@@ -12,7 +12,7 @@ public class PageConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
-                .addPathPatterns("/views/**","/level{m}/{n}")
+                .addPathPatterns("/views/**","/level{m}/{n}","/","/index")
                 .excludePathPatterns("/views/login.html","/views/register.html","/views/forgetPassword.html");
     }
 }

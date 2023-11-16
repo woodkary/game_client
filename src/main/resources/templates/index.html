@@ -8,96 +8,48 @@ GITHUB：https://github.com/xiaoyanu/Product-price-list
 <html lang="ch" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8">
-		<title>乐云 - VPS详细列表</title>
+		<title>乐云 - 比赛详细列表</title>
 		<link rel="icon" href="ico.png"/>
 		<link rel="stylesheet" type="text/css" th:href="@{info/list-vps.css}"/>
 		<link rel="stylesheet" th:href="@{/css/fontawesome-all.min.css}">
 	</head>
 	<body>
+<!--	<div class="right menu">
+		<a class="item" th:href="@{/toLogin}">
+			<i class="address card icon"></i> 登录
+		</a>
+	</div>-->
+
 		<div id="headr">
 			<a th:href="@{index.html}">
 			<img th:src="@{/picture/leyun.jpg}" height="50">
 			<span id="title">
-				VPS详细列表
+				比赛详细列表
 			</span></a>
 		</div>
 		<div id="home">
 			<table border="0"/>
 				<tr>
-					<th>类型</th>
-					<th>内存</th>
-					<th>CPU</th>
-					<th>带宽</th>
-					<th>硬盘</th>
-					<th>价格</th>
-					<th></th>
+					<th>时间</th>
+					<th>对手</th>
+					<th>击杀</th>
+					<th>死亡</th>
+					<th>KD</th>
+					<th>游戏时长</th>
+					<th>胜负</th>
 				</tr>
-				<tr class="h">
-					<td>入门型</td>
-					<td>2G</td>
-					<td>2核</td>
-					<td>5M</td>
-					<td>30GB</td>
-					<td>30元/月</td>
-					<td><a href="http://wpa.qq.com/msgrd?v=3&uin=1872786834&site=qq&menu=yes" target="_blank">购买</a></td>
+				<tr class="h" th:each="record:${records}">
+					<td th:text="${record.gameTime}"></td>
+					<td th:text="${record.opponentUsername}"></td>
+					<td th:text="${record.kills}"></td>
+					<td th:text="${record.deaths}"></td>
+					<td th:text="${record.kd}"></td>
+					<td th:text="${record.duration}"></td>
+					<td th:text="${record.win}"></td>
 				</tr>
-				<tr class="two h">
-					<td>基础型</td>
-					<td>4G</td>
-					<td>2核</td>
-					<td>10M</td>
-					<td>30GB</td>
-					<td>60元/月</td>
-					<td><a href="http://wpa.qq.com/msgrd?v=3&uin=1872786834&site=qq&menu=yes" target="_blank">购买</a></td>
-				</tr>
-				<tr class="h">
-					<td>初级型</td>
-					<td>8G</td>
-					<td>4核</td>
-					<td>15M</td>
-					<td>30GB</td>
-					<td>130元/月</td>
-					<td><a href="http://wpa.qq.com/msgrd?v=3&uin=1872786834&site=qq&menu=yes" target="_blank">购买</a></td>
-				</tr>
-				<tr class="two h">
-					<td>中级型</td>
-					<td>12G</td>
-					<td>6核</td>
-					<td>20M</td>
-					<td>30GB</td>
-					<td>170元/月</td>
-					<td><a href="http://wpa.qq.com/msgrd?v=3&uin=1872786834&site=qq&menu=yes" target="_blank">购买</a></td>
-				</tr>
-				<tr class="h">
-					<td>高级型</td>
-					<td>16G</td>
-					<td>8核</td>
-					<td>30M</td>
-					<td>30GB</td>
-					<td>230元/月</td>
-					<td><a href="http://wpa.qq.com/msgrd?v=3&uin=1872786834&site=qq&menu=yes" target="_blank">购买</a></td>
-				</tr>
-				<tr class="two h">
-					<td>终极型</td>
-					<td>32G</td>
-					<td>12核</td>
-					<td>100M</td>
-					<td>30GB</td>
-					<td>410元/月</td>
-					<td><a href="http://wpa.qq.com/msgrd?v=3&uin=1872786834&site=qq&menu=yes" target="_blank">购买</a></td>
-				</tr>
-				<tr class="two h">
-					<td>究极型</td>
-					<td>72G</td>
-					<td>24核</td>
-					<td>100M</td>
-					<td>30GB</td>
-					<td>910元/月</td>
-					<td><a href="http://wpa.qq.com/msgrd?v=3&uin=1872786834&site=qq&menu=yes" target="_blank">购买</a></td>
-				</tr>
+
 			</table>
-			<span id="info">注：面板及VPS支持购买<b>永久</b>有效，详细价格请咨询<b>客服</b>。&nbsp;&nbsp;&nbsp;
-			VPS硬盘扩充价格为<b>1元/2G</b>,<b>购买一年或一季可想折扣优惠</b></span>
+
 		</div>
 		<div id="footer">
 				Copyright &copy;2021 乐云 All rights Reserved.
