@@ -1,6 +1,5 @@
-package com.kary.hahaha3.controller.pagesAndIndexControllers;
+package com.kary.hahaha3.controller.pagesAndIndexController;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

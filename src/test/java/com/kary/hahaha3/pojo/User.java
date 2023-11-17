@@ -1,9 +1,10 @@
 package com.kary.hahaha3.pojo;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jdk.jfr.DataAmount;
-import lombok.*;
-import org.springframework.stereotype.Component;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 import java.util.Objects;

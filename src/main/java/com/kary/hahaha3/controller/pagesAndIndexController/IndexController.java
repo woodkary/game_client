@@ -1,9 +1,8 @@
-package com.kary.hahaha3.controller.pagesAndIndexControllers;
+package com.kary.hahaha3.controller.pagesAndIndexController;
 
 import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.service.RecordVOService;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
