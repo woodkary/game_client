@@ -1,3 +1,7 @@
+com\kary\karyplugin\service\impl\RecordServiceImpl.class
+com\kary\karyplugin\service\RecordService.class
+com\kary\karyplugin\KaryPlugin.class
+com\kary\karyplugin\dao\RecordMapper.class
 com\kary\karyplugin\gamemodeExecutors\QuitMatchingExecutor.class
 com\kary\karyplugin\gamemodeExecutors\SoloPVPExecutor.class
-com\kary\karyplugin\KaryPlugin.class
+com\kary\karyplugin\dao\SqlSessionSettings.class
