@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.mail.MessagingException;
+import java.util.Map;
 
 /**
  * @author:123
@@ -28,7 +29,6 @@ public class ForgetPasswordController {
     private AESUtil aesEncoder;
     @Autowired
     private UserMapper userMapper;
-    private String verificationCode;
     @PostMapping("/forgetPassword/sendMail")
     public String sendMail(@RequestParam(value = "username")String username,
                            @RequestParam(value = "password")String password,
@@ -36,8 +36,9 @@ public class ForgetPasswordController {
                            @RequestParam(value = "email")String email,
                            HttpSession session,
                            Model model){
-        verificationCode=MailUtil.getRandom6Digit();
+        String verificationCode=MailUtil.getRandom6Digit();
         try {
+            session.setAttribute("verificationCode",verificationCode);
             MailUtil.sendMail((String) session.getAttribute("email"),verificationCode,"重设密码");
             model.addAttribute("username",username);
             model.addAttribute("password",password);
@@ -94,6 +95,7 @@ public class ForgetPasswordController {
     }
     @PostMapping("/forgetPassword/typeVeriCode2")
     public String typeVeriCode(@RequestParam(value = "veriCode")String veriCode,HttpSession session,Model model){
+        String verificationCode= (String) session.getAttribute("verificationCode");
         if(verificationCode==null){
             model.addAttribute("showPopup","请先发验证码");
             return "views/forgetPassword";
