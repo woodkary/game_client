@@ -25,6 +25,9 @@ public class RecordVOServiceImpl implements RecordVOService {
         String[] gameIds=gameId.split(",");
         List<RecordVO> records=new ArrayList<>();
         for (String gid : gameIds) {
+            if(gid==null||"".equals(gid)){
+                continue;
+            }
             Integer id=Integer.parseInt(gid);
             Record record=recordMapper.selectGameById(id);
             RecordVO recordVO=new RecordVO();

@@ -24,13 +24,13 @@ public class IndexController {
     @GetMapping("/")
     @Operation(summary = "返回首页",description = "return to index")
     public String index0(Model model){
-        model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGameId()));
+        model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGamesId()));
         return "/index";
     }
     @GetMapping("/index")
     @Operation(summary = "返回首页，加入比赛信息",description = "return to index")
     public String index(Model model){
-        model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGameId()));
+        model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGamesId()));
         return "/index";
     }
 }
