@@ -17,15 +17,15 @@ import javax.mail.MessagingException;
 public class EmailVerificationController {
     @Autowired
     private UserMapper userMapper;
-    private String verificationCode;
     //mode有username password email,现在要得到code
     //输入授权码
     //准备发送验证码
     @PostMapping("/sendVeriCode")
     @Operation(summary = "发送验证码")
-    public String sendVeriCode(Model model){
+    public String sendVeriCode(Model model,HttpSession session){
         //先生成验证码
-        verificationCode=MailUtil.getRandom6Digit();
+        String verificationCode=MailUtil.getRandom6Digit();
+        session.setAttribute("verificationCode",verificationCode);
         //发送验证码
         try {
             MailUtil.sendMail(MailUtil.getToEmail(),verificationCode,"验证码");
@@ -37,6 +37,7 @@ public class EmailVerificationController {
     @PostMapping("/typeVeriCodeToRegister")
     @Operation(summary = "验证发送的验证码")
     public String typeVeriCodeToRegister(@RequestParam(value="veriCode")String veriCode, HttpSession session,Model model){
+        String verificationCode= (String) session.getAttribute("verificationCode");
         if(verificationCode.equals(veriCode)){
             userMapper.insertUser((String) session.getAttribute("username"), (String) session.getAttribute("password"), (String) session.getAttribute("email"));
             return "views/registerSuccess";
