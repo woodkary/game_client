@@ -1,5 +1,7 @@
 package com.kary.karyplugin.service;
 
+import com.kary.karyplugin.pojo.User;
+
 /**
  * @author:123
  */
@@ -17,4 +19,5 @@ public interface RecordService {
                         Integer scoreTotalPlay2);
     Integer getScoreTotal(String username);
     void addScore(String username,Integer addNum);
+    User selectUserByName(String username);
 }

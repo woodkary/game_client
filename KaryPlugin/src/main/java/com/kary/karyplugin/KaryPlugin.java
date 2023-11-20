@@ -20,11 +20,11 @@ public final class KaryPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        SqlSession session= SqlSessionSettings.getSqlSession();
         SoloPVPExecutor soloPVPExecutor=new SoloPVPExecutor(playersMatchingGamemode,recordService);
         Bukkit.getPluginManager().registerEvents(soloPVPExecutor, this);
         Bukkit.getPluginCommand("joinGame").setExecutor(soloPVPExecutor);
         Bukkit.getPluginCommand("quitMatching").setExecutor(new QuitMatchingExecutor(playersMatchingGamemode));
+        Bukkit.getPluginCommand("testDatabase").setExecutor(new DatabaseTester(recordService));
     }
     @Override
     public void onDisable() {

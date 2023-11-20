@@ -2,6 +2,7 @@ package com.kary.karyplugin.service.impl;
 
 import com.kary.karyplugin.dao.RecordMapper;
 import com.kary.karyplugin.dao.SqlSessionSettings;
+import com.kary.karyplugin.pojo.User;
 import com.kary.karyplugin.service.RecordService;
 
 /**
@@ -25,5 +26,10 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public void addScore(String username, Integer addNum) {
         recordMapper.addScore(username,addNum);
+    }
+
+    @Override
+    public User selectUserByName(String username) {
+        return recordMapper.selectUserByName(username);
     }
 }

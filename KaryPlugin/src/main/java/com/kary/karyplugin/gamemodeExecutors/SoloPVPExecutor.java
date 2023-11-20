@@ -72,7 +72,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
         Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
         Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
         if(Integer.valueOf(5).equals(winnerArray[0])){
-            updateDatabase((Long)winnerArray[1],
+            updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
                     winner.getName(),
                     loser.getName(),
                     1,1,1,1,
@@ -80,7 +80,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     (Integer) loserArray[0]-8
             );
         }else if(Integer.valueOf(15).equals(winnerArray[0])){
-            updateDatabase((Long)winnerArray[1],
+            updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
                     winner.getName(),
                     loser.getName(),
                     1,0,0,1,
@@ -88,7 +88,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     (Integer) loserArray[0]-8
             );
         }else{
-            updateDatabase((Long)winnerArray[1],
+            updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
                     winner.getName(),
                     loser.getName(),
                     0,1,1,0,
@@ -124,7 +124,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
             playersInSoloPVP.remove(loser);
             Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
             Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
-            updateDatabase((Long)winnerArray[1],
+            updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
                     winner.getName(),
                     loser.getName(),
                     2,0,0,2,
@@ -138,7 +138,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
             playersInSoloPVP.remove(loser);
         }   Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
         Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
-        updateDatabase((Long)winnerArray[1],
+        updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
                 winner.getName(),
                 loser.getName(),
                 2,1,1,2,

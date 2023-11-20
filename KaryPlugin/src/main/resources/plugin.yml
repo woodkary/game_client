@@ -9,3 +9,6 @@ commands:
   quitMatching:
     usage: /<command>
     permission: quitMatching.use
+  testDatabase:
+    usage: /<command>
+    permission: testDatabase.use

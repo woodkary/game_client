@@ -1,5 +1,6 @@
 package com.kary.karyplugin.dao;
 
+import com.kary.karyplugin.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -22,5 +23,6 @@ public interface RecordMapper {
     void addUserNewGameId(@Param("username")String username,@Param("newGameId")String newGameId);
     Integer getScoreTotal(@Param("username")String username);
     void addScore(@Param("username")String username,@Param("addNum")Integer addNum);
+    User selectUserByName(@Param(value = "username")String username);
 
 }
