@@ -17,7 +17,7 @@ import java.util.List;
  * @author:123
  */
 //TODO css样式表太丑啦！求一个好看的样式。
-@RestController
+@Controller
 public class IndexController {
     @Autowired
     @Qualifier("RecordVOService")
@@ -27,16 +27,15 @@ public class IndexController {
     private User myAccount;
     @GetMapping("/")
     @Operation(summary = "返回首页",description = "return to index")
-    public List<RecordVO> index0(/*Model model*/){
-        /*model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGamesId(),1));
-        return "/index";*/
-        return recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGameId(),1);
+    public String index0(Model model){
+        model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGameId(),1));
+        return "/index";
     }
     @GetMapping("/index")
     @Operation(summary = "返回首页，加入比赛信息",description = "return to index")
-    public List<RecordVO> index(/*Model model*/){
-        /*model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGamesId(),1));
-        return "/index";*/
-        return recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGameId(),1);
+    public String index(Model model){
+        model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGameId(),1));
+        return "/index";
+
     }
 }

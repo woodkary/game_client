@@ -6,7 +6,7 @@ body,div,ul,li,a{
 	text-decoration: none;
 }
 body{
-	background: url(bg.jpg) no-repeat fixed;
+	background: url("bg.jpg") no-repeat fixed;
 	background-size: 100%;
 	-moz-background-size: 100%;
 }
