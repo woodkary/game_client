@@ -24,9 +24,6 @@ public class LoginController {
     @Qualifier("AESEncoder")
     AESUtil aesEncoder;
     @Autowired
-    @Qualifier("myAccount")
-    private User myAccount;
-    @Autowired
     private UserMapper userMapper;
     @PostMapping("/usr/login")
     @Operation(summary = "登录", description = "API to handle user login")
@@ -44,6 +41,7 @@ public class LoginController {
                 model.addAttribute("showPopup","密码错误");
                 return "views/login";
             }else{
+                User myAccount=new User();
                 myAccount.setUsername(username);
                 myAccount.setPwd(password);
                 myAccount.setScoreTotal(userInDatabase.getScoreTotal());
