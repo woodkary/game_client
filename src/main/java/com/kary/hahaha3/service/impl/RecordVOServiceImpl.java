@@ -47,4 +47,11 @@ public class RecordVOServiceImpl implements RecordVOService {
         }
         return records;
     }
+
+    @Override
+    public List<RecordVO> getGamesByIds(String username, String gameId, int page) {
+        int length=10,fromIndex=page-1,toIndex=fromIndex+length;
+        List<RecordVO> res=getGamesByIds(username, gameId);
+        return res.subList(fromIndex,toIndex< res.size()?toIndex: res.size());
+    }
 }
