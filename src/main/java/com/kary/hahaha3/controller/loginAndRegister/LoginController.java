@@ -47,8 +47,8 @@ public class LoginController {
                 myAccount.setScoreTotal(userInDatabase.getScoreTotal());
                 myAccount.setEmail(userInDatabase.getEmail());
                 myAccount.setRegdate(userInDatabase.getRegdate());
-                myAccount.setGameCount(userInDatabase.getGameCount());
-                myAccount.setGameId(userInDatabase.getGameId());
+                myAccount.setGamesCount(userInDatabase.getGamesCount());
+                myAccount.setGamesId(userInDatabase.getGamesId());
                 model.addAttribute("myAccount",myAccount);
                 session.setAttribute("myAccount",myAccount);
                 return "views/loginSuccess";

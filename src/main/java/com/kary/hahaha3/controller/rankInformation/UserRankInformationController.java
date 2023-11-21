@@ -21,19 +21,18 @@ import java.util.List;
  * @author:123
  */
 @Controller
-@RequestMapping("/ranks")
 public class UserRankInformationController {
     @Autowired
     @Qualifier("RecordVOService")
     private RecordVOService recordVOService;
-    @GetMapping("/getMyRank/{page}")
+    @GetMapping("/ranks/getMyRank/{page}")
     @Operation(summary = "获取我自己的比赛记录信息")
     public String myRankInformation(@PathVariable int page, Model model, HttpSession session){
         User myAccount= (User) session.getAttribute("myAccount");
-        model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGameId(),page));
+        model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGamesId(),page));
         return "views/records";
     }
-    @GetMapping("/getOthersRank")
+    @GetMapping("/ranks/getOthersRank")
     @Operation(summary = "获取别人的比赛记录信息")
     public void othersRankInformation(){}
 }

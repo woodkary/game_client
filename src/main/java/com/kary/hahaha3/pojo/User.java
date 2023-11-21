@@ -23,6 +23,6 @@ public class User {
     private int scoreTotal;
     private String email;
     private Date regdate;
-    private int gameCount;
-    private String gameId;
+    private int gamesCount;
+    private String gamesId;
 }

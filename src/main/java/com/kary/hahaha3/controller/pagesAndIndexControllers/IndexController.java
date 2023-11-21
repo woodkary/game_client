@@ -27,14 +27,14 @@ public class IndexController {
     @Operation(summary = "返回首页",description = "return to index")
     public String index0(Model model, HttpSession session){
         User myAccount= (User) session.getAttribute("myAccount");
-        model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGameId(),1));
+        model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGamesId(),1));
         return "/index";
     }
     @GetMapping("/index")
     @Operation(summary = "返回首页，加入比赛信息",description = "return to index")
     public String index(Model model,HttpSession session){
         User myAccount= (User) session.getAttribute("myAccount");
-        model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGameId(),1));
+        model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(), myAccount.getGamesId(),1));
         return "/index";
 
     }
