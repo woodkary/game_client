@@ -77,3 +77,10 @@ td a:hover{
 	font-size: 20px;
 	text-shadow: 0px 0px 20px deeppink;
 }
+.pagination-buttons {
+	display: inline-grid;
+}
+
+.pagination-buttons a {
+	margin-right: 10px;
+}

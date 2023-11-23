@@ -8,6 +8,6 @@ import java.util.List;
  * @author:123
  */
 public interface RecordVOService {
-    List<RecordVO> getGamesByIds(String username,String gameId);
-    List<RecordVO> getGamesByIds(String username,String gameId,int page);
+    List<RecordVO> getGamesByIds(String username,Integer type);
+    List<RecordVO> getGamesByIds(String username,Integer type,int page);
 }

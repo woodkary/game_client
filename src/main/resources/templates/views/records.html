@@ -18,38 +18,40 @@ GITHUB：https://github.com/xiaoyanu/Product-price-list
 <body id="indexBody">
 
 <div id="headr">
-    <a th:href="@{/ranks/getMyRank/1}">
-        <img th:src="@{/picture/leyun.jpg}" height="50">
-        <span id="title">
-				比赛详细列表
-        </span>
-    </a>
+    <img th:src="@{/picture/leyun.jpg}" height="50">
+    <span id="title">
+            比赛详细列表
+    </span>
 </div>
 <div id="home">
     <table border="0"/>
     <tr>
         <th>时间</th>
-        <th>对手</th>
         <th>击杀</th>
         <th>死亡</th>
+        <th>助攻</th>
         <th>KD</th>
         <th>游戏时长</th>
-        <th>胜负</th>
+        <th>比赛模式</th>
     </tr>
     <tr class="h" th:each="record:${records}">
         <td th:text="${record.gameTime}"></td>
-        <td th:text="${record.opponentUsername}"></td>
         <td th:text="${record.kills}"></td>
         <td th:text="${record.deaths}"></td>
+        <td th:text="${record.assists}"></td>
         <td th:text="${record.kd}"></td>
         <td th:text="${record.duration}"></td>
-        <td th:text="${record.win}"></td>
+        <td th:text="${record.type}"></td>
     </tr>
 
     </table>
 
 </div>
-
+<div>
+    <div class="pagination-buttons" th:each="page : ${#numbers.sequence(1, 10)}">
+        <a th:href="@{/ranks/getMyRank/{page}(page=${page})}" th:text="${page}" id="info"></a>
+    </div>
+</div>
 
 <div id="footer">
     Copyright &copy;2021 乐云 All rights Reserved.

@@ -20,7 +20,8 @@ import java.util.Objects;
 public class User {
     private String username;
     private String pwd;
-    private int scoreTotal;
+    private int scoreTotal1v1;
+    private int scoreTotalBrawl;
     private String email;
     private Date regdate;
     private int gamesCount;

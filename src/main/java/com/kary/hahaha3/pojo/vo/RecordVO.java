@@ -16,11 +16,12 @@ import java.util.Date;
 @Tag(name = "RecordVO")
 public class RecordVO {
     private Date gameTime;
-    private String opponentUsername;
+    /*减少的 private String opponentUsername;*/
     private int kills;
     private int deaths;
+    private int assists;//新增的
     private double kd;
     private long duration;
-    private boolean win;
-
+    /*减少的 private boolean win;*/
+    private String type;//新增的
 }

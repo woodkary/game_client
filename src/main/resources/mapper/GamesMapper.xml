@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kary.hahaha3.mapper.GamesMapper">
+    <select id="getGameById" resultType="com.kary.hahaha3.pojo.Games" parameterType="int">
+        select * from games where game_id=#{gameId} and type=#{type}
+    </select>
+
+</mapper>

@@ -13,11 +13,10 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Tag(name = "Record")
-public class Record {
+@Tag(name = "Games")
+public class Games {
+    private int type;
     private int gameId;
     private Date gameTime;
-    private int kill;
-    private int death;
-    private int assist;
+    private long duration;
 }

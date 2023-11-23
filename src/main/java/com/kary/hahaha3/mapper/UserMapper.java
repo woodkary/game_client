@@ -20,5 +20,4 @@ public interface UserMapper {
     void insertUser(@Param(value = "username")String username,@Param(value = "pwd")String pwd,@Param(value = "email")String email);
     List<User> selectUserLimit(@Param(value = "x")int x);
     void updateUserPassword(@Param(value = "username")String username,@Param(value="pwd")String pwd);
-    String selectGameIdByName(@Param(value = "username")String username);
 }
