@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kary.karyplugin.dao.GamesMapper">
+    <select id="getMaxGameId" resultType="int">
+        select max(game_id) from games
+    </select>
+    <insert id="addNewGame">
+        insert into games (type,game_id,game_time,duration) values (#{type},#{gameId},now(),#{duration})
+    </insert>
+</mapper>

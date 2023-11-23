@@ -10,12 +10,26 @@ import java.util.Objects;
 public class User {
     private String username;
     private String pwd;
-    private int scoreTotal;
+    private int scoreTotal1v1;
+    private int scoreTotalBrawl;
     private String email;
     private Date regdate;
     private int gamesCount;
     private String gamesId;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", scoreTotal1v1=" + scoreTotal1v1 +
+                ", scoreTotalBrawl=" + scoreTotalBrawl +
+                ", email='" + email + '\'' +
+                ", regdate=" + regdate +
+                ", gamesCount=" + gamesCount +
+                ", gamesId='" + gamesId + '\'' +
+                '}';
+    }
 
     public String getUsername() {
         return username;
@@ -33,12 +47,20 @@ public class User {
         this.pwd = pwd;
     }
 
-    public int getScoreTotal() {
-        return scoreTotal;
+    public int getScoreTotal1v1() {
+        return scoreTotal1v1;
     }
 
-    public void setScoreTotal(int scoreTotal) {
-        this.scoreTotal = scoreTotal;
+    public void setScoreTotal1v1(int scoreTotal1v1) {
+        this.scoreTotal1v1 = scoreTotal1v1;
+    }
+
+    public int getScoreTotalBrawl() {
+        return scoreTotalBrawl;
+    }
+
+    public void setScoreTotalBrawl(int scoreTotalBrawl) {
+        this.scoreTotalBrawl = scoreTotalBrawl;
     }
 
     public String getEmail() {
@@ -73,48 +95,14 @@ public class User {
         this.gamesId = gamesId;
     }
 
-    public User() {
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", pwd='" + pwd + '\'' +
-                ", scoreTotal=" + scoreTotal +
-                ", email='" + email + '\'' +
-                ", regdate=" + regdate +
-                ", gamesCount=" + gamesCount +
-                ", gamesId='" + gamesId + '\'' +
-                '}';
-    }
-
-    public User(String username, String pwd, int scoreTotal, String email, Date regdate, int gamesCount, String gamesId) {
+    public User(String username, String pwd, int scoreTotal1v1, int scoreTotalBrawl, String email, Date regdate, int gamesCount, String gamesId) {
         this.username = username;
         this.pwd = pwd;
-        this.scoreTotal = scoreTotal;
+        this.scoreTotal1v1 = scoreTotal1v1;
+        this.scoreTotalBrawl = scoreTotalBrawl;
         this.email = email;
         this.regdate = regdate;
         this.gamesCount = gamesCount;
         this.gamesId = gamesId;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(username, user.username) && Objects.equals(pwd, user.pwd);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(username, pwd);
-    }
-
-    public User(String username, String pwd) {
-        this.username = username;
-        this.pwd = pwd;
     }
 }

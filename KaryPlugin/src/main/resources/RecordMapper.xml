@@ -3,49 +3,39 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kary.karyplugin.dao.RecordMapper">
-    <select id="getMaxGameId" resultType="int">
-        select max(game_id) from record
-    </select>
     <insert id="addNewRecord">
         insert into record(game_id,
-                           game_time,
-                           duration,
-                           username_play1,
-                           username_play2,
-                           kill_play1,
-                           kill_play2,
-                           death_play1,
-                           death_play2,
-                           score_gain_play1,
-                           score_gain_play2,
-                           score_total_play1,
-                           score_total_play2)
+                           username,
+                           kill,
+                           death,
+                           assist
+        )
         values (
                 #{game_id},
-                now(),
-                #{duration},
-                #{username_play1},
-                #{username_play2},
-                #{kill_play1},
-                #{kill_play2},
-                #{death_play1},
-                #{death_play2},
-                #{score_gain_play1},
-                #{score_gain_play2},
-                #{score_total_play1},
-                #{score_total_play2}
-               )
-    </insert>
-    <insert id="addUserNewGameId">
-        update user set
-            games_id=concat(games_id,concat(#{newGameId},","))
-        where username=#{username}
+                #{username},
+                #{kill},
+                #{death},
+                #{assist}
+        )
     </insert>
     <select id="getScoreTotal" resultType="int">
-        select score_total from user where username=#{username}
+        select
+            <if test="gameMode == 1">
+                score_total_1v1
+            </if>
+            <if test="gameMode == 2">
+                score_total_brawl
+            </if>
+        from user where username=#{username}
     </select>
     <update id="addScore">
-        update user set score_total=score_total+#{addNum}
+        update user set
+        <if test="gameMode == 1">
+            score_total_1v1=score_total_1v1+#{addNum}
+        </if>
+        <if test="gameMode == 2">
+            score_total_brawl=score_total_brawl+#{addNum}
+        </if>
         where username=#{username}
     </update>
     <select id="selectUserByName" resultType="com.kary.karyplugin.pojo.User" parameterType="string">

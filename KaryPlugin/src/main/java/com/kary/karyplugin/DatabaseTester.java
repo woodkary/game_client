@@ -20,8 +20,14 @@ public class DatabaseTester implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         try{
-            Player player= (Player) commandSender;
-            Bukkit.getServer().broadcastMessage(recordService.selectUserByName(player.getName()).toString());
+            if(strings.length==0){
+                Player player= (Player) commandSender;
+                Bukkit.getServer().broadcastMessage(recordService.selectUserByName(player.getName()).toString());
+            }else if("name".equals(strings[0])){
+                Player player= (Player) commandSender;
+                Bukkit.getServer().broadcastMessage(player.getName());
+            }
+
             return true;
         }catch (Exception e){
             e.printStackTrace();

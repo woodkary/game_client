@@ -7,17 +7,14 @@ import com.kary.karyplugin.pojo.User;
  */
 public interface RecordService {
     void recordNewMatch(Long duration,
-                        String usernamePlay1,
-                        String usernamePlay2,
-                        Integer killPlay1,
-                        Integer killPlay2,
-                        Integer deathPlay1,
-                        Integer deathPlay2,
-                        Integer scoreGainPlay1,
-                        Integer scoreGainPlay2,
-                        Integer scoreTotalPlay1,
-                        Integer scoreTotalPlay2);
-    Integer getScoreTotal(String username);
-    void addScore(String username,Integer addNum);
+                        String username,
+                        Integer kill,
+                        Integer death,
+                        Integer gameMode,
+                        Integer assists);
+    Integer getScoreTotal(String username,Integer gameMode);
+
+    void addScore(String username, Integer gameMode, Integer addNum);
+
     User selectUserByName(String username);
 }

@@ -21,5 +21,6 @@
     </environments>
     <mappers>
         <mapper resource="RecordMapper.xml"/>
+        <mapper resource="GamesMapper.xml"/>
     </mappers>
 </configuration>

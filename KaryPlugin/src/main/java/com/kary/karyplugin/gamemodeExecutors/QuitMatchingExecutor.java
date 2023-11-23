@@ -9,7 +9,6 @@ import java.util.Map;
 
 public class QuitMatchingExecutor implements CommandExecutor {
     private Map<Player,Integer> playersMatchingGamemode;
-    public static final int SOLOPVP_MODE=1;
 
     public QuitMatchingExecutor(Map<Player, Integer> playersMatchingGamemode) {
         this.playersMatchingGamemode = playersMatchingGamemode;

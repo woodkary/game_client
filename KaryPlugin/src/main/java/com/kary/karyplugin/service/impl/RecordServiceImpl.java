@@ -1,31 +1,49 @@
 package com.kary.karyplugin.service.impl;
 
+import com.kary.karyplugin.dao.GamesMapper;
 import com.kary.karyplugin.dao.RecordMapper;
 import com.kary.karyplugin.dao.SqlSessionSettings;
 import com.kary.karyplugin.pojo.User;
 import com.kary.karyplugin.service.RecordService;
+import com.mysql.cj.Session;
+import org.apache.ibatis.session.SqlSession;
 
 /**
  * @author:123
  */
 public class RecordServiceImpl implements RecordService {
-    RecordMapper recordMapper= SqlSessionSettings.getSqlSession().getMapper(RecordMapper.class);
+    SqlSession session;
+    RecordMapper recordMapper;
+    GamesMapper gamesMapper;
+
+    public RecordServiceImpl() {
+        session=SqlSessionSettings.getSqlSession();
+        recordMapper=session.getMapper(RecordMapper.class);
+        gamesMapper=session.getMapper(GamesMapper.class);
+    }
+
     @Override
-    public void recordNewMatch(Long duration, String usernamePlay1, String usernamePlay2, Integer killPlay1, Integer killPlay2, Integer deathPlay1, Integer deathPlay2, Integer scoreGainPlay1, Integer scoreGainPlay2, Integer scoreTotalPlay1, Integer scoreTotalPlay2) {
-        Integer maxGameId=recordMapper.getMaxGameId();
+    public void recordNewMatch(Long duration,
+                               String username,
+                               Integer kill,
+                               Integer death,
+                               Integer gameMode,
+                               Integer assists) {
+        //TODO 应该是gameMapper
+        Integer maxGameId=gamesMapper.getMaxGameId();
         maxGameId+=1;
-        recordMapper.addNewRecord(maxGameId,duration,usernamePlay1,usernamePlay2,killPlay1,killPlay2,deathPlay1,deathPlay2,scoreGainPlay1,scoreGainPlay2,scoreTotalPlay1,scoreTotalPlay2);
-        recordMapper.addUserNewGameId(usernamePlay1,maxGameId.toString());
+        recordMapper.addNewRecord(maxGameId,username,kill,death,(gameMode==1)?0:assists);
+        gamesMapper.addNewGame(gameMode,maxGameId,duration);
     }
 
     @Override
-    public Integer getScoreTotal(String username) {
-        return recordMapper.getScoreTotal(username);
+    public Integer getScoreTotal(String username,Integer gameMode) {
+        return recordMapper.getScoreTotal(username,gameMode);
     }
 
     @Override
-    public void addScore(String username, Integer addNum) {
-        recordMapper.addScore(username,addNum);
+    public void addScore(String username, Integer gameMode, Integer addNum) {
+        recordMapper.addScore(username,gameMode,addNum);
     }
 
     @Override

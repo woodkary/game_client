@@ -14,8 +14,25 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class KaryPlugin extends JavaPlugin {
-    private Map<Player,Integer> playersMatchingGamemode=new ConcurrentHashMap<>();
-    RecordService recordService=new RecordServiceImpl();
+    private static Map<Player,Integer> playersMatchingGamemode=new ConcurrentHashMap<>();
+    private static  RecordService recordService=new RecordServiceImpl();
+    public static synchronized void updateDatabase(Long duration,
+                                             String username,
+                                             Integer kill,
+                                             Integer death,
+                                             Integer scoreGain,
+                                             Integer assist,
+                                             Integer gameMode){
+        recordService.addScore(username,gameMode,scoreGain);
+        recordService.recordNewMatch(
+                duration,
+                username,
+                kill,
+                death,
+                gameMode,
+                assist
+        );
+    }
     //1=Solo
     @Override
     public void onEnable() {
