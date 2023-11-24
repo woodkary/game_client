@@ -17,7 +17,7 @@ public class Record {
     public void addOneAssist(){
         assist+=1;
     }
-    private void addScore(int add){
+    public void addScore(int add){
         scoreGain+=add;
     }
 
@@ -56,10 +56,4 @@ public class Record {
     public Record() {
     }
 
-    public Record(int kill, int death, int assist, int scoreGain) {
-        this.kill = kill;
-        this.death = death;
-        this.assist = assist;
-        this.scoreGain = scoreGain;
-    }
 }

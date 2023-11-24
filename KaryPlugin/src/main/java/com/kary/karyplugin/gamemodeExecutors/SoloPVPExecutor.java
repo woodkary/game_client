@@ -24,7 +24,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
     private Map<Player,Integer> playersMatchingGamemode;
     //Object[]数组对应分数int和开始时间long
     private Map<Player,Object[]> playersScoreGainAndMatchStartTime=new ConcurrentHashMap<>();
-    private Map<Integer,Player> matchingPlayers=new ConcurrentHashMap<>();;
+    private Map<Integer,Player> matchingPlayers=new ConcurrentHashMap<>();
     private RecordService recordService;
     private Integer gameMode=GameModeUtil.SOLOPVP_MODE;
 
