@@ -161,7 +161,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         boolean result = false;
-        if ("soloPVP".equals(args[0]) && commandSender instanceof Player) {
+        if (commandSender instanceof Player) {
             Integer gamemode=playersMatchingGamemode.get(commandSender);
             int level= LevelUtil.getLevel(recordService.getScoreTotal(commandSender.getName(),gameMode));
             if(gamemode==null){
