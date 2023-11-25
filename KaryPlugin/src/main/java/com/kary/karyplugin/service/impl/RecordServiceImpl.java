@@ -44,6 +44,17 @@ public class RecordServiceImpl implements RecordService {
                 return new User(username,"114514",0,0,"834479572@qq.com",new Date(),0);
             }
         };
+        gamesMapper=new GamesMapper() {
+            @Override
+            public Integer getMaxGameId() {
+                return 100;
+            }
+
+            @Override
+            public void addNewGame(Integer type, Integer gameId, Long duration) {
+                Bukkit.getServer().broadcastMessage("加入新游戏:"+type+","+gameId+","+duration);
+            }
+        };
     }
 
     @Override
