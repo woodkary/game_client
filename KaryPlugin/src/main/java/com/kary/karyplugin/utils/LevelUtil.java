@@ -11,11 +11,11 @@ public class LevelUtil {
     public static final int DIAMOND=5;
     public static final int KING=6;
     public static int getLevel(int score){
-        if(score>=2000){
+        if(score>=1800){
             return KING;
-        }else if(score>=1800){
+        }else if(score>=1500){
             return DIAMOND;
         }
-        return score/300;
+        return score/300+1;
     }
 }

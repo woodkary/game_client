@@ -1,8 +1,10 @@
 com\kary\karyplugin\DatabaseTester.class
 com\kary\karyplugin\service\RecordService.class
+com\kary\karyplugin\service\impl\RecordServiceImpl$2.class
 com\kary\karyplugin\utils\GameModeUtil.class
 com\kary\karyplugin\gamemodeExecutors\BrawlExecutor$BrawlMatch.class
 com\kary\karyplugin\pojo\Record.class
+com\kary\karyplugin\service\impl\RecordServiceImpl$1.class
 com\kary\karyplugin\dao\GamesMapper.class
 com\kary\karyplugin\service\impl\RecordServiceImpl.class
 com\kary\karyplugin\KaryPlugin.class
