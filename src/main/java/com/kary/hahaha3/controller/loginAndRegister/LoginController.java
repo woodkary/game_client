@@ -44,7 +44,8 @@ public class LoginController {
                 User myAccount=new User();
                 myAccount.setUsername(username);
                 myAccount.setPwd(password);
-                myAccount.setScoreTotal(userInDatabase.getScoreTotal());
+                myAccount.setScoreTotal1v1(userInDatabase.getScoreTotal1v1());
+                myAccount.setScoreTotalBrawl(userInDatabase.getScoreTotalBrawl());
                 myAccount.setEmail(userInDatabase.getEmail());
                 myAccount.setRegdate(userInDatabase.getRegdate());
                 myAccount.setGamesCount(userInDatabase.getGamesCount());
