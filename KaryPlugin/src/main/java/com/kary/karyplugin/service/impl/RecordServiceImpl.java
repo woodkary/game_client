@@ -7,6 +7,9 @@ import com.kary.karyplugin.pojo.User;
 import com.kary.karyplugin.service.RecordService;
 import com.mysql.cj.Session;
 import org.apache.ibatis.session.SqlSession;
+import org.bukkit.Bukkit;
+
+import java.util.Date;
 
 /**
  * @author:123
@@ -17,9 +20,41 @@ public class RecordServiceImpl implements RecordService {
     GamesMapper gamesMapper;
 
     public RecordServiceImpl() {
-        session=SqlSessionSettings.getSqlSession();
+        /*session=SqlSessionSettings.getSqlSession();
         recordMapper=session.getMapper(RecordMapper.class);
-        gamesMapper=session.getMapper(GamesMapper.class);
+        gamesMapper=session.getMapper(GamesMapper.class);*/
+        recordMapper=new RecordMapper() {
+            @Override
+            public void addNewRecord(Integer gameId, String username, Integer kill, Integer death, Integer assist) {
+                Bukkit.getServer().broadcastMessage("新的比赛为："+gameId+","+username+","+kill+","+death+","+assist);
+            }
+
+            @Override
+            public Integer getScoreTotal(String username, Integer gameMode) {
+                return (int) (Math.random()*100);
+            }
+
+            @Override
+            public void addScore(String username, Integer gameMode, Integer addNum) {
+                Bukkit.getServer().broadcastMessage(username+"加分:"+addNum);
+            }
+
+            @Override
+            public User selectUserByName(String username) {
+                return new User(username,"114514",0,0,"834479572@qq.com",new Date(),0);
+            }
+        };
+        gamesMapper=new GamesMapper() {
+            @Override
+            public Integer getMaxGameId() {
+                return 100;
+            }
+
+            @Override
+            public void addNewGame(Integer type, Integer gameId, Long duration) {
+                Bukkit.getServer().broadcastMessage("加入新游戏:"+type+","+gameId+","+duration);
+            }
+        };
     }
 
     @Override

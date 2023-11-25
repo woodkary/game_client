@@ -16,6 +16,19 @@ public class User {
     private Date regdate;
     private int gamesCount;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", scoreTotal1v1=" + scoreTotal1v1 +
+                ", scoreTotalBrawl=" + scoreTotalBrawl +
+                ", email='" + email + '\'' +
+                ", regdate=" + regdate +
+                ", gamesCount=" + gamesCount +
+                '}';
+    }
+
     public String getUsername() {
         return username;
     }

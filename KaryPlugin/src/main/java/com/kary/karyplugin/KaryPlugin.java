@@ -39,8 +39,8 @@ public final class KaryPlugin extends JavaPlugin {
         BrawlExecutor brawlExecutor=new BrawlExecutor(recordService,playersMatchingGamemode,this);
         Bukkit.getPluginManager().registerEvents(soloPVPExecutor, this);
         Bukkit.getPluginManager().registerEvents(brawlExecutor,this);
-        Bukkit.getPluginCommand("joinGame").setExecutor(soloPVPExecutor);
-        Bukkit.getPluginCommand("joinGame").setExecutor(brawlExecutor);
+        Bukkit.getPluginCommand("soloPVP").setExecutor(soloPVPExecutor);
+        Bukkit.getPluginCommand("brawl").setExecutor(brawlExecutor);
         Bukkit.getPluginCommand("quitMatching").setExecutor(new QuitMatchingExecutor(playersMatchingGamemode));
         Bukkit.getPluginCommand("testDatabase").setExecutor(new DatabaseTester(recordService));
     }
