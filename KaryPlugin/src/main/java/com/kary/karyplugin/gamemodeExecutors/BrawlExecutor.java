@@ -113,6 +113,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
             Integer gamemode=playersMatchingGamemode.get(commandSender);
             int level= LevelUtil.getLevel(recordService.getScoreTotal(commandSender.getName(),gameMode));
             if(gamemode==null){//TODO 加入匹配
+                playersMatchingGamemode.put((Player) commandSender, GameModeUtil.BRAWL_MODE);
                 //每一段位的总匹配人数
                 List<Player> matchingPlayer=matchingPlayers.get(level);
                 matchingPlayer.add((Player) commandSender);
