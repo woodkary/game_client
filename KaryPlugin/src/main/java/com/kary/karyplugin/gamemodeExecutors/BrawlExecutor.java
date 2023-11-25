@@ -95,15 +95,15 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         });
 
         //对于所有助攻者更新助攻记录
-        List<Player> deadAssists=assistMap.get(deadPlayer);
-        synchronized (deadAssists){
+        assistMap.computeIfPresent(deadPlayer,(key, deadAssists)->{
             for (Player assist : deadAssists) {
-                players.computeIfPresent(assist,(key, assistRecord)->{
+                players.computeIfPresent(assist,(key2, assistRecord)->{
                     assistRecord.addOneAssist();
                     return assistRecord;
                 });
             }
-        }
+            return deadAssists;
+        });
     }
 
     @Override
