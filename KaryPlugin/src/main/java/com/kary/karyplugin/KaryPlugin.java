@@ -1,5 +1,6 @@
 package com.kary.karyplugin;
 
+import com.kary.karyplugin.gamemodeExecutors.BrawlExecutor;
 import com.kary.karyplugin.gamemodeExecutors.QuitMatchingExecutor;
 import com.kary.karyplugin.gamemodeExecutors.SoloPVPExecutor;
 import com.kary.karyplugin.service.RecordService;
@@ -35,8 +36,11 @@ public final class KaryPlugin extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         SoloPVPExecutor soloPVPExecutor=new SoloPVPExecutor(playersMatchingGamemode,recordService);
+        BrawlExecutor brawlExecutor=new BrawlExecutor(recordService,playersMatchingGamemode,this);
         Bukkit.getPluginManager().registerEvents(soloPVPExecutor, this);
+        Bukkit.getPluginManager().registerEvents(brawlExecutor,this);
         Bukkit.getPluginCommand("joinGame").setExecutor(soloPVPExecutor);
+        Bukkit.getPluginCommand("joinGame").setExecutor(brawlExecutor);
         Bukkit.getPluginCommand("quitMatching").setExecutor(new QuitMatchingExecutor(playersMatchingGamemode));
         Bukkit.getPluginCommand("testDatabase").setExecutor(new DatabaseTester(recordService));
     }

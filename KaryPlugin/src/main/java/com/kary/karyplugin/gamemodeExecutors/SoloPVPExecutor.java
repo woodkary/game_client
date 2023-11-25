@@ -35,7 +35,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
     }
     @EventHandler(priority = EventPriority.MONITOR)
     public void playerQuit(PlayerQuitEvent playerQuitEvent){
-        if(playersInSoloPVP.size()==0){
+        if(playersInSoloPVP.isEmpty()){
             return;
         }
         //有人退出游戏，则另一人胜利
@@ -47,14 +47,14 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
         Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
         Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
         if(Integer.valueOf(5).equals(winnerArray[0])){
-            KaryPlugin.updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
+            KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     winner.getName(),
                     1,1,
                     (Integer) winnerArray[0],
                     0,
                     gameMode
             );
-            KaryPlugin.updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
+            KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     loser.getName(),
                     1,1,
                     (Integer) loserArray[0]-8,
@@ -62,14 +62,14 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     gameMode
             );
         }else if(Integer.valueOf(15).equals(winnerArray[0])){
-            KaryPlugin.updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
+            KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     winner.getName(),
                     1,0,
                     (Integer) winnerArray[0],
                     0,
                     gameMode
             );
-            KaryPlugin.updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
+            KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     loser.getName(),
                     0,1,
                     (Integer) loserArray[0]-8,
@@ -77,14 +77,14 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     gameMode
             );
         }else{
-            KaryPlugin.updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
+            KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     winner.getName(),
                     0,1,
                     (Integer) winnerArray[0],
                     0,
                     gameMode
             );
-            KaryPlugin.updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
+            KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     loser.getName(),
                     1,0,
                     (Integer) loserArray[0]-8,
@@ -99,12 +99,12 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void oneMatchOver(PlayerDeathEvent event){
-        if(playersInSoloPVP.size()==0){
+        if(playersInSoloPVP.isEmpty()){
             return;
         }
         //有人被杀死了
         Player loser=event.getEntity();//失败者
-        Player winner=loser.getKiller();//胜利者
+        Player winner=playersInSoloPVP.get(loser);//胜利者
 
         Object[] winnerScoreGainAndStartTime=playersScoreGainAndMatchStartTime.get(winner);
         winnerScoreGainAndStartTime[0]=(Integer)winnerScoreGainAndStartTime[0]+15;
@@ -120,14 +120,14 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
             playersInSoloPVP.remove(loser);
             Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
             Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
-            KaryPlugin.updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
+            KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     winner.getName(),
                     2,0,
                     (Integer) winnerArray[0],
                     0,
                     gameMode
             );
-            KaryPlugin.updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
+            KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     loser.getName(),
                     0,2,
                     (Integer) loserArray[0],
@@ -141,14 +141,14 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
             playersInSoloPVP.remove(loser);
         }   Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
         Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
-        KaryPlugin.updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
+        KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                 winner.getName(),
                 2,1,
                 (Integer) winnerArray[0],
                 0,
                 gameMode
         );
-        KaryPlugin.updateDatabase(Long.valueOf(System.currentTimeMillis())-(Long)winnerArray[1],
+        KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                 loser.getName(),
                 1,2,
                 (Integer) loserArray[0],
@@ -181,13 +181,13 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     //三局两胜比赛开始，初始双方都为0分,游戏开始时间均为当前时间
                     long gameStart=System.currentTimeMillis();
                     Object[] commandSenderArray=new Object[2];
-                    commandSenderArray[0]=Integer.valueOf(0);
-                    commandSenderArray[1]=Long.valueOf(gameStart);
+                    commandSenderArray[0]= 0;
+                    commandSenderArray[1]= gameStart;
                     playersScoreGainAndMatchStartTime.put((Player) commandSender,commandSenderArray);
 
                     Object[] matchingPlayerArray=new Object[2];
-                    matchingPlayerArray[0]=Integer.valueOf(0);
-                    matchingPlayerArray[1]=Long.valueOf(gameStart);
+                    matchingPlayerArray[0]= 0;
+                    matchingPlayerArray[1]= gameStart;
                     playersScoreGainAndMatchStartTime.put(matchingPlayer,matchingPlayerArray);
 
                     playersMatchingGamemode.remove(matchingPlayer);

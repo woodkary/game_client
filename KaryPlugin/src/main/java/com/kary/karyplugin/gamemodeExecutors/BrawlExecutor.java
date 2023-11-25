@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class BrawlExecutor implements Listener, CommandExecutor {
     private Integer gameMode= GameModeUtil.BRAWL_MODE;
     private KaryPlugin plugin;
-    private Map<Player, Record> players=new ConcurrentHashMap();
+    private Map<Player, Record> players=new ConcurrentHashMap<>();
     private RecordService recordService;
     private Map<Player,Integer> playersMatchingGamemode;
     private Map<Integer,List<Player>> matchingPlayers=new ConcurrentHashMap<>();
@@ -61,20 +61,18 @@ public class BrawlExecutor implements Listener, CommandExecutor {
             Player damagee= (Player) damageeEntity;
             Player damager= (Player) damagerEntity;
             //danagerList是所有伤害过damagee的玩家列表
-            List<Player> danagerList=assistMap.get(damagee);
-            if(danagerList==null){//如果此将死之人还没有人伤害过
-                danagerList=new ArrayList<>();
-                assistMap.put(damagee,danagerList);
-                // 安排任务在主线程中每20个游戏刻执行一次（1秒 = 20游戏刻）
-                int delayInTicks = 0; // 延迟0个游戏刻
-                int periodInTicks = 20; // 每20个游戏刻执行一次
-                //在主线程池中开启助攻计时
-                Bukkit.getScheduler().runTaskTimer(plugin,new AssistTimer(damagee,assistMap),delayInTicks,periodInTicks);
-            }
-            //加的时候防止有人提交助攻列表
-            synchronized (danagerList){
+            assistMap.compute(damagee,(key,danagerList)->{
+                if(danagerList==null){
+                    danagerList=new ArrayList<>();
+                    // 安排任务在主线程中每20个游戏刻执行一次（1秒 = 20游戏刻）
+                    int delayInTicks = 0; // 延迟0个游戏刻
+                    int periodInTicks = 20; // 每20个游戏刻执行一次
+                    //在主线程池中开启助攻计时
+                    Bukkit.getScheduler().runTaskTimer(plugin, new AssistTimer(damagee, assistMap),delayInTicks,periodInTicks);
+                }
                 danagerList.add(damager);
-            }
+                return danagerList;
+            });
         }
     }
 
