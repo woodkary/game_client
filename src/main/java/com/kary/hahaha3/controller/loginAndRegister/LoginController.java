@@ -50,6 +50,7 @@ public class LoginController {
                 myAccount.setRegdate(userInDatabase.getRegdate());
                 myAccount.setGamesCount(userInDatabase.getGamesCount());
                 myAccount.setGamesId(userInDatabase.getGamesId());
+                myAccount.setAvatar(userInDatabase.getAvatar());
                 model.addAttribute("myAccount",myAccount);
                 session.setAttribute("myAccount",myAccount);
                 return "views/loginSuccess";

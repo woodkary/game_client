@@ -28,6 +28,7 @@ public class IndexController {
     public String index0(Model model, HttpSession session){
         User myAccount= (User) session.getAttribute("myAccount");
         model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(),1,1));
+        model.addAttribute("myAccount",myAccount);
         return "/index";
     }
     @GetMapping("/index")
@@ -36,6 +37,7 @@ public class IndexController {
         User myAccount= (User) session.getAttribute("myAccount");
         //目前只筛选1v1
         model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(),1,1));
+        model.addAttribute("myAccount",myAccount);
         return "/index";
 
     }
