@@ -38,8 +38,12 @@ public class EmailVerificationController {
     @Operation(summary = "验证发送的验证码")
     public String typeVeriCodeToRegister(@RequestParam(value="veriCode")String veriCode, HttpSession session,Model model){
         String verificationCode= (String) session.getAttribute("verificationCode");
+        session.removeAttribute("verificationCode");
         if(verificationCode.equals(veriCode)){
             userMapper.insertUser((String) session.getAttribute("username"), (String) session.getAttribute("password"), (String) session.getAttribute("email"));
+            session.removeAttribute("username");
+            session.removeAttribute("password");
+            session.removeAttribute("email");
             return "views/registerSuccess";
         }else{
             model.addAttribute("showPopup","验证码错误，请重试");

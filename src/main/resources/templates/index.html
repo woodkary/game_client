@@ -24,7 +24,7 @@ GITHUB：https://github.com/xiaoyanu/Product-price-list
 
 		<div id="headr">
 			<a th:href="@{views/changeAvatar}">
-			<img th:src="@{/picture/leyun.jpg}" height="50">
+			<img th:src="@{${session.get('myAccount').getAvatar()}}" height="50">
 			</a>
 			<span id="title">
 				比赛列表

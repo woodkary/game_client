@@ -17,6 +17,7 @@ import java.util.Objects;
 @ToString
 @EqualsAndHashCode
 @Tag(name = "User")
+//   /picture/leyun.jpg
 public class User {
     private String username;
     private String pwd;
@@ -26,4 +27,5 @@ public class User {
     private Date regdate;
     private int gamesCount;
     private String gamesId;
+    private String avatar;
 }
