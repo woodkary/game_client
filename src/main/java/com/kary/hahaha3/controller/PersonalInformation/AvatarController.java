@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class AvatarController {
     @PostMapping("/user/changeAvatar")
     public String changeAvatar(@RequestParam("file")MultipartFile file, HttpSession session){
+        //TODO 改数据库，增加头像列
         return "views/changeAvatar";
     }
 }
