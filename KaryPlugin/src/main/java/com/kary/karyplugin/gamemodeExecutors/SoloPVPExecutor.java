@@ -139,22 +139,23 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
             //2:1结束
             playersInSoloPVP.remove(winner);
             playersInSoloPVP.remove(loser);
-        }   Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
-        Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
-        KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
-                winner.getName(),
-                2,1,
-                (Integer) winnerArray[0],
-                0,
-                gameMode
-        );
-        KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
-                loser.getName(),
-                1,2,
-                (Integer) loserArray[0],
-                0,
-                gameMode
-        );
+            Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
+            Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
+            KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
+                    winner.getName(),
+                    2,1,
+                    (Integer) winnerArray[0],
+                    0,
+                    gameMode
+            );
+            KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
+                    loser.getName(),
+                    1,2,
+                    (Integer) loserArray[0],
+                    0,
+                    gameMode
+            );
+        }
         Bukkit.getServer().broadcastMessage("玩家"+winner.getName()+"击败了"+loser.getName());
     }
 

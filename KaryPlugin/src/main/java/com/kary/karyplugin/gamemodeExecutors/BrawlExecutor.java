@@ -32,7 +32,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     private RecordService recordService;
     private Map<Player,Integer> playersMatchingGamemode;
     private Map<Integer,List<Player>> matchingPlayers=new ConcurrentHashMap<>();
-    private static final int MAX_MATCH_NUM=6;
+    private static final int MAX_MATCH_NUM=5;
     private static final int KILL_ONE_ADD =10;
     //将死者,助攻者列表
     private Map<Player, List<Player>> assistMap=new ConcurrentHashMap<>();
