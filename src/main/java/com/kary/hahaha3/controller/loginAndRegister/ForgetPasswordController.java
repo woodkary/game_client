@@ -95,6 +95,7 @@ public class ForgetPasswordController {
     @PostMapping("/forgetPassword/typeVeriCode2")
     public String typeVeriCode(@RequestParam(value = "veriCode")String veriCode,HttpSession session,Model model){
         String verificationCode= (String) session.getAttribute("verificationCode");
+        session.removeAttribute("verificationCode");
         if(verificationCode==null){
             model.addAttribute("showPopup","请先发验证码");
             return "views/forgetPassword";
@@ -105,6 +106,8 @@ public class ForgetPasswordController {
             String password=(String) session.getAttribute("password");
             password=aesEncoder.encrypt(password);
             userMapper.updateUserPassword((String) session.getAttribute("username"), password);
+            session.removeAttribute("username");
+            session.removeAttribute("password");
             //TODO 忘记设修改密码成功的页面了，所以跳到注册页面
             return "views/registerSuccess";
         }
