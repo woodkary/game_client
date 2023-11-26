@@ -46,11 +46,11 @@ public class LoginControllerTest {
         User userInDatabase = userMapper.selectUserByName(user.getUsername());
         myAccount.setUsername(user.getUsername());
         myAccount.setPwd(user.getPwd());
-        myAccount.setScoreTotal(userInDatabase.getScoreTotal());
+        myAccount.setScoreTotal1v1(userInDatabase.getScoreTotal1v1());
         myAccount.setEmail(userInDatabase.getEmail());
         myAccount.setRegdate(userInDatabase.getRegdate());
-        myAccount.setGameCount(userInDatabase.getGameCount());
-        myAccount.setGameId(userInDatabase.getGameId());
+        myAccount.setGamesCount(userInDatabase.getGamesCount());
+        myAccount.setGamesId(userInDatabase.getGamesId());
         verify(model).addAttribute("myAccount", myAccount);
         verify(session).setAttribute("myAccount",myAccount);
     }
