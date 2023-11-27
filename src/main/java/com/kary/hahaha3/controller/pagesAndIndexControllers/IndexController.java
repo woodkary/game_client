@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 //TODO css样式表太丑啦！求一个好看的样式。
 @RestController
-@Tag(name = "首页展示")
+@Tag(name = "首页")
 public class IndexController extends BaseController {
     @Autowired
     @Qualifier("RecordVOService")
