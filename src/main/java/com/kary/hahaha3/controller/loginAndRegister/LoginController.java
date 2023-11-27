@@ -53,8 +53,6 @@ public class LoginController extends BaseController {
                 myAccount.setEmail(userInDatabase.getEmail());
                 myAccount.setRegdate(userInDatabase.getRegdate());
                 myAccount.setGamesCount(userInDatabase.getGamesCount());
-                myAccount.setGamesId(userInDatabase.getGamesId());
-                myAccount.setAvatar(userInDatabase.getAvatar());
                 session.setAttribute("myAccount",myAccount);
                 return JsonResult.ok(myAccount,"登录成功");
             }

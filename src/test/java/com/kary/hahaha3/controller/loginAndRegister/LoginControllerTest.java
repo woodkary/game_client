@@ -36,8 +36,8 @@ public class LoginControllerTest {
     public void testLoginSuccess() throws ErrorInputException {
         // Mock dependencies
         User user = new User();
-        user.setUsername("testLoginSuccessName");
-        user.setPwd("testLoginSuccessPwd");
+        user.setUsername("kary");
+        user.setPwd("wood20040629");
         HttpSession session = mock(HttpSession.class);
         JsonResult result = loginController
                 .login(user.getUsername(), user.getPwd(),session);
@@ -50,7 +50,6 @@ public class LoginControllerTest {
         myAccount.setEmail(userInDatabase.getEmail());
         myAccount.setRegdate(userInDatabase.getRegdate());
         myAccount.setGamesCount(userInDatabase.getGamesCount());
-        myAccount.setGamesId(userInDatabase.getGamesId());
         JsonResult expectedResult=JsonResult.ok(myAccount,"登录成功");
         // Assertions
         assertEquals(expectedResult, result);
