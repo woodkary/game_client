@@ -1,8 +1,9 @@
-/*
 package com.kary.hahaha3.controller.loginAndRegister;
 
 import com.kary.hahaha3.controller.loginAndRegister.LoginController;
+import com.kary.hahaha3.exceptions.errorInput.ErrorInputException;
 import com.kary.hahaha3.mapper.UserMapper;
+import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.utils.AESUtil;
 import jakarta.servlet.http.HttpSession;
@@ -32,17 +33,15 @@ public class LoginControllerTest {
     private User myAccount;
     //登录成功
     @Test
-    public void testLoginSuccess() {
+    public void testLoginSuccess() throws ErrorInputException {
         // Mock dependencies
         User user = new User();
         user.setUsername("testLoginSuccessName");
         user.setPwd("testLoginSuccessPwd");
-        Model model = mock(Model.class);
         HttpSession session = mock(HttpSession.class);
-        String result = loginController
-                .login(user.getUsername(), user.getPwd(), model, session);
-        // Assertions
-        assertEquals("views/loginSuccess", result);
+        JsonResult result = loginController
+                .login(user.getUsername(), user.getPwd(),session);
+
         myAccount = new User();
         User userInDatabase = userMapper.selectUserByName(user.getUsername());
         myAccount.setUsername(user.getUsername());
@@ -52,40 +51,41 @@ public class LoginControllerTest {
         myAccount.setRegdate(userInDatabase.getRegdate());
         myAccount.setGamesCount(userInDatabase.getGamesCount());
         myAccount.setGamesId(userInDatabase.getGamesId());
-        verify(model).addAttribute("myAccount", myAccount);
+        JsonResult expectedResult=JsonResult.ok(myAccount,"登录成功");
+        // Assertions
+        assertEquals(expectedResult, result);
         verify(session).setAttribute("myAccount",myAccount);
     }
     //未注册登录
     @Test
-    public void testLoginWithoutRegister(){
+    public void testLoginWithoutRegister() throws ErrorInputException {
         // Mock dependencies
         User user = new User();
         user.setUsername("NotRegisteredName");
         user.setPwd("NotRegisterPwd");
-        Model model = mock(Model.class);
         HttpSession session = mock(HttpSession.class);
-        String result = loginController
-                .login(user.getUsername(), user.getPwd(), model, session);
+        JsonResult result = loginController
+                .login(user.getUsername(), user.getPwd(), session);
+        JsonResult expectedResult=JsonResult.error("用户不存在");
 
         // Assertions
-        assertEquals("views/login", result);
-        verify(model).addAttribute("showPopup","该用户未注册");
+        assertEquals(expectedResult, result);
+        /*verify(model).addAttribute("showPopup","该用户未注册");*/
     }
     //密码错误登录
     @Test
-    public void testLoginPwdError(){
+    public void testLoginPwdError() throws ErrorInputException {
         // Mock dependencies
         User user = new User();
         user.setUsername("testLoginSuccessName");
         user.setPwd("testLoginErrorPwd");
-        Model model = mock(Model.class);
         HttpSession session = mock(HttpSession.class);
-        String result = loginController
-                .login(user.getUsername(), user.getPwd(), model, session);
+        JsonResult result = loginController
+                .login(user.getUsername(), user.getPwd(),session);
+        JsonResult expectedResult=JsonResult.error("密码错误");
 
         // Assertions
         assertEquals("views/login", result);
-        verify(model).addAttribute("showPopup","密码错误");
+        /*verify(model).addAttribute("showPopup","密码错误");*/
     }
 }
-*/

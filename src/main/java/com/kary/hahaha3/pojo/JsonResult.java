@@ -3,6 +3,7 @@ package com.kary.hahaha3.pojo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(value ={"hibernateLazyInitializer","handler","fieldHandler"})
+@EqualsAndHashCode
 public class JsonResult implements Serializable {
     private int code;
     private Serializable data;
