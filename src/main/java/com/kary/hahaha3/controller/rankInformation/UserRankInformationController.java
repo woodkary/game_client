@@ -2,6 +2,7 @@ package com.kary.hahaha3.controller.rankInformation;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kary.hahaha3.controller.BaseController;
 import com.kary.hahaha3.exceptions.JsonException;
 import com.kary.hahaha3.exceptions.errorInput.UsernameErrorException;
 import com.kary.hahaha3.mapper.UserMapper;
@@ -28,7 +29,7 @@ import java.util.List;
 @RestController
 @Tag(name = "查询排位信息")
 @RequestMapping("/ranks")
-public class UserRankInformationController {
+public class UserRankInformationController extends BaseController {
     @Autowired
     @Qualifier("RecordVOService")
     private RecordVOService recordVOService;

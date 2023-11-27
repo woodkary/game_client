@@ -1,5 +1,6 @@
 package com.kary.hahaha3.controller.loginAndRegister;
 
+import com.kary.hahaha3.controller.BaseController;
 import com.kary.hahaha3.exceptions.emptyInput.PasswordEmptyException;
 import com.kary.hahaha3.exceptions.emptyInput.UsernameEmptyException;
 import com.kary.hahaha3.exceptions.errorInput.EmailErrorException;
@@ -28,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Tag(name = "注册")
 //注册邮箱仅支持qq邮箱
-public class RegisterController {
+public class RegisterController extends BaseController {
     @Autowired
     @Qualifier("AESEncoder")
     AESUtil aesEncoder;

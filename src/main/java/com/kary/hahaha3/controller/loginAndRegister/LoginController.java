@@ -1,5 +1,6 @@
 package com.kary.hahaha3.controller.loginAndRegister;
 
+import com.kary.hahaha3.controller.BaseController;
 import com.kary.hahaha3.exceptions.errorInput.ErrorInputException;
 import com.kary.hahaha3.exceptions.errorInput.PasswordErrorException;
 import com.kary.hahaha3.exceptions.errorInput.UsernameErrorException;
@@ -22,13 +23,13 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @Tag(name = "登录")
-public class LoginController {
+public class LoginController extends BaseController {
     @Autowired
     @Qualifier("AESEncoder")
     AESUtil aesEncoder;
     @Autowired
     private UserMapper userMapper;
-    @PostMapping("/login")
+    @GetMapping("/login")
     @Operation(summary = "登录", description = "API to handle user login")
     public JsonResult login(@RequestParam(value = "username")String username,
                             @RequestParam(value = "password")String password,

@@ -1,5 +1,6 @@
 package com.kary.hahaha3.controller.loginAndRegister;
 
+import com.kary.hahaha3.controller.BaseController;
 import com.kary.hahaha3.exceptions.connection.DatabaseConnectionException;
 import com.kary.hahaha3.exceptions.connection.VerificationCodeSendingException;
 import com.kary.hahaha3.exceptions.emptyInput.VerificationCodeEmptyException;
@@ -27,7 +28,7 @@ import javax.mail.MessagingException;
 
 @RestController
 @Tag(name = "邮箱验证")
-public class EmailVerificationController {
+public class EmailVerificationController extends BaseController {
     @Autowired
     @Qualifier("AESEncoder")
     private AESUtil aesEncoder;

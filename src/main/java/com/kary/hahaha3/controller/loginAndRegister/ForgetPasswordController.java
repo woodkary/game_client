@@ -1,5 +1,6 @@
 package com.kary.hahaha3.controller.loginAndRegister;
 
+import com.kary.hahaha3.controller.BaseController;
 import com.kary.hahaha3.exceptions.emptyInput.PasswordEmptyException;
 import com.kary.hahaha3.exceptions.emptyInput.UsernameEmptyException;
 import com.kary.hahaha3.exceptions.errorInput.EmailErrorException;
@@ -27,7 +28,7 @@ import javax.mail.MessagingException;
 //todo 重新输入密码和输入邮箱放一起了，是否需要把他们分开？
 @RestController
 @Tag(name = "忘记密码")
-public class ForgetPasswordController {
+public class ForgetPasswordController extends BaseController {
     @Autowired
     @Qualifier("AESEncoder")
     AESUtil aesEncoder;

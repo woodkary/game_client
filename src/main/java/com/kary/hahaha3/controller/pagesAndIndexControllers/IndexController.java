@@ -1,6 +1,7 @@
 package com.kary.hahaha3.controller.pagesAndIndexControllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.kary.hahaha3.controller.BaseController;
 import com.kary.hahaha3.exceptions.JsonException;
 import com.kary.hahaha3.exceptions.expired.SessionExpireException;
 import com.kary.hahaha3.pojo.JsonResult;
@@ -22,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 //TODO css样式表太丑啦！求一个好看的样式。
 @RestController
 @Tag(name = "首页展示")
-public class IndexController {
+public class IndexController extends BaseController {
     @Autowired
     @Qualifier("RecordVOService")
     private RecordVOService recordVOService;
