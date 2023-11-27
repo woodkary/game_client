@@ -1,5 +1,6 @@
 package com.kary.hahaha3.controller.pagesAndIndexControllers;
 
+import com.kary.hahaha3.exceptions.expired.SessionExpireException;
 import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.pojo.vo.RecordVO;
@@ -28,15 +29,21 @@ public class IndexController {
     private RecordVOService recordVOService;
     @GetMapping("/")
     @Operation(summary = "返回首页",description = "return to index")
-    public JsonResult index0(HttpSession session){
+    public JsonResult index0(HttpSession session) throws SessionExpireException {
         User myAccount= (User) session.getAttribute("myAccount");
+        if(myAccount==null){
+            throw new SessionExpireException("你尚未登录");
+        }
         /*model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(),1,1));*/
         return JsonResult.ok(recordVOService.getGamesByIds(myAccount.getUsername(), 1,1),"这是战绩");
     }
     @GetMapping("/index")
     @Operation(summary = "返回首页，加入比赛信息",description = "return to index")
-    public JsonResult index(HttpSession session){
+    public JsonResult index(HttpSession session) throws SessionExpireException {
         User myAccount= (User) session.getAttribute("myAccount");
+        if(myAccount==null){
+            throw new SessionExpireException("你尚未登录");
+        }
         /*model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(),1,1));*/
         return JsonResult.ok(recordVOService.getGamesByIds(myAccount.getUsername(), 1,1),"这是战绩");
     }
