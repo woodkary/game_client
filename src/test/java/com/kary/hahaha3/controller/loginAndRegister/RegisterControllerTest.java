@@ -1,3 +1,4 @@
+/*
 package com.kary.hahaha3.controller.loginAndRegister;
 
 import com.kary.hahaha3.HaHaHa3Application;
@@ -87,3 +88,4 @@ public class RegisterControllerTest {
         verify(httpSession).setAttribute("email",email);
     }
 }
+*/

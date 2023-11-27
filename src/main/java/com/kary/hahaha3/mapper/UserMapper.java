@@ -17,8 +17,8 @@ import java.util.List;
 @Tag(name = "UserMapper")
 public interface UserMapper {
     User selectUserByName(@Param(value = "username")String username);
-    void insertUser(@Param(value = "username")String username,@Param(value = "pwd")String pwd,@Param(value = "email")String email);
+    Integer insertUser(@Param(value = "username")String username,@Param(value = "pwd")String pwd,@Param(value = "email")String email);
     List<User> selectUserLimit(@Param(value = "x")int x);
-    void updateUserPassword(@Param(value = "username")String username,@Param(value="pwd")String pwd);
-    void updateUserAvatar(@Param(value = "username")String username,@Param(value="avatar")String avatar);
+    Integer updateUserPassword(@Param(value = "username")String username,@Param(value="pwd")String pwd);
+    Integer updateUserAvatar(@Param(value = "username")String username,@Param(value="avatar")String avatar);
 }

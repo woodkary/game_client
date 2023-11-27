@@ -1,6 +1,10 @@
 package com.kary.hahaha3.controller.loginAndRegister;
 
+import com.kary.hahaha3.exceptions.errorInput.ErrorInputException;
+import com.kary.hahaha3.exceptions.errorInput.PasswordErrorException;
+import com.kary.hahaha3.exceptions.errorInput.UsernameErrorException;
 import com.kary.hahaha3.mapper.UserMapper;
+import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.utils.AESUtil;
 import com.kary.hahaha3.utils.MailUtil;
@@ -10,36 +14,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author:123
  */
-@Controller
+@RestController
 public class LoginController {
     @Autowired
     @Qualifier("AESEncoder")
     AESUtil aesEncoder;
     @Autowired
     private UserMapper userMapper;
-    @PostMapping("/usr/login")
+    @PostMapping("/login")
     @Operation(summary = "登录", description = "API to handle user login")
-    public String login(@RequestParam(value = "username")String username, @RequestParam(value = "password")String password, Model model, HttpSession session){
+    public JsonResult login(@RequestParam(value = "username")String username,
+                            @RequestParam(value = "password")String password,
+                            HttpSession session) throws ErrorInputException {
         //找到数据库中的用户
         User userInDatabase=userMapper.selectUserByName(username);
         //找不到
         if(userInDatabase==null){
-            model.addAttribute("showPopup","该用户未注册");
-            return "views/login";
+            throw new UsernameErrorException("用户不存在");
         //密码错误
         }else {
             String userPassword=aesEncoder.encrypt(password);
             if(!userInDatabase.getPwd().equals(userPassword)){
-                model.addAttribute("showPopup","密码错误");
-                return "views/login";
+                throw new PasswordErrorException("密码错误");
             }else{
                 User myAccount=new User();
                 myAccount.setUsername(username);
@@ -51,16 +52,9 @@ public class LoginController {
                 myAccount.setGamesCount(userInDatabase.getGamesCount());
                 myAccount.setGamesId(userInDatabase.getGamesId());
                 myAccount.setAvatar(userInDatabase.getAvatar());
-                model.addAttribute("myAccount",myAccount);
                 session.setAttribute("myAccount",myAccount);
-                return "views/loginSuccess";
+                return JsonResult.ok(myAccount,"登录成功");
             }
         }
     }
-    @GetMapping("/toLogin")
-    @Operation(summary = "返回登陆页面", description = "API to redirect to the login page")
-    public String toLogin(){
-        return "login/login";
-    }
-
 }

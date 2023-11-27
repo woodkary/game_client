@@ -16,9 +16,6 @@ import java.util.Properties;
 public class MailUtil {
     private static final String authorCode = "bmqdkfqwluctbefh";
     private static final String email="834479572@qq.com";
-    @Getter
-    @Setter
-    private static String toEmail;
     private static String qqMail="smtp.qq.com";
     public static String getRandom6Digit(){
         byte[] bytes=new byte[6];

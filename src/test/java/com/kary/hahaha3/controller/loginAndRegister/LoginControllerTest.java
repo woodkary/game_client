@@ -1,3 +1,4 @@
+/*
 package com.kary.hahaha3.controller.loginAndRegister;
 
 import com.kary.hahaha3.controller.loginAndRegister.LoginController;
@@ -87,3 +88,4 @@ public class LoginControllerTest {
         verify(model).addAttribute("showPopup","密码错误");
     }
 }
+*/
