@@ -7,15 +7,12 @@
         select * from user where username=#{username}
     </select>
     <insert id="insertUser">
-        insert into user (username,pwd,score_total_1v1,score_total_brawl,email,regdate,games_count,avatar) values (#{username},#{pwd},0,0,#{email},now(),0,"/picture/leyun.jpg");
+        insert into user (username,pwd,score_total_1v1,score_total_brawl,email,regdate,games_count) values (#{username},#{pwd},0,0,#{email},now(),0);
     </insert>
     <select id="selectUserLimit" resultType="com.kary.hahaha3.pojo.User" parameterType="_int">
         select * from user order by username limit 3 offset #{x}
     </select>
     <update id="updateUserPassword">
         update user set pwd=#{pwd} where username=#{username}
-    </update>
-    <update id="updateUserAvatar">
-        update user set avatar=#{avatar} where username=#{username}
     </update>
 </mapper>
