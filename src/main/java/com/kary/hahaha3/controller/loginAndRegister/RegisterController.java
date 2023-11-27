@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author:123
  */
 @RestController
+@Tag(name = "注册")
 //注册邮箱仅支持qq邮箱
 public class RegisterController {
     @Autowired

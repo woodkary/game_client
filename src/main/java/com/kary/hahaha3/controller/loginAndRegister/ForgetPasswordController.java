@@ -11,6 +11,7 @@ import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.utils.AESUtil;
 import com.kary.hahaha3.utils.MailUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,6 +26,7 @@ import javax.mail.MessagingException;
  */
 //todo 重新输入密码和输入邮箱放一起了，是否需要把他们分开？
 @RestController
+@Tag(name = "忘记密码")
 public class ForgetPasswordController {
     @Autowired
     @Qualifier("AESEncoder")

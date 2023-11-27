@@ -3,6 +3,7 @@ package com.kary.hahaha3.pojo.vo;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode
 @Tag(name = "RecordVO")
-public class RecordVO {
+public class RecordVO implements Serializable {
     private Date gameTime;
     /*减少的 private String opponentUsername;*/
     private int kills;

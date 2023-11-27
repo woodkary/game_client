@@ -11,6 +11,7 @@ import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.utils.AESUtil;
 import com.kary.hahaha3.utils.MailUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,6 +26,7 @@ import javax.mail.MessagingException;
 
 
 @RestController
+@Tag(name = "邮箱验证")
 public class EmailVerificationController {
     @Autowired
     @Qualifier("AESEncoder")
@@ -61,11 +63,11 @@ public class EmailVerificationController {
         if(verificationCode.equals(veriCode)){
             Integer flag=2;
             switch (operation){
-                case 1:{
+                case 1:{//1是注册
                     flag=userMapper.insertUser((String) session.getAttribute("username"), (String) session.getAttribute("password"), (String) session.getAttribute("email"));
                     break;
                 }
-                case 2:{
+                case 2:{//2是改密码
                     String password=(String) session.getAttribute("password");
                     password=aesEncoder.encrypt(password);
                     flag=userMapper.updateUserPassword((String) session.getAttribute("username"), password);

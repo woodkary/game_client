@@ -9,6 +9,7 @@ import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.utils.AESUtil;
 import com.kary.hahaha3.utils.MailUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @author:123
  */
 @RestController
+@Tag(name = "登录")
 public class LoginController {
     @Autowired
     @Qualifier("AESEncoder")
