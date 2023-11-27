@@ -5,15 +5,24 @@
     <title>乐云 - 比赛列表</title>
     <link rel="icon" href="ico.png"/>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{info/list-vps.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/info/list-vps.css}"/>
     <link rel="stylesheet" th:href="@{/css/fontawesome-all.min.css}">
 </head>
 
 <body id="indexBody">
+
+<div th:if="${message}">
+    <script th:inline="javascript">
+        var message = [[${message}]];
+        alert(message);
+    </script>
+</div>
+
 <div id="headr">
-    <img th:src="@{/picture/leyun.jpg}" height="50">
-    <form th:action="@{/user/changeAvatar}" th:method="post">
-        <input type="file" name="file">
+    <img th:src="${myAccountAvatar}" height="50">
+    <form th:action="@{/user/changeAvatar}" th:method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="file" required>
+        <button type="submit">确认</button>
     </form>
 </div>
 </body>

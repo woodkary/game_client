@@ -7,10 +7,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class IndexController {
     public String index0(Model model, HttpSession session){
         User myAccount= (User) session.getAttribute("myAccount");
         model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(),1,1));
-        model.addAttribute("myAccount",myAccount);
+        model.addAttribute("myAccountAvatar",myAccount.getAvatar());
         return "/index";
     }
     @GetMapping("/index")
@@ -37,8 +39,13 @@ public class IndexController {
         User myAccount= (User) session.getAttribute("myAccount");
         //目前只筛选1v1
         model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(),1,1));
-        model.addAttribute("myAccount",myAccount);
+        model.addAttribute("myAccountAvatar",myAccount.getAvatar());
         return "/index";
 
+    }
+    @GetMapping("/refresh")
+    public void refresh() {
+        // 刷新静态资源
+        new SpringApplication().run("spring-boot-actuator", "--refresh");
     }
 }
