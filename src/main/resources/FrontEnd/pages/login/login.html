@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+        <div id="background"></div>
+        <div class="navbar">
+            <img class="LOGO">
+        </div>
+        <div class="login">
+            <img class="LOGO">
+            <div>
+                <form id="login-form">
+                    <input class="in" type="text" placeholder="用户名" id="username" required>
+                    <input class="in" type="password" placeholder="密码" id="password" required>
+                    <button class = "in" type="submit" onclick="validateLogin(event)">用户名登录</button>
+                </form>
+                <p class="message" id="verification-message"></p>
+
+                <p class = "account" id="text">没有账号？</p>
+                <a href="../sign-up/sign-up.html" class = "account" id="sign-up">注册账号</a>
+                <a href="../reset-password/reset-password.html" class = "account" id="forget-password">忘记密码</a>
+                <div class="container">
+                    <div class="item line" id="line-one"></div>
+                    <div class="item para" ><p>或者</p></div>
+                    <div class="item line" id="line-two"></div>
+                </div>
+                <button onclick="RedirectToPage()" class = "in" type="button">使用邮箱登录</button>
+                <script>
+                    function RedirectToPage() {
+                        window.location.href = "email-login.html";
+                    }
+                    function validateLogin(event) {
+                        event.preventDefault(); // Prevent form submission
+                        var username = document.getElementById("username").value;
+                        var password = document.getElementById("password").value;
+                        var message = document.getElementById("verification-message");
+                        if (username === "admin" && password === "password") {
+                            message.textContent = "登录成功";
+                            message.style.color = "green";
+                            window.location.href = "../home/home.html";
+                        } else {
+                            message.textContent = "账号或者密码错误";
+                            message.style.color = "red";
+                        }
+                    }
+                    document.getElementById("login-form").addEventListener("submit", validateLogin);
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
