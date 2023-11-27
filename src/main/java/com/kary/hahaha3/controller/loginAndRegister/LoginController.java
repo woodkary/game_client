@@ -60,7 +60,7 @@ public class LoginController {
     @GetMapping("/toLogin")
     @Operation(summary = "返回登陆页面", description = "API to redirect to the login page")
     public String toLogin(){
-        return "views/login";
+        return "login/login";
     }
 
 }

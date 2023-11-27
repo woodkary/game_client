@@ -27,7 +27,7 @@ public class RegisterController {
     UserMapper userMapper;
     @RequestMapping("/register")
     public String register(){
-        return "views/register";
+        return "/sign-up/sign-up";
     }
     @PostMapping("/usr/register")
     @Operation(summary = "用户注册",description = "user register")

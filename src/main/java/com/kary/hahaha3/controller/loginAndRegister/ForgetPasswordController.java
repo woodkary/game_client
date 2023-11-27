@@ -43,14 +43,14 @@ public class ForgetPasswordController {
             model.addAttribute("password",password);
             model.addAttribute("retypePassword",retypePassword);
             model.addAttribute("email",email);
-            return "views/forgetPassword";
+            return "/reset-password/reset-password";
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
     }
     @GetMapping("/forgetPassword")
     public String forgetPassword(){
-        return "/views/forgetPassword";
+        return "/reset-password/reset-password";
     }
     @PostMapping("/usr/resetPassword")
     @Operation(summary = "重置密码",description = "reset password")
@@ -62,24 +62,24 @@ public class ForgetPasswordController {
                                 Model model) {
         if(username==null){
             model.addAttribute("showPopup","用户名为空");
-            return "views/forgetPassword";
+            return "/reset-password/reset-password";
         }else if(password==null){
             model.addAttribute("showPopup","密码为空");
-            return "views/forgetPassword";
+            return "/reset-password/reset-password";
         }else if(retypePassword==null){
             model.addAttribute("showPopup","请重输密码");
-            return "views/forgetPassword";
+            return "/reset-password/reset-password";
         }else if(!password.equals(retypePassword)){
             model.addAttribute("showPopup","请输入一致的密码");
-            return "views/forgetPassword";
+            return "/reset-password/reset-password";
         }else{
             User userInDatabase=userMapper.selectUserByName(username);
             if(userInDatabase==null){
                 model.addAttribute("showPopup","该用户名不存在");
-                return "views/forgetPassword";
+                return "/reset-password/reset-password";
             }else if(!MailUtil.legalQQMail(email)){
                 model.addAttribute("showPopup","请输入合法的邮箱");
-                return "views/forgetPassword";
+                return "/reset-password/reset-password";
             }else {
                 model.addAttribute("username",username);
                 model.addAttribute("password",password);
@@ -88,7 +88,7 @@ public class ForgetPasswordController {
                 session.setAttribute("username",username);
                 session.setAttribute("password",password);
                 session.setAttribute("email",email);
-                return "views/forgetPassword";
+                return "/reset-password/reset-password";
             }
         }
     }
@@ -98,10 +98,10 @@ public class ForgetPasswordController {
         session.removeAttribute("verificationCode");
         if(verificationCode==null){
             model.addAttribute("showPopup","请先发验证码");
-            return "views/forgetPassword";
+            return "/reset-password/reset-password";
         }else if(!verificationCode.equals(veriCode)){
             model.addAttribute("showPopup","验证码错误");
-            return "views/forgetPassword";
+            return "/reset-password/reset-password";
         }else{
             String password=(String) session.getAttribute("password");
             password=aesEncoder.encrypt(password);
