@@ -13,4 +13,5 @@ public interface ArticleMapper {
                            @Param("themeName")String themeName);
     Integer getMaxArticleId();
     Integer follow(@Param("articleId")Integer articleId);
+    Integer like(@Param("articleId")Integer articleId);
 }
