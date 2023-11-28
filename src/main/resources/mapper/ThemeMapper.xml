@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kary.hahaha3.mapper.ThemeMapper">
+    <insert id="publishTheme">
+        insert into theme (theme_name,
+                           descrption,
+                           article_count,
+                           follower_count,
+                           article_id)
+        values (#{themeName},"",0,0,"")
+    </insert>
+    <update id="changeDescription">
+        update theme set descrption=#{description}
+                     where theme_name=#{themeName}
+    </update>
+    <update id="publishArticle">
+        update theme set article_count=article_count+1,
+                         article_id=concat(article_id,concat(#{newArticleId},","))
+        where theme_name=#{themeName}
+    </update>
+    <update id="followTheme">
+        update theme set follower_count=follower_count+1
+        where theme_name=#{themeName}
+    </update>
+
+</mapper>

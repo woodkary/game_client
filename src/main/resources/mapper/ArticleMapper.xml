@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kary.hahaha3.mapper.ArticleMapper">
+    <insert id="publishArticle">
+        insert into article(
+                            article_id,
+                            username,
+                            publish_time,
+                            follower_count,
+                            like_count,
+                            dislikecount,
+                            comment_count,
+                            article_topic,
+                            content,
+                            theme_name
+        )values (
+                 #{articleId},
+                 #{username},
+                 now(),
+                 0,
+                 0,
+                 0,
+                 0,
+                 #{articleTopic},
+                 #{content},
+                 #{themeName}
+        )
+    </insert>
+    <select id="getMaxArticleId">
+        select max(article_id) from article
+    </select>
+    <update id="follow">
+        update article set follower_count=follower_count+1 where article_id=#{articleId}
+    </update>
+</mapper>
