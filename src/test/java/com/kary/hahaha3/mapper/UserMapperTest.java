@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.kary.hahaha3.mapper.UserMapper;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,7 +20,7 @@ public class UserMapperTest {
         user.setUsername("test_name");
         user.setPwd("test_pwd");
         user.setEmail("test_email");
-        assertEquals(user.getEmail(),userMapper.selectUserByName(user.getUsername()).getEmail());
+        assertEquals(user.getEmail(), userMapper.selectUserByName(user.getUsername()).getEmail());
     }
     @Test
     public void insertUser(){

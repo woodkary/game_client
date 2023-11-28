@@ -10,4 +10,6 @@ import java.util.List;
 public interface RecordVOService {
     List<RecordVO> getGamesByIds(String username,Integer type);
     List<RecordVO> getGamesByIds(String username,Integer type,int page);
+    List<RecordVO> getGamesByIds(String username);
+    List<RecordVO> getGamesByIds(String username, int page);
 }

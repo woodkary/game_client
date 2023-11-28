@@ -24,13 +24,21 @@ public class RecordVOServiceImpl implements RecordVOService {
     @Autowired
     private GamesMapper gamesMapper;
     @Override
-    //输入我自己的名字和比赛列表
+    //输入我自己的名字和比赛列表,按照特定种类筛选,type为1,2
     public List<RecordVO> getGamesByIds(String username,Integer type) {
         List<RecordVO> records=new ArrayList<>();
         //TODO 筛选username参加过的所有比赛
         List<Record> recordList=recordMapper.selectRecordsByUsername(username);
         for (Record record : recordList) {
-            Games game=gamesMapper.getGameById(record.getGameId(),type);
+            Games game;
+            if(type!=null) {
+                game=gamesMapper.getGameByIdAndType(record.getGameId(),type);
+            }else {
+                game=gamesMapper.getGameById(record.getGameId());
+            }
+            if(game==null) {
+                continue;
+            }
             int kill=record.getKill();
             int death=record.getDeath();
             double kd=kill*1.0/death;
@@ -61,5 +69,13 @@ public class RecordVOServiceImpl implements RecordVOService {
             return new ArrayList<>();
         }
         return res.subList(fromIndex,toIndex< res.size()?toIndex: res.size());
+    }
+    @Override
+    public List<RecordVO> getGamesByIds(String username){
+        return getGamesByIds(username,null);
+    }
+    @Override
+    public List<RecordVO> getGamesByIds(String username,int page){
+        return getGamesByIds(username,null,page);
     }
 }

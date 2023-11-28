@@ -33,7 +33,7 @@ public class IndexController extends BaseController {
         if(myAccount==null){
             throw new SessionExpireException("你尚未登录");
         }
-        List<RecordVO> recordVO=recordVOService.getGamesByIds(myAccount.getUsername(), 1,1);
+        List<RecordVO> recordVO=recordVOService.getGamesByIds(myAccount.getUsername(),1);
         return JsonResult.ok(recordVO,"这是战绩");
     }
 }

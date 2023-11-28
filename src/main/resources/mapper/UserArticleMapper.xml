@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kary.hahaha3.mapper.UserArticleMapper">
+    <insert id="insertUser">
+        insert into user_article (
+                                  username,
+                                  follow_article_count,
+                                  follow_article,
+                                  follow_theme_count,
+                                  follow_theme,
+                                  pulish_article_count,
+                                  pulish_article
+        ) values
+              (#{username},0,0,0,0,0,0)
+    </insert>
+</mapper>

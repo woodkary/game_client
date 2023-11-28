@@ -8,18 +8,16 @@ import com.kary.hahaha3.exceptions.errorInput.PasswordErrorException;
 import com.kary.hahaha3.exceptions.errorInput.UsernameErrorException;
 import com.kary.hahaha3.mapper.UserMapper;
 import com.kary.hahaha3.pojo.JsonResult;
+import com.kary.hahaha3.service.UserService;
 import com.kary.hahaha3.utils.AESUtil;
 import com.kary.hahaha3.utils.MailUtil;
-import io.swagger.v3.core.util.Json;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,9 +30,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegisterController extends BaseController {
     @Autowired
     @Qualifier("AESEncoder")
-    AESUtil aesEncoder;
+    private AESUtil aesEncoder;
     @Autowired
-    UserMapper userMapper;
+    private UserService userService;
     @PostMapping("/register")
     @Operation(summary = "用户注册",description = "user register")
     public JsonResult userRegister(@RequestParam(value = "username")String username,
@@ -50,7 +48,7 @@ public class RegisterController extends BaseController {
             throw new PasswordEmptyException("请重输密码");
         }else if(!password.equals(retypePassword)){
             throw new PasswordErrorException("请输入一致的密码");
-        }else if (userMapper.selectUserByName(username)!=null) {
+        }else if (userService.selectUserByName(username)!=null) {
             throw new UsernameErrorException("该用户已注册");
         }else if(!MailUtil.legalQQMail(email)){
             throw new EmailErrorException("请输入合法的邮箱");

@@ -9,6 +9,7 @@ import com.kary.hahaha3.exceptions.errorInput.UsernameErrorException;
 import com.kary.hahaha3.mapper.UserMapper;
 import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.User;
+import com.kary.hahaha3.service.UserService;
 import com.kary.hahaha3.utils.AESUtil;
 import com.kary.hahaha3.utils.MailUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,11 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.mail.MessagingException;
 
 /**
  * @author:123
@@ -33,7 +30,7 @@ public class ForgetPasswordController extends BaseController {
     @Qualifier("AESEncoder")
     AESUtil aesEncoder;
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @PostMapping("/resetPassword")
     @Operation(summary = "重置密码",description = "reset password")
@@ -51,7 +48,7 @@ public class ForgetPasswordController extends BaseController {
         }else if(!password.equals(retypePassword)){
             throw new PasswordErrorException("请输入一致的密码");
         }else{
-            User userInDatabase=userMapper.selectUserByName(username);
+            User userInDatabase= userService.selectUserByName(username);
             if(userInDatabase==null){
                 throw new UsernameErrorException("该用户不存在");
             }else if(!MailUtil.legalQQMail(email)){

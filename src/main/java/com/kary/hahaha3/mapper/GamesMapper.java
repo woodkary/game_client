@@ -13,5 +13,6 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Tag(name = "GamesMapper")
 public interface GamesMapper {
-    Games getGameById(@Param("gameId")Integer gameId,@Param("type")Integer type);
+    Games getGameByIdAndType(@Param("gameId")Integer gameId,@Param("type")Integer type);
+    Games getGameById(@Param("gameId")Integer gameId);
 }

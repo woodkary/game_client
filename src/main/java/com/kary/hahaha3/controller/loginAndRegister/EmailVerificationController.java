@@ -8,7 +8,7 @@ import com.kary.hahaha3.exceptions.errorInput.VerificationCodeErrorException;
 import com.kary.hahaha3.exceptions.expired.VerificationCodeExpireException;
 import com.kary.hahaha3.mapper.UserMapper;
 import com.kary.hahaha3.pojo.JsonResult;
-import com.kary.hahaha3.pojo.User;
+import com.kary.hahaha3.service.UserService;
 import com.kary.hahaha3.utils.AESUtil;
 import com.kary.hahaha3.utils.MailUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,8 +16,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +31,7 @@ public class EmailVerificationController extends BaseController {
     @Qualifier("AESEncoder")
     private AESUtil aesEncoder;
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
     //mode有username password email,现在要得到code
     //输入授权码
     //准备发送验证码
@@ -65,17 +63,17 @@ public class EmailVerificationController extends BaseController {
             Integer flag=2;
             switch (operation){
                 case 1:{//1是注册
-                    flag=userMapper.insertUser((String) session.getAttribute("username"), (String) session.getAttribute("password"), (String) session.getAttribute("email"));
+                    flag= userService.insertUser((String) session.getAttribute("username"), (String) session.getAttribute("password"), (String) session.getAttribute("email"));
                     break;
                 }
                 case 2:{//2是改密码
                     String password=(String) session.getAttribute("password");
                     password=aesEncoder.encrypt(password);
-                    flag=userMapper.updateUserPassword((String) session.getAttribute("username"), password);
+                    flag= userService.updateUserPassword((String) session.getAttribute("username"), password);
                     break;
                 }
             }
-            if(flag>1){
+            if(flag!=1){
                 throw new DatabaseConnectionException("更新数据库出错");
             }else {
                 return JsonResult.ok(1,"注册成功");

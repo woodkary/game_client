@@ -1,6 +1,5 @@
 package com.kary.hahaha3.controller.loginAndRegister;
 
-import com.kary.hahaha3.controller.loginAndRegister.LoginController;
 import com.kary.hahaha3.exceptions.errorInput.ErrorInputException;
 import com.kary.hahaha3.mapper.UserMapper;
 import com.kary.hahaha3.pojo.JsonResult;
@@ -8,13 +7,9 @@ import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.utils.AESUtil;
 import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.verification.VerificationMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.ui.Model;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
