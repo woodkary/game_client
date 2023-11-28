@@ -24,4 +24,27 @@
                  #{content}
         )
     </insert>
+    <insert id="replyComment">
+        insert into comment (
+            comment_id,
+            parent_comment_username,
+            parent_id,
+            comment_username,
+            comment_date,
+            article_id,
+            comment_flag,
+            content,
+        )values (
+            (select max(comment_id)+1 from comment),
+            (select parent_comment_username from comment
+                where comment_id=#{parentId}),
+            #{parentId},
+            #{username},
+            now(),
+            (select article_id from comment
+             where comment_id=#{parentId}),
+            #{commentFlag},
+            #{content}
+        )
+    </insert>
 </mapper>

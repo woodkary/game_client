@@ -11,4 +11,8 @@ public interface CommentMapper {
                            @Param("articleId")Integer articleId,
                            @Param("content")String content,
                             @Param("commentFlag")Integer commentFlag);
+    Integer replyComment(@Param("username")String username,
+                         @Param("parentId")Integer parentId,
+                         @Param("content")String content,
+                         @Param("commentFlag")Integer commentFlag);
 }
