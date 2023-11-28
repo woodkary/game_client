@@ -2,10 +2,8 @@ package com.kary.karyplugin.service.impl;
 
 import com.kary.karyplugin.dao.GamesMapper;
 import com.kary.karyplugin.dao.RecordMapper;
-import com.kary.karyplugin.dao.SqlSessionSettings;
-import com.kary.karyplugin.pojo.User;
+import com.kary.karyplugin.pojo.UserGame;
 import com.kary.karyplugin.service.RecordService;
-import com.mysql.cj.Session;
 import org.apache.ibatis.session.SqlSession;
 import org.bukkit.Bukkit;
 
@@ -40,8 +38,13 @@ public class RecordServiceImpl implements RecordService {
             }
 
             @Override
-            public User selectUserByName(String username) {
-                return new User(username,"114514",0,0,"834479572@qq.com",new Date(),0);
+            public void addGamesCount(String username) {
+                Bukkit.getServer().broadcastMessage(username+"新增加了一场比赛");
+            }
+
+            @Override
+            public UserGame selectUserByName(String username) {
+                return new UserGame(username,0,0,0);
             }
         };
         gamesMapper=new GamesMapper() {
@@ -82,7 +85,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public User selectUserByName(String username) {
+    public UserGame selectUserByName(String username) {
         return recordMapper.selectUserByName(username);
     }
 }

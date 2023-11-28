@@ -1,6 +1,6 @@
 package com.kary.karyplugin.dao;
 
-import com.kary.karyplugin.pojo.User;
+import com.kary.karyplugin.pojo.UserGame;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -15,6 +15,7 @@ public interface RecordMapper {
                       @Param("assist")Integer assist);
     Integer getScoreTotal(@Param("username")String username,@Param("gameMode")Integer gameMode);
     void addScore(@Param("username")String username,@Param("gameMode")Integer gameMode,@Param("addNum")Integer addNum);
-    User selectUserByName(@Param(value = "username")String username);
+    void addGamesCount(@Param("username")String username);
+    UserGame selectUserByName(@Param(value = "username")String username);
 
 }

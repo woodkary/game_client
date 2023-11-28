@@ -26,10 +26,10 @@
             <if test="gameMode == 2">
                 score_total_brawl
             </if>
-        from user where username=#{username}
+        from user_game where username=#{username}
     </select>
     <update id="addScore">
-        update user set
+        update user_game set
         <if test="gameMode == 1">
             score_total_1v1=score_total_1v1+#{addNum}
         </if>
@@ -38,7 +38,10 @@
         </if>
         where username=#{username}
     </update>
-    <select id="selectUserByName" resultType="com.kary.karyplugin.pojo.User" parameterType="string">
-        select * from user where username=#{username}
+    <update id="addGamesCount">
+        update user_game set games_count=games_count+1 where username=#{username}
+    </update>
+    <select id="selectUserByName" resultType="com.kary.karyplugin.pojo.UserGame" parameterType="string">
+        select * from user_game where username=#{username}
     </select>
 </mapper>

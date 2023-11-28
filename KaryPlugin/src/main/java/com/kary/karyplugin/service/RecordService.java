@@ -1,6 +1,6 @@
 package com.kary.karyplugin.service;
 
-import com.kary.karyplugin.pojo.User;
+import com.kary.karyplugin.pojo.UserGame;
 
 /**
  * @author:123
@@ -16,5 +16,5 @@ public interface RecordService {
 
     void addScore(String username, Integer gameMode, Integer addNum);
 
-    User selectUserByName(String username);
+    UserGame selectUserByName(String username);
 }
