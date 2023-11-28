@@ -14,4 +14,5 @@ public interface ArticleMapper {
     Integer getMaxArticleId();
     Integer follow(@Param("articleId")Integer articleId);
     Integer like(@Param("articleId")Integer articleId);
+    Integer dislike(@Param("articleId")Integer articleId);
 }

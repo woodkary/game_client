@@ -34,4 +34,11 @@
     <update id="follow">
         update article set follower_count=follower_count+1 where article_id=#{articleId}
     </update>
+    <update id="like">
+        update article set like_count=like_count+1 where article_id=#{articleId}
+    </update>
+    <update id="dislike">
+        update article set dislike_count=dislike_count+1 where article_id=#{articleId}
+    </update>
+
 </mapper>
