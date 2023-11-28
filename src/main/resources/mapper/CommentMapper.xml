@@ -3,5 +3,25 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kary.hahaha3.mapper.CommentMapper">
-
+    <insert id="publishComment">
+        insert into comment (
+                             comment_id,
+                             parent_comment_username,
+                             parent_id,
+                             comment_username,
+                             comment_date,
+                             article_id,
+                             comment_flag,
+                             content,
+        )values (
+                 (select max(comment_id)+1 from comment),
+                 "",
+                 0,
+                 #{username},
+                 now(),
+                 #{articleId},
+                 #{commentFlag},
+                 #{content}
+        )
+    </insert>
 </mapper>
