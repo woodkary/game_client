@@ -1,5 +1,6 @@
 package com.kary.hahaha3.service.impl;
 
+import com.kary.hahaha3.exceptions.connection.DatabaseConnectionException;
 import com.kary.hahaha3.mapper.UserArticleMapper;
 import com.kary.hahaha3.mapper.UserGameMapper;
 import com.kary.hahaha3.mapper.UserMapper;
@@ -29,10 +30,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer insertUser(String username, String pwd, String email) {
-        Integer num1= userMapper.insertUser(username,pwd,email);
-        Integer num2=userArticleMapper.insertUser(username);
-        Integer num3=userGameMapper.insertUser(username);
+    public Integer insertUser(String username, String pwd, String email) throws DatabaseConnectionException {
+        Integer num1,num2,num3;
+        try{
+            num1= userMapper.insertUser(username,pwd,email);
+        }catch (Exception e){
+            userMapper.deleteUser(username);
+            throw new DatabaseConnectionException(e);
+        }
+        try {
+            num2 = userArticleMapper.insertUser(username);
+        }catch (Exception e){
+            userArticleMapper.deleteUser(username);
+            throw new DatabaseConnectionException(e);
+        }
+        try {
+            num3 = userGameMapper.insertUser(username);
+        }catch (Exception e){
+            userGameMapper.deleteUser(username);
+            throw new DatabaseConnectionException(e);
+        }
         if(num1==1&&num2==1&&num3==1){
             return 1;
         }else{

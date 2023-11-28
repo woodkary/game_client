@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository;
 @Tag(name = "UserArticleMapper")
 public interface UserArticleMapper {
     Integer insertUser(@Param(value = "username")String username);
+    Integer deleteUser(@Param(value = "username")String username);
 }

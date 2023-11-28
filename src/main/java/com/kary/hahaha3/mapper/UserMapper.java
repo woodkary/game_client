@@ -19,4 +19,5 @@ public interface UserMapper {
     Integer insertUser(@Param(value = "username")String username,@Param(value = "pwd")String pwd,@Param(value = "email")String email);
     List<User> selectUserLimit(@Param(value = "x")int x);
     Integer updateUserPassword(@Param(value = "username")String username,@Param(value="pwd")String pwd);
+    Integer deleteUser(@Param(value = "username")String username);
 }

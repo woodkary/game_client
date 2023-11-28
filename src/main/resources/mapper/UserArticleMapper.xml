@@ -10,9 +10,12 @@
                                   follow_article,
                                   follow_theme_count,
                                   follow_theme,
-                                  pulish_article_count,
-                                  pulish_article
+                                  publish_article_count,
+                                  publish_article
         ) values
               (#{username},0,0,0,0,0,0)
     </insert>
+    <delete id="deleteUser">
+        delete from user_article where username=#{username}
+    </delete>
 </mapper>

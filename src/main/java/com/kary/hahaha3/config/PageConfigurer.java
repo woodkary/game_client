@@ -12,7 +12,7 @@ public class PageConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
-                .addPathPatterns("/","**/index","/getRank/**","/**/index.html")
+                .addPathPatterns("**/index","/getRank/**","/index.html")
                 .excludePathPatterns("/login",
                         "/register",
                         "/resetPassword",
@@ -20,7 +20,8 @@ public class PageConfigurer implements WebMvcConfigurer {
                         "/typeVeriCode/**/*",
                         "/**/*.css",
                         "/**/*.js",
-                        "/swagger-ui.html"
+                        "**/*swagger-ui*/**",
+                        "**/swagger-ui/index.html*/**"
                 );
     }
 }

@@ -6,9 +6,12 @@
     <insert id="insertUser">
         insert into user_game (username,
                                score_total_1v1,
-                               score_games_count,
+                               games_count,
                                score_total_brawl
         )values (#{username},0,0,0)
     </insert>
+    <delete id="deleteUser">
+        delete from user_game where username=#{username}
+    </delete>
 
 </mapper>
