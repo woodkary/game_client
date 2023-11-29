@@ -54,5 +54,7 @@
     <select id="getCommentById" resultType="com.kary.hahaha3.pojo.Comment">
         select * from comment where comment_id=#{commentId}
     </select>
-
+    <select id="getAllCommentByPage" resultType="com.kary.hahaha3.pojo.Comment">
+        select * from comment where article_id=#{articleId} limit #{page},10
+    </select>
 </mapper>

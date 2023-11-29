@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author:123
  */
@@ -92,6 +94,24 @@ public class ForumServiceImpl implements ForumService {
     @Override
     public Integer publishTheme(String themeName) {
         return themeMapper.publishTheme(themeName);
+    }
+
+    @Override
+    public List<Theme> getAllThemeByPage(Integer page) {
+        page=(page-1)*10;
+        return themeMapper.getAllThemeByPage(page);
+    }
+
+    @Override
+    public List<Article> getAllArticleByPage(Integer page, String themeName) {
+        page=(page-1)*10;
+        return articleMapper.getAllArticleByPage(page,themeName);
+    }
+
+    @Override
+    public List<Comment> getAllCommentByPage(Integer page,Integer articleId) {
+        page=(page-1)*10;
+        return commentMapper.getAllCommentByPage(page,articleId);
     }
 }
 

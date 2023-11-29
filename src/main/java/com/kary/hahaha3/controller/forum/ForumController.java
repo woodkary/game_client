@@ -14,10 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author:123
@@ -86,6 +83,20 @@ public class ForumController extends BaseController {
         }else{
             throw new DatabaseUpdateException("回复评论失败，可能是评论已经删除");
         }
-
+    }
+    @GetMapping("/themes/{page}")
+    @Operation(summary = "分页展现所有主题")
+    public JsonResult getAllThemeByPage(@PathVariable Integer page){
+        return JsonResult.ok(forumService.getAllThemeByPage(page),"这是所有的主题");
+    }
+    @GetMapping("/articles/{page}")
+    @Operation(summary = "分页展现所有文章，要求前端给我主题名themeName")
+    public JsonResult getAllArticleByPage(@PathVariable Integer page,@RequestParam("themeName")String themeName){
+        return JsonResult.ok(forumService.getAllArticleByPage(page,themeName),"这是所有的文章");
+    }
+    @GetMapping("/comments/{page}")
+    @Operation(summary = "分页展现所有评论，要求前端给我文章id即articleId")
+    public JsonResult getAllCommentByPage(@PathVariable Integer page,@RequestParam("articleId")Integer articleId){
+        return JsonResult.ok(forumService.getAllCommentByPage(page,articleId),"这是所有的评论");
     }
 }

@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author:123
  */
@@ -24,4 +26,5 @@ public interface ArticleMapper {
     Integer like(@Param("articleId")Integer articleId);
     Integer dislike(@Param("articleId")Integer articleId);
     Integer getNewArticleId();
+    List<Article> getAllArticleByPage(@Param("page")Integer page,@Param("themeName")String themeName);
 }
