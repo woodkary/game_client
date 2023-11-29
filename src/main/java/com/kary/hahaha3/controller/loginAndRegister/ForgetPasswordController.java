@@ -37,7 +37,6 @@ public class ForgetPasswordController extends BaseController {
     public JsonResult resetPassword(@RequestParam(value = "username")String username,
                                 @RequestParam(value = "password")String password,
                                 @RequestParam(value = "retypePassword")String retypePassword,
-                                @RequestParam(value = "email")String email,
                                 HttpSession session) throws Exception {
         if(username==null){
             throw new UsernameEmptyException("用户名为空");
@@ -51,14 +50,17 @@ public class ForgetPasswordController extends BaseController {
             User userInDatabase= userService.selectUserByName(username);
             if(userInDatabase==null){
                 throw new UsernameErrorException("该用户不存在");
-            }else if(!MailUtil.legalQQMail(email)){
-                throw new EmailErrorException("请输入合法的邮箱");
-            }else {
-                password= aesEncoder.encrypt(password);
-                session.setAttribute("username",username);
-                session.setAttribute("password",password);
-                session.setAttribute("email",email);
-                return JsonResult.ok("请准备输入邮箱");
+            }else{
+                String email=userInDatabase.getEmail();
+                if(!MailUtil.legalQQMail(email)){
+                    throw new EmailErrorException("请输入合法的邮箱");
+                }else {
+                    password= aesEncoder.encrypt(password);
+                    session.setAttribute("username",username);
+                    session.setAttribute("password",password);
+                    session.setAttribute("email",email);
+                    return JsonResult.ok("请准备发验证码");
+                }
             }
         }
     }

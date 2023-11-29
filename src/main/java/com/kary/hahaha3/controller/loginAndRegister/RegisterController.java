@@ -57,7 +57,7 @@ public class RegisterController extends BaseController {
                 session.setAttribute("username",username);
                 session.setAttribute("password",password);
                 session.setAttribute("email",email);
-                return JsonResult.ok("请准备输入邮箱");
+                return JsonResult.ok("请准备发验证码");
         }
     }
 }

@@ -4,6 +4,7 @@ import com.kary.hahaha3.controller.BaseController;
 import com.kary.hahaha3.exceptions.connection.DatabaseConnectionException;
 import com.kary.hahaha3.exceptions.connection.VerificationCodeSendingException;
 import com.kary.hahaha3.exceptions.emptyInput.VerificationCodeEmptyException;
+import com.kary.hahaha3.exceptions.errorInput.ErrorInputException;
 import com.kary.hahaha3.exceptions.errorInput.VerificationCodeErrorException;
 import com.kary.hahaha3.exceptions.expired.VerificationCodeExpireException;
 import com.kary.hahaha3.mapper.UserMapper;
@@ -61,22 +62,28 @@ public class EmailVerificationController extends BaseController {
         }
         if(verificationCode.equals(veriCode)){
             Integer flag=2;
+            String successMessage="操作不当";
             switch (operation){
                 case 1:{//1是注册
                     flag= userService.insertUser((String) session.getAttribute("username"), (String) session.getAttribute("password"), (String) session.getAttribute("email"));
+                    successMessage="注册成功";
                     break;
                 }
                 case 2:{//2是改密码
                     String password=(String) session.getAttribute("password");
                     password=aesEncoder.encrypt(password);
                     flag= userService.updateUserPassword((String) session.getAttribute("username"), password);
+                    successMessage="修改密码成功";
                     break;
+                }
+                default:{
+                    throw new ErrorInputException("操作不当");
                 }
             }
             if(flag!=1){
                 throw new DatabaseConnectionException("更新数据库出错");
             }else {
-                return JsonResult.ok(1,"注册成功");
+                return JsonResult.ok(1,successMessage);
             }
         }else{
             throw new VerificationCodeErrorException("验证码错误，请重试");
