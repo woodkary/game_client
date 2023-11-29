@@ -5,10 +5,10 @@
 <mapper namespace="com.kary.hahaha3.mapper.ThemeMapper">
     <insert id="publishTheme">
         insert into theme (theme_name,
-                           descrption,
+                           description,
                            article_count,
                            follower_count,
-                           article_id)
+                           articles_id)
         values (#{themeName},"",0,0,"")
     </insert>
     <update id="changeDescription">
@@ -17,12 +17,15 @@
     </update>
     <update id="publishArticle">
         update theme set article_count=article_count+1,
-                         article_id=concat(article_id,concat(#{newArticleId},","))
+                         articles_id=concat(articles_id,concat(#{newArticleId},","))
         where theme_name=#{themeName}
     </update>
     <update id="followTheme">
         update theme set follower_count=follower_count+1
         where theme_name=#{themeName}
     </update>
+    <select id="getThemeByName" resultType="com.kary.hahaha3.pojo.Theme">
+        select * from theme where theme_name=#{themeName}
+    </select>
 
 </mapper>

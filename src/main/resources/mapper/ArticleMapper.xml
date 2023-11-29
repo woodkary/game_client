@@ -10,7 +10,7 @@
                             publish_time,
                             follower_count,
                             like_count,
-                            dislikecount,
+                            dislike_count,
                             comment_count,
                             article_topic,
                             content,
@@ -40,7 +40,7 @@
     <update id="dislike">
         update article set dislike_count=dislike_count+1 where article_id=#{articleId}
     </update>
-    <select id="getNewArticleId">
+    <select id="getNewArticleId" resultType="int">
         select max(article_id)+1 from article
     </select>
     <delete id="deleteArticle">

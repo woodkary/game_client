@@ -1,5 +1,6 @@
 package com.kary.hahaha3.mapper;
 
+import com.kary.hahaha3.pojo.Theme;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -19,4 +20,5 @@ public interface ThemeMapper {
     Integer changeDescription(@Param("themeName")String themeName,@Param("description")String description);
     Integer publishArticle(@Param("themeName")String themeName,@Param("newArticleId")int newArticleId);
     Integer followTheme(@Param("themeName")String themeName);
+    Theme getThemeByName(@Param("themeName")String themeName);
 }

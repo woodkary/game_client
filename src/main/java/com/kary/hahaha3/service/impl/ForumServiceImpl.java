@@ -3,11 +3,13 @@ package com.kary.hahaha3.service.impl;
 import com.kary.hahaha3.exceptions.connection.DatabaseConnectionException;
 import com.kary.hahaha3.exceptions.forum.article.NoSuchArticleException;
 import com.kary.hahaha3.exceptions.forum.comment.NoSuchCommentException;
+import com.kary.hahaha3.exceptions.forum.theme.NoSuchThemeException;
 import com.kary.hahaha3.mapper.ArticleMapper;
 import com.kary.hahaha3.mapper.CommentMapper;
 import com.kary.hahaha3.mapper.ThemeMapper;
 import com.kary.hahaha3.pojo.Article;
 import com.kary.hahaha3.pojo.Comment;
+import com.kary.hahaha3.pojo.Theme;
 import com.kary.hahaha3.service.ForumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,26 +31,33 @@ public class ForumServiceImpl implements ForumService {
     public Integer publishArticle(String username,
                                   String content,
                                   String articleTopic,
-                                  String themeName) throws DatabaseConnectionException {
+                                  String themeName) throws NoSuchThemeException {
+        Theme theme=themeMapper.getThemeByName(themeName);
+        if(theme==null){
+            throw new NoSuchThemeException("您发布的主题不存在或已被删除");
+        }
         Integer newArticleId=articleMapper.getNewArticleId();
+        if(newArticleId==null){
+            newArticleId=1;
+        }
         Integer num1,num2;
         try{
             num1=articleMapper.publishArticle(newArticleId,username,content,articleTopic,themeName);
         }catch (Exception e){
             articleMapper.deleteArticle(newArticleId);
-            throw new DatabaseConnectionException(e);
+            throw e;
         }
         try{
             num2= themeMapper.publishArticle(themeName,newArticleId);
         }catch (Exception e){
             articleMapper.deleteArticle(newArticleId);
-            throw new DatabaseConnectionException(e);
+            throw e;
         }
         return (num1==1&&num2==1)?1:0;
     }
 
     @Override
-    public Integer publishComment(String username, Integer articleId, String content) throws NoSuchArticleException, DatabaseConnectionException {
+    public Integer publishComment(String username, Integer articleId, String content) throws NoSuchArticleException {
         Article article=articleMapper.getArticleById(articleId);
         if(article==null){
             throw new NoSuchArticleException("你评论的文章不存在或已删除");
@@ -61,13 +70,13 @@ public class ForumServiceImpl implements ForumService {
             res=commentMapper.publishComment(newCommentId,username,articleId,content,commentFlag);
         }catch (Exception e){
             commentMapper.deleteComment(newCommentId);
-            throw new DatabaseConnectionException(e);
+            throw e;
         }//测试异常，测试结束后需删除
         return res;
     }
     //TODO 回复评论的代码
     @Override
-    public Integer replyComment(String username,String content,Integer parentId) throws NoSuchCommentException, DatabaseConnectionException {
+    public Integer replyComment(String username,String content,Integer parentId) throws NoSuchCommentException {
         Comment parentComment=commentMapper.getCommentById(parentId);
         if(parentComment==null){
             throw new NoSuchCommentException("您回复的评论不存在或已被删除");
@@ -84,7 +93,7 @@ public class ForumServiceImpl implements ForumService {
             res=commentMapper.replyComment(newCommentId,username,parentId,content,commentFlag);
         }catch (Exception e){
             commentMapper.deleteComment(newCommentId);
-            throw new DatabaseConnectionException(e);
+            throw e;
         }//测试异常，测试结束后需删除
         return res;
     }

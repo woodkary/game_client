@@ -11,6 +11,13 @@ public class BaseController {
     @ExceptionHandler(Exception.class)
     public JsonResult emptyInput(Throwable e, HttpServletResponse response){
         response.setStatus(400);
-        return JsonResult.error(e.getMessage());
+        String eMessage=e.getMessage();
+        StringBuffer message=new StringBuffer((eMessage!=null)?eMessage:"");
+        if(message.isEmpty()){
+            for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+                message.append(stackTraceElement);
+            }
+        }
+        return JsonResult.error(message);
     }
 }
