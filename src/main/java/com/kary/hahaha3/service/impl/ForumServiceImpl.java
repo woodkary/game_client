@@ -72,6 +72,7 @@ public class ForumServiceImpl implements ForumService {
         if(parentComment==null){
             throw new NoSuchCommentException("您回复的评论不存在或已被删除");
         }
+        //获取回复评论对应的文章的id，以便找出文章作者与commentFlag
         Integer articleId=parentComment.getArticleId();
         Integer commentFlag=0;
         if(articleMapper.getArticleById(articleId).getUsername().equals(username)){
@@ -86,6 +87,11 @@ public class ForumServiceImpl implements ForumService {
             throw new DatabaseConnectionException(e);
         }//测试异常，测试结束后需删除
         return res;
+    }
+
+    @Override
+    public Integer publishTheme(String themeName) {
+        return themeMapper.publishTheme(themeName);
     }
 }
 

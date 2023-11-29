@@ -16,5 +16,6 @@ public interface ForumService {
     Integer publishComment(String username,
                            Integer articleId,
                            String content) throws NoSuchArticleException, DatabaseConnectionException;
-    public Integer replyComment(String username,String content,Integer parentId) throws NoSuchCommentException, DatabaseConnectionException;
+    Integer replyComment(String username,String content,Integer parentId) throws NoSuchCommentException, DatabaseConnectionException;
+    Integer publishTheme(String themeName);
 }
