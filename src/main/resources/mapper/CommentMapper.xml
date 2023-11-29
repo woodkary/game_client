@@ -12,9 +12,9 @@
                              comment_date,
                              article_id,
                              comment_flag,
-                             content,
+                             content
         )values (
-                 (select max(comment_id)+1 from comment),
+                 #{commentId},
                  "",
                  0,
                  #{username},
@@ -47,13 +47,13 @@
             #{content}
         )
     </insert>
-    <select id="getNewCommentId">
-        (select max(comment_id)+1 from comment)
+    <select id="getNewCommentId" resultType="int">
+        select max(comment_id)+1 from comment
     </select>
     <delete id="deleteComment">
         delete from comment where comment_id=#{commentId}
     </delete>
-    <select id="getCommentById">
+    <select id="getCommentById" resultType="com.kary.hahaha3.pojo.Comment">
         select * from comment where comment_id=#{commentId}
     </select>
 

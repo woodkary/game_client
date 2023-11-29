@@ -28,7 +28,7 @@
                  #{themeName}
         )
     </insert>
-    <select id="getArticleById">
+    <select id="getArticleById" resultType="com.kary.hahaha3.pojo.Article">
         select * from article where article_id=#{articleId}
     </select>
     <update id="follow">

@@ -48,21 +48,21 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
-    public Integer publishComment(String username, Integer articleId, String content) throws NoSuchArticleException {
+    public Integer publishComment(String username, Integer articleId, String content) throws NoSuchArticleException, DatabaseConnectionException {
         Article article=articleMapper.getArticleById(articleId);
         if(article==null){
             throw new NoSuchArticleException("你评论的文章不存在或已删除");
         }
+        Integer commentFlag=0,newCommentId=1;
         //查看这个评论是否为文章作者所发
-        Integer commentFlag=(article.getUsername().equals(username))?1:0;
+        commentFlag = (article.getUsername().equals(username)) ? 1 : 0;
+
         Integer res;
-        Integer newCommentId=commentMapper.getNewCommentId();
-        try{
-            res=commentMapper.publishComment(newCommentId,username,articleId,content,commentFlag);
-        }catch (Exception e){
-            commentMapper.deleteComment(newCommentId);
-            throw e;
-        }//测试异常，测试结束后需删除
+        newCommentId=commentMapper.getNewCommentId();
+        if(newCommentId==null){
+            newCommentId=1;
+        }
+        res=commentMapper.publishComment(newCommentId,username,articleId,content,commentFlag);
         return res;
     }
     //TODO 回复评论的代码

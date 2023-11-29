@@ -4,6 +4,7 @@ import com.kary.hahaha3.controller.BaseController;
 import com.kary.hahaha3.exceptions.DatabaseUpdateException;
 import com.kary.hahaha3.exceptions.connection.DatabaseConnectionException;
 import com.kary.hahaha3.exceptions.expired.SessionExpireException;
+import com.kary.hahaha3.exceptions.forum.article.NoSuchArticleException;
 import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.service.ForumService;
@@ -52,6 +53,22 @@ public class ForumController extends BaseController {
             return JsonResult.ok(res,"发布主题成功");
         }else{throw new DatabaseUpdateException("发布主题出现问题");
 
+        }
+    }
+    @PostMapping("/publishComment")
+    @Operation(summary = "发布评论。要求前端：在页面中存储每条文章的id，即articleId。这个id在展示所有文章时会由后端给出", description = "API to handle theme publish")
+    public JsonResult publishComment(@RequestParam("articleId")Integer articleId,
+                                     @RequestParam("content")String content,
+                                     HttpSession session) throws SessionExpireException, NoSuchArticleException, DatabaseUpdateException, DatabaseConnectionException {
+        User myAccount= (User) session.getAttribute("myAccount");
+        if(myAccount==null){
+            throw new SessionExpireException("您尚未登陆，或登录信息已过期");
+        }
+        Integer res=forumService.publishComment(myAccount.getUsername(),articleId,content);
+        if(res==1){
+            return JsonResult.ok(res,"发布评论成功");
+        }else{
+            throw new DatabaseUpdateException("发布评论成功，可能是文章已经删除");
         }
     }
 }

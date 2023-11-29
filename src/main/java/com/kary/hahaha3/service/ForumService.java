@@ -18,7 +18,7 @@ public interface ForumService {
                            String themeName) throws NoSuchThemeException;
     Integer publishComment(String username,
                            Integer articleId,
-                           String content) throws NoSuchArticleException;
+                           String content) throws NoSuchArticleException, DatabaseConnectionException;
     Integer replyComment(String username,String content,Integer parentId) throws NoSuchCommentException;
     Integer publishTheme(String themeName);
 }

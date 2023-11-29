@@ -15,9 +15,10 @@ public class BaseController {
         StringBuffer message=new StringBuffer((eMessage!=null)?eMessage:"");
         if(message.isEmpty()){
             for (StackTraceElement stackTraceElement : e.getStackTrace()) {
-                message.append(stackTraceElement);
+                message.append(stackTraceElement+System.lineSeparator());
             }
         }
-        return JsonResult.error(message);
+        e.printStackTrace();
+        return JsonResult.error(message,e.getClass().getSimpleName());
     }
 }
