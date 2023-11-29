@@ -32,9 +32,6 @@ public class JsonResult implements Serializable {
     public static JsonResult error(Object data,String message){
         return new JsonResult(400,data,message);
     }
-    public static JsonResult error(Object data){
-        return error(data,"错误，请重试");
-    }
     public static JsonResult error(String message){
         return error("",message);
     }

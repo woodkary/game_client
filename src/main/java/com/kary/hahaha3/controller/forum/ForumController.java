@@ -68,7 +68,7 @@ public class ForumController extends BaseController {
         if(res==1){
             return JsonResult.ok(res,"发布评论成功");
         }else{
-            throw new DatabaseUpdateException("发布评论成功，可能是文章已经删除");
+            throw new DatabaseUpdateException("发布评论失败，可能是文章已经删除");
         }
     }
 }
