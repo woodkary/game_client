@@ -19,6 +19,6 @@ public class BaseController {
             }
         }
         e.printStackTrace();
-        return JsonResult.error(message,e.getClass().getSimpleName());
+        return JsonResult.error(e.getClass().getSimpleName(),message.toString());
     }
 }
