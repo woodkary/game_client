@@ -30,26 +30,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer insertUser(String username, String pwd, String email) throws DatabaseConnectionException {
+    public Integer insertUser(String username, String pwd, String email) {
         Integer num1,num2,num3;
-        try{
-            num1= userMapper.insertUser(username,pwd,email);
-        }catch (Exception e){
-            userMapper.deleteUser(username);
-            throw new DatabaseConnectionException(e);
-        }
-        try {
-            num2 = userArticleMapper.insertUser(username);
-        }catch (Exception e){
-            userArticleMapper.deleteUser(username);
-            throw new DatabaseConnectionException(e);
-        }
-        try {
-            num3 = userGameMapper.insertUser(username);
-        }catch (Exception e){
-            userGameMapper.deleteUser(username);
-            throw new DatabaseConnectionException(e);
-        }
+        num1= userMapper.insertUser(username,pwd,email);
+        num2 = userArticleMapper.insertUser(username);
+        num3 = userGameMapper.insertUser(username);
+
         if(num1==1&&num2==1&&num3==1){
             return 1;
         }else{

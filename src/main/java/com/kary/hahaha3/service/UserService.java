@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface UserService {
     User selectUserByName(String username);
-    Integer insertUser(String username,String pwd,String email) throws DatabaseConnectionException;
+    Integer insertUser(String username,String pwd,String email);
     List<User> selectUserLimit(int x);
     Integer updateUserPassword(String username,String pwd);
 }

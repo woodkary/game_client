@@ -35,7 +35,7 @@
             comment_flag,
             content,
         )values (
-            (select max(comment_id)+1 from comment),
+            #{commentId},
             (select parent_comment_username from comment
                 where comment_id=#{parentId}),
             #{parentId},
@@ -47,4 +47,14 @@
             #{content}
         )
     </insert>
+    <select id="getNewCommentId">
+        (select max(comment_id)+1 from comment)
+    </select>
+    <delete id="deleteComment">
+        delete from comment where comment_id=#{commentId}
+    </delete>
+    <select id="getCommentById">
+        select * from comment where comment_id=#{commentId}
+    </select>
+
 </mapper>

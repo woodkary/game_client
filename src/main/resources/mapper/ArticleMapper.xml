@@ -16,7 +16,7 @@
                             content,
                             theme_name
         )values (
-                 (select max(article_id)+1 from article),
+                 #{articleId},
                  #{username},
                  now(),
                  0,
@@ -28,6 +28,9 @@
                  #{themeName}
         )
     </insert>
+    <select id="getArticleById">
+        select * from article where article_id=#{articleId}
+    </select>
     <update id="follow">
         update article set follower_count=follower_count+1 where article_id=#{articleId}
     </update>
@@ -37,5 +40,11 @@
     <update id="dislike">
         update article set dislike_count=dislike_count+1 where article_id=#{articleId}
     </update>
+    <select id="getNewArticleId">
+        select max(article_id)+1 from article
+    </select>
+    <delete id="deleteArticle">
+        delete from article where article_id=#{articleId}
+    </delete>
 
 </mapper>

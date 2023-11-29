@@ -13,7 +13,7 @@
                                   publish_article_count,
                                   publish_article
         ) values
-              (#{username},0,0,0,0,0,0)
+              (#{username},0,"",0,"",0,"")
     </insert>
     <delete id="deleteUser">
         delete from user_article where username=#{username}
