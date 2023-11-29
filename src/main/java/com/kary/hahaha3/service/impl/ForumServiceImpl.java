@@ -81,7 +81,7 @@ public class ForumServiceImpl implements ForumService {
         Integer res;
         Integer newCommentId=commentMapper.getNewCommentId();
         try{
-            res=commentMapper.replyComment(newCommentId,username,parentId,content,commentFlag);
+            res=commentMapper.replyComment(newCommentId,parentComment.getCommentUsername(),username,parentId,articleId,content,commentFlag);
         }catch (Exception e){
             commentMapper.deleteComment(newCommentId);
             throw e;

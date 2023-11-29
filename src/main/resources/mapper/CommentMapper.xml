@@ -33,16 +33,14 @@
             comment_date,
             article_id,
             comment_flag,
-            content,
+            content
         )values (
             #{commentId},
-            (select parent_comment_username from comment
-                where comment_id=#{parentId}),
+            #{parentCommentUsername},
             #{parentId},
             #{username},
             now(),
-            (select article_id from comment
-             where comment_id=#{parentId}),
+            #{articleId},
             #{commentFlag},
             #{content}
         )

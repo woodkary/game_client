@@ -20,8 +20,10 @@ public interface CommentMapper {
                            @Param("content")String content,
                             @Param("commentFlag")Integer commentFlag);
     Integer replyComment(@Param("commentId")Integer commentId,
+                         @Param("parentCommentUsername") String parentCommentUsername,
                          @Param("username")String username,
                          @Param("parentId")Integer parentId,
+                         @Param("articleId")Integer articleId,
                          @Param("content")String content,
                          @Param("commentFlag")Integer commentFlag);
     Integer getNewCommentId();
