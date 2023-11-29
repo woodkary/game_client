@@ -77,7 +77,7 @@ public class EmailVerificationController extends BaseController {
                     break;
                 }
                 default:{
-                    throw new ErrorInputException("操作不当");
+                    throw new ErrorInputException("操作不当，请重试");
                 }
             }
             if(flag!=1){
