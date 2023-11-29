@@ -41,18 +41,9 @@ public class ForumServiceImpl implements ForumService {
             newArticleId=1;
         }
         Integer num1,num2;
-        try{
-            num1=articleMapper.publishArticle(newArticleId,username,content,articleTopic,themeName);
-        }catch (Exception e){
-            articleMapper.deleteArticle(newArticleId);
-            throw e;
-        }
-        try{
-            num2= themeMapper.publishArticle(themeName,newArticleId);
-        }catch (Exception e){
-            articleMapper.deleteArticle(newArticleId);
-            throw e;
-        }
+        num1=articleMapper.publishArticle(newArticleId,username,content,articleTopic,themeName);
+        num2= themeMapper.publishArticle(themeName,newArticleId);
+
         return (num1==1&&num2==1)?1:0;
     }
 
