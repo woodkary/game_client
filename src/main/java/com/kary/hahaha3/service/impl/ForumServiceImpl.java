@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author:123
  */
@@ -48,21 +50,21 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
-    public Integer publishComment(String username, Integer articleId, String content) throws NoSuchArticleException {
+    public Integer publishComment(String username, Integer articleId, String content) throws NoSuchArticleException, DatabaseConnectionException {
         Article article=articleMapper.getArticleById(articleId);
         if(article==null){
             throw new NoSuchArticleException("你评论的文章不存在或已删除");
         }
+        Integer commentFlag=0,newCommentId=1;
         //查看这个评论是否为文章作者所发
-        Integer commentFlag=(article.getUsername().equals(username))?1:0;
+        commentFlag = (article.getUsername().equals(username)) ? 1 : 0;
+
         Integer res;
-        Integer newCommentId=commentMapper.getNewCommentId();
-        try{
-            res=commentMapper.publishComment(newCommentId,username,articleId,content,commentFlag);
-        }catch (Exception e){
-            commentMapper.deleteComment(newCommentId);
-            throw e;
-        }//测试异常，测试结束后需删除
+        newCommentId=commentMapper.getNewCommentId();
+        if(newCommentId==null){
+            newCommentId=1;
+        }
+        res=commentMapper.publishComment(newCommentId,username,articleId,content,commentFlag);
         return res;
     }
     //TODO 回复评论的代码
@@ -81,7 +83,7 @@ public class ForumServiceImpl implements ForumService {
         Integer res;
         Integer newCommentId=commentMapper.getNewCommentId();
         try{
-            res=commentMapper.replyComment(newCommentId,username,parentId,content,commentFlag);
+            res=commentMapper.replyComment(newCommentId,parentComment.getCommentUsername(),username,parentId,articleId,content,commentFlag);
         }catch (Exception e){
             commentMapper.deleteComment(newCommentId);
             throw e;
@@ -92,6 +94,24 @@ public class ForumServiceImpl implements ForumService {
     @Override
     public Integer publishTheme(String themeName) {
         return themeMapper.publishTheme(themeName);
+    }
+
+    @Override
+    public List<Theme> getAllThemeByPage(Integer page) {
+        page=(page-1)*10;
+        return themeMapper.getAllThemeByPage(page);
+    }
+
+    @Override
+    public List<Article> getAllArticleByPage(Integer page, String themeName) {
+        page=(page-1)*10;
+        return articleMapper.getAllArticleByPage(page,themeName);
+    }
+
+    @Override
+    public List<Comment> getAllCommentByPage(Integer page,Integer articleId) {
+        page=(page-1)*10;
+        return commentMapper.getAllCommentByPage(page,articleId);
     }
 }
 

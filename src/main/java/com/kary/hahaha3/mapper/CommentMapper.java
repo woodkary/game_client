@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author:123
  */
@@ -20,11 +22,14 @@ public interface CommentMapper {
                            @Param("content")String content,
                             @Param("commentFlag")Integer commentFlag);
     Integer replyComment(@Param("commentId")Integer commentId,
+                         @Param("parentCommentUsername") String parentCommentUsername,
                          @Param("username")String username,
                          @Param("parentId")Integer parentId,
+                         @Param("articleId")Integer articleId,
                          @Param("content")String content,
                          @Param("commentFlag")Integer commentFlag);
     Integer getNewCommentId();
     Integer deleteComment(@Param("commentId")Integer commentId);
     Comment getCommentById(@Param("commentId")Integer commentId);
+    List<Comment> getAllCommentByPage(@Param("page")Integer page,@Param("articleId")Integer articleId);
 }

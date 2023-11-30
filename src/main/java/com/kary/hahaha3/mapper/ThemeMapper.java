@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author:123
  */
@@ -21,4 +23,5 @@ public interface ThemeMapper {
     Integer publishArticle(@Param("themeName")String themeName,@Param("newArticleId")int newArticleId);
     Integer followTheme(@Param("themeName")String themeName);
     Theme getThemeByName(@Param("themeName")String themeName);
+    List<Theme> getAllThemeByPage(@Param("page")Integer page);
 }
