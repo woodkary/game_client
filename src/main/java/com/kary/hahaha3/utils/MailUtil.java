@@ -64,6 +64,7 @@ public class MailUtil {
         Transport.send(message);
     }
     public static boolean legalQQMail(String email){
-        return email!=null&&email.indexOf("@qq.com")!=-1;
+        return email!=null&&email.indexOf("@")!=-1&&
+                email.indexOf(".com")!=-1;
     }
 }
