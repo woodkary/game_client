@@ -43,7 +43,7 @@ public class UserRankInformationController extends BaseController {
         return JsonResult.ok(recordVO,"这是战绩");
     }
     @GetMapping("/{type}")
-    @Operation(summary = "获取自己或别人的比赛记录信息，按模式筛选")
+    @Operation(summary = "获取自己或别人的比赛记录信息，按模式筛选",description = "type=1代表1v1，type=2代表大乱斗")
     public JsonResult othersRankInformation(@RequestParam("username")String username, @PathVariable int page,@PathVariable Integer type) throws Exception {
         User account= userService.selectUserByName(username);
         if(account==null){
