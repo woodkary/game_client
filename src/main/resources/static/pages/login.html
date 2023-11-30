@@ -62,6 +62,7 @@
 
                         // 配置请求
                         xhr.open('GET', 'http://localhost:8080/login?username='+username+"&password="+password); // 根据您的实际需求指定适当的URL
+                        // xhr.open('GET', 'http://localhost:8080/login?username=${username}&password=${password}'); // 根据您的实际需求指定适当的URL
                         xhr.setRequestHeader('Content-Type', 'application/json');
                         // 定义处理响应的函数
                         xhr.onload = function() {
