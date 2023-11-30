@@ -19,7 +19,7 @@
                 <form id="login-form">
                     <input class="in" type="text" placeholder="用户名" id="username" required>
                     <input class="in" type="password" placeholder="密码" id="password" required>
-                    <button class = "in" type="submit" onclick="getVegalite()">用户名登录</button>
+                    <button class = "in" type="submit" onclick="getVegalite(event)">用户名登录</button>
                 </form>
                 <p class="message" id="verification-message"></p>
 
@@ -65,14 +65,15 @@
                         xmlHttpRequest.open("GET","http://localhost:8080/login?username="+username+"&password="+password,true); // 创建http请求，并指定请求得方法（get）、url（https://www.runoob.com/try/ajax/ajax_info.txt）以及验证信息
                         xmlHttpRequest.send(null); // 发送请求
                     }
-                    function getVegalite() {
+                    function getVegalite(event) {
+                        event.preventDefault();
                         var username = document.getElementById("username").value;
                         var password = document.getElementById("password").value;
                         // 创建一个新的AJAX请求对象
                         var xhr = new XMLHttpRequest();
 
                         // 配置请求
-                        xhr.open('POST', 'http://localhost:8080/login?username='+username+"&password="+password); // 根据您的实际需求指定适当的URL
+                        xhr.open('GET', 'http://localhost:8080/login?username='+username+"&password="+password); // 根据您的实际需求指定适当的URL
                         xhr.setRequestHeader('Content-Type', 'application/json');
                         // 定义处理响应的函数
                         xhr.onload = function() {
@@ -87,7 +88,7 @@
                                 var message = document.getElementById("verification-message");
                                 message.textContent = "发送不成功";
                                 message.style.color = "red";
-                                // alert('请求失败。错误代码：' + xhr.status);
+                                alert('请求失败。错误代码：' + xhr.status);
                             }
                         };
 
@@ -110,7 +111,7 @@
                             message.style.color = "red";
                         }
                     }
-                    document.getElementById("login-form").addEventListener("submit", ajaxHttpRequestFunc);
+                    document.getElementById("login-form").addEventListener("submit", getVegalite);
                 </script>
             </div>
         </div>
