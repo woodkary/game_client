@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sign up</title>
+    <link rel="stylesheet" href="../styles/sign-up--main.css">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="background"></div>
+
+        <nav class="navbar">
+            <img class="LOGO">
+            <a id="return-to-login" href="../pages/login.html">返回登录界面</a>
+        </nav>
+
+        <div class="container">
+            <h2>创建一个属于你的账号</h2>
+            <form onsubmit="return false" method="post" action="{{ url_for('register') }}">
+                <div class="form-group" id="account-form">
+
+                    <label for="username">用户名:</label>
+                    <input type="text" id="username" name="username" placeholder="输入想取的用户名" >
+
+                    <label for="password">密码:</label>
+                    <input type="password" id="password" name="password" placeholder="输入想要的密码" ><br><br>
+                    <input type="password" id="password" name="retypePassword" placeholder="确认输入的密码" >
+
+                    <ul class="password-strength">
+                        <li>密码长度在八位以上</li>
+                        <li>包含数字</li>
+                        <li>包含特殊字符</li>
+                    </ul>
+                    <div class="form-group">
+                        <label for="email">电子邮箱:</label>
+                        <input type="email" id="email" name="email" placeholder="输入你的邮箱" ><br><br>
+
+                        <label for="text">邮箱验证码:</label>
+                        <input type="text" id="verification-code" name="luckyUs" placeholder="输入发送给你的邮箱验证码"><br><br>
+
+                        <button type="submit" id="send-code">发送验证码</button>
+                    </div>
+            </form>
+
+            <button type="submit" id="create-account">创建账号</button>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/sign-up.js"></script>
+</body>
+
+</html>
