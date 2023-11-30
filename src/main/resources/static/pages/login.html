@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../styles/login.css">
 </head>
 <body>
     <div class="main">
@@ -24,8 +24,8 @@
                 <p class="message" id="verification-message"></p>
 
                 <p class = "account" id="text">没有账号？</p>
-                <a href="../sign-up/sign-up.html" class = "account" id="sign-up">注册账号</a>
-                <a href="../reset-password/reset-password.html" class = "account" id="forget-password">忘记密码</a>
+                <a href="../pages/register.html" class = "account" id="register">注册账号</a>
+                <a href="../pages/reset-password.html" class = "account" id="forget-password">忘记密码</a>
                 <div class="container">
                     <div class="item line" id="line-one"></div>
                     <div class="item para" ><p>或者</p></div>
@@ -33,14 +33,10 @@
                 </div>
                 <button onclick="RedirectToPage()" class = "in" type="button">使用邮箱登录</button>
                 <script>
-                    function ajaxHttpRequestFunc(event){
+                    function validateLogin(event){
                         event.preventDefault();
-                        let xmlHttpRequest;  // 创建XMLHttpRequest对象，即一个用于保存异步调用对象的变量
-                        if(window.ActiveXObject){ // IE浏览器的创建方式
-                            xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
-                        }else if(window.XMLHttpRequest){ // Netscape浏览器中的创建方式
-                            xmlHttpRequest = new XMLHttpRequest();
-                        }
+                        var xmlHttpRequest = new XMLHttpRequest();
+
                         xmlHttpRequest.onreadystatechange=function(){ // 设置响应http请求状态变化的事件
                             if(xmlHttpRequest.readyState == 4){ // 判断异步调用是否成功,若成功开始局部更新数据
                                 var jsonResult=JSON.parse(xmlHttpRequest.responseText);
@@ -68,21 +64,7 @@
                     function RedirectToPage() {
                         window.location.href = "email-login.html";
                     }
-                    function validateLogin(event) {
-                        event.preventDefault(); // Prevent form submission
-                        var username = document.getElementById("username").value;
-                        var password = document.getElementById("password").value;
-                        var message = document.getElementById("verification-message");
-                        if (username === "admin" && password === "password") {
-                            message.textContent = "登录成功";
-                            message.style.color = "green";
-                            window.location.href = "../../index.html";
-                        } else {
-                            message.textContent = "账号或者密码错误";
-                            message.style.color = "red";
-                        }
-                    }
-                    document.getElementById("login-form").addEventListener("submit", ajaxHttpRequestFunc);
+                    document.getElementById("login-form").addEventListener("submit", validateLogin);
                 </script>
             </div>
         </div>
