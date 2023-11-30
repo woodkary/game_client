@@ -39,7 +39,7 @@ public class RegisterController extends BaseController {
                                    @RequestParam(value = "password")String password,
                                    @RequestParam(value = "retypePassword")String retypePassword,
                                    @RequestParam(value = "email")String email,
-                                   Model model, HttpSession session)throws Exception{
+                                   HttpSession session)throws Exception{
         if(username==null){
             throw new UsernameEmptyException("用户名为空");
         }else if(password==null){
