@@ -108,11 +108,11 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
 
         Object[] winnerScoreGainAndStartTime=playersScoreGainAndMatchStartTime.get(winner);
         winnerScoreGainAndStartTime[0]=(Integer)winnerScoreGainAndStartTime[0]+15;
-        playersScoreGainAndMatchStartTime.put(winner,winnerScoreGainAndStartTime);
+        /*playersScoreGainAndMatchStartTime.put(winner,winnerScoreGainAndStartTime);*/
 
         Object[] loserScoreGainAndStartTime=playersScoreGainAndMatchStartTime.get(loser);
         loserScoreGainAndStartTime[0]=(Integer)loserScoreGainAndStartTime[0]-10;
-        playersScoreGainAndMatchStartTime.put(loser,loserScoreGainAndStartTime);
+        /*playersScoreGainAndMatchStartTime.put(loser,loserScoreGainAndStartTime);*/
         //TODO 为胜利方加分，记录这场比赛，目前暂定赢+15，输-10，更新数据库
         if(Integer.valueOf(30).equals(winnerScoreGainAndStartTime[0])){
             //2:0，游戏结束
