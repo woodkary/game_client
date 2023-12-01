@@ -14,6 +14,7 @@ import com.kary.hahaha3.service.ForumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class ForumServiceImpl implements ForumService {
     @Autowired
     private CommentMapper commentMapper;
     @Override
+    @Transactional
     public Integer publishArticle(String username,
                                   String content,
                                   String articleTopic,
@@ -50,6 +52,7 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
+    @Transactional
     public Integer publishComment(String username, Integer articleId, String content) throws NoSuchArticleException, DatabaseConnectionException {
         Article article=articleMapper.getArticleById(articleId);
         if(article==null){
@@ -69,6 +72,7 @@ public class ForumServiceImpl implements ForumService {
     }
     //TODO 回复评论的代码
     @Override
+    @Transactional
     public Integer replyComment(String username,String content,Integer parentId) throws NoSuchCommentException {
         Comment parentComment=commentMapper.getCommentById(parentId);
         if(parentComment==null){
@@ -87,6 +91,7 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
+    @Transactional
     public Integer publishTheme(String themeName) {
         return themeMapper.publishTheme(themeName);
     }
