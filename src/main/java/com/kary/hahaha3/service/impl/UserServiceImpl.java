@@ -9,6 +9,7 @@ import com.kary.hahaha3.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Integer insertUser(String username, String pwd, String email) {
         Integer num1,num2,num3;
         num1= userMapper.insertUser(username,pwd,email);
@@ -49,6 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Integer updateUserPassword(String username, String pwd) {
         return userMapper.updateUserPassword(username,pwd);
     }
