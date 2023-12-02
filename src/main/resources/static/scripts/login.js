@@ -1,136 +1,53 @@
-body{
-    margin: 0;
+function validateLogin(){
+
+    var xmlHttpRequest = new XMLHttpRequest();
+
+    xmlHttpRequest.onreadystatechange=function(){ // 设置响应http请求状态变化的事件
+        if(xmlHttpRequest.readyState == 4){ // 判断异步调用是否成功,若成功开始局部更新数据
+            var jsonResult=JSON.parse(xmlHttpRequest.responseText);
+            var message = document.getElementById("verification-message");
+            if(xmlHttpRequest.status == 200) {
+                message.textContent = jsonResult.message;
+                message.style.color = "green";
+                window.location.href = "../index.html";
+            } else {
+                message.textContent = jsonResult.message;
+                message.style.color = "red";
+            }
+        }else{
+            message.textContent = "发送不成功";
+            message.style.color = "red";
+        }
+    }
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    // 创建一个新的AJAX请求对象
+    var xhr = new XMLHttpRequest();
+
+    // 配置请求
+    xhr.open('GET', 'http://localhost:8080/login?username='+username+"&password="+password); // 根据您的实际需求指定适当的URL
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    // 定义处理响应的函数
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var response = xhr.responseText;
+            var jsonResult=JSON.parse(response);
+            var message = document.getElementById("verification-message");
+            message.textContent = jsonResult.message;
+            message.style.color = "green";
+            window.location.href = "../../index.html";
+        } else {
+            var message = document.getElementById("verification-message");
+            message.textContent = "发送不成功";
+            message.style.color = "red";
+            alert('请求失败。错误代码：' + xhr.status);
+        }
+    };
+
+    xhr.send();
 }
 
-.LOGO{
-    content: url("LOGO.png");
+function redirectToPage() {
+    window.location.href = "email-login.html";
 }
-
-#background{
-    width: 100%;
-    height: 100vh;
-    background-image: url("background.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-top: 0px;
-    position: absolute;
-    opacity: 0.8;
-    z-index: -1;
-}
-
-.navbar {
-    color:#2F2E2D;
-    background-color: #2F2E2D;
-    width: 100%;
-    height: 8vh;
-}
-
-.navbar .LOGO{
-    width: 200px;
-    height: 40px;
-    margin-top: calc(4vh - 20px);
-    margin-left: 10px;
-}
-
-.login{
-    width:300px;
-    height:400px;
-    border: 5px black transparent;
-    border-radius: 10px;
-    position: absolute;
-    background-color: white;
-    left: calc(80% - 150px);
-    top: 10vh;
-    margin-top: 10vh;
-    padding: 20px;
-    background-color:rgba(16,16,16,0.27);
-}
-
-.login .LOGO{
-    margin-left: 5vh;
-    width : 200px;
-    height : 40px;
-}
-
-.in{
-    margin-left: 2vh;
-    border-radius: 5px;
-    width: 250px;
-    height: 25px;
-    font-family: "consolas";
-}
-.in text{
-    margin-top: 50px;
-}
-
-
-#username{
-    margin-top: 30px;
-}
-#password{
-    margin-top: 15px;
-}
-#verification-message{
-    margin-left: 2vh;
-}
-
-.login button{
-    margin-top: 15px;
-    background-color: #7BAC3B;
-    color: white;
-    opacity: 0.8;
-    display: block;
-    width: 255px;
-}
-.login button:hover{
-    cursor:pointer;
-    opacity: 1.0;
-}
-
-.login .account{
-    height: 20px;
-    line-height: 28px;
-    font-size: 12px;
-    padding: 0;
-    display: inline;
-}
-
-#text{
-    margin-left: 20px;
-}
-#sign-up
-{
-    color:#7BAC3B
-}
-#forget-password{
-    margin-left: 90px;
-    color:cadetblue;
-}
-#forget-password:hover{
-    color:aqua;
-    font-size: 10;
-}
-
-.login .container{
-    display: flex;
-}
-.login .item{
-    flex: 1;
-}
-.line{
-    margin-top: 20px;
-    width: 33.33%;
-    height: 0px;
-    border:1px solid white;
-}
-.container .para
-{
-    text-align: center;
-    margin-top:-5px;
-}
-#line-one{
-    float:left;
-}
-#line-two{
-    float:right;
-}
+document.getElementById("login-form").addEventListener("submit", validateLogin);
