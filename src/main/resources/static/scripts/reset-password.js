@@ -7,7 +7,7 @@ document.getElementById("send-code").addEventListener("click", function() {
 });
 
 function checkPassword() {
-  var password = document.getElementById("password").value;
+  const password = document.getElementById("password").value;
   var password2 = document.getElementById("password2").value;
   if (password !== password2) {
     alert("两次输入的密码不一致");
@@ -19,7 +19,7 @@ function checkPassword() {
 function checkPasswordStrength() {
   var password = document.getElementById("password").value;
   if (password.length < 8) {
-    alert("密码长度不能小于6位");
+    alert("密码长度不能小于8位");
     return false;
   }
   return true;

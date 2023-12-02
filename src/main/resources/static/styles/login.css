@@ -6,7 +6,7 @@ body{
     content: url("../images/LOGO.png");
 }
 
-#background{
+.background{
     width: 100%;
     height: 100vh;
     background-image: url("../images/background.png");
@@ -95,16 +95,15 @@ body{
     display: inline;
 }
 
-#text{
+#hint{
     margin-left: 20px;
 }
-#sign-up
-{
+#register{
     color:#7BAC3B
 }
 #forget-password{
     margin-left: 90px;
-    color:cadetblue;
+    color:rgb(174, 212, 235);
 }
 #forget-password:hover{
     color:aqua;

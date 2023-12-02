@@ -1,18 +1,22 @@
-document.getElementById("create-account").addEventListener("click", function () {
-    var accountForm = document.getElementById("account-form");
-    if (accountForm.checkValidity()) {
-        accountForm.submit();
+const formEL = document.getElementById("formEL");
+formEL.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const inputELs = formEL.getElementsByTagName("input");
+    const formData =  {};
+    for (let i = 0; i < inputELs.length; i++) {
+        formData[inputELs[i].name] = inputELs[i].value;
     }
-});
-
-document.getElementById("send-code").addEventListener("click", function () {
-    var emailForm = document.getElementById("email-form");
-    if (emailForm.checkValidity()) {
-        alert("验证码已发送,请查看你的邮箱");
-        var inputCode = document.getElementById("verification-code").value;
-        fetch
-        if (inputCode.length > 0) {
-            emailForm.submit();
+    axios.post("http://localhost:8080/register",formData, {
+        Headers:"Content-Type:application/json"
+    }).then(res => {
+        console.log(res);
+        if(res.data.code === 200)
+        {
+            alert("注册成功");
+            window.location.href = "/login";
         }
-    }
+    }).catch(err => {
+        console.log(err);
+        alert("注册失败");
+    })
 });
