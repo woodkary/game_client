@@ -12,8 +12,9 @@ formEL.addEventListener("submit", function (event) {
         console.log(res);
         if(res.data.code === 200)
         {
-            alert("注册成功");
-            window.location.href = "/login";
+            /*alert("注册成功");
+            window.location.href = "/login";*/
+            window.location.href = "/email-verification.html";
         }
     }).catch(err => {
         console.log(err);
