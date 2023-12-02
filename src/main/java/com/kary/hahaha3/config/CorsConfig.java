@@ -20,7 +20,7 @@ public class CorsConfig implements WebMvcConfigurer {
          * 一小时内不需要再预检
          */
         registry.addMapping("/**")
-                .allowedOrigins(CorsConfiguration.ALL)
+                .allowedOrigins("http://localhost","http://127.0.0.1")
                 .allowCredentials(true)
                 .allowedHeaders(CorsConfiguration.ALL)
                 .allowedMethods(CorsConfiguration.ALL)

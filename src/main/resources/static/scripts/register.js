@@ -10,14 +10,18 @@ formEL.addEventListener("submit", function (event) {
         Headers:"Content-Type:application/json"
     }).then(res => {
         console.log(res);
-        if(res.data.code === 200)
+        if(res.code === 200)
         {
-            /*alert("注册成功");
-            window.location.href = "/login";*/
+            alert(res);
+            /*window.location.href = "/login";*/
             window.location.href = "/email-verification.html";
         }
     }).catch(err => {
         console.log(err);
-        alert("注册失败");
+        let errorMessage="";
+        for(let i=0;i<formData.length;i++){
+            errorMessage+=formData;
+        }
+        alert("注册失败"+errorMessage+"///////////"+errorMessage.length+"abcdef\n\n"+formData.length);
     })
 });
