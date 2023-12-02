@@ -1,47 +1,25 @@
-body{
-    margin: 0;
+function checkVerificationCode() {
+  // Make an API call to the backend to get the verification code
+  // Replace the API_URL with the actual URL of your backend API
+  fetch(API_URL)
+    .then(response => response.json())
+    .then(data => {
+      // Store the received verification code in a variable
+      const verificationCode = data.code;
+      compareVerificationCode(verificationCode);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 }
 
-.LOGO{
-    content: url("LOGO.png");
+function compareVerificationCode(verificationCode) {
+  const userInput = document.getElementById('verification-code').value;
+  if (verificationCode === userInput) {
+    console.log('Verification code is correct');
+  } else {
+    console.log('Verification code is incorrect');
+  }
 }
 
-#background{
-    width: 100%;
-    height: 100vh;
-    background-image: url("background.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-top: 0px;
-    position: absolute;
-    opacity: 0.8;
-    z-index: -1;
-}
-
-.navbar {
-    color:#2F2E2D;
-    background-color: #2F2E2D;
-    width: 100%;
-    height: 8vh;
-}
-
-.navbar .LOGO{
-  width: 200px;
-  height: 40px;
-  margin-top: calc(4vh - 20px);
-  margin-left: 20px ;
-}
-
-#return-to-login{
-  text-decoration:none;
-  position: absolute;
-  color:rgba(255,255,255,0.8);
-  font-size: 20px;
-  margin-left: 3vw;
-  margin-top: calc(5vh - 20px);
-}
-
-#return-to-login:hover{
-  text-decoration:underline;
-  color:rgba(255,255,255,1);
-}
+receiveVerificationCode();

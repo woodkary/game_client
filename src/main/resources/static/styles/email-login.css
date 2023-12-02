@@ -3,13 +3,13 @@ body{
 }
 
 .LOGO{
-    content: url("LOGO.png");
+    content: url("../images/LOGO.png");
 }
 
-#background{
+.background{
     width: 100%;
     height: 100vh;
-    background-image: url("background.png");
+    background-image: url("../images/background.png");
     background-repeat: no-repeat;
     background-size: cover;
     margin-top: 0px;
@@ -65,12 +65,16 @@ body{
 
 
 #email{
-    margin-top: 30px;
+    margin-top: 5vh;
+
 }
-#verification-code{
-    margin-top: 15px;
+#email-verification{
+    margin-top: 3vh;
+    
 }
+
 #verification-message{
+    margin-top: 2vh;
     margin-left: 2vh;
 }
 
@@ -98,13 +102,12 @@ body{
 #text{
     margin-left: 20px;
 }
-#sign-up
-{
+#register{
     color:#7BAC3B
 }
 #forget-password{
     margin-left: 90px;
-    color:cadetblue;
+    color:rgb(174, 212, 235);
 }
 #forget-password:hover{
     color:aqua;
@@ -133,8 +136,4 @@ body{
 }
 #line-two{
     float:right;
-}
-
-#send-code{
-    
 }

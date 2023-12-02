@@ -1,140 +1,36 @@
-body{
-    margin: 0;
+
+document.getElementById("login-form").addEventListener("submit", validateLogin);
+
+function validateLogin() {
+    var xmlHttpRequest = new XMLHttpRequest();
+    xmlHttpRequest.onreadystatechange = function () { // 设置响应http请求状态变化的事件
+        var jsonResult = JSON.parse(xmlHttpRequest.responseText);
+        var message = document.getElementById("verification-message");
+        if (xmlHttpRequest.status == 200) {
+            message.textContent = jsonResult.message;
+            message.style.color = "green";
+            redirectToVerifyPage();
+        } else {
+            message.textContent = jsonResult.message;
+            message.style.color = "red";
+        }
+    }
+
+    var email = document.getElementById("email").value;
+
+    /*let requestData = { username: username, password: password };
+    requestData=JSON.stringify(requestData);*/
+
+    xmlHttpRequest.open("GET", "http://localhost:8080/login?username=" + username + "&password=" + password, true); // 创建http请求，并指定请求得方法（get）、url（https://www.runoob.com/try/ajax/ajax_info.txt）以及验证信息
+    xmlHttpRequest.send(null); // 发送请求
+
+    //Post email to server
 }
 
-.LOGO{
-    content: url("LOGO.png");
+function redirectToVerifyPage() {
+    window.location.href = "../pages/email-verification.html";
 }
 
-#background{
-    width: 100%;
-    height: 100vh;
-    background-image: url("background.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-top: 0px;
-    position: absolute;
-    opacity: 0.8;
-    z-index: -1;
-}
-
-.navbar {
-    color:#2F2E2D;
-    background-color: #2F2E2D;
-    width: 100%;
-    height: 8vh;
-}
-
-.navbar .LOGO{
-    width: 200px;
-    height: 40px;
-    margin-top: calc(4vh - 20px);
-    margin-left: 10px;
-}
-
-.login{
-    width:300px;
-    height:400px;
-    border: 5px black transparent;
-    border-radius: 10px;
-    position: absolute;
-    background-color: white;
-    left: calc(80% - 150px);
-    top: 10vh;
-    margin-top: 10vh;
-    padding: 20px;
-    background-color:rgba(16,16,16,0.27);
-}
-
-.login .LOGO{
-    margin-left: 5vh;
-    width : 200px;
-    height : 40px;
-}
-
-.in{
-    margin-left: 2vh;
-    border-radius: 5px;
-    width: 250px;
-    height: 25px;
-    font-family: "consolas";
-}
-.in text{
-    margin-top: 50px;
-}
-
-
-#email{
-    margin-top: 30px;
-}
-#verification-code{
-    margin-top: 15px;
-}
-#verification-message{
-    margin-left: 2vh;
-}
-
-.login button{
-    margin-top: 15px;
-    background-color: #7BAC3B;
-    color: white;
-    opacity: 0.8;
-    display: block;
-    width: 255px;
-}
-.login button:hover{
-    cursor:pointer;
-    opacity: 1.0;
-}
-
-.login .account{
-    height: 20px;
-    line-height: 28px;
-    font-size: 12px;
-    padding: 0;
-    display: inline;
-}
-
-#text{
-    margin-left: 20px;
-}
-#sign-up
-{
-    color:#7BAC3B
-}
-#forget-password{
-    margin-left: 90px;
-    color:cadetblue;
-}
-#forget-password:hover{
-    color:aqua;
-    font-size: 10;
-}
-
-.login .container{
-    display: flex;
-}
-.login .item{
-    flex: 1;
-}
-.line{
-    margin-top: 20px;
-    width: 33.33%;
-    height: 0px;
-    border:1px solid white;
-}
-.container .para
-{
-    text-align: center;
-    margin-top:-5px;
-}
-#line-one{
-    float:left;
-}
-#line-two{
-    float:right;
-}
-
-#send-code{
-    
+function redirectToLoginPage() {
+    window.location.href = "../pages/login.html";
 }
