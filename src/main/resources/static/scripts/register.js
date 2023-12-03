@@ -47,7 +47,7 @@ formEL.addEventListener("submit", function (event) {
         retypePassword: "password123",
         email: "john.doe@example.com"
       },
-      headers: { 'content-type': 'application/json' }
+      headers: { 'content-type': 'application/json' },
       withCredentials: true,
     })
     .then(response => {
