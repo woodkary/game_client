@@ -44,6 +44,9 @@ public class UserRankInformationController extends BaseController {
     @Autowired
     @Qualifier("RecordVOService")
     private RecordVOService recordVOService;
+    @Autowired
+    @Qualifier("UserService")
+    private UserService userService;
     @GetMapping("/myAllRecords")
     @Operation(summary = "统计所有战绩信息，即全部场次部分，仅返回一个Records对象。请看Records类")
     public JsonResult getMyAllGame(HttpSession session) throws SessionExpireException {
@@ -76,12 +79,12 @@ public class UserRankInformationController extends BaseController {
     }
     @GetMapping("/ranks/getMyRank/{page}")
     @Operation(summary = "获取我自己的比赛记录信息")
-    public JsonResult myRankInformation(@PathVariable int page, HttpSession session) throws SessionExpireException, MatchTypeErrorException {
-        User myAccount= (User) session.getAttribute("myAccount");
-        if(myAccount==null){
-            throw new SessionExpireException("您尚未登陆，或登录信息已过期");
+    public JsonResult myRankInformation(@RequestParam("username")String username,@PathVariable int page, HttpSession session) throws SessionExpireException, MatchTypeErrorException {
+        User account= userService.selectUserByName(username);
+        if(account==null){
+            throw new SessionExpireException("用户不存在");
         }
-        List<RecordVO> recordVOS=recordVOService.getGamesByIds(myAccount.getUsername(), null,page);
-        return JsonResult.ok(recordVOS,"这是我自己的比赛");
+        List<RecordVO> recordVOS=recordVOService.getGamesByIds(username, null,page);
+        return JsonResult.ok(recordVOS,"这是比赛");
     }
 }
