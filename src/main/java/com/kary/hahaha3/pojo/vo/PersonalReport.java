@@ -18,3 +18,7 @@ public class PersonalReport {
     private double winRate;
     private String level;
 }
+JSON JsonResult{
+    type:"1"
+    gameNums:""
+        }
