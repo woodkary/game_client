@@ -22,7 +22,8 @@
 
         <div class="container">
             <h2>创建一个属于你的账号</h2>
-            <form id="formEL" name="../pages/email-verification.html">
+
+            <form id="formEL" onsubmit="return false">
                 <div class="form-group" id="account-form">
 
                     <label for="username">用户名:</label>
@@ -34,8 +35,7 @@
 
                     <ul class="password-strength">
                         <li>密码长度在八位以上</li>
-                        <li>包含数字</li>
-                        <li>包含特殊字符</li>
+                        <li>包含数字和字母</li>
                     </ul>
 
                     <div class="form-group">
@@ -48,6 +48,7 @@
             <br>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </body>

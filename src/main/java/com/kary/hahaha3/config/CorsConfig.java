@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author:123
  */
 @Configuration
+
 public class CorsConfig implements WebMvcConfigurer {
 
     @Override
@@ -40,3 +41,4 @@ public class CorsConfig implements WebMvcConfigurer {
         return new CorsFilter(source);
     }*/
 }
+

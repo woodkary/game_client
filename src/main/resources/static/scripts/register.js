@@ -1,25 +1,75 @@
 
-function register(event,hrefString,doc) {
-    event.preventDefault();
-    let formEL=doc.getElementById("formEL");
-    const inputELs = formEL.getElementsByTagName("input");
-    let formData =  {};
-    for (let i = 0; i < inputELs.length; i++) {
-        formData[inputELs[i].name] = inputELs[i].value;
-    }
-    let xhr=new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:8080/register", true);
-    xhr.setRequestHeader("Content-Type", "application/json");
+// formEL.addEventListener("submit", function (event) {
+//     event.preventDefault();
+//     const inputELs = formEL.getElementsByTagName("input");
+//     const formData = {
+//         username: "JohnDoe",
+//         password: "password123",
+//         retypePassword: "password123",
+//         email: "john.doe@example.com"
+//       };
+//     // for (let i = 0; i < inputELs.length; i++) {
+//     //     formData[inputELs[i].name] = inputELs[i].value;
+//     // }
+//     axios({
+//       method: 'post',
+//       url: 'http://localhost:8080/register',
+//       data: {
+//         username: "JohnDoe",
+//         password: "password123",
+//         retypePassword: "password123",
+//         email: "john.doe@example.com"
+//       },
+//       headers: { 'content-type': 'application/x-www-form-urlencoded' }
+//     })
+//     .then(response => {
+//       console.log(response);
+//     })
+//     .catch(error => {
+//       console.error(error);
+//     });
+// });
 
-    xhr.onreadystatechange = function () {
-        let response = JSON.parse(xhr.responseText);
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // Handle the response here
-            window.location.href=hrefString;
-        }else{
-            console.log("错误"+response);
-        }
-    };
-    const jsonData = JSON.stringify(formData);
-    xhr.send(jsonData);
+
+// const formEL = document.getElementById("formEL");
+// formEL.addEventListener("submit", function (event) {
+// var http = new XMLHttpRequest();
+// var url = 'http://localhost:8080/register';
+// var params = "username='dan'&password='password123'&retypePassword='password123'&email='wocaonima@qq.com'";
+// http.open('POST', url, true);
+
+// //Send the proper header information along with the request
+// http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+// http.onreadystatechange = function() {//Call a function when the state changes.
+//     if(http.readyState == 4 && http.status == 200) {
+//         alert(http.responseText);
+//     }
+// }
+// http.send(params);
+// });
+
+function encodeFormData(data) {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .join('&');
 }
+formEL.addEventListener("submit", function (event) {
+  axios.post('http://localhost:8080/register', encodeFormData({
+    username: 'dan',
+    password: 'password123',
+    retypePassword: 'password123',
+    email: 'wocaonima@qq.com'
+  }), {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+    .then(function (response) {
+      alert(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+});
+

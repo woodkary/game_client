@@ -1,12 +1,4 @@
-document.getElementById("change-password").addEventListener("click", function() {
-  alert("密码重设成功");
-  window.location.href = "../login/login.html"
-});
-document.getElementById("send-code").addEventListener("click", function() {
-  alert("验证码已发送,请查看你的邮箱");
-});
-
-function checkPassword() {
+function checkPasswordIdentical() {
   const password = document.getElementById("password").value;
   var password2 = document.getElementById("password2").value;
   if (password !== password2) {
@@ -17,9 +9,30 @@ function checkPassword() {
 }
 
 function checkPasswordStrength() {
+  if (!checkPasswordLength()) {
+    return false;
+  }
+  if (!checkPasswordFormat()) {
+    return false;
+  }
+  return true;
+}
+
+function checkPasswordLength() {
   var password = document.getElementById("password").value;
   if (password.length < 8) {
     alert("密码长度不能小于8位");
+    return false;
+  }
+  return true;
+}
+
+//ensure password have some numbers and letters
+function checkPasswordFormat() {
+  var password = document.getElementById("password").value;
+  var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,}$/;
+  if (!reg.test(password)) {
+    alert("密码必须包含数字和字母");
     return false;
   }
   return true;
