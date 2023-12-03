@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 /**
  * @author:123
  */
-//todo 重新输入密码和输入邮箱放一起了，是否需要把他们分开？
 @RestController
 @Tag(name = "忘记密码")
 public class ForgetPasswordController extends BaseController {

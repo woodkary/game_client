@@ -28,7 +28,6 @@ public class RecordVOServiceImpl implements RecordVOService {
     //输入我自己的名字和比赛列表
     public List<RecordVO> getGamesByIds(String username,Integer type) throws MatchTypeErrorException {
         List<RecordVO> records=new ArrayList<>();
-        //TODO 筛选username参加过的所有比赛
         List<Record> recordList=recordMapper.selectRecordsByUsername(username);
         for (Record record : recordList) {
             Games game;
