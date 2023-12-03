@@ -51,9 +51,8 @@ public class EmailVerificationController extends BaseController {
     }
     @PostMapping("/typeVeriCode/{operation}")
     @Operation(summary = "验证发送的验证码",description = "operation 1是注册,2是改密码")
-    public JsonResult typeVeriCodeToRegister(@RequestBody VerificationCodeJSON veriCodeJSON, @PathVariable Integer operation, HttpSession session) throws Exception {
+    public JsonResult typeVeriCodeToRegister(@RequestBody String veriCode, @PathVariable Integer operation, HttpSession session) throws Exception {
         String verificationCode= (String) session.getAttribute("verificationCode");
-        String veriCode=veriCodeJSON.getVeriCode();
         if(veriCode==null){
             throw new VerificationCodeEmptyException("请输入验证码");
         }
