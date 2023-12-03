@@ -79,7 +79,7 @@ public class UserRankInformationController extends BaseController {
     }
     @GetMapping("/getRanks/{page}")
     @Operation(summary = "获取我自己的比赛记录信息，返回List<RecordVO>")
-    public JsonResult myRankInformation(@RequestParam("username")String username,@PathVariable int page, HttpSession session) throws SessionExpireException, MatchTypeErrorException {
+    public JsonResult myRankInformation(@RequestParam("username")String username,@PathVariable int page) throws SessionExpireException, MatchTypeErrorException {
         User account= userService.selectUserByName(username);
         if(account==null){
             throw new SessionExpireException("用户不存在");
