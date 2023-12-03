@@ -8,7 +8,6 @@
     <title>注册页面</title>
     <link rel="stylesheet" href="../styles/register.css">
 </head>
-
 <body>
     <div class="main">
         <div class="background"></div>
@@ -20,11 +19,12 @@
 
         <div class="container">
             <h2>创建一个属于你的账号</h2>
-            <form id="formEL">
+
+            <form id="formEL" onsubmit="return false">
                 <div class="form-group" id="account-form">
 
                     <label for="username">用户名:</label>
-                    <input type="text" id="username" name="username" placeholder="输入想取的用户名"  value="">
+                    <input type="text" id="username" name="username" placeholder="输入想取的用户名">
 
                     <label for="password">密码:</label>
                     <input type="password" id="password" name="password" placeholder="输入想要的密码" ><br><br>
@@ -32,21 +32,22 @@
 
                     <ul class="password-strength">
                         <li>密码长度在八位以上</li>
-                        <li>包含数字</li>
-                        <li>包含特殊字符</li>
+                        <li>包含数字和字母</li>
                     </ul>
 
                     <div class="form-group">
                         <label for="email">电子邮箱:</label>
                         <input type="email" id="email" name="email" placeholder="输入你的邮箱"><br><br>
                     </div>
-                    <button type="submit" id="create-account">创建账号</button>
+                    <button type="submit" id="create-account" >创建账号</button>
+                </div>
             </form>
             <br>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script type="text/javascript" src="../scripts/register.js"></script>
+    <script src="../scripts/register.js"></script>
 </body>
 
 </html>

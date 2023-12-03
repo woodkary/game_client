@@ -9,6 +9,8 @@ import com.kary.hahaha3.exceptions.errorInput.UsernameErrorException;
 import com.kary.hahaha3.mapper.UserMapper;
 import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.User;
+import com.kary.hahaha3.pojo.vo.RegisterJSON;
+import com.kary.hahaha3.pojo.vo.ResetPasswordJSON;
 import com.kary.hahaha3.service.UserService;
 import com.kary.hahaha3.utils.AESUtil;
 import com.kary.hahaha3.utils.MailUtil;
@@ -34,10 +36,12 @@ public class ForgetPasswordController extends BaseController {
 
     @PostMapping("/resetPassword")
     @Operation(summary = "重置密码",description = "reset password")
-    public JsonResult resetPassword(@RequestParam(value = "username")String username,
-                                @RequestParam(value = "password")String password,
-                                @RequestParam(value = "retypePassword")String retypePassword,
-                                HttpSession session) throws Exception {
+    public JsonResult resetPassword(@RequestBody ResetPasswordJSON resetPasswordJSON,
+                                    HttpSession session) throws Exception {
+        String username=resetPasswordJSON.getUsername();
+        String password=resetPasswordJSON.getPassword();
+        String retypePassword=resetPasswordJSON.getRetypePassword();
+
         if(username==null){
             throw new UsernameEmptyException("用户名为空");
         }else if(password==null){
