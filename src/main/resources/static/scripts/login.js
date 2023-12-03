@@ -16,7 +16,7 @@ function validateLogin(event){
             var message = document.getElementById("verification-message");
             message.textContent = jsonResult.message;
             message.style.color = "green";
-            window.location.href = "../../index.html";
+            window.location.href = "../index.html";
         } else {
             var message = document.getElementById("verification-message");
             message.textContent = jsonResult.message;

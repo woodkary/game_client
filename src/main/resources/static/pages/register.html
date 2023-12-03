@@ -8,9 +8,6 @@
     <title>注册页面</title>
     <link rel="stylesheet" href="../styles/register.css">
 </head>
-
-<script type="text/javascript" src="../scripts/register.js"></script>
-
 <body>
     <div class="main">
         <div class="background"></div>
@@ -42,7 +39,7 @@
                         <label for="email">电子邮箱:</label>
                         <input type="email" id="email" name="email" placeholder="输入你的邮箱"><br><br>
                     </div>
-                    <button type="submit" id="create-account" onclick="register(event,'../pages/email-verification.html',document)">创建账号</button>
+                    <button type="submit" id="create-account" >创建账号</button>
                 </div>
             </form>
             <br>
@@ -50,7 +47,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <script src="../scripts/register.js"></script>
 </body>
 
 </html>
