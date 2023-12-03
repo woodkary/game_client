@@ -4,12 +4,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kary.hahaha3.controller.BaseController;
 import com.kary.hahaha3.exceptions.JsonException;
+import com.kary.hahaha3.exceptions.errorInput.MatchTypeErrorException;
 import com.kary.hahaha3.exceptions.errorInput.UsernameErrorException;
 import com.kary.hahaha3.exceptions.expired.SessionExpireException;
 import com.kary.hahaha3.mapper.UserMapper;
 import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.User;
+import com.kary.hahaha3.pojo.vo.PersonalReport;
 import com.kary.hahaha3.pojo.vo.Records;
+import com.kary.hahaha3.service.PersonalReportService;
 import com.kary.hahaha3.service.RecordsService;
 import com.kary.hahaha3.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,7 +34,10 @@ import java.util.List;
 public class UserRankInformationController extends BaseController {
     @Autowired
     @Qualifier("RecordsService")
-    RecordsService recordsService;
+    private RecordsService recordsService;
+    @Autowired
+    @Qualifier("PersonalReportService")
+    private PersonalReportService personalReportService;
     @GetMapping("/myAllRecords")
     @Operation(summary = "统计所有战绩信息，即全部场次部分，仅返回一个Records对象。请看Records类")
     public JsonResult getMyAllGame(HttpSession session) throws SessionExpireException {
@@ -51,6 +57,16 @@ public class UserRankInformationController extends BaseController {
         }
         Records records=recordsService.getAllGameThisMonth(myAccount.getUsername());
         return JsonResult.ok(records,"你的本月战绩信息");
+    }
+    @GetMapping("/myReport/{type}")
+    @Operation(summary = "统计战报，仅返回一个PersonalReport对象。个人主页中需要调用两次")
+    public JsonResult getPersonalReport(@PathVariable int type,HttpSession session) throws SessionExpireException, UsernameErrorException, MatchTypeErrorException {
+        User myAccount= (User) session.getAttribute("myAccount");
+        if(myAccount==null){
+            throw new SessionExpireException("您尚未登陆，或登录信息已过期");
+        }
+        PersonalReport personalReport=personalReportService.getPersonalReport(myAccount.getUsername(), type);
+        return JsonResult.ok(personalReport,"这是个人战报");
     }
 
 }

@@ -40,8 +40,8 @@ public class RecordsServiceImpl implements RecordsService {
         }
         res.setGameNums(gameNums);
         res.setTotalKills(kill);
-        res.setWinRate(win*1.0/gameNums);
-        res.setKda(kill*1.0/death);
+        res.setWinRate(gameNums>0?(win*1.0/gameNums):win*1.0);
+        res.setKda(death>0?(kill*1.0/death):kill*1.0);
         return res;
     }
 
@@ -50,13 +50,13 @@ public class RecordsServiceImpl implements RecordsService {
         Records res=new Records();
         int kill=0,death=0,win=0,gameNums=0;
         List<Record> recordList=recordMapper.selectRecordsByUsername(username);
-        gameNums=recordList.size();
         for (Record record : recordList) {
             int gameId= record.getGameId();
             Games game=gamesMapper.getThisMonthGameById(gameId);
             if(game==null){
                 continue;
             }
+            gameNums+=1;
             kill+= record.getKill();
             death+= record.getDeath();
             if(game.getType()==1&&record.getKill()>record.getDeath()){

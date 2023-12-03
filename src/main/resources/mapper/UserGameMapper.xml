@@ -13,5 +13,15 @@
     <delete id="deleteUser">
         delete from user_game where username=#{username}
     </delete>
+    <select id="getScoreByType">
+        select
+            <if test="type==1">
+                score_total_1v1
+            </if>
+            <if test="type==2">
+                score_total_brawl
+            </if>
+        from user_gamewhere username=#{username}
+    </select>
 
 </mapper>
