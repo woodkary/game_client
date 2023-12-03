@@ -28,13 +28,13 @@ console.log(formEL);
 
 formEL.addEventListener("submit", function (event) {
     event.preventDefault();
-    const inputELs = formEL.getElementsByTagName("input");
-    const formData = {
-        username: "JohnDoe",
-        password: "password123",
-        retypePassword: "password123",
-        email: "john.doe@example.com"
-      };
+    // const inputELs = formEL.getElementsByTagName("input");
+    // const formData = {
+    //     username: "JohnDoe",
+    //     password: "password123",
+    //     retypePassword: "password123",
+    //     email: "john.doe@example.com"
+    //   };
     // for (let i = 0; i < inputELs.length; i++) {
     //     formData[inputELs[i].name] = inputELs[i].value;
     // }
