@@ -47,9 +47,10 @@ formEL.addEventListener("submit", function (event) {
         retypePassword: "password123",
         email: "john.doe@example.com"
       },
-      headers: { 'content-type': 'application/x-www-form-urlencoded' }
+      headers: { 'content-type': 'application/json' }
     })
     .then(response => {
+      window.location.href="email-verification.html";
       console.log(response);
     })
     .catch(error => {
