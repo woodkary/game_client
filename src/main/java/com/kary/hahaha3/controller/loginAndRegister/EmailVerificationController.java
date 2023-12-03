@@ -9,6 +9,7 @@ import com.kary.hahaha3.exceptions.errorInput.VerificationCodeErrorException;
 import com.kary.hahaha3.exceptions.expired.VerificationCodeExpireException;
 import com.kary.hahaha3.mapper.UserMapper;
 import com.kary.hahaha3.pojo.JsonResult;
+import com.kary.hahaha3.pojo.vo.VerificationCodeJSON;
 import com.kary.hahaha3.service.UserService;
 import com.kary.hahaha3.utils.AESUtil;
 import com.kary.hahaha3.utils.MailUtil;
@@ -17,10 +18,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 
@@ -52,8 +50,9 @@ public class EmailVerificationController extends BaseController {
     }
     @PostMapping("/typeVeriCode/{operation}")
     @Operation(summary = "验证发送的验证码",description = "operation 1是注册,2是改密码")
-    public JsonResult typeVeriCodeToRegister(@RequestParam(value="veriCode")String veriCode, @PathVariable Integer operation, HttpSession session) throws Exception {
+    public JsonResult typeVeriCodeToRegister(@RequestBody VerificationCodeJSON veriCodeJSON, @PathVariable Integer operation, HttpSession session) throws Exception {
         String verificationCode= (String) session.getAttribute("verificationCode");
+        String veriCode=veriCodeJSON.getVeriCode();
         if(veriCode==null){
             throw new VerificationCodeEmptyException("请输入验证码");
         }

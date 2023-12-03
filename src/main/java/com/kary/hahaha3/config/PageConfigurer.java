@@ -14,14 +14,15 @@ public class PageConfigurer implements WebMvcConfigurer {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/getRank/**","/index.html","/forum/**")
                 .excludePathPatterns("/login",
-                        "/register",
-                        "/resetPassword",
-                        "/sendVeriCode",
-                        "/typeVeriCode/**/*",
-                        "/**/*.css",
-                        "/**/*.js",
+                        "**/register",
+                        "**/resetPassword",
+                        "**/sendVeriCode",
+                        "**/typeVeriCode/**/*",
+                        "**/*.css",
+                        "**/*.js",
                         "**/*swagger-ui*/**",
-                        "**/swagger-ui/index.html*/**"
+                        "**/swagger-ui/index.html*/**",
+                        "**/email-verification.html"
                 );
     }
 }
