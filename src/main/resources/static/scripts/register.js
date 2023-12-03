@@ -23,5 +23,5 @@ function register(event,hrefString,doc) {
         }
     };
     const jsonData = JSON.stringify(formData);
-    xhr.send(formData);
+    xhr.send(jsonData);
 }
