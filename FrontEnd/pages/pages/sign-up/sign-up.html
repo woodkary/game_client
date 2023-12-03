@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sign in</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<div class="main">
+    <div id="background"></div>
+    <div class="navbar">
+        <div>
+            <a href="../login/login.html"> <img class="LOGO"></a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="logo_container">
+            <a href="../login/login.html"> <img class="LOGO_sub"></a>
+        </div>
+        
+        <form>
+            <div style="height: 10px;"></div>
+            <div class="form-group">
+                <label for="username">用户名:</label>
+                <input type="text" id="username" name="username" placeholder="输入想取的用户名" required>
+            </div>
+            <div class="form-group">
+                <label for="password">密码:</label>
+                <input type="password" id="password" name="password" placeholder="输入想要的密码" required>
+                <br><br>
+                <input type="password" id="password" name="password" placeholder="确认输入的密码" required>
+                <div class="password-strength">
+                    <li class="strong">密码长度在八位以上</li>
+                    <li class="medium">包含数字</li>
+                    <li class="weak">包含特殊字符</li>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">电子邮箱:</label>
+                <input type="email" id="email" name="email" placeholder="输入你的邮箱" required>
+                <br><br>
+                <label for="text">邮箱验证码:</label>
+                <div class="verification">
+                    <input type="text" id="text" name="text" placeholder="输入发送给你的邮箱验证码">
+                    <button type="submit" id="send-code">发送验证码</button>
+                </div>
+            </div>
+            <div class="empty"></div>
+            <button type="submit" id="create-account">创建账号</button>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById("create-account").addEventListener("click", function () {
+        alert("账号创建成功");
+        window.location.href = "../login/login.html";
+    });
+    document.getElementById("send-code").addEventListener("click", function () {
+        alert("验证码已发送,请查看你的邮箱");
+    });
+</script>
+
+</body>
+
+</html>

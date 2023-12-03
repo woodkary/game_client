@@ -1,0 +1,145 @@
+body{
+    margin: 0;
+}
+
+.LOGO{
+    content: url("LOGO.png");
+}
+
+#background{
+    width: 100%;
+    height: 100vh;
+    background-image: url("background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 0px;
+    position: absolute;
+    opacity: 0.8;
+    z-index: -1;
+}
+
+.navbar {
+    color:#2F2E2D;
+    background-color: #2F2E2D;
+    width: 100%;
+    height: 10vh;
+}
+
+.navbar .LOGO{
+    width: 250px;
+    margin-top: calc(4vh - 20px);
+    margin-left: 10px;
+}
+
+.login{
+    width:300px;
+    height:425px;
+    border-radius: 10px;
+    position: absolute;
+    left: calc(80% - 150px);
+    top: 10vh;
+    margin-top: 10vh;
+    padding: 20px;
+    background-color: rgb(251 251 251 / 83%);
+}
+
+.login .LOGO{
+    margin-left: 5vh;
+    width : 225px;
+}
+.in{
+    margin-left: 2vh;
+    border-color: #8b8a8a;
+    border-radius: 5px;
+    width: 250px;
+    padding: 5px;
+    height: 30px;
+    font-family: "Arial";
+    font-size: medium;
+    font-weight: 545;
+}
+.in text{
+    margin-top: 50px;
+}
+
+
+#email{
+    margin-top: 30px;
+}
+#verification-code{
+    margin-top: 15px;
+}
+#verification-message{
+    margin-left: 2vh;
+}
+
+.login button{
+    margin-top: 15px;
+    background-color: #5d8727;
+    color: white;
+    opacity: 0.8;
+    display: block;
+    width: 265px;
+    height:37px;
+}
+.login button:hover{
+    cursor:pointer;
+    opacity: 1.0;
+}
+
+.login .account{
+    display: inline;
+    height: 35px;
+    line-height: 28px;
+    font-size: 15px;
+    padding: 0;
+    display: inline;
+}
+
+#text{
+    margin-left: 20px;
+}
+#sign-up
+{
+    color:#61892e
+}
+#sign-up:hover{
+    color: #6f9b37
+}
+#forget-password{
+    margin-left: 50px;
+    color:#407778;
+}
+#forget-password:hover{
+    color:rgba(64, 164, 164, 0.581);
+    font-size: 10;
+}
+
+.login .container{
+    display: flex;
+    height: 30px;
+}
+.login .item{
+    flex: 1;
+}
+.line{
+    margin-top: 20px;
+    width: 33.33%;
+    height: 0px;
+    border:1px solid white;
+}
+.container .para
+{
+    text-align: center;
+    margin-top:-5px;
+}
+#line-one{
+    float:left;
+}
+#line-two{
+    float:right;
+}
+
+#send-code{
+    
+}
