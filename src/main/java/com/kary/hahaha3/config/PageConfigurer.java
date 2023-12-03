@@ -21,8 +21,7 @@ public class PageConfigurer implements WebMvcConfigurer {
                         "**/*.css",
                         "**/*.js",
                         "**/*swagger-ui*/**",
-                        "**/swagger-ui/index.html*/**",
-                        "**/email-verification.html"
+                        "**/swagger-ui/index.html*/**"
                 );
     }
 }

@@ -34,19 +34,20 @@ public class EmailVerificationController extends BaseController {
     //mode有username password email,现在要得到code
     //输入授权码
     //准备发送验证码
-    @PostMapping("/sendVeriCode")
+    @GetMapping("/sendVeriCode")
     @Operation(summary = "发送验证码")
     public JsonResult sendVeriCode(HttpSession session) throws VerificationCodeSendingException {
         //先生成验证码
         String verificationCode=MailUtil.getRandom6Digit();
         session.setAttribute("verificationCode",verificationCode);
+        /*System.out.println(session.getAttribute("email")+"///////");*/
         //发送验证码
         try {
             MailUtil.sendMail((String) session.getAttribute("email"),verificationCode,"验证码");
         } catch (MessagingException e) {
             throw new VerificationCodeSendingException("发送验证码错误",e);
         }
-        return JsonResult.ok("等待输入验证码");
+        return JsonResult.ok(verificationCode,"等待输入验证码");
     }
     @PostMapping("/typeVeriCode/{operation}")
     @Operation(summary = "验证发送的验证码",description = "operation 1是注册,2是改密码")

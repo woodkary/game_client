@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../styles/email-verification.css">
 </head>
 
+<script type="text/javascript" src="../scripts/email-verification.js"></script>
+
 <body>
     <div class="main">
         <div class="background"></div>
@@ -21,15 +23,17 @@
         <div class="container">
             <h2>邮箱验证</h2>
             <form>
-                <div class="form-group" id="code-form">
-                    <label for="verification-code">验证码:</label>
-                    <input type="text" id="verification-code" name="verification-code" placeholder="输入验证码" required>
-                    <button class="button" type="submit" id="confirm" onclick="checkVerificationCode()">确认</button>
-                </div>
-            </form>
+            <button class="button" type="submit" id="send" onclick="checkVerificationCode(event)">发送验证码</button>
+             </form>
+
+            <div class="form-group" id="code-form">
+                <label for="verification-code">验证码:</label>
+                <input type="text" id="verification-code" name="verification-code" placeholder="输入验证码" required>
+                <button class="button" type="submit" id="confirm" onclick="compareVerificationCode(event)">确认</button>
+            </div>
+
         </div>
     </div>
-    <script type="text/javascript" src="../scripts/email-verification.js"></script>
 </body>
 
 </html>

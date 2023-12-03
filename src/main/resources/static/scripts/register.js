@@ -15,11 +15,9 @@ function register(event,hrefString,doc) {
         let response = JSON.parse(xhr.responseText);
         if (xhr.readyState === 4 && xhr.status === 200) {
             // Handle the response here
-            alert(response);
             window.location.href=hrefString;
         }else{
-            alert(response);
-            console.log("错误");
+            console.log("错误"+response);
         }
     };
     const jsonData = JSON.stringify(formData);

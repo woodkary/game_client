@@ -1,24 +1,4 @@
 function validateLogin(){
-
-    var xmlHttpRequest = new XMLHttpRequest();
-
-    xmlHttpRequest.onreadystatechange=function(){ // 设置响应http请求状态变化的事件
-        if(xmlHttpRequest.readyState == 4){ // 判断异步调用是否成功,若成功开始局部更新数据
-            var jsonResult=JSON.parse(xmlHttpRequest.responseText);
-            var message = document.getElementById("verification-message");
-            if(xmlHttpRequest.status == 200) {
-                message.textContent = jsonResult.message;
-                message.style.color = "green";
-                window.location.href = "../index.html";
-            } else {
-                message.textContent = jsonResult.message;
-                message.style.color = "red";
-            }
-        }else{
-            message.textContent = "发送不成功";
-            message.style.color = "red";
-        }
-    }
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     // 创建一个新的AJAX请求对象
