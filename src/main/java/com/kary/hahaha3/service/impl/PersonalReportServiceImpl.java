@@ -67,7 +67,7 @@ public class PersonalReportServiceImpl implements PersonalReportService {
                 }
             }
         }
-        winRate=(lose==0?(win*1.0/lose):win*1.0);
+        winRate=(lose!=0?(win*1.0/lose):win*1.0);
         res.setGameNums(gameNums);
         res.setWin(win);
         res.setLose(lose);
