@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Tag(name = "注册")
 //注册邮箱仅支持qq邮箱
+@CrossOrigin(origins = {"*"})
 public class RegisterController extends BaseController {
     @Autowired
     @Qualifier("AESEncoder")

@@ -50,4 +50,5 @@ function validateLogin(){
 function redirectToPage() {
     window.location.href = "email-login.html";
 }
+
 document.getElementById("login-form").addEventListener("submit", validateLogin);
