@@ -4,7 +4,7 @@ function validateLogin(event){
     var password = document.getElementById("password").value;
     // 创建一个新的AJAX请求对象
     var xhr = new XMLHttpRequest();
-
+    xhr.withCredentials=true;
     // 配置请求
     xhr.open('GET', 'http://localhost:8080/login?username='+username+"&password="+password); // 根据您的实际需求指定适当的URL
     xhr.setRequestHeader('Content-Type', 'application/json');

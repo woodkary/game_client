@@ -4,6 +4,7 @@ function checkVerificationCode(event) {
   let xhr=new XMLHttpRequest();
   xhr.open("GET", "http://localhost:8080/sendVeriCode");
   xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.withCredentials=true;
 
   xhr.onreadystatechange = function () {
     let response = JSON.parse(xhr.responseText);
@@ -22,6 +23,7 @@ function compareVerificationCode(event,doc) {
   let xhr=new XMLHttpRequest();
   xhr.open("POST", "http://localhost:8080/typeVeriCode/1");
   xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.withCredentials=true;
 
   xhr.onreadystatechange = function () {
     let response = JSON.parse(xhr.responseText);
