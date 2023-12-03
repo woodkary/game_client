@@ -40,7 +40,7 @@ formEL.addEventListener("submit", function (event) {
     // }
     axios({
       method: 'post',
-      url: '/register',
+      url: 'http://localhost:8080/register',
       data: {
         username: "JohnDoe",
         password: "password123",
