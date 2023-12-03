@@ -18,3 +18,4 @@ public class PersonalReport {
     private double winRate;
     private String level;
 }
+

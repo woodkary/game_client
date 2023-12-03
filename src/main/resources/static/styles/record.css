@@ -224,7 +224,7 @@ background-color: rgb(202, 202, 241);
 border: 1px solid #ddd;  
 text-align: center;  
 padding: 20px; 
-opacity: 0.8;
+opacity: 1;
 }
 .Win p{
 position: absolute;
@@ -249,11 +249,11 @@ left: 5%;
 top: 55%;
 width: 80%;  
 height: 30%;  
-background-color: rgba(235, 17, 17,0.5);  
+background-color: rgba(235, 17, 17,0.7);
 border: 1px solid #ddd;  
 text-align: center;  
 padding: 20px; 
-opacity: 0.8;
+opacity: 1;
 }
 .Lose p{
 position: absolute;
