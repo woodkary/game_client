@@ -7,6 +7,7 @@
     <title>用户名登录</title>
     <link rel="stylesheet" href="../styles/login.css">
 </head>
+<script type="text/javascript" src="../scripts/login.js"></script>
 <body>
     <div class="main">
         <div class="background"></div>
@@ -16,7 +17,7 @@
         <div class="login">
             <img class="LOGO">
             <div>
-                <form id="login-form" onsubmit="return false">
+                <form id="login-form">
                     <input class="in" type="text" placeholder="用户名" id="username" required>
                     <input class="in" type="password" placeholder="密码" id="password" required>
                     <button class = "in" type="submit" onclick="validateLogin(event)">用户名登录</button>
@@ -31,12 +32,9 @@
                     <div class="item para" ><p>或者</p></div>
                     <div class="item line" id="line-two"></div>
                 </div>
-                <button onclick="redirectToPage()" class = "in" type="button">使用邮箱登录</button>
-                <script type="text/javascript" src="../scripts/login.js">
-                </script>
+                <button onclick="redirectToPage(event)" class = "in" type="button">使用邮箱登录</button>
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="../scripts/login.js"></script>
 </body>
 </html>

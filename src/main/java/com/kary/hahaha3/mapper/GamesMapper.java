@@ -15,4 +15,5 @@ import org.springframework.stereotype.Repository;
 public interface GamesMapper {
     Games getGameByIdAndType(@Param("gameId")Integer gameId,@Param("type")Integer type);
     Games getGameById(@Param("gameId")Integer gameId);
+    Games getThisMonthGameById(@Param("gameId")Integer gameId);
 }

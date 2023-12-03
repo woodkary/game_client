@@ -70,7 +70,6 @@ public class EmailVerificationController extends BaseController {
                 }
                 case 2:{//2是改密码
                     String password=(String) session.getAttribute("password");
-                    password=aesEncoder.encrypt(password);
                     flag= userService.updateUserPassword((String) session.getAttribute("username"), password);
                     successMessage="修改密码成功";
                     break;

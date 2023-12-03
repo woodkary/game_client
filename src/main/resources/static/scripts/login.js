@@ -1,4 +1,5 @@
-function validateLogin(){
+function validateLogin(event){
+    event.preventDefault();
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     // 创建一个新的AJAX请求对象
@@ -9,26 +10,24 @@ function validateLogin(){
     xhr.setRequestHeader('Content-Type', 'application/json');
     // 定义处理响应的函数
     xhr.onload = function() {
+        var response = xhr.responseText;
+        var jsonResult=JSON.parse(response);
         if (xhr.status === 200) {
-            var response = xhr.responseText;
-            var jsonResult=JSON.parse(response);
             var message = document.getElementById("verification-message");
             message.textContent = jsonResult.message;
             message.style.color = "green";
             window.location.href = "../index.html";
         } else {
             var message = document.getElementById("verification-message");
-            message.textContent = "发送不成功";
+            message.textContent = jsonResult.message;
             message.style.color = "red";
-            alert('请求失败。错误代码：' + xhr.status);
         }
     };
 
     xhr.send();
 }
 
-function redirectToPage() {
+function redirectToPage(event) {
+    event.preventDefault();
     window.location.href = "email-login.html";
 }
-
-document.getElementById("login-form").addEventListener("submit", validateLogin);
