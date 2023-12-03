@@ -8,6 +8,9 @@ import com.kary.hahaha3.exceptions.forum.article.NoSuchArticleException;
 import com.kary.hahaha3.exceptions.forum.comment.NoSuchCommentException;
 import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.User;
+import com.kary.hahaha3.pojo.vo.PublishArticleJSON;
+import com.kary.hahaha3.pojo.vo.PublishCommentJSON;
+import com.kary.hahaha3.pojo.vo.ReplyCommentJSON;
 import com.kary.hahaha3.service.ForumService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,11 +31,12 @@ public class ForumController extends BaseController {
     private ForumService forumService;
     @PostMapping("/publishArticle")
     @Operation(summary = "发布文章", description = "API to handle article publish")
-    public JsonResult publishArticle(@RequestParam("content")String content,
-                                     @RequestParam("articleTopic")String articleTopic,
-                                     @RequestParam("themeName")String themeName,
+    public JsonResult publishArticle(@RequestBody PublishArticleJSON publishArticleJSON,
                                      HttpSession session) throws Exception {
         User myAccount= (User) session.getAttribute("myAccount");
+        String articleTopic=publishArticleJSON.getArticleTopic();
+        String themeName=publishArticleJSON.getThemeName();
+        String content=publishArticleJSON.getContent();
         if(myAccount==null){
             throw new SessionExpireException("您尚未登陆，或登录信息已过期");
         }
@@ -45,7 +49,7 @@ public class ForumController extends BaseController {
     }
     @PostMapping("/publishTheme")
     @Operation(summary = "发布主题", description = "API to handle theme publish")
-    public JsonResult publishTheme(@RequestParam("themeName")String themeName) throws DatabaseUpdateException {
+    public JsonResult publishTheme(@RequestBody String themeName) throws DatabaseUpdateException {
         Integer res=forumService.publishTheme(themeName);
         if(res==1){
             return JsonResult.ok(res,"发布主题成功");
@@ -55,10 +59,11 @@ public class ForumController extends BaseController {
     }
     @PostMapping("/publishComment")
     @Operation(summary = "发布评论。要求前端：在页面中存储每条文章的id，即articleId。这个id在展示所有文章时会由后端给出", description = "API to handle theme publish")
-    public JsonResult publishComment(@RequestParam("articleId")Integer articleId,
-                                     @RequestParam("content")String content,
+    public JsonResult publishComment(@RequestBody PublishCommentJSON publishCommentJSON,
                                      HttpSession session) throws SessionExpireException, NoSuchArticleException, DatabaseUpdateException, DatabaseConnectionException {
         User myAccount= (User) session.getAttribute("myAccount");
+        Integer articleId=publishCommentJSON.getArticleId();
+        String content= publishCommentJSON.getContent();
         if(myAccount==null){
             throw new SessionExpireException("您尚未登陆，或登录信息已过期");
         }
@@ -71,10 +76,11 @@ public class ForumController extends BaseController {
     }
     @PostMapping("/replyComment")
     @Operation(summary = "回复评论。要求前端：在页面中存储每条评论的id，即commentId。这个id在展示所有评论时会由后端给出", description = "API to handle theme publish")
-    public JsonResult replyComment(@RequestParam("commentId")Integer parentId,
-                                   @RequestParam("content")String content,
+    public JsonResult replyComment(@RequestBody ReplyCommentJSON replyCommentJSON,
                                    HttpSession session) throws SessionExpireException, DatabaseUpdateException, NoSuchCommentException {
         User myAccount= (User) session.getAttribute("myAccount");
+        Integer parentId= replyCommentJSON.getParentId();
+        String content=replyCommentJSON.getContent();
         if(myAccount==null){
             throw new SessionExpireException("您尚未登陆，或登录信息已过期");
         }Integer res=forumService.replyComment(myAccount.getUsername(),content,parentId);

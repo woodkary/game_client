@@ -1,25 +1,38 @@
-function checkVerificationCode() {
-  // Make an API call to the backend to get the verification code
-  // Replace the API_URL with the actual URL of your backend API
-  fetch(API_URL)
-    .then(response => response.json())
-    .then(data => {
-      // Store the received verification code in a variable
-      const verificationCode = data.code;
-      compareVerificationCode(verificationCode);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+let verificationCode="";
+function checkVerificationCode(event) {
+  event.preventDefault();
+  let xhr=new XMLHttpRequest();
+  xhr.open("GET", "http://localhost:8080/sendVeriCode");
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  xhr.onreadystatechange = function () {
+    let response = JSON.parse(xhr.responseText);
+    if (xhr.readyState===4&&xhr.status === 200) {
+      // Handle the response here
+      verificationCode=response.data;
+    }else{
+      console.log("错误"+response);
+    }
+  };
+  xhr.send();
 }
 
-function compareVerificationCode(verificationCode) {
-  const userInput = document.getElementById('verification-code').value;
-  if (verificationCode === userInput) {
-    console.log('Verification code is correct');
-  } else {
-    console.log('Verification code is incorrect');
-  }
-}
+function compareVerificationCode(event,doc) {
+  event.preventDefault();
+  let xhr=new XMLHttpRequest();
+  xhr.open("POST", "http://localhost:8080/typeVeriCode/1");
+  xhr.setRequestHeader("Content-Type", "application/json");
 
-receiveVerificationCode();
+  xhr.onreadystatechange = function () {
+    let response = JSON.parse(xhr.responseText);
+    if (xhr.readyState===4&&xhr.status === 200) {
+      // Handle the response here
+      alert("注册成功");
+      window.location.href="login.html";
+    }else{
+      console.log("错误"+response);
+    }
+  };
+  let inputVericode=JSON.parse(doc.getElementById("verification-code").value);
+  xhr.send(inputVericode);
+}
