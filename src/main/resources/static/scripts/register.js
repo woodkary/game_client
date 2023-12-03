@@ -50,6 +50,7 @@ formEL.addEventListener("submit", function (event) {
       headers: { 'content-type': 'application/json' }
     })
     .then(response => {
+      window.location.href="email-verification.html";
       console.log(response);
     })
     .catch(error => {
