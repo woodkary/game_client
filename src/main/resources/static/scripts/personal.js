@@ -19,4 +19,3 @@ function handleData(type)
 handleData(1);
 handleData(2);
 
-function
