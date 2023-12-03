@@ -16,3 +16,5 @@ function handleDataPersonal(type)
             console.error(error);
         });
 }
+
+    
