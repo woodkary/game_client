@@ -11,8 +11,10 @@ import com.kary.hahaha3.mapper.UserMapper;
 import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.pojo.vo.PersonalReport;
+import com.kary.hahaha3.pojo.vo.RecordVO;
 import com.kary.hahaha3.pojo.vo.Records;
 import com.kary.hahaha3.service.PersonalReportService;
+import com.kary.hahaha3.service.RecordVOService;
 import com.kary.hahaha3.service.RecordsService;
 import com.kary.hahaha3.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,6 +41,9 @@ public class UserRankInformationController extends BaseController {
     @Autowired
     @Qualifier("PersonalReportService")
     private PersonalReportService personalReportService;
+    @Autowired
+    @Qualifier("RecordVOService")
+    private RecordVOService recordVOService;
     @GetMapping("/myAllRecords")
     @Operation(summary = "统计所有战绩信息，即全部场次部分，仅返回一个Records对象。请看Records类")
     public JsonResult getMyAllGame(HttpSession session) throws SessionExpireException {
@@ -71,9 +76,12 @@ public class UserRankInformationController extends BaseController {
     }
     @GetMapping("/ranks/getMyRank/{page}")
     @Operation(summary = "获取我自己的比赛记录信息")
-    public String myRankInformation(@PathVariable int page, Model model, HttpSession session){
+    public JsonResult myRankInformation(@PathVariable int page, HttpSession session) throws SessionExpireException, MatchTypeErrorException {
         User myAccount= (User) session.getAttribute("myAccount");
-        model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(),1,page));
-        return "views/records";
+        if(myAccount==null){
+            throw new SessionExpireException("您尚未登陆，或登录信息已过期");
+        }
+        List<RecordVO> recordVOS=recordVOService.getGamesByIds(myAccount.getUsername(), null,page);
+        return JsonResult.ok(recordVOS,"这是我自己的比赛");
     }
 }
