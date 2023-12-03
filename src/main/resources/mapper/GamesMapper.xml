@@ -9,4 +9,9 @@
     <select id="getGameById" resultType="com.kary.hahaha3.pojo.Games">
         select * from games where game_id=#{gameId}
     </select>
+    <select id="getThisMonthGameById" resultType="com.kary.hahaha3.pojo.Games">
+        select * from games where month(game_time)=month(now()) and
+                                year(game_time)=year(now()) and
+                                game_id=#{gameId}
+    </select>
 </mapper>
