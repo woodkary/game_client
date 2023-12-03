@@ -14,11 +14,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
-    @Override
+/*    @Override
     public void addCorsMappings(CorsRegistry registry) {
-        /*
+        *//*
          * 一小时内不需要再预检
-         */
+         *//*
         registry.addMapping("/**")
                 .allowedOriginPatterns("*")
                 .allowCredentials(true)
@@ -26,8 +26,8 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedMethods(CorsConfiguration.ALL)
                 .allowCredentials(true)
                 .maxAge(3600L);
-    }
-/*    @Bean
+    }*/
+   @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
@@ -38,6 +38,6 @@ public class CorsConfig implements WebMvcConfigurer {
         config.setMaxAge(3600L);
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
-    }*/
+    }
 }
 
