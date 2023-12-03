@@ -20,6 +20,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -68,5 +69,11 @@ public class UserRankInformationController extends BaseController {
         PersonalReport personalReport=personalReportService.getPersonalReport(myAccount.getUsername(), type);
         return JsonResult.ok(personalReport,"这是个人战报");
     }
-
+    @GetMapping("/ranks/getMyRank/{page}")
+    @Operation(summary = "获取我自己的比赛记录信息")
+    public String myRankInformation(@PathVariable int page, Model model, HttpSession session){
+        User myAccount= (User) session.getAttribute("myAccount");
+        model.addAttribute("records",recordVOService.getGamesByIds(myAccount.getUsername(),1,page));
+        return "views/records";
+    }
 }
