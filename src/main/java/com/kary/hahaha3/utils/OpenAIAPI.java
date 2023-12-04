@@ -20,7 +20,7 @@ public class OpenAIAPI {
     /**
      * 聊天端点
      */
-    String chatEndpoint = "https://openkey.cloud/v1";
+    String chatEndpoint = "https://openkey.cloud";
     /**
      * api密匙
      */
@@ -43,7 +43,7 @@ public class OpenAIAPI {
         prompt.append("### user's input:\n# " + txt);
         prompt.append(
                 "\n\nFor the Usernames in database and user's input,\nPerform the following actions:\n1 - Remember that all usernamea are immutable.\n2 - Remember that all the username in database should be ouput.\n3 - Rank all usernames in database based on the username and the user's input, with usernames that the user is more likely to be looking for placed ahead.\n4 - Make sure you the usernames.\n5 - Output a list object according to the 4 actions above, the format should be like:\n###\"username_1\", \"username_2\", ... ###\n");
-        dataList.add(new HashMap<String, String>() {
+        dataList.add(new HashMap<>() {
             {
                 put("role", "system");
                 put("content",
@@ -51,7 +51,7 @@ public class OpenAIAPI {
             }
         });
 
-        dataList.add(new HashMap<String, String>() {
+        dataList.add(new HashMap<>() {
             {
                 put("role", "user");
                 put("content", prompt.toString());
@@ -63,7 +63,7 @@ public class OpenAIAPI {
             WebClient webClient = WebClient.create(chatEndpoint);
 
             String body = webClient.post()
-                    .uri("/")
+                    .uri("/v1")
                     .header("Authorization", apiKey)
                     .header("Content-Type", "application/json")
                     .body(BodyInserters.fromValue(paramMap))
