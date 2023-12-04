@@ -9,7 +9,6 @@ background-repeat: no-repeat;
 background-size: cover;  
 margin-top: 0px;  
 position: fixed;  
-opacity: 0.8;  
 z-index: -1;  
 
 }
@@ -135,19 +134,19 @@ top: 11%;
 left: 13%;
 width: 80px;
 background-color: #f2f2f2;
-opacity: 0.8;
 }
 #Rectangle1{
 position: absolute;
 left: 3%;
 top: 20%;
-width: 25%;  
+width: 20%;  
 height: 70%;  
 background-color: #f2f2f2;  
-border: none;  
+border: 1px solid #ddd;  
+border-radius: 20px;
 text-align: center;  
 padding: 20px; 
-opacity: 0.6;   
+
 }
 button{
 width: 90%;
@@ -158,10 +157,13 @@ align-items: center;
 background-color: #ffffff;
 border: 2px solid #f2f2f2;  
 cursor: pointer;
+border-radius: 10px;
+margin-bottom: 1vh;
 }
 button span:first-child {  
 align-self: center; 
 font-size: 16px; 
+
 }  
 button span:last-child {  
 align-self:center;
@@ -178,7 +180,6 @@ background-color: #ffffff;
 border: 1px solid #ddd;  
 text-align: center;  
 padding: 20px; 
-opacity: 0.6;   
 } 
 .SmallRectangle {  
 width: 10%;      
@@ -220,11 +221,10 @@ left: 5%;
 top: 15%;
 width: 80%;  
 height: 30%;  
-background-color: rgb(202, 202, 241);  
+background-color: rgb(48, 137, 227);  
 border: 1px solid #ddd;  
 text-align: center;  
 padding: 20px; 
-opacity: 0.8;
 }
 .Win p{
 position: absolute;
@@ -249,11 +249,10 @@ left: 5%;
 top: 55%;
 width: 80%;  
 height: 30%;  
-background-color: rgba(235, 17, 17,0.5);  
+background-color: rgb(227, 81, 81);
 border: 1px solid #ddd;  
 text-align: center;  
 padding: 20px; 
-opacity: 0.8;
 }
 .Lose p{
 position: absolute;
