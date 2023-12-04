@@ -1,10 +1,10 @@
 let username=null;
-window.onload=function (){
+function preLoad(){
     let query=window.location.search;
     let params=new URLSearchParams(query);
     username=params.get("username");
 }
-
+preLoad();
 function setInputDataPersonalSin(data) {
     document.getElementById("gameNumsSin").textContent = data.gameNums;
     document.getElementById("winSin").textContent = data.win;
@@ -25,10 +25,7 @@ function handleDataPersonal(type)
     let xhr = new XMLHttpRequest();
     xhr.withCredentials=true;
 
-    let url='http://localhost:8080/ranks/myReport/'+type;
-    if(username!=null){
-        url='http://localhost:8080/ranks/ranks/othersReport/'+type+'?username='+encodeURIComponent(username);
-    }
+    let url='http://localhost:8080/ranks/othersReport/'+type+'?username='+encodeURIComponent(username);
     // 配置请求
     xhr.open('GET', url); // 根据您的实际需求指定适当的URL
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -64,10 +61,8 @@ function handleDataAll()
     let xhr = new XMLHttpRequest();
     xhr.withCredentials=true;
 
-    let url='http://localhost:8080/ranks/myAllRecords';
-    if(username!=null){
-        url='http://localhost:8080/ranks/othersAllRecords'+'?username='+encodeURIComponent(username);
-    }
+    let url='http://localhost:8080/ranks/othersAllRecords'+'?username='+encodeURIComponent(username);
+
     // 配置请求
     xhr.open('GET', url); // 根据您的实际需求指定适当的URL
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -97,10 +92,8 @@ function handleDataMonth()
 {
     let xhr = new XMLHttpRequest();
     xhr.withCredentials=true;
-    let url='http://localhost:8080/ranks/myMonthRecords';
-    if(username!=null){
-        url='http://localhost:8080/ranks/othersMonthRecords'+'?username='+encodeURIComponent(username);
-    }
+    let url='http://localhost:8080/ranks/othersMonthRecords'+'?username='+encodeURIComponent(username);
+
     // 配置请求
     xhr.open('GET', url); // 根据您的实际需求指定适当的URL
     xhr.setRequestHeader('Content-Type', 'application/json');

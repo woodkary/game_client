@@ -1,4 +1,15 @@
+let username=null;
+window.onload=function (){
+    let query=window.location.search;
+    let params=new URLSearchParams(query);
+    username=params.get("username");
 
+}
+
+function toMyRecord(event){
+    event.preventDefault();
+    window.location.href="pages/personal.html?username="+encodeURIComponent(username);
+}
 
 function search() {
   let username = document.getElementById("username").value;
