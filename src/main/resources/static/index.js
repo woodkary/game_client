@@ -2,7 +2,7 @@
 
 function search() {
   let username = document.getElementById("username").value;
-  window.location.href = "pages/personal.html?username="+username;
+  window.location.href = "pages/personal.html?username="+encodeURIComponent(username);
 }
 
 document.getElementById("username").addEventListener("keydown",

@@ -56,6 +56,16 @@ public class UserRankInformationController extends BaseController {
         Records records=recordsService.getAllGame(myAccount.getUsername());
         return JsonResult.ok(records,"你的所有战绩信息");
     }
+    @GetMapping("/othersAllRecords")
+    @Operation(summary = "统计别人的战绩信息，即全部场次部分，仅返回一个Records对象。请看Records类")
+    public JsonResult getOthersAllGame(@RequestParam("username")String username,HttpSession session) throws SessionExpireException {
+        User account= userService.selectUserByName(username);
+        if(account==null){
+            throw new SessionExpireException("用户不存在");
+        }
+        Records records=recordsService.getAllGame(username);
+        return JsonResult.ok(records,"你的所有战绩信息");
+    }
     @GetMapping("/myMonthRecords")
     @Operation(summary = "统计本月战绩信息，即本月场次部分，仅返回一个Records对象。请看Records类")
     public JsonResult getMyMonthGame(HttpSession session) throws SessionExpireException {
@@ -66,9 +76,29 @@ public class UserRankInformationController extends BaseController {
         Records records=recordsService.getAllGameThisMonth(myAccount.getUsername());
         return JsonResult.ok(records,"你的本月战绩信息");
     }
+    @GetMapping("/othersMonthRecords")
+    @Operation(summary = "统计本月战绩信息，即本月场次部分，仅返回一个Records对象。请看Records类")
+    public JsonResult getOthersMonthGame(@RequestParam("username")String username,HttpSession session) throws SessionExpireException {
+        User account= userService.selectUserByName(username);
+        if(account==null){
+            throw new SessionExpireException("用户不存在");
+        }
+        Records records=recordsService.getAllGameThisMonth(username);
+        return JsonResult.ok(records,"你的本月战绩信息");
+    }
+    @GetMapping("/othersReport/{type}")
+    @Operation(summary = "统计战报，仅返回一个PersonalReport对象。个人主页中需要调用两次")
+    public JsonResult getPersonalReport(@RequestParam("username")String username,@PathVariable int type,HttpSession session) throws SessionExpireException, UsernameErrorException, MatchTypeErrorException {
+        User account= userService.selectUserByName(username);
+        if(account==null){
+            throw new SessionExpireException("用户不存在");
+        }
+        PersonalReport personalReport=personalReportService.getPersonalReport(username, type);
+        return JsonResult.ok(personalReport,"这是个人战报");
+    }
     @GetMapping("/myReport/{type}")
     @Operation(summary = "统计战报，仅返回一个PersonalReport对象。个人主页中需要调用两次")
-    public JsonResult getPersonalReport(@PathVariable int type,HttpSession session) throws SessionExpireException, UsernameErrorException, MatchTypeErrorException {
+    public JsonResult getOthersReport(@PathVariable int type,HttpSession session) throws SessionExpireException, UsernameErrorException, MatchTypeErrorException {
         User myAccount= (User) session.getAttribute("myAccount");
         if(myAccount==null){
             throw new SessionExpireException("您尚未登陆，或登录信息已过期");
@@ -77,7 +107,7 @@ public class UserRankInformationController extends BaseController {
         return JsonResult.ok(personalReport,"这是个人战报");
     }
     @GetMapping("/getRanks/{page}")
-    @Operation(summary = "获取我自己的比赛记录信息，返回List<RecordVO>")
+    @Operation(summary = "获取我自己或别人的比赛记录信息，返回List<RecordVO>")
     public JsonResult myRankInformation(@RequestParam("username")String username,@PathVariable int page) throws SessionExpireException, MatchTypeErrorException {
         User account= userService.selectUserByName(username);
         if(account==null){

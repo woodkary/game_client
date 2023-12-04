@@ -15,9 +15,8 @@ function validateLogin(event){
         if (xhr.status === 200) {
             var message = document.getElementById("verification-message");
             message.textContent = jsonResult.message;
-            let username=jsonResult.data.getUsername();
             message.style.color = "green";
-            window.location.href = "../index.html?username="+username;
+            window.location.href = "../index.html";
         } else {
             var message = document.getElementById("verification-message");
             message.textContent = jsonResult.message;
