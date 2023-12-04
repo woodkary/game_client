@@ -15,7 +15,6 @@ import java.util.List;
 @Mapper
 @Tag(name = "CommentMapper")
 public interface CommentMapper {
-    //TODO 利用Service层判断commentFlag的值
     Integer publishComment(@Param("commentId")Integer commentId,
                            @Param("username")String username,
                            @Param("articleId")Integer articleId,

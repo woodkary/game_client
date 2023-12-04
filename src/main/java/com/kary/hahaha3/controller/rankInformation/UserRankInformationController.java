@@ -30,7 +30,6 @@ import java.util.List;
 /**
  * @author:123
  */
-//TODO 加入支持筛选更多模式
 @RestController
 @Tag(name = "查询排位信息")
 @RequestMapping("/ranks")

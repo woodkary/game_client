@@ -1,6 +1,13 @@
+
+
 function search() {
   const username = document.getElementById("username").value;
   console.log(username);
+  var search = window.location.search;
+  var params = new URLSearchParams(search);
+  var myUsername = params.get("username");
+  document.getElementById("myUsername").setValue(myUsername);
+
   if (username == 'danqingyifan') {
     window.location.href = "pages/personal.html";
   } else {

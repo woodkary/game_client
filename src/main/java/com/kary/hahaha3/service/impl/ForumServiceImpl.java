@@ -70,7 +70,6 @@ public class ForumServiceImpl implements ForumService {
         res=commentMapper.publishComment(newCommentId,username,articleId,content,commentFlag);
         return res;
     }
-    //TODO 回复评论的代码
     @Override
     @Transactional
     public Integer replyComment(String username,String content,Integer parentId) throws NoSuchCommentException {
