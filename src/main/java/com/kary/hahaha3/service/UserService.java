@@ -14,4 +14,5 @@ public interface UserService {
     Integer insertUser(String username,String pwd,String email);
     List<User> selectUserLimit(int x);
     Integer updateUserPassword(String username,String pwd);
+    Boolean emailIsRegistered(String email);
 }

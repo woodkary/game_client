@@ -60,6 +60,8 @@ public class RegisterController extends BaseController {
             throw new PasswordErrorException("请输入一致的密码");
         }else if (userService.selectUserByName(username)!=null) {
             throw new UsernameErrorException("该用户已注册");
+        }else if(userService.emailIsRegistered(email)){
+            throw new EmailErrorException("该邮箱已注册");
         }else if(!MailUtil.legalQQMail(email)){
             throw new EmailErrorException("请输入合法的邮箱");
         }else{
