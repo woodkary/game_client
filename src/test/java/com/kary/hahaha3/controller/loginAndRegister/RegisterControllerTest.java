@@ -1,15 +1,22 @@
-/*
 package com.kary.hahaha3.controller.loginAndRegister;
 
 import com.kary.hahaha3.HaHaHa3Application;
+import com.kary.hahaha3.exceptions.JsonException;
+import com.kary.hahaha3.exceptions.emptyInput.PasswordEmptyException;
+import com.kary.hahaha3.exceptions.emptyInput.UsernameEmptyException;
+import com.kary.hahaha3.exceptions.errorInput.EmailErrorException;
+import com.kary.hahaha3.exceptions.errorInput.PasswordErrorException;
+import com.kary.hahaha3.exceptions.errorInput.UsernameErrorException;
 import com.kary.hahaha3.mapper.UserMapper;
+import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.User;
+import com.kary.hahaha3.pojo.vo.RegisterJSON;
+import com.kary.hahaha3.service.UserService;
 import com.kary.hahaha3.utils.AESUtil;
 import com.kary.hahaha3.utils.MailUtil;
 import jakarta.servlet.http.HttpSession;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +29,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
@@ -31,61 +39,61 @@ public class RegisterControllerTest {
     @Qualifier("AESEncoder")
     AESUtil aesEncoder;
     @Autowired
-    UserMapper userMapper;
+    UserService userService;
     @Autowired
     RegisterController registerController;
     @Mock
     HttpSession httpSession;
-    private MockMvc mockMvc;
-    @Mock
-    Model model;
+
+
 
     private User user;
+    private RegisterJSON registerJSON;
+    @BeforeEach
+    void Before(){
+        registerJSON = new RegisterJSON();
+        registerJSON.setUsername("Username");
+        registerJSON.setPassword("Pwd");
+        registerJSON.setRetypePassword("Pwd");
+        registerJSON.setEmail("2452826804@qq.com");
+
+    }
     @Test
     void testRegisterWithoutUsername(){
-        String result = registerController.userRegister(null,"pwd","pwd","email",model, httpSession);
-        assertEquals("views/register", result);
-        verify(model).addAttribute("showPopup", "用户名为空");
+        registerJSON.setUsername(null);
+        assertThrows(new UsernameEmptyException("用户名为空").getClass(),()->registerController.userRegister(registerJSON, httpSession));
     }
     @Test
     void testRegisterWithoutPassword(){
-        String result = registerController.userRegister("username",null,"pwd","email",model,httpSession);
-        assertEquals("views/register",result);
-        verify(model).addAttribute("showPopup", "密码为空");
+        registerJSON.setPassword(null);
+        assertThrows(new PasswordEmptyException("密码为空").getClass(),()->registerController.userRegister(registerJSON, httpSession));
     }
     @Test
     void testRegisterWithoutRetypePassword(){
-        String result = registerController.userRegister("username","pwd",null,"email",model,httpSession);
-        assertEquals("views/register",result);
-        verify(model).addAttribute("showPopup", "请重输密码");
+        registerJSON.setRetypePassword(null);
+        assertThrows(new PasswordEmptyException("请重输密码").getClass(),()->registerController.userRegister(registerJSON, httpSession));
     }
     @Test
     void testRegisterPasswordMismatched(){
-        String result = registerController.userRegister("username","pwd","mismatched_pwd","email",model,httpSession);
-        assertEquals("views/register",result);
-        verify(model).addAttribute("showPopup", "请输入一致的密码");
+        registerJSON.setRetypePassword("newPwd");
+        assertThrows(new PasswordErrorException("请输入一致的密码").getClass(),()->registerController.userRegister(registerJSON, httpSession));
     }
     @Test
     void testRegisterUserRegistered(){
-        String result = registerController.userRegister("testRegisteredUser","pwd","pwd","email",model,httpSession);
-        assertEquals("views/register",result);
-        verify(model).addAttribute("showPopup","该用户已注册");
+        registerJSON.setUsername("testLoginSuccessName");
+        assertThrows(new UsernameErrorException("用户已注册").getClass(),()->registerController.userRegister(registerJSON, httpSession));
     }
     @Test
     void testRegisterIllegalQQMail(){
-        String result = registerController.userRegister("testRegisteredUser","pwd","pwd","IllegalEmail",model,httpSession);
-        assertEquals("views/register",result);
-        verify(model).addAttribute("showPopup","请输入合法的邮箱");
+        registerJSON.setEmail("illegalMail");
+        assertThrows(new EmailErrorException("请输入合法邮箱").getClass(),()->registerController.userRegister(registerJSON, httpSession));
     }
     @Test
-    void testRegisterSuccess(){
-        //陈金萍的邮箱
-        String email = "2452826804@qq.com";
-        String result = registerController.userRegister("testRegisterUsername","testRegisterPwd","testRegisterPwd",email,model,httpSession);
-        assertEquals("views/emailVerification",result);
-        verify(httpSession).setAttribute("username","testRegisterUsername");
-        verify(httpSession).setAttribute("password","testRegisterPwd");
-        verify(httpSession).setAttribute("email",email);
+    void testRegisterSuccess() throws Exception {
+        JsonResult result = registerController.userRegister(registerJSON, httpSession);
+        assertEquals(new JsonResult().ok("请准备发验证码"), result);
+        verify(httpSession).setAttribute("username", registerJSON.getUsername());
+        verify(httpSession).setAttribute("password", aesEncoder.encrypt(registerJSON.getPassword()));
+        verify(httpSession).setAttribute("email", registerJSON.getEmail());
     }
 }
-*/
