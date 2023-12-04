@@ -1,3 +1,5 @@
+
+
 function setInputDataPersonal(data) {
     document.getElementById("gameNums").textContent = data.gameNums;
     document.getElementById("win").textContent = data.win;
