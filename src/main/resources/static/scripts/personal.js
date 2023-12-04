@@ -16,15 +16,15 @@ function setInputDataPersonalBrawl(data) {
 
 function handleDataPersonal(type)
 {
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.withCredentials=true;
     // 配置请求
     xhr.open('GET', 'http://localhost:8080/ranks/myReport/'+type); // 根据您的实际需求指定适当的URL
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = function() {
-        var response = xhr.responseText;
-        var jsonResult=JSON.parse(response);
+        let response = xhr.responseText;
+        let jsonResult=JSON.parse(response);
         if (xhr.status === 200) {
             let data=jsonResult.data;
             if(type===1)
@@ -56,15 +56,15 @@ function handleDataAll()
         .catch(error=>{
             console.error(error);
         });*/
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.withCredentials=true;
     // 配置请求
     xhr.open('GET', 'http://localhost:8080/ranks/myAllRecords'); // 根据您的实际需求指定适当的URL
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = function() {
-        var response = xhr.responseText;
-        var jsonResult=JSON.parse(response);
+        let response = xhr.responseText;
+        let jsonResult=JSON.parse(response);
         if (xhr.status === 200) {
             let data=jsonResult.data;
             setInputDataAll(data);
@@ -95,15 +95,15 @@ function handleDataMonth()
         .catch(error=>{
             console.error(error);
         });*/
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.withCredentials=true;
     // 配置请求
     xhr.open('GET', 'http://localhost:8080/ranks/myMonthRecords'); // 根据您的实际需求指定适当的URL
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = function() {
-        var response = xhr.responseText;
-        var jsonResult=JSON.parse(response);
+        let response = xhr.responseText;
+        let jsonResult=JSON.parse(response);
         if (xhr.status === 200) {
             let data=jsonResult.data;
             setInputDataMonth(data);
