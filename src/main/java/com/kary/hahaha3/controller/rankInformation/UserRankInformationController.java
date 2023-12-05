@@ -76,13 +76,14 @@ public class UserRankInformationController extends BaseController {
         PersonalReport personalReport=personalReportService.getPersonalReport(username, type);
         return JsonResult.ok(personalReport,"这是个人战报");
     }
+    @GetMapping("/checkIfExist")
+    @Operation(summary = "查用户是否存在")
+    public Boolean checkIfExist(@RequestParam("username")String username){
+        return userService.selectUserByName(username)!=null;
+    }
     @GetMapping("/getRanks/{page}")
     @Operation(summary = "获取我自己或别人的比赛记录信息，返回List<RecordVO>")
     public JsonResult myRankInformation(@RequestParam("username")String username,@PathVariable int page) throws SessionExpireException, MatchTypeErrorException {
-        User account= userService.selectUserByName(username);
-        if(account==null){
-            throw new SessionExpireException("用户不存在");
-        }
         List<RecordVO> recordVOS=recordVOService.getGamesByIds(username, null,page);
         return JsonResult.ok(recordVOS,"这是比赛");
     }

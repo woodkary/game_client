@@ -64,7 +64,7 @@ public class RecordVOServiceImpl implements RecordVOService {
 
     @Override
     public List<RecordVO> getGamesByIds(String username,Integer type,int page) throws MatchTypeErrorException {
-        int length=10,fromIndex=page-1,toIndex=fromIndex+length;
+        int length=64,fromIndex=page-1,toIndex=fromIndex+length;
         List<RecordVO> res=getGamesByIds(username, type);
         if(fromIndex>=res.size()){
             return new ArrayList<>();

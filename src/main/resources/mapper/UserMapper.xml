@@ -13,7 +13,7 @@
         insert into user (username,pwd,email,regdate,personal_quote) values (#{username},#{pwd},#{email},now(),"");
     </insert>
     <select id="selectUserLimit" resultType="com.kary.hahaha3.pojo.User" parameterType="_int">
-        select * from user order by username limit 3 offset #{x}
+        select * from user order by username limit 64 offset #{x}
     </select>
     <update id="updateUserPassword">
         update user set pwd=#{pwd} where username=#{username}

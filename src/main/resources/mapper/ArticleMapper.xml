@@ -47,6 +47,6 @@
         delete from article where article_id=#{articleId}
     </delete>
     <select id="getAllArticleByPage" resultType="com.kary.hahaha3.pojo.Article">
-        select * from article where theme_name=#{themeName} limit #{page},10
+        select * from article where theme_name=#{themeName} limit #{page},64
     </select>
 </mapper>

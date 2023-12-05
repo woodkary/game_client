@@ -39,8 +39,8 @@ public class LoginControllerTest {
     @Test
     public void testLoginSuccess() throws ErrorInputException {
         User user = new User();
-        user.setUsername("testLoginSuccessName");
-        user.setPwd("testLoginSuccessPwd");
+        user.setUsername("kary");
+        user.setPwd("wood20040629");
         HttpSession session = mock(HttpSession.class);
         JsonResult result = loginController
                 .login(user.getUsername(), user.getPwd(),session);
@@ -70,7 +70,7 @@ public class LoginControllerTest {
     public void testLoginPwdError() throws ErrorInputException {
         // Mock dependencies
         User user = new User();
-        user.setUsername("testLoginSuccessName");
+        user.setUsername("kary");
         user.setPwd("testLoginErrorPwd");
         HttpSession session = mock(HttpSession.class);
         assertThrows(new PasswordErrorException("密码错误").getClass(),()->loginController.login(user.getUsername(), user.getPwd(), session));
