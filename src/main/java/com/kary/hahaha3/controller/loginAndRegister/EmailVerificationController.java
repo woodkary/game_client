@@ -3,12 +3,14 @@ package com.kary.hahaha3.controller.loginAndRegister;
 import com.kary.hahaha3.controller.BaseController;
 import com.kary.hahaha3.exceptions.connection.DatabaseConnectionException;
 import com.kary.hahaha3.exceptions.connection.VerificationCodeSendingException;
+import com.kary.hahaha3.exceptions.emptyInput.EmailEmptyException;
 import com.kary.hahaha3.exceptions.emptyInput.VerificationCodeEmptyException;
 import com.kary.hahaha3.exceptions.errorInput.ErrorInputException;
 import com.kary.hahaha3.exceptions.errorInput.VerificationCodeErrorException;
 import com.kary.hahaha3.exceptions.expired.VerificationCodeExpireException;
 import com.kary.hahaha3.mapper.UserMapper;
 import com.kary.hahaha3.pojo.JsonResult;
+import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.pojo.vo.VerificationCodeJSON;
 import com.kary.hahaha3.service.UserService;
 import com.kary.hahaha3.utils.AESUtil;
@@ -31,19 +33,26 @@ public class EmailVerificationController extends BaseController {
     private AESUtil aesEncoder;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
     //mode有username password email,现在要得到code
     //输入授权码
     //准备发送验证码
     @GetMapping("/sendVeriCode")
-    @Operation(summary = "发送验证码")
-    public JsonResult sendVeriCode(HttpSession session) throws VerificationCodeSendingException {
+    @Operation(summary = "发送验证码,注册的时候email=null")
+    public JsonResult sendVeriCode(@RequestParam("email")String email,HttpSession session) throws VerificationCodeSendingException, EmailEmptyException {
+        if(email==null){
+            throw new EmailEmptyException("请输入邮箱");
+        }
+        User userGetByEmail=userMapper.selectUserByEmail(email).get(0);
+        session.setAttribute("userGetByEmail",userGetByEmail);
         //先生成验证码
         String verificationCode=MailUtil.getRandom6Digit();
         session.setAttribute("verificationCode",verificationCode);
         /*System.out.println(session.getAttribute("email")+"///////");*/
         //发送验证码
         try {
-            MailUtil.sendMail((String) session.getAttribute("email"),verificationCode,"验证码");
+            MailUtil.sendMail(email,verificationCode,"验证码");
         } catch (MessagingException e) {
             throw new VerificationCodeSendingException("发送验证码错误",e);
         }
@@ -69,9 +78,8 @@ public class EmailVerificationController extends BaseController {
                     break;
                 }
                 case 2:{//2是改密码
-                    String password=(String) session.getAttribute("password");
-                    flag= userService.updateUserPassword((String) session.getAttribute("username"), password);
-                    successMessage="修改密码成功";
+                    flag=1;
+                    successMessage="发送邮箱成功，请准备修改密码";
                     break;
                 }
                 default:{

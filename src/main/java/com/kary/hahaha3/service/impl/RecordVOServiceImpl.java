@@ -50,6 +50,7 @@ public class RecordVOServiceImpl implements RecordVOService {
             recordVO.setAssists(record.getAssist());
             recordVO.setKd(kd);
             recordVO.setDuration(game.getDuration());
+            recordVO.setUsername(username);
             String typeString = switch (type) {
                 case 1 -> "1v1";
                 case 2 -> "大乱斗";

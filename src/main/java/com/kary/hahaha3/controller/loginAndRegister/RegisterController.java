@@ -66,10 +66,9 @@ public class RegisterController extends BaseController {
             throw new EmailErrorException("请输入合法的邮箱");
         }else{
             password=aesEncoder.encrypt(password);
-                session.setAttribute("username",username);
-                session.setAttribute("password",password);
-                session.setAttribute("email",email);
-                return JsonResult.ok("请准备发验证码");
+            session.setAttribute("username",username);
+            session.setAttribute("password",password);
+            return JsonResult.ok("请准备发验证码");
         }
     }
 }
