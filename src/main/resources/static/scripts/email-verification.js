@@ -4,6 +4,7 @@ function checkVerificationCode(event) {
   let xhr=new XMLHttpRequest();
   xhr.open("GET", "http://localhost:8080/sendVeriCode");
   xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.withCredentials=true;
 
   xhr.onreadystatechange = function () {
     let response = JSON.parse(xhr.responseText);
@@ -22,13 +23,14 @@ function compareVerificationCode(event,doc) {
   let xhr=new XMLHttpRequest();
   xhr.open("POST", "http://localhost:8080/typeVeriCode/1");
   xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.withCredentials=true;
 
   xhr.onreadystatechange = function () {
     let response = JSON.parse(xhr.responseText);
     if (xhr.readyState===4&&xhr.status === 200) {
       // Handle the response here
       alert("注册成功");
-      window.location.href="/pages/login.html";
+      window.location.href="login.html";
     }else{
       console.log("错误"+response);
     }
