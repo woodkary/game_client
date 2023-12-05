@@ -6,4 +6,7 @@
     <select id="selectRecordsByUsername" resultType="com.kary.hahaha3.pojo.Record">
         select * from record where username=#{username}
     </select>
+    <select id="selectRecordsByGameId" resultType="com.kary.hahaha3.pojo.Record">
+        select * from record where game_id=#{gameId}
+    </select>
 </mapper>

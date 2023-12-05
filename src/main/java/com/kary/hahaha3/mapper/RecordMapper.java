@@ -16,4 +16,5 @@ import java.util.List;
 @Tag(name = "RecordMapper")
 public interface RecordMapper {
     List<Record> selectRecordsByUsername(@Param("username")String username);
+    List<Record> selectRecordsByGameId(@Param("gameId")Integer gameId);
 }

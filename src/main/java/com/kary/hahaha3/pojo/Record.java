@@ -16,7 +16,7 @@ import java.util.Date;
 @Tag(name = "Record")
 public class Record {
     private int gameId;
-    private Date gameTime;
+    private String username;
     private int kill;
     private int death;
     private int assist;

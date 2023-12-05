@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kary.hahaha3.controller.BaseController;
 import com.kary.hahaha3.exceptions.JsonException;
+import com.kary.hahaha3.exceptions.errorInput.GameNotFoundException;
 import com.kary.hahaha3.exceptions.errorInput.MatchTypeErrorException;
 import com.kary.hahaha3.exceptions.errorInput.UsernameErrorException;
 import com.kary.hahaha3.exceptions.expired.SessionExpireException;
@@ -84,7 +85,13 @@ public class UserRankInformationController extends BaseController {
     @GetMapping("/getRanks/{page}")
     @Operation(summary = "获取我自己或别人的比赛记录信息，返回List<RecordVO>")
     public JsonResult myRankInformation(@RequestParam("username")String username,@PathVariable int page) throws SessionExpireException, MatchTypeErrorException {
-        List<RecordVO> recordVOS=recordVOService.getGamesByIds(username, null,page);
+        List<RecordVO> recordVOS=recordVOService.getGamesByUsername(username, null,page);
+        return JsonResult.ok(recordVOS,"这是比赛");
+    }
+    @GetMapping("/getGamesByGameId")
+    @Operation(summary = "获取我自己或别人的比赛记录信息，返回List<RecordVO>")
+    public JsonResult getGamesByGameId(@RequestParam("gameId")Integer gameId) throws GameNotFoundException {
+        List<RecordVO> recordVOS=recordVOService.getGamesByGameId(gameId);
         return JsonResult.ok(recordVOS,"这是比赛");
     }
 }
