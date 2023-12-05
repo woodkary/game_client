@@ -89,7 +89,7 @@ public class UserRankInformationController extends BaseController {
         return JsonResult.ok(recordVOS,"这是比赛");
     }
     @GetMapping("/getGamesByGameId")
-    @Operation(summary = "获取我自己或别人的比赛记录信息，返回List<RecordVO>")
+    @Operation(summary = "通过id获取比赛记录信息，返回List<RecordVO>")
     public JsonResult getGamesByGameId(@RequestParam("gameId")Integer gameId) throws GameNotFoundException {
         List<RecordVO> recordVOS=recordVOService.getGamesByGameId(gameId);
         return JsonResult.ok(recordVOS,"这是比赛");
