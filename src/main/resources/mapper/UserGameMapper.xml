@@ -8,8 +8,8 @@
                                score_total_1v1,
                                games_count,
                                score_total_brawl,
-                               game_count_1v1,
-                               game_count_drawl
+                               games_count_1v1,
+                               games_count_brawl
         )values (#{username},0,0,0,0,0)
     </insert>
     <delete id="deleteUser">

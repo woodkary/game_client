@@ -48,7 +48,6 @@ public class RegisterController extends BaseController {
         String username=registerJSON.getUsername();
         String password=registerJSON.getPassword();
         String retypePassword=registerJSON.getRetypePassword();
-        String email=registerJSON.getEmail();
 
         if(username==null){
             throw new UsernameEmptyException("用户名为空");
@@ -60,10 +59,6 @@ public class RegisterController extends BaseController {
             throw new PasswordErrorException("请输入一致的密码");
         }else if (userService.selectUserByName(username)!=null) {
             throw new UsernameErrorException("该用户已注册");
-        }else if(userService.emailIsRegistered(email)){
-            throw new EmailErrorException("该邮箱已注册");
-        }else if(!MailUtil.legalQQMail(email)){
-            throw new EmailErrorException("请输入合法的邮箱");
         }else{
             password=aesEncoder.encrypt(password);
             session.setAttribute("username",username);

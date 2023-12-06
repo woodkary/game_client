@@ -5,6 +5,7 @@ import com.kary.hahaha3.exceptions.connection.DatabaseConnectionException;
 import com.kary.hahaha3.exceptions.connection.VerificationCodeSendingException;
 import com.kary.hahaha3.exceptions.emptyInput.EmailEmptyException;
 import com.kary.hahaha3.exceptions.emptyInput.VerificationCodeEmptyException;
+import com.kary.hahaha3.exceptions.errorInput.EmailErrorException;
 import com.kary.hahaha3.exceptions.errorInput.ErrorInputException;
 import com.kary.hahaha3.exceptions.errorInput.VerificationCodeErrorException;
 import com.kary.hahaha3.exceptions.expired.VerificationCodeExpireException;
@@ -17,12 +18,14 @@ import com.kary.hahaha3.utils.AESUtil;
 import com.kary.hahaha3.utils.MailUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.util.List;
 
 
 @RestController
@@ -40,12 +43,19 @@ public class EmailVerificationController extends BaseController {
     //准备发送验证码
     @GetMapping("/sendVeriCode")
     @Operation(summary = "发送验证码,注册的时候email=null")
-    public JsonResult sendVeriCode(@RequestParam("email")String email,HttpSession session) throws VerificationCodeSendingException, EmailEmptyException {
+    public JsonResult sendVeriCode(@RequestParam("email") String email, HttpSession session) throws VerificationCodeSendingException, EmailEmptyException, EmailErrorException {
         if(email==null){
             throw new EmailEmptyException("请输入邮箱");
         }
-        User userGetByEmail=userMapper.selectUserByEmail(email).get(0);
-        session.setAttribute("userGetByEmail",userGetByEmail);
+        if(userService.emailIsRegistered(email)){
+            throw new EmailErrorException("该邮箱已注册");
+        }
+        session.setAttribute("email",email);
+        List<User> users=userMapper.selectUserByEmail(email);
+        if(!users.isEmpty()){
+            User userGetByEmail=users.get(0);
+            session.setAttribute("userGetByEmail",userGetByEmail);
+        }
         //先生成验证码
         String verificationCode=MailUtil.getRandom6Digit();
         session.setAttribute("verificationCode",verificationCode);

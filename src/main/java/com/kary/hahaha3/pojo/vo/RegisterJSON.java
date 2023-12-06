@@ -14,5 +14,4 @@ public class RegisterJSON{
     private String username;
     private String password;
     private String retypePassword;
-    private String email;
 }
