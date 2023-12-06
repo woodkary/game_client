@@ -50,11 +50,13 @@ public class EmailVerificationController extends BaseController {
         if(userService.emailIsRegistered(email)){
             throw new EmailErrorException("该邮箱已注册");
         }
-        session.setAttribute("email",email);
+
         List<User> users=userMapper.selectUserByEmail(email);
         if(!users.isEmpty()){
             User userGetByEmail=users.get(0);
             session.setAttribute("userGetByEmail",userGetByEmail);
+        }else{
+            session.setAttribute("email",email);
         }
         //先生成验证码
         String verificationCode=MailUtil.getRandom6Digit();
