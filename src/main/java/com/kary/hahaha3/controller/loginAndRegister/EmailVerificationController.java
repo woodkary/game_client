@@ -42,7 +42,7 @@ public class EmailVerificationController extends BaseController {
     //输入授权码
     //准备发送验证码
     @GetMapping("/sendVeriCode")
-    @Operation(summary = "发送验证码,注册的时候email=null")
+    @Operation(summary = "发送验证码")
     public JsonResult sendVeriCode(@RequestParam("email") String email, HttpSession session) throws VerificationCodeSendingException, EmailEmptyException, EmailErrorException {
         if(email==null){
             throw new EmailEmptyException("请输入邮箱");
