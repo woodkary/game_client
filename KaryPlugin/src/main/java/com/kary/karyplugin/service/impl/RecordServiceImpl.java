@@ -24,7 +24,7 @@ public class RecordServiceImpl implements RecordService {
         recordMapper=new RecordMapper() {
             @Override
             public void addNewRecord(Integer gameId, String username, Integer kill, Integer death, Integer assist) {
-                Bukkit.getServer().broadcastMessage("新的比赛为："+gameId+","+username+","+kill+","+death+","+assist);
+                Bukkit.getServer().broadcastMessage("新的比赛为："+gameId+","+"玩家"+username+","+"击杀"+kill+","+"死亡"+death+","+"助攻"+assist);
             }
 
             @Override
@@ -40,6 +40,16 @@ public class RecordServiceImpl implements RecordService {
             @Override
             public void addGamesCount(String username) {
                 Bukkit.getServer().broadcastMessage(username+"新增加了一场比赛");
+            }
+
+            @Override
+            public void addGamesCount1v1(String username) {
+
+            }
+
+            @Override
+            public void addGamesCountDrawl(String username) {
+
             }
 
             @Override
@@ -71,6 +81,13 @@ public class RecordServiceImpl implements RecordService {
         Integer maxGameId=gamesMapper.getMaxGameId();
         maxGameId+=1;
         recordMapper.addNewRecord(maxGameId,username,kill,death,(gameMode==1)?0:assists);
+        recordMapper.addGamesCount(username);
+        if(gameMode==1){
+            recordMapper.addGamesCount1v1(username);
+        }
+        if(gameMode==2){
+            recordMapper.addGamesCountDrawl(username);
+        }
         gamesMapper.addNewGame(gameMode,maxGameId,duration);
     }
 

@@ -16,6 +16,8 @@ public interface RecordMapper {
     Integer getScoreTotal(@Param("username")String username,@Param("gameMode")Integer gameMode);
     void addScore(@Param("username")String username,@Param("gameMode")Integer gameMode,@Param("addNum")Integer addNum);
     void addGamesCount(@Param("username")String username);
+    void addGamesCount1v1(@Param("username")String username);
+    void addGamesCountDrawl(@Param("username")String username);
     UserGame selectUserByName(@Param(value = "username")String username);
 
 }
