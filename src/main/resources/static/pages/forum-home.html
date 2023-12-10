@@ -1,44 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Forum Homepage</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论坛主页面</title>
+    <link rel="stylesheet" href="../styles/forum-home.css">
 </head>
 <body>
-  <header>
-    <h1>Welcome to the Forum</h1>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Categories</a></li>
-        <li><a href="#">New Topic</a></li>
-        <li><a href="#">Login</a></li>
-      </ul>
-    </nav>
-  </header>
-  
-  <main>
-    <section>
-      <h2>Latest Topics</h2>
-      <ul>
-        <li><a href="#">Topic 1</a></li>
-        <li><a href="#">Topic 2</a></li>
-        <li><a href="#">Topic 3</a></li>
-      </ul>
+<div class="background"></div>
+    <div class="navigation-bar">
+        <img class="logo" src="../images/LOGO.png" alt="logo">
+        <a id="page1"href="../index.html">主页面</a>
+        <a id="page2" href="personal.html">我的战绩</a>
+        <a id="page3" href="forum-home.html">社区</a>
+    </div>
+<div id="Rectangle">
+    <div id="Rectangle1">
+    <div class="search">
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="请输入想搜索的内容">
+            <button onclick="search()" id="search-button">搜索</button>
+        </div>
+    </div>
+    </div>
+    <a id="forum-home" href="forum-home.html">主页</a>
+    <a id="topics" href="#">标签</a>
+    <section id="latestTopics">
+        <h2>最新话题</h2>
+        <ul>
+            <li><button>话题1</button></li>
+            <li><button>话题2</button></li>
+            <li><button>话题3</button></li>
+        </ul>
     </section>
-    
-    <section>
-      <h2>Popular Topics</h2>
-      <ul>
-        <li><a href="#">Topic 4</a></li>
-        <li><a href="#">Topic 5</a></li>
-        <li><a href="#">Topic 6</a></li>
-      </ul>
+    <section id="popularTopics">
+        <h2>热门话题</h2>
+        <ul>
+            <li><button>话题1</button></li>
+            <li><button>话题2</button></li>
+            <li><button>话题3</button></li>
+        </ul>
     </section>
-  </main>
-  
-  <footer>
-    <p>&copy; 2022 Forum. All rights reserved.</p>
-  </footer>
+    <div class="vertical-line"></div>
+    <p>所有帖子</p>
+    <button id="posting">发帖</button>
+    <button id="new">最新</button>
+    <button id="popular">热门</button>
+    <div id="post1">
+        <span id="like">0点赞</span>
+        <span id="reply">0回复</span>
+        <a id="postTitle" href="post-content.html">标题</a>
+        <span id="text">正文:xxxxxxxxxxxxxxxxxxxx</span>
+        <a id="username" href="#">username</a>
+        <span id="time">2023-10-31</span>
+        <button id="tage">标签1</button>
+    </div>
+    <div id="post2">
+        <span id="like">0点赞</span>
+        <span id="reply">0回复</span>
+        <a id="postTitle" href="post-content.html">标题</a>
+        <span id="text">正文:xxxxxxxxxxxxxxxxxxxx</span>
+        <a id="username" href="#">username</a>
+        <span id="time">2023-10-31</span>
+        <button id="tage">标签1</button>
+    </div>
+    <div id="post3">
+        <span id="like">0点赞</span>
+        <span id="reply">0回复</span>
+        <a id="postTitle" href="post-content.html">标题</a>
+        <span id="text">正文:xxxxxxxxxxxxxxxxxxxx</span>
+        <a id="username" href="#">username</a>
+        <span id="time">2023-10-31</span>
+        <button id="tage">标签1</button>
+    </div>
+</div>
 </body>
 </html>

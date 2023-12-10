@@ -31,4 +31,8 @@ public interface ForumService {
     List<Article> getAllArticleByPage(Integer page, String themeName);
 
     List<Comment> getAllCommentByPage(Integer page,Integer articleId);
+    Integer likeArticle(Integer articleId);
+    Integer dislikeArticle(Integer articleId);
+    Integer likeComment(Integer commentId);
+    Integer dislikeComment(Integer commentId);
 }

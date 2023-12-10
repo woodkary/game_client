@@ -1,58 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <title>home</title>
   <link rel="stylesheet" href="index.css">
 </head>
+
+
 <body>
   <div class="background"></div>
   <div class="navigation-bar">
     <img class="logo" src="images/LOGO.png" alt="logo">
     <a id="page1" href="index.html">主页面</a>
-    <a id="page2" href="pages/personal.html">我的战绩</a>
+    <a id="page2" onclick="toMyRecord(event)">我的战绩</a>
     <a id="page3" href="pages/forum-home.html">社区</a>
     <img class="search-photo" src="images/search.png" alt="search">
     <img class="line" src="images/line.png" alt="line">
     <img class="head-photo" src="images/head-white.png" alt="head" onclick="toggleDropdown()">
   </div>
-
-    <img class="items" id="big-logo" src="images/LOGO.png" alt="big-logo">
-    <div class="search">
-      <div class="search-box">
-        <input type="text" id="username-input" placeholder="请输入想搜索用户名">
-        <button onclick="search()" id="search-button">搜索</button>
-      </div>
+  <img class="items" id="big-logo" src="images/LOGO.png" alt="big-logo">
+  
+  <div class="search">
+    <div class="search-box">
+      <input type="text" id="username" placeholder="请输入想搜索用户名">
+      <button onclick="search()" id="search-button">搜索</button>
     </div>
+  </div>
 
-    <script>
-        function search() {
-            var username = document.getElementById("username-input").value;
-            if (username) {
-                // 发送Ajax请求到后端获取比赛记录信息
-                var url = "/ranks/getMyRank/1?username=" + username;
-                fetch(url)
-                    .then(response => response.json())
-                    .then(data => {
-                        // 处理返回的比赛记录信息
-                        console.log(data);
-                        // TODO: 在页面中展示比赛记录信息
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        // TODO: 处理错误情况
-                    });
-            }
-        }
-      document.getElementById("username-input").addEventListener("keydown",
-        function(event) {
-          if (event.key === "Enter") {
-          event.preventDefault();
-          search();
-          }
-        }
-      );
-    </script>
+  <script src="index.js"></script>
 
 </body>
+
 </html>

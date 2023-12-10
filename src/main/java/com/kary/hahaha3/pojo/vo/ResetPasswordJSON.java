@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResetPasswordJSON {
-    private String username;
     private String password;
     private String retypePassword;
 }

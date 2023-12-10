@@ -15,7 +15,6 @@ import java.util.List;
 @Mapper
 @Tag(name = "CommentMapper")
 public interface CommentMapper {
-    //TODO 利用Service层判断commentFlag的值
     Integer publishComment(@Param("commentId")Integer commentId,
                            @Param("username")String username,
                            @Param("articleId")Integer articleId,
@@ -32,4 +31,6 @@ public interface CommentMapper {
     Integer deleteComment(@Param("commentId")Integer commentId);
     Comment getCommentById(@Param("commentId")Integer commentId);
     List<Comment> getAllCommentByPage(@Param("page")Integer page,@Param("articleId")Integer articleId);
+    Integer like(@Param("commentId")Integer commentId);
+    Integer dislike(@Param("commentId")Integer commentId);
 }

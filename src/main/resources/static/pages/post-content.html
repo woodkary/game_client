@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>帖子</title>
+    <link rel="stylesheet" href="../styles/post-content.css">
+</head>
+<body>
+<div class="background"></div>
+<div class="navigation-bar">
+    <img class="logo" src="../images/LOGO.png" alt="logo">
+    <a id="page1"href="../index.html">主页面</a>
+    <a id="page2" href="personal.html">我的战绩</a>
+    <a id="page3" href="forum-home.html">社区</a>
+</div>
+<div id="Rectangle">
+    <div id="Rectangle1">
+        <div class="search">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="请输入想搜索的内容">
+                <button onclick="search()" id="search-button">搜索</button>
+            </div>
+        </div>
+    </div>
+    <a id="forum-home" href="forum-home.html">主页</a>
+    <a id="topics" href="#">标签</a>
+    <section id="latestTopics">
+        <h2>最新话题</h2>
+        <ul>
+            <li><button>话题1</button></li>
+            <li><button>话题2</button></li>
+            <li><button>话题3</button></li>
+        </ul>
+    </section>
+    <section id="popularTopics">
+        <h2>热门话题</h2>
+        <ul>
+            <li><button>话题1</button></li>
+            <li><button>话题2</button></li>
+            <li><button>话题3</button></li>
+        </ul>
+    </section>
+    <div class="vertical-line"></div>
+        <a id="post-username" href="#">username</a>
+        <span id="title">标题</span>
+        <span id="post-time">2023-10-29</span>
+        <span id="content">正文:xxxxxxxxxxxxxx</span>
+    <div id="reply1">
+        <a id="username" href="#">username</a>
+        <span id="time">2023-10-31</span>
+        <span id="like">0点赞</span>
+        <span id="reply">0回复</span>
+        <span id="text">评论内容</span>
+    </div>
+    <div id="commentBox">
+        <div class="comment">
+            <div class="comment-box">
+                <input type="text" id="comment-input" placeholder="请输入想评论的内容">
+                <button onclick="comment()" id="comment-button">回复</button>
+            </div>
+        </div>
+        <span id="post-like">0点赞</span>
+        <span id="post-reply">0回复</span>
+    </div>
+</div>
+</body>
+</html>

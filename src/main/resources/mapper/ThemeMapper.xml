@@ -28,7 +28,7 @@
         select * from theme where theme_name=#{themeName}
     </select>
     <select id="getAllThemeByPage" resultType="com.kary.hahaha3.pojo.Theme">
-        select * from theme limit #{page},10
+        select * from theme limit #{page},64
     </select>
 
 </mapper>

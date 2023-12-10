@@ -27,6 +27,26 @@ function validateLogin() {
     //Post email to server
 }
 
+function getCaptcha() {
+    let xhr=new XMLHttpRequest();
+    let email = document.getElementById("email").value;
+    xhr.open("GET", "http://localhost:8080/sendVeriCode?email="+ email);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.withCredentials=true;
+    
+    xhr.onreadystatechange = function () {
+        let response = JSON.parse(xhr.responseText);
+        if (xhr.readyState===4&&xhr.status === 200) {
+            alert("已发送验证码");
+        }else{
+            console.log("错误"+response);
+        }
+    };
+}
+
+
+
+
 function redirectToVerifyPage() {
     window.location.href = "../pages/email-verification.html";
 }

@@ -67,6 +67,7 @@ br{
 }
 
 .form-group {
+  position: relative;
   margin-bottom: 20px;
   margin-right: 20px;
   color: white;
@@ -94,4 +95,18 @@ br{
   font-size: 14px;
   padding-inline: 15px;
   float: right;
+}
+#email{
+  position: relative;
+  margin-top: 1vh;
+}
+#get-captcha-btn {
+  position: absolute; /* 使用绝对定位 */
+  top: 38px;
+  right: -15px;
+  height: 30px; /* 保持按钮高度 */
+  border-radius: 5px;
+  background-color: #7BAC3B;
+  color: white;
+  opacity: 0.8;
 }

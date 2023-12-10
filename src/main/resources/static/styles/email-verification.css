@@ -87,7 +87,23 @@ body{
 
 .form-group .button{
   float: right;
-  margin-top: 3vh;
+  margin-top: 15px;
+  background-color: #7BAC3B;
+  color: white;
+  opacity: 0.8;
+  display: block;
+  width: 180px;
+  height: 36px;
+}
+#send {
+    float: left;
+    margin-top: 15px;
+    background-color: #66ccff;
+    color: white;
+    opacity: 0.8;
+    display: block;
+    width: 180px;
+    height: 36px;
 }
 
 

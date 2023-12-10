@@ -7,6 +7,7 @@ import com.kary.hahaha3.exceptions.forum.theme.NoSuchThemeException;
 import com.kary.hahaha3.mapper.ArticleMapper;
 import com.kary.hahaha3.mapper.CommentMapper;
 import com.kary.hahaha3.mapper.ThemeMapper;
+import com.kary.hahaha3.mapper.UserArticleMapper;
 import com.kary.hahaha3.pojo.Article;
 import com.kary.hahaha3.pojo.Comment;
 import com.kary.hahaha3.pojo.Theme;
@@ -30,6 +31,8 @@ public class ForumServiceImpl implements ForumService {
     private ArticleMapper articleMapper;
     @Autowired
     private CommentMapper commentMapper;
+    @Autowired
+    private UserArticleMapper userArticleMapper;
     @Override
     @Transactional
     public Integer publishArticle(String username,
@@ -44,11 +47,12 @@ public class ForumServiceImpl implements ForumService {
         if(newArticleId==null){
             newArticleId=1;
         }
-        Integer num1,num2;
+        Integer num1,num2,num3;
         num1=articleMapper.publishArticle(newArticleId,username,content,articleTopic,themeName);
         num2= themeMapper.publishArticle(themeName,newArticleId);
+        num3=userArticleMapper.publishArticle(username,newArticleId);
 
-        return (num1==1&&num2==1)?1:0;
+        return (num1==1&&num2==1&&num3==1)?1:0;
     }
 
     @Override
@@ -70,7 +74,6 @@ public class ForumServiceImpl implements ForumService {
         res=commentMapper.publishComment(newCommentId,username,articleId,content,commentFlag);
         return res;
     }
-    //TODO 回复评论的代码
     @Override
     @Transactional
     public Integer replyComment(String username,String content,Integer parentId) throws NoSuchCommentException {
@@ -112,6 +115,30 @@ public class ForumServiceImpl implements ForumService {
     public List<Comment> getAllCommentByPage(Integer page,Integer articleId) {
         page=(page-1)*10;
         return commentMapper.getAllCommentByPage(page,articleId);
+    }
+
+    @Override
+    @Transactional
+    public Integer likeArticle(Integer articleId) {
+        return articleMapper.like(articleId);
+    }
+
+    @Override
+    @Transactional
+    public Integer dislikeArticle(Integer articleId) {
+        return articleMapper.dislike(articleId);
+    }
+
+    @Override
+    @Transactional
+    public Integer likeComment(Integer commentId) {
+        return commentMapper.like(commentId);
+    }
+
+    @Override
+    @Transactional
+    public Integer dislikeComment(Integer commentId) {
+        return commentMapper.dislike(commentId);
     }
 }
 

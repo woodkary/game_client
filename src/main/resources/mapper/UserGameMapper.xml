@@ -7,8 +7,10 @@
         insert into user_game (username,
                                score_total_1v1,
                                games_count,
-                               score_total_brawl
-        )values (#{username},0,0,0)
+                               score_total_brawl,
+                               games_count_1v1,
+                               games_count_brawl
+        )values (#{username},0,0,0,0,0)
     </insert>
     <delete id="deleteUser">
         delete from user_game where username=#{username}

@@ -1,5 +1,6 @@
 package com.kary.hahaha3.service.impl;
 
+import com.kary.hahaha3.exceptions.errorInput.GameNotFoundException;
 import com.kary.hahaha3.exceptions.errorInput.MatchTypeErrorException;
 import com.kary.hahaha3.mapper.GamesMapper;
 import com.kary.hahaha3.mapper.RecordMapper;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,9 +28,8 @@ public class RecordVOServiceImpl implements RecordVOService {
     private GamesMapper gamesMapper;
     @Override
     //输入我自己的名字和比赛列表
-    public List<RecordVO> getGamesByIds(String username,Integer type) throws MatchTypeErrorException {
+    public List<RecordVO> getGamesByUsername(String username,Integer type) throws MatchTypeErrorException {
         List<RecordVO> records=new ArrayList<>();
-        //TODO 筛选username参加过的所有比赛
         List<Record> recordList=recordMapper.selectRecordsByUsername(username);
         for (Record record : recordList) {
             Games game;
@@ -51,6 +52,7 @@ public class RecordVOServiceImpl implements RecordVOService {
             recordVO.setAssists(record.getAssist());
             recordVO.setKd(kd);
             recordVO.setDuration(game.getDuration());
+            recordVO.setUsername(username);
             String typeString = switch (type) {
                 case 1 -> "1v1";
                 case 2 -> "大乱斗";
@@ -64,12 +66,59 @@ public class RecordVOServiceImpl implements RecordVOService {
     }
 
     @Override
-    public List<RecordVO> getGamesByIds(String username,Integer type,int page) throws MatchTypeErrorException {
-        int length=10,fromIndex=page-1,toIndex=fromIndex+length;
-        List<RecordVO> res=getGamesByIds(username, type);
+    public List<RecordVO> getGamesByUsername(String username,Integer type,int page) throws MatchTypeErrorException {
+        int length=64,fromIndex=page-1,toIndex=fromIndex+length;
+        List<RecordVO> res=getGamesByUsername(username, type);
         if(fromIndex>=res.size()){
             return new ArrayList<>();
         }
         return res.subList(fromIndex,toIndex< res.size()?toIndex: res.size());
     }
+
+    @Override
+    public List<RecordVO> getGamesByGameId(Integer gameId) throws GameNotFoundException {
+        List<RecordVO> res=new ArrayList<>();
+        Games game=gamesMapper.getGameById(gameId);
+        if(game==null){
+            throw new GameNotFoundException("这局游戏不存在");
+        }
+        List<Record> records=recordMapper.selectRecordsByGameId(gameId);
+        for (Record record : records) {
+            RecordVO recordVO=new RecordVO();
+            String username=record.getUsername();
+            Date gameTime=game.getGameTime();
+            int kills=record.getKill();
+            int deaths=record.getDeath();
+            int assists=record.getAssist();
+            double kd=kills*1.0/deaths;
+            long duration=game.getDuration();
+            int type=game.getType();
+            String typeString = switch (type) {
+                case 1 -> "1v1";
+                case 2 -> "大乱斗";
+                default -> "";
+            };
+            recordVO.setUsername(username);
+            recordVO.setGameTime(gameTime);
+            recordVO.setKills(kills);
+            recordVO.setDeaths(deaths);
+            recordVO.setAssists(assists);
+            recordVO.setKd(kd);
+            recordVO.setDuration(duration);
+            recordVO.setType(typeString);
+            res.add(recordVO);
+        }
+        return res;
+    }
+
+    @Override
+    public List<RecordVO> getGamesByGameId(Integer gameId, int page) throws GameNotFoundException {
+        int length=64,fromIndex=page-1,toIndex=fromIndex+length;
+        List<RecordVO> res=getGamesByGameId(gameId);
+        if(fromIndex>=res.size()){
+            return new ArrayList<>();
+        }
+        return res.subList(fromIndex,toIndex< res.size()?toIndex: res.size());
+    }
+
 }

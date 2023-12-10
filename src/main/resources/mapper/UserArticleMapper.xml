@@ -18,4 +18,9 @@
     <delete id="deleteUser">
         delete from user_article where username=#{username}
     </delete>
+    <update id="publishArticle">
+        update user_article set publish_article_count=publish_article_count+1,
+                                publish_article=concat(publish_article,concat(#{newArticleId},","))
+        where username=#{username}
+    </update>
 </mapper>

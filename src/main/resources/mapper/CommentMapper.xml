@@ -12,7 +12,9 @@
                              comment_date,
                              article_id,
                              comment_flag,
-                             content
+                             content,
+                             like_count,
+                             dislike_count
         )values (
                  #{commentId},
                  "",
@@ -21,7 +23,9 @@
                  now(),
                  #{articleId},
                  #{commentFlag},
-                 #{content}
+                 #{content},
+                 0,
+                 0
         )
     </insert>
     <insert id="replyComment">
@@ -33,7 +37,9 @@
             comment_date,
             article_id,
             comment_flag,
-            content
+            content,
+            like_count,
+            dislike_count
         )values (
             #{commentId},
             #{parentCommentUsername},
@@ -42,7 +48,9 @@
             now(),
             #{articleId},
             #{commentFlag},
-            #{content}
+            #{content},
+            0,
+            0
         )
     </insert>
     <select id="getNewCommentId" resultType="int">
@@ -55,6 +63,12 @@
         select * from comment where comment_id=#{commentId}
     </select>
     <select id="getAllCommentByPage" resultType="com.kary.hahaha3.pojo.Comment">
-        select * from comment where article_id=#{articleId} limit #{page},10
+        select * from comment where article_id=#{articleId} limit #{page},64
     </select>
+    <update id="like">
+        update comment set like_count=like_count+1 where comment_id=#{commentId}
+    </update>
+    <update id="dislike">
+        update comment set dislike_count=dislike_count+1 where comment_id=#{commentId}
+    </update>
 </mapper>

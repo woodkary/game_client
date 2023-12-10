@@ -65,12 +65,23 @@ body{
 
 
 #email{
+    position: relative;
     margin-top: 5vh;
-
+}
+#get-captcha-btn {
+    position: absolute;
+    right: 45px;
+    top: 110px;
+    margin-top: 0;
+    width: 90px;
+    height: 30px;
+    border-radius: 5px;
+}
+#captcha{
+    margin-top: 2vh;
 }
 #email-verification{
     margin-top: 3vh;
-    
 }
 
 #verification-message{

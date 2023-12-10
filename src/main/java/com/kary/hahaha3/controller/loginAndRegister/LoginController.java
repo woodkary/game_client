@@ -48,6 +48,7 @@ public class LoginController extends BaseController {
                 myAccount.setPwd(password);
                 myAccount.setEmail(userInDatabase.getEmail());
                 myAccount.setRegdate(userInDatabase.getRegdate());
+                myAccount.setPersonalQuote(userInDatabase.getPersonalQuote());
                 session.setAttribute("myAccount",myAccount);
                 return JsonResult.ok(myAccount,"登录成功");
             }
