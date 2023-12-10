@@ -118,21 +118,25 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
+    @Transactional
     public Integer likeArticle(Integer articleId) {
         return articleMapper.like(articleId);
     }
 
     @Override
+    @Transactional
     public Integer dislikeArticle(Integer articleId) {
         return articleMapper.dislike(articleId);
     }
 
     @Override
+    @Transactional
     public Integer likeComment(Integer commentId) {
         return commentMapper.like(commentId);
     }
 
     @Override
+    @Transactional
     public Integer dislikeComment(Integer commentId) {
         return commentMapper.dislike(commentId);
     }
