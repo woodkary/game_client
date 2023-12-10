@@ -1,8 +1,9 @@
 
 document.getElementById("login-form").addEventListener("submit", validateLogin);
 
-function validateLogin() {
-    let veriCode=document.getElementById("captcha").textContent;
+function validateLogin(event) {
+    event.preventDefault();
+    let veriCode=document.getElementById("captcha").value;
     veriCode=JSON.parse(veriCode);
 
     let xmlHttpRequest = new XMLHttpRequest();
@@ -10,11 +11,11 @@ function validateLogin() {
     xmlHttpRequest.onreadystatechange = function () { // 设置响应http请求状态变化的事件
         let jsonResult = JSON.parse(xmlHttpRequest.responseText);
         let message = document.getElementById("verification-message");
-
-        if (xmlHttpRequest.status == 200) {
+        if (xmlHttpRequest.status === 200) {
             message.textContent = jsonResult.message;
+            let username=jsonResult.data.username;
             message.style.color = "green";
-            redirectToIndexPage();
+            redirectToIndexPage(username);
         } else {
             message.textContent = jsonResult.message;
             message.style.color = "red";
@@ -31,7 +32,8 @@ function validateLogin() {
     //Post email to server
 }
 
-function getCaptcha() {
+function getCaptcha(event) {
+    event.preventDefault();
     let xhr=new XMLHttpRequest();
     let email = document.getElementById("email").value;
     xhr.open("GET", "http://localhost:8080/sendVeriCode/3?email="+ email);
@@ -52,8 +54,8 @@ function getCaptcha() {
 
 
 
-function redirectToIndexPage() {
-    window.location.href = "../../index.html";
+function redirectToIndexPage(username) {
+    window.location.href = "../../index.html?username="+encodeURIComponent(username);
 }
 
 function redirectToLoginPage() {
