@@ -30,7 +30,7 @@ function validateLogin() {
 function getCaptcha() {
     let xhr=new XMLHttpRequest();
     let email = document.getElementById("email").value;
-    xhr.open("GET", "http://localhost:8080/sendVeriCode?email="+ email);
+    xhr.open("GET", "http://localhost:8080/sendVeriCode/3?email="+ email);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.withCredentials=true;
     
