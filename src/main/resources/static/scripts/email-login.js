@@ -3,6 +3,7 @@ document.getElementById("login-form").addEventListener("submit", validateLogin);
 
 function validateLogin() {
     let veriCode=document.getElementById("captcha").textContent;
+    veriCode=JSON.parse(veriCode);
 
     let xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.withCredentials=true;
@@ -13,7 +14,7 @@ function validateLogin() {
         if (xmlHttpRequest.status == 200) {
             message.textContent = jsonResult.message;
             message.style.color = "green";
-            redirectToVerifyPage();
+            redirectToIndexPage();
         } else {
             message.textContent = jsonResult.message;
             message.style.color = "red";
@@ -51,8 +52,8 @@ function getCaptcha() {
 
 
 
-function redirectToVerifyPage() {
-    window.location.href = "../pages/email-verification.html";
+function redirectToIndexPage() {
+    window.location.href = "../../index.html";
 }
 
 function redirectToLoginPage() {
