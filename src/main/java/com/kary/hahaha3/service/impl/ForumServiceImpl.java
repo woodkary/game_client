@@ -116,5 +116,25 @@ public class ForumServiceImpl implements ForumService {
         page=(page-1)*10;
         return commentMapper.getAllCommentByPage(page,articleId);
     }
+
+    @Override
+    public Integer likeArticle(Integer articleId) {
+        return articleMapper.like(articleId);
+    }
+
+    @Override
+    public Integer dislikeArticle(Integer articleId) {
+        return articleMapper.dislike(articleId);
+    }
+
+    @Override
+    public Integer likeComment(Integer commentId) {
+        return commentMapper.like(commentId);
+    }
+
+    @Override
+    public Integer dislikeComment(Integer commentId) {
+        return commentMapper.dislike(commentId);
+    }
 }
 

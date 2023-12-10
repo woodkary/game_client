@@ -31,4 +31,6 @@ public interface CommentMapper {
     Integer deleteComment(@Param("commentId")Integer commentId);
     Comment getCommentById(@Param("commentId")Integer commentId);
     List<Comment> getAllCommentByPage(@Param("page")Integer page,@Param("articleId")Integer articleId);
+    Integer like(@Param("commentId")Integer commentId);
+    Integer dislike(@Param("commentId")Integer commentId);
 }
