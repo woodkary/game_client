@@ -41,13 +41,13 @@ public class EmailVerificationController extends BaseController {
     //mode有username password email,现在要得到code
     //输入授权码
     //准备发送验证码
-    @GetMapping("/sendVeriCode")
-    @Operation(summary = "发送验证码")
-    public JsonResult sendVeriCode(@RequestParam("email") String email, HttpSession session) throws VerificationCodeSendingException, EmailEmptyException, EmailErrorException {
+    @GetMapping("/sendVeriCode/{operation}")
+    @Operation(summary = "发送验证码",description = "operation 1是注册,2是改密码,3是登录")
+    public JsonResult sendVeriCode(@RequestParam("email") String email, @PathVariable Integer operation, HttpSession session) throws VerificationCodeSendingException, EmailEmptyException, EmailErrorException {
         if(email==null){
             throw new EmailEmptyException("请输入邮箱");
         }
-        if(userService.emailIsRegistered(email)){
+        if(userService.emailIsRegistered(email)&&operation==1){
             throw new EmailErrorException("该邮箱已注册");
         }
 
@@ -71,7 +71,7 @@ public class EmailVerificationController extends BaseController {
         return JsonResult.ok(verificationCode,"等待输入验证码");
     }
     @PostMapping("/typeVeriCode/{operation}")
-    @Operation(summary = "验证发送的验证码",description = "operation 1是注册,2是改密码")
+    @Operation(summary = "验证发送的验证码",description = "operation 1是注册,2是改密码,3是登录")
     public JsonResult typeVeriCodeToRegister(@RequestBody String veriCode, @PathVariable Integer operation, HttpSession session) throws Exception {
         String verificationCode= (String) session.getAttribute("verificationCode");
         if(veriCode==null){
@@ -93,6 +93,15 @@ public class EmailVerificationController extends BaseController {
                     flag=1;
                     successMessage="发送邮箱成功，请准备修改密码";
                     break;
+                }
+                case 3:{
+                    User userGetByEmail= (User) session.getAttribute("userGetByEmail");
+                    String passwordRaw=userGetByEmail.getPwd();
+                    passwordRaw=aesEncoder.decrypt(passwordRaw);
+                    userGetByEmail.setPwd(passwordRaw);
+
+                    session.setAttribute("myAccount",userGetByEmail);
+                    return JsonResult.ok(userGetByEmail,"登录成功");
                 }
                 default:{
                     throw new ErrorInputException("操作不当，请重试");
