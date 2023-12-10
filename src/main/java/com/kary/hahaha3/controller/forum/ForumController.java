@@ -114,7 +114,7 @@ public class ForumController extends BaseController {
             return forumService.dislikeArticle(articleId)==1;
         }
     }
-    @PostMapping("/articles/{commentId}/{operation}")
+    @PostMapping("/comments/{commentId}/{operation}")
     @Operation(summary = "点赞或点踩评论, operation为1代表点赞，0代表点踩")
     public Boolean likeOrDislikeComment(@PathVariable Integer commentId,@PathVariable int operation){
         if(operation==1){
