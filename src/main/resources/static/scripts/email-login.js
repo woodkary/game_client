@@ -3,7 +3,6 @@ document.getElementById("login-form").addEventListener("submit", validateLogin);
 
 function validateLogin() {
     let veriCode=document.getElementById("captcha").textContent;
-    veriCode=JSON.stringify(veriCode);
 
     let xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.withCredentials=true;

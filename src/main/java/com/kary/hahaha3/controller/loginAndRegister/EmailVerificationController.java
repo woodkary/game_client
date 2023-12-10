@@ -72,11 +72,9 @@ public class EmailVerificationController extends BaseController {
     }
     @PostMapping("/typeVeriCode/{operation}")
     @Operation(summary = "验证发送的验证码",description = "operation 1是注册,2是改密码,3是登录"+"\r\n"+"登录本来应该是GET，但懒得改了")
-    public JsonResult typeVeriCodeToRegister(@RequestBody String veriCode, @PathVariable Integer operation, HttpSession session) throws Exception {
+    public JsonResult typeVeriCodeToRegister(@RequestBody VerificationCodeJSON veriCodeJSON, @PathVariable Integer operation, HttpSession session) throws Exception {
         String verificationCode= (String) session.getAttribute("verificationCode");
-        if(veriCode==null){
-            throw new VerificationCodeEmptyException("请输入验证码");
-        }
+        String veriCode=veriCodeJSON.getVeriCode();
         if(verificationCode==null){
             throw new VerificationCodeExpireException("验证码过期，请重新发送");
         }
