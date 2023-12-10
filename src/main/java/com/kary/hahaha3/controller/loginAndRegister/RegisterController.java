@@ -47,17 +47,8 @@ public class RegisterController extends BaseController {
                                    HttpSession session)throws Exception{
         String username=registerJSON.getUsername();
         String password=registerJSON.getPassword();
-        String retypePassword=registerJSON.getRetypePassword();
 
-        if(username==null){
-            throw new UsernameEmptyException("用户名为空");
-        }else if(password==null){
-            throw new PasswordEmptyException("密码为空");
-        }else if(retypePassword==null){
-            throw new PasswordEmptyException("请重输密码");
-        }else if(!password.equals(retypePassword)){
-            throw new PasswordErrorException("请输入一致的密码");
-        }else if (userService.selectUserByName(username)!=null) {
+        if (userService.selectUserByName(username)!=null) {
             throw new UsernameErrorException("该用户已注册");
         }else{
             password=aesEncoder.encrypt(password);

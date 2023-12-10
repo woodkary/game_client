@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean emailIsRegistered(String email) {
         List<User> u = userMapper.selectUserByEmail(email); //所有以该email为email注册的User对象大于1位
-        return u.size() >= 2;
+        return !u.isEmpty();
     }
 
     @Override
