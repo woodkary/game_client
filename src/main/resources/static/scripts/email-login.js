@@ -28,22 +28,20 @@ function validateLogin() {
 }
 
 function getCaptcha() {
-    var xmlHttpRequest = new XMLHttpRequest();
-    xmlHttpRequest.onreadystatechange = function () {
-        if (xmlHttpRequest.readyState === 4 && xmlHttpRequest.status === 200) {
-            var captcha = JSON.parse(xmlHttpRequest.responseText);
-            // Use the captcha code received from the backend
+    let xhr=new XMLHttpRequest();
+    let email = document.getElementById("email").value;
+    xhr.open("GET", "http://localhost:8080/sendVeriCode?email="+ email);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.withCredentials=true;
+    
+    xhr.onreadystatechange = function () {
+        let response = JSON.parse(xhr.responseText);
+        if (xhr.readyState===4&&xhr.status === 200) {
+            alert("已发送验证码");
+        }else{
+            console.log("错误"+response);
         }
     };
-
-    xmlHttpRequest.open("POST", "http://localhost:8080/captcha", true);
-    xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
-
-    var requestData = {
-        // Add any necessary data to the request body
-    };
-
-    xmlHttpRequest.send(JSON.stringify(requestData));
 }
 
 
