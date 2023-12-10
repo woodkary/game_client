@@ -1,39 +1,32 @@
-function checkPasswordIdentical() {
+function checkPasswordStrength(password) {
+  const minLength = 8; // Minimum length of the password
+  // Check if the password has at least one number
+  const hasNumber = /\d/.test(password);
+  // Check if the password has at least one character
+  const hasCharacter = /[A-Z]/.test(password) || /[a-z]/.test(password);
+
+  // Get the password strength element
+  const passwordStrengthEl = document.getElementById("passwordStrengthMessage");
+
+  // Check if the password meets all the requirements
+  if (password.length === 0) {
+      passwordStrengthEl.textContent = "";
+  } else if (password.length >= minLength && hasNumber && hasCharacter) {
+      passwordStrengthEl.textContent = "鲁棒的密码";
+  } else {
+      passwordStrengthEl.textContent = "拉跨的密码";
+  }
+}
+
+function checkPasswordConfirmation() {
   const password = document.getElementById("password").value;
-  var password2 = document.getElementById("password2").value;
-  if (password !== password2) {
-    alert("两次输入的密码不一致");
-    return false;
+  const passwordConfirmation = document.getElementById("retypePassword").value;
+  const passwordConfirmationMessage = document.getElementById("passwordConfirmationMessage");
+  if (password.length === 0) {
+      passwordConfirmationMessage.textContent = null;
+  } else if (password === passwordConfirmation) {
+      passwordConfirmationMessage.textContent = "密码一致";
+  } else {
+      passwordConfirmationMessage.textContent = "密码不一致";
   }
-  return true;
-}
-
-function checkPasswordStrength() {
-  if (!checkPasswordLength()) {
-    return false;
-  }
-  if (!checkPasswordFormat()) {
-    return false;
-  }
-  return true;
-}
-
-function checkPasswordLength() {
-  var password = document.getElementById("password").value;
-  if (password.length < 8) {
-    alert("密码长度不能小于8位");
-    return false;
-  }
-  return true;
-}
-
-//ensure password have some numbers and letters
-function checkPasswordFormat() {
-  var password = document.getElementById("password").value;
-  var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,}$/;
-  if (!reg.test(password)) {
-    alert("密码必须包含数字和字母");
-    return false;
-  }
-  return true;
 }

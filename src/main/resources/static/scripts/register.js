@@ -8,6 +8,8 @@ function checkUsernameAvailability(username) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
+                console.log(xhr.responseText);
+                console.log(typeof xhr.responseText);
                 const response = JSON.parse(xhr.responseText);
                 console.log(response);
                 if (response === false) {
@@ -20,7 +22,6 @@ function checkUsernameAvailability(username) {
             }
         }
     };
-
     xhr.send();
 }
 
@@ -60,7 +61,7 @@ function checkPasswordConfirmation() {
 function getCaptcha() {
     let xhr = new XMLHttpRequest();
     let email = document.getElementById("email").value;
-    xhr.open("GET", "http://localhost:8080/sendVeriCode?email=" + email);
+    xhr.open("GET", "http://localhost:8080/sendVeriCode/1?email=" + email);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.withCredentials = true;
 
@@ -73,17 +74,11 @@ function getCaptcha() {
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
                 console.log(response);
-                if (response === false) {
-                    
-                } else {
-                    
-                }
             } else {
                 console.log("Error: " + xhr.status);
             }
         }
     };
-
     xhr.send();
 
     //countdown
@@ -104,17 +99,17 @@ function getCaptcha() {
             button.textContent = countdown + "秒后重新获取";
         }
     }, 1000);
-
 }
 
-const formEL = document.getElementById("formEL");
-console.log(formEL);
-formEL.addEventListener("submit", function (event) {
-    event.preventDefault();
+function submitAccountForm() {
+    const formEL = document.getElementById("account-form");
+    console.log(formEL);
     const inputELs = formEL.getElementsByTagName("input");
     const formData = {};
     for (let i = 0; i < inputELs.length; i++) {
-        formData[inputELs[i].name] = inputELs[i].value;
+        if (inputELs[i].name !== "retypePassword"){
+            formData[inputELs[i].name] = inputELs[i].value;
+        }
     }
     axios({
         method: 'post',
@@ -122,12 +117,13 @@ formEL.addEventListener("submit", function (event) {
         data: formData,
         headers: { 'content-type': 'application/json' },
         withCredentials: true
-    })
-        .then(response => {
-            window.location.href = "../pages/login.html";
-            console.log(response);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-});
+    }).then(response => {
+        console.log(response);
+
+        window.location.href = "../pages/login.html";
+    }).catch(error => {
+        console.error(error);
+    });
+}
+
+
