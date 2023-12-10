@@ -40,7 +40,6 @@ public class EmailVerificationController extends BaseController {
         //先生成验证码
         String verificationCode=MailUtil.getRandom6Digit();
         session.setAttribute("verificationCode",verificationCode);
-        /*System.out.println(session.getAttribute("email")+"///////");*/
         //发送验证码
         try {
             MailUtil.sendMail((String) session.getAttribute("email"),verificationCode,"验证码");

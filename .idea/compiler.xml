@@ -10,6 +10,9 @@
         <module name="HaHaHa3" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="HaHaHa3" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
