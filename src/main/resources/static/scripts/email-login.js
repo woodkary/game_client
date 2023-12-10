@@ -42,6 +42,7 @@ function getCaptcha() {
             console.log("错误"+response);
         }
     };
+    xhr.send();
 }
 
 
