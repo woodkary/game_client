@@ -106,21 +106,21 @@ public class ForumController extends BaseController {
         return JsonResult.ok(forumService.getAllCommentByPage(page,articleId),"这是所有的评论");
     }
     @PostMapping("/articles/{articleId}/{operation}")
-    @Operation(summary = "点赞或点踩文章, operation为1代表点赞，0代表点踩")
-    public Boolean likeOrDislikeArticle(@PathVariable Integer articleId,@PathVariable int operation){
+    @Operation(summary = "点赞或点踩文章",description = "operation为1代表点赞，0代表点踩")
+    public JsonResult likeOrDislikeArticle(@PathVariable Integer articleId,@PathVariable int operation){
         if(operation==1){
-            return forumService.likeArticle(articleId)==1;
+            return JsonResult.ok(forumService.likeArticle(articleId)==1,"点赞成功");
         }else{
-            return forumService.dislikeArticle(articleId)==1;
+            return JsonResult.ok(forumService.dislikeArticle(articleId)==1,"点踩成功");
         }
     }
     @PostMapping("/comments/{commentId}/{operation}")
-    @Operation(summary = "点赞或点踩评论, operation为1代表点赞，0代表点踩")
-    public Boolean likeOrDislikeComment(@PathVariable Integer commentId,@PathVariable int operation){
+    @Operation(summary = "点赞或点踩评论",description = "operation为1代表点赞，0代表点踩")
+    public JsonResult likeOrDislikeComment(@PathVariable Integer commentId,@PathVariable int operation){
         if(operation==1){
-            return forumService.likeComment(commentId)==1;
+            return JsonResult.ok(forumService.likeComment(commentId)==1,"点赞成功");
         }else{
-            return forumService.dislikeComment(commentId)==1;
+            return JsonResult.ok(forumService.dislikeComment(commentId)==1,"点踩成功");
         }
     }
 }
