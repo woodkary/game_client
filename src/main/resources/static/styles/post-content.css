@@ -64,7 +64,7 @@ body{
     left: 4vw;
     top: 7vh;
     width: 90vw;
-    height: 88vh;
+    height: 89vh;
     background-color: #ffffff;
     border: 1px solid #ddd;
     text-align: center;
@@ -119,15 +119,15 @@ body{
     background-color: rgba(255,255,255,0.0);
 }
 #forum-home{
-     position: fixed;
-     left: 6vw;
-     top: 15vh;
-     width: 5vw;
-     padding: 8px;  /* 调整按键的内边距 */
-     color: black;
-     text-align: center;
-     text-decoration: none;
- }
+    position: fixed;
+    left: 6vw;
+    top: 15vh;
+    width: 5vw;
+    padding: 8px;  /* 调整按键的内边距 */
+    color: black;
+    text-align: center;
+    text-decoration: none;
+}
 #forum-home:hover{
     background-color: #f2f2f2;
 }
@@ -209,6 +209,7 @@ body{
     background-color: #f2f2f2;
 }
 
+
 .vertical-line {
     position: fixed;
     left: 13vw;
@@ -217,83 +218,32 @@ body{
     height: 86vh;
     border-left: 1px solid #ddd;
 }
-#Rectangle p{
+#post-username{
     position: absolute;
     left: 12%;
-    top: 5%;
+    top: 8%;
+}
+#title{
+    position: absolute;
+    left: 12%;
+    top: 15%;
     font-size: 30px;
 }
-#posting{
+#post-time{
     position: absolute;
-    left: 70%;
-    top: 10%;
-    height: 30px;
-    width: 80px;
-    background-color: #66ccff;
-    border: none;
-    border-radius: 6px;
-    color: white;
+    left: 12%;
+    top: 12%;
+    font-size: 14px;
 }
-#posting:hover{
-    background-color: blueviolet;
-}
-#new{
+#content{
     position: absolute;
-    left: 65%;
-    top: 18%;
-    height: 30px;
-    width: 70px;
-    background-color: #ffffff;
-    border: none;
-    border-radius: 6px;
-    border: 1px solid black;
+    left: 12%;
+    top: 20%;
 }
-#new:hover{
-    background-color: #f2f2f2;
-}
-#popular{
-    position: absolute;
-    left: 70%;
-    top: 18%;
-    height: 30px;
-    width: 70px;
-    background-color: #ffffff;
-    border: 1px solid black;
-    border-radius: 6px;
-}
-#popular:hover{
-    background-color: #f2f2f2;
-}
-#post1{
+#reply1{
     position: absolute;
     left: 10%;
-    top: 23%;
-    width: 70%;
-    height: 15%;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-left: 0;
-    border-right: 0;
-    text-align: center;
-    padding: 20px;
-}
-#post2{
-    position: absolute;
-    left: 10%;
-    top: 42%;
-    width: 70%;
-    height: 15%;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-left: 0;
-    border-right: 0;
-    text-align: center;
-    padding: 20px;
-}
-#post3{
-    position: absolute;
-    left: 10%;
-    top: 61%;
+    top: 50%;
     width: 70%;
     height: 15%;
     background-color: #ffffff;
@@ -308,37 +258,83 @@ body{
 }
 #like{
     position: absolute;
-    left: 5%;
-    top: 20%;
+    left: 75%;
+    top: 80%;
 }
 #reply{
     position: absolute;
-    left: 5%;
-    top: 40%;
-}
-#postTitle{
-    position: absolute;
-    left: 15%;
-    top: 15%;
-    font-size: 20px;
+    left: 80%;
+    top: 80%;
 }
 #text{
     position: absolute;
-    left: 15%;
+    left: 5%;
     top: 35%;
 }
 #username{
     position: absolute;
-    left: 75%;
-    top: 70%;
+    left: 5%;
+    top: 5%;
 }
 #time{
     position: absolute;
-    left: 85%;
-    top: 70%;
+    left: 5%;
+    top: 20%;
+    font-size: 14px;
 }
-#tage{
-    position: absolute;
-    left: 15%;
-    top: 80%;
+#commentBox{
+    position: fixed;
+    left: 14vw;
+    top: 94vh;
+    width: 70vw;
+    height: 2vh;
+    background-color: #ffffff;
+    text-align: center;
+    padding: 20px;
+}
+.comment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+.comment-box {
+    display: flex;
+    position:fixed;
+    top: 94vh;
+    left: 20vw;
+    width: 450px;
+    height: 30px;
+    background-color:rgba(255,255,255,0.8);
+    border-radius: 20px;
+    border: 1px solid black;
+}
+.comment-box input{
+    width: 450px;
+    height: 30px;
+    flex: 1;
+    font-size: 16px;
+    outline: none;
+    margin-left: 20px;
+    background-color: rgba(255,255,255,0.0);
+    border: none;
+}
+.comment-box button{
+    cursor: pointer;
+    background-color: #f2f2f2;
+    font-size: 20px;
+    float: right;
+    border: none;
+    margin-right: 20px;
+    background-color: rgba(255,255,255,0.0);
+}
+#post-like{
+    position: fixed;
+    left: 70vw;
+    top: 94vh;
+}
+#post-reply{
+    position: fixed;
+    left: 75vw;
+    top: 94vh;
 }

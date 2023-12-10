@@ -20,6 +20,8 @@
             <div>
                 <form id="login-form">
                     <input class="in" type="email" placeholder="你绑定的邮箱" id="email" required>
+                    <button type="button" onclick="getCaptcha()" id="get-captcha-btn">获取验证码</button>
+                    <input class="in" type="text" placeholder="请输入验证码" id="captcha" required>
                     <button class="in" type="submit" onclick="validateLogin()" id="email-verification">邮箱验证</button>
                 </form>
 
