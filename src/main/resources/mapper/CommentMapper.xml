@@ -12,7 +12,9 @@
                              comment_date,
                              article_id,
                              comment_flag,
-                             content
+                             content,
+                             like_count,
+                             dislike_count
         )values (
                  #{commentId},
                  "",
@@ -21,7 +23,9 @@
                  now(),
                  #{articleId},
                  #{commentFlag},
-                 #{content}
+                 #{content},
+                 0,
+                 0
         )
     </insert>
     <insert id="replyComment">
@@ -33,7 +37,9 @@
             comment_date,
             article_id,
             comment_flag,
-            content
+            content,
+            like_count,
+            dislike_count
         )values (
             #{commentId},
             #{parentCommentUsername},
@@ -42,7 +48,9 @@
             now(),
             #{articleId},
             #{commentFlag},
-            #{content}
+            #{content},
+            0,
+            0
         )
     </insert>
     <select id="getNewCommentId" resultType="int">
