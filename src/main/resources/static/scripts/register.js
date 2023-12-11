@@ -100,17 +100,27 @@ function getCaptcha() {
         }
     }, 1000);
 }
-
-function submitAccountForm() {
-    const formEL = document.getElementById("account-form");
-    console.log(formEL);
-    const inputELs = formEL.getElementsByTagName("input");
-    const formData = {};
-    for (let i = 0; i < inputELs.length; i++) {
-        if (inputELs[i].name !== "retypePassword"){
-            formData[inputELs[i].name] = inputELs[i].value;
-        }
-    }
+function submitUsrAndPwd(){
+    const username=document.getElementById("username").value;
+    const password=document.getElementById("password").value;
+    let formData={};
+    formData["username"]=username;
+    formData["password"]=password;
+    axios({
+        method: 'post',
+        url: 'http://localhost:8080/register',
+        data: formData,
+        headers: { 'content-type': 'application/json' },
+        withCredentials: true
+    }).then(response => {
+        console.log(response);
+    }).catch(error => {
+        console.error(error);
+    });
+}
+function submitVeriCode(){
+    let formData = document.getElementById("captcha").value;
+    formData=JSON.parse(formData);
     axios({
         method: 'post',
         url: 'http://localhost:8080/typeVeriCode/1',
@@ -119,11 +129,14 @@ function submitAccountForm() {
         withCredentials: true
     }).then(response => {
         console.log(response);
-
         window.location.href = "../pages/login.html";
     }).catch(error => {
         console.error(error);
     });
+}
+function submitAccountForm() {
+    submitUsrAndPwd();
+    submitVeriCode();
 }
 
 

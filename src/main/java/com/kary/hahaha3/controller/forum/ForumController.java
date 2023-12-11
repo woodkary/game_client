@@ -30,7 +30,7 @@ public class ForumController extends BaseController {
     @Qualifier("ForumService")
     private ForumService forumService;
     @PostMapping("/publishArticle")
-    @Operation(summary = "发布文章", description = "API to handle article publish")
+    @Operation(summary = "发布文章", description = "content内容，articleTopic是文章标题，themeName是文章对应的主题")
     public JsonResult publishArticle(@RequestBody PublishArticleJSON publishArticleJSON,
                                      HttpSession session) throws Exception {
         User myAccount= (User) session.getAttribute("myAccount");
@@ -48,7 +48,7 @@ public class ForumController extends BaseController {
         }
     }
     @PostMapping("/publishTheme")
-    @Operation(summary = "发布主题", description = "API to handle theme publish")
+    @Operation(summary = "发布主题", description = "themeName设定话题名称，由管理员发布")
     public JsonResult publishTheme(@RequestBody String themeName) throws DatabaseUpdateException {
         Integer res=forumService.publishTheme(themeName);
         if(res==1){
@@ -58,7 +58,7 @@ public class ForumController extends BaseController {
         }
     }
     @PostMapping("/publishComment")
-    @Operation(summary = "发布评论。要求前端：在页面中存储每条文章的id，即articleId。这个id在展示所有文章时会由后端给出", description = "API to handle theme publish")
+    @Operation(summary = "发布评论。要求前端：在页面中存储每条文章的id，即articleId。这个id在展示所有文章时会由后端给出,content是评论内容", description = "API to handle theme publish")
     public JsonResult publishComment(@RequestBody PublishCommentJSON publishCommentJSON,
                                      HttpSession session) throws SessionExpireException, NoSuchArticleException, DatabaseUpdateException, DatabaseConnectionException {
         User myAccount= (User) session.getAttribute("myAccount");
@@ -75,7 +75,7 @@ public class ForumController extends BaseController {
         }
     }
     @PostMapping("/replyComment")
-    @Operation(summary = "回复评论。要求前端：在页面中存储每条评论的id，即commentId。这个id在展示所有评论时会由后端给出", description = "API to handle theme publish")
+    @Operation(summary = "回复评论。要求前端：在页面中存储每条评论的id，即commentId。这个id在展示所有评论时会由后端给出,parentId是父评论的id", description = "API to handle theme publish")
     public JsonResult replyComment(@RequestBody ReplyCommentJSON replyCommentJSON,
                                    HttpSession session) throws SessionExpireException, DatabaseUpdateException, NoSuchCommentException {
         User myAccount= (User) session.getAttribute("myAccount");
@@ -91,7 +91,7 @@ public class ForumController extends BaseController {
         }
     }
     @GetMapping("/themes/{page}")
-    @Operation(summary = "分页展现所有主题")
+    @Operation(summary = "分页展现所有主题,page是页数，从1开始")
     public JsonResult getAllThemeByPage(@PathVariable Integer page){
         return JsonResult.ok(forumService.getAllThemeByPage(page),"这是所有的主题");
     }
