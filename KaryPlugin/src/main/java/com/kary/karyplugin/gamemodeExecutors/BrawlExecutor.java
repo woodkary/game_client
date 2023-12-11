@@ -151,7 +151,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     class BrawlMatch extends TimerTask {
         Map<Player, Record> players;//Concurrent
         int second=0;
-        int gameLimitTime=300;//5分钟
+        int gameLimitTime=60;//1分钟
 
         public BrawlMatch(Map<Player, Record> players) {
             this.players = players;
