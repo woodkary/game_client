@@ -41,6 +41,12 @@
     <update id="addGamesCount">
         update user_game set games_count=games_count+1 where username=#{username}
     </update>
+    <update id="addGamesCount1v1">
+        update user_game set games_count_1v1=games_count_1v1+1 where username=#{username}
+    </update>
+    <update id="addGamesCountDrawl">
+        update user_game set games_count_drawl=games_count_drawl+1 where username=#{username}
+    </update>
     <select id="selectUserByName" resultType="com.kary.karyplugin.pojo.UserGame" parameterType="string">
         select * from user_game where username=#{username}
     </select>

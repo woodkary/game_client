@@ -185,7 +185,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         Player damagee;
         Map<Player, List<Player>> assistMap;
         int second=0;
-        int assistExistLimitTime=3;//只计算3秒内的助攻
+        int assistExistLimitTime=10;//只计算10秒内的助攻
 
         public AssistTimer(Player damagee, Map<Player, List<Player>> assistMap) {
             this.damagee = damagee;
@@ -194,7 +194,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
 
         @Override
         public void run(){
-                //计算3秒
+                //计算10秒
             if (second < assistExistLimitTime) {
                 second += 1;
             }else{
