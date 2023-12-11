@@ -109,13 +109,13 @@ function submitUsrAndPwd(event){
     let formData={};
     formData["username"]=username;
     formData["password"]=password;
-    formData=JSON.parse(formData);
-    return new Promise(() => {
+    formData=JSON.stringify(formData);
+    return new Promise((resolve, reject) => {
         // 发送第一个请求
         // 请将实际的请求代码替换成你的实际代码
         fetch('http://localhost:8080/register', {
             method: 'POST',
-            data: formData,
+            body: formData,
             headers: { 'content-type': 'application/json' },
             withCredentials: true
             // 其他请求参数
@@ -129,8 +129,13 @@ function submitUsrAndPwd(event){
                 const usernameMessage = document.getElementById("usernameAvailabilityMessage");
                 usernameMessage.style.color="red";
                 usernameMessage.textContent=r.message;
+                throw new Error("输入有错误,错误如下："+r.message);
+            }else {
+                resolve(r);
             }
+
         }).catch(error=>{
+            reject(error);
             console.error(error);
         })
     });
@@ -144,7 +149,7 @@ function submitVeriCode(event){
         // 请将实际的请求代码替换成你的实际代码
         fetch('http://localhost:8080/typeVeriCode/1', {
             method: 'POST',
-            data: formData,
+            body: formData,
             headers: { 'content-type': 'application/json' },
             withCredentials: true
             // 其他请求参数
@@ -158,27 +163,18 @@ function submitVeriCode(event){
                     const usernameMessage = document.getElementById("usernameAvailabilityMessage");
                     usernameMessage.style.color="red";
                     usernameMessage.textContent=r.message;
+                    throw new Error("输入有错误,错误如下："+r.message);
                 }else{
                     alert("注册成功");
+                    resolve(r);
                     window.location.href = "../pages/login.html";
                 }
             }).catch(error=>{
-            console.error(error);
+                reject(r);
+                console.error(error);
         })
 
     });
-    /*axios({
-        method: 'post',
-        url: 'http://localhost:8080/typeVeriCode/1',
-        data: formData,
-        headers: { 'content-type': 'application/json' },
-        withCredentials: true
-    }).then(response => {
-        console.log(response);
-        window.location.href = "../pages/login.html";
-    }).catch(error => {
-        console.error(error);
-    });*/
 }
 function submitAccountForm(event) {
     event.preventDefault();
