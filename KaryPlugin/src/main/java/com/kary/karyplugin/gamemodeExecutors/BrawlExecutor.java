@@ -32,7 +32,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     private RecordService recordService;
     private Map<Player,Integer> playersMatchingGamemode;
     private Map<Integer,List<Player>> matchingPlayers=new ConcurrentHashMap<>();
-    private static final int MAX_MATCH_NUM=6;
+    private static final int MAX_MATCH_NUM=5;
     private static final int KILL_ONE_ADD =10;
     //将死者,助攻者列表
     private Map<Player, List<Player>> assistMap=new ConcurrentHashMap<>();
@@ -185,7 +185,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         Player damagee;
         Map<Player, List<Player>> assistMap;
         int second=0;
-        int assistExistLimitTime=3;//只计算3秒内的助攻
+        int assistExistLimitTime=10;//只计算10秒内的助攻
 
         public AssistTimer(Player damagee, Map<Player, List<Player>> assistMap) {
             this.damagee = damagee;
@@ -194,7 +194,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
 
         @Override
         public void run(){
-                //计算3秒
+                //计算10秒
             if (second < assistExistLimitTime) {
                 second += 1;
             }else{

@@ -2,10 +2,8 @@ package com.kary.karyplugin.service.impl;
 
 import com.kary.karyplugin.dao.GamesMapper;
 import com.kary.karyplugin.dao.RecordMapper;
-import com.kary.karyplugin.dao.SqlSessionSettings;
-import com.kary.karyplugin.pojo.User;
+import com.kary.karyplugin.pojo.UserGame;
 import com.kary.karyplugin.service.RecordService;
-import com.mysql.cj.Session;
 import org.apache.ibatis.session.SqlSession;
 import org.bukkit.Bukkit;
 
@@ -26,7 +24,7 @@ public class RecordServiceImpl implements RecordService {
         recordMapper=new RecordMapper() {
             @Override
             public void addNewRecord(Integer gameId, String username, Integer kill, Integer death, Integer assist) {
-                Bukkit.getServer().broadcastMessage("新的比赛为："+gameId+","+username+","+kill+","+death+","+assist);
+                Bukkit.getServer().broadcastMessage("新的比赛为："+gameId+","+"玩家"+username+","+"击杀"+kill+","+"死亡"+death+","+"助攻"+assist);
             }
 
             @Override
@@ -40,8 +38,23 @@ public class RecordServiceImpl implements RecordService {
             }
 
             @Override
-            public User selectUserByName(String username) {
-                return new User(username,"114514",0,0,"834479572@qq.com",new Date(),0);
+            public void addGamesCount(String username) {
+                Bukkit.getServer().broadcastMessage(username+"新增加了一场比赛");
+            }
+
+            @Override
+            public void addGamesCount1v1(String username) {
+
+            }
+
+            @Override
+            public void addGamesCountDrawl(String username) {
+
+            }
+
+            @Override
+            public UserGame selectUserByName(String username) {
+                return new UserGame(username,0,0,0);
             }
         };
         gamesMapper=new GamesMapper() {
@@ -51,8 +64,8 @@ public class RecordServiceImpl implements RecordService {
             }
 
             @Override
-            public void addNewGame(Integer type, Integer gameId, Long duration) {
-                Bukkit.getServer().broadcastMessage("加入新游戏:"+type+","+gameId+","+duration);
+            public void addNewGame(Integer type, Integer gameId, Long duration,String mvpPlayer) {
+                Bukkit.getServer().broadcastMessage("加入新游戏:类型："+type+",游戏id"+gameId+",时长"+duration+",MVP"+mvpPlayer);
             }
         };
     }
@@ -63,12 +76,20 @@ public class RecordServiceImpl implements RecordService {
                                Integer kill,
                                Integer death,
                                Integer gameMode,
-                               Integer assists) {
+                               Integer assists,
+                               String mvpPlayer) {
         //TODO 应该是gameMapper
         Integer maxGameId=gamesMapper.getMaxGameId();
         maxGameId+=1;
         recordMapper.addNewRecord(maxGameId,username,kill,death,(gameMode==1)?0:assists);
-        gamesMapper.addNewGame(gameMode,maxGameId,duration);
+        recordMapper.addGamesCount(username);
+        if(gameMode==1){
+            recordMapper.addGamesCount1v1(username);
+        }
+        if(gameMode==2){
+            recordMapper.addGamesCountDrawl(username);
+        }
+        gamesMapper.addNewGame(gameMode,maxGameId,duration,mvpPlayer);
     }
 
     @Override
@@ -82,7 +103,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public User selectUserByName(String username) {
+    public UserGame selectUserByName(String username) {
         return recordMapper.selectUserByName(username);
     }
 }

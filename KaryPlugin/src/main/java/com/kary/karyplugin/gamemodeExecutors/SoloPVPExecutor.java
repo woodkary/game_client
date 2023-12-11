@@ -52,14 +52,16 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     1,1,
                     (Integer) winnerArray[0],
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
             KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     loser.getName(),
                     1,1,
                     (Integer) loserArray[0]-8,
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
         }else if(Integer.valueOf(15).equals(winnerArray[0])){
             KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
@@ -67,14 +69,16 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     1,0,
                     (Integer) winnerArray[0],
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
             KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     loser.getName(),
                     0,1,
                     (Integer) loserArray[0]-8,
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
         }else{
             KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
@@ -82,14 +86,16 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     0,1,
                     (Integer) winnerArray[0],
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
             KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     loser.getName(),
                     1,0,
                     (Integer) loserArray[0]-8,
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
         }
 
@@ -108,11 +114,11 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
 
         Object[] winnerScoreGainAndStartTime=playersScoreGainAndMatchStartTime.get(winner);
         winnerScoreGainAndStartTime[0]=(Integer)winnerScoreGainAndStartTime[0]+15;
-        playersScoreGainAndMatchStartTime.put(winner,winnerScoreGainAndStartTime);
+        /*playersScoreGainAndMatchStartTime.put(winner,winnerScoreGainAndStartTime);*/
 
         Object[] loserScoreGainAndStartTime=playersScoreGainAndMatchStartTime.get(loser);
         loserScoreGainAndStartTime[0]=(Integer)loserScoreGainAndStartTime[0]-10;
-        playersScoreGainAndMatchStartTime.put(loser,loserScoreGainAndStartTime);
+        /*playersScoreGainAndMatchStartTime.put(loser,loserScoreGainAndStartTime);*/
         //TODO 为胜利方加分，记录这场比赛，目前暂定赢+15，输-10，更新数据库
         if(Integer.valueOf(30).equals(winnerScoreGainAndStartTime[0])){
             //2:0，游戏结束
@@ -125,36 +131,41 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     2,0,
                     (Integer) winnerArray[0],
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
             KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     loser.getName(),
                     0,2,
                     (Integer) loserArray[0],
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
         }
         if(Integer.valueOf(20).equals(winnerScoreGainAndStartTime[0])){
             //2:1结束
             playersInSoloPVP.remove(winner);
             playersInSoloPVP.remove(loser);
-        }   Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
-        Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
-        KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
-                winner.getName(),
-                2,1,
-                (Integer) winnerArray[0],
-                0,
-                gameMode
-        );
-        KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
-                loser.getName(),
-                1,2,
-                (Integer) loserArray[0],
-                0,
-                gameMode
-        );
+            Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
+            Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
+            KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
+                    winner.getName(),
+                    2,1,
+                    (Integer) winnerArray[0],
+                    0,
+                    gameMode,
+                    winner.getName()
+            );
+            KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
+                    loser.getName(),
+                    1,2,
+                    (Integer) loserArray[0],
+                    0,
+                    gameMode,
+                    winner.getName()
+            );
+        }
         Bukkit.getServer().broadcastMessage("玩家"+winner.getName()+"击败了"+loser.getName());
     }
 
