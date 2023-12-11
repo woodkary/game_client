@@ -35,7 +35,8 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     //TODO 一场比赛6个人
     private static final int KILL_ONE_ADD =10;
     //将死者,助攻者列表
-    private Map<Player, Set<Player>> assistMap=new ConcurrentHashMap<>();
+    //被攻击者，以及攻击者序列，以及剩余时间，剩余时间逐渐减一，如果为0则不再计算助攻
+    private Map<Player, Map<Player,Integer>> assistMap=new ConcurrentHashMap<>();
 
     public BrawlExecutor(RecordService recordService, Map<Player, Integer> playersMatchingGamemode,KaryPlugin plugin) {
         this.recordService = recordService;
@@ -63,14 +64,29 @@ public class BrawlExecutor implements Listener, CommandExecutor {
             Player damager= (Player) damagerEntity;
             //danagerList是所有伤害过damagee的玩家列表
             assistMap.computeIfPresent(damagee,(key, danagerList)->{
-
-                // 安排任务在主线程中每20个游戏刻执行一次（1秒 = 20游戏刻）
-                int delayInTicks = 0; // 延迟0个游戏刻
-                int periodInTicks = 20; // 每20个游戏刻执行一次
-                //在主线程池中开启助攻计时
-                Bukkit.getScheduler().runTaskTimer(plugin, new AssistTimer(damagee,damager, assistMap),delayInTicks,periodInTicks);
-
-                danagerList.add(damager);
+                /*Integer timeLeft=danagerList.get(damager);
+                if(timeLeft==null) {//如果damager在danagerList中
+                    // 安排任务在主线程中每20个游戏刻执行一次（1秒 = 20游戏刻）
+                    int delayInTicks = 0; // 延迟0个游戏刻
+                    int periodInTicks = 20; // 每20个游戏刻执行一次
+                    //在主线程池中开启助攻计时
+                    Bukkit.getScheduler().runTaskTimer(plugin, new AssistTimer(damagee, damager, assistMap), delayInTicks, periodInTicks);
+                }
+                danagerList.put(damager, 10);*/
+                danagerList.compute(damager,(key2, timeLeft)->{
+                    if(timeLeft==null){
+                        // 安排任务在主线程中每20个游戏刻执行一次（1秒 = 20游戏刻）
+                        int delayInTicks = 0; // 延迟0个游戏刻
+                        int periodInTicks = 20; // 每20个游戏刻执行一次
+                        //在主线程池中开启助攻计时
+                        Bukkit.getScheduler().runTaskTimer(plugin, new AssistTimer(damagee, damager, assistMap), delayInTicks, periodInTicks);
+                        return 10;
+                    }
+                    if(timeLeft==0){
+                        return null;
+                    }
+                    return timeLeft;
+                });
                 return danagerList;
             });
         }
@@ -96,7 +112,8 @@ public class BrawlExecutor implements Listener, CommandExecutor {
 
         //对于所有助攻者更新助攻记录
         assistMap.computeIfPresent(deadPlayer,(key, deadAssists)->{
-            for (Player assist : deadAssists) {
+            for (Map.Entry<Player, Integer> entry : deadAssists.entrySet()) {
+                Player assist=entry.getKey();
                 players.computeIfPresent(assist,(key2, assistRecord)->{
                     assistRecord.addOneAssist();
                     return assistRecord;
@@ -121,7 +138,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                 if(matchingPlayer.size()==MAX_MATCH_NUM){//达到最大待匹配人数
                     StringBuilder message=new StringBuilder();
                     for (Player player:matchingPlayer) {
-                        assistMap.put(player,new ConcurrentSkipListSet<>());
+                        assistMap.put(player,new ConcurrentHashMap<>());
                         players.put(player,new Record());
                         message.append(player.getName());
                         message.append(",");
@@ -201,28 +218,28 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     class AssistTimer extends TimerTask {
         Player damagee;
         Player damager;
-        Map<Player, Set<Player>> assistMap;
-        int second=0;
-        int assistExistLimitTime=10;//只计算10秒内的助攻
+        Map<Player, Map<Player,Integer>> assistMap;
 
-        public AssistTimer(Player damagee,Player damager, Map<Player, Set<Player>> assistMap) {
+        public AssistTimer(Player damagee,Player damager, Map<Player, Map<Player,Integer>> assistMap) {
             this.damagee = damagee;
             this.assistMap = assistMap;
         }
 
         @Override
         public void run(){
-                //计算10秒
-            if (second < assistExistLimitTime) {
-                second += 1;
-            }else{
-                //在不影响其他线程访问damagerList的情况下，移除键值对
-                //把damagee的值damagerList安全替换为null
-                assistMap.computeIfPresent(damagee,(key, damagerList)-> {
-                    damagerList.remove(damager);
-                    return damagerList;
-                });
-            }
+            //计算10秒
+           assistMap.computeIfPresent(damagee,(key, danagerList)->{
+               danagerList.compute(damager,(key2, timeLeft)->{
+                   if(timeLeft==null){
+                       return null;
+                   }
+                   if(timeLeft==0){
+                       return null;
+                   }
+                   return timeLeft-1;
+               });
+               return danagerList;
+           });
         }
     }
 }
