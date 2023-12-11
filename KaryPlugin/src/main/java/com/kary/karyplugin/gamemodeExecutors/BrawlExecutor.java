@@ -151,7 +151,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     class BrawlMatch extends TimerTask {
         Map<Player, Record> players;//Concurrent
         int second=0;
-        int gameLimitTime=300;
+        int gameLimitTime=300;//5分钟
 
         public BrawlMatch(Map<Player, Record> players) {
             this.players = players;
@@ -163,8 +163,23 @@ public class BrawlExecutor implements Listener, CommandExecutor {
             if (second < gameLimitTime) {
                 second += 1;
             }else{
+                Set<Map.Entry<Player, Record>> entrySet=players.entrySet();
+                double maxKDA=Double.MIN_VALUE;
+                Player mvpPlayer=null;
+                for (Map.Entry<Player, Record> entry : entrySet){
+                    Player player= entry.getKey();
+                    Record record= entry.getValue();
+                    int k= record.getKill();
+                    int d= record.getDeath();
+                    int a= record.getAssist();
+                    double kda= (k * 1.0 + a) /((d!=0)?d:1);
+                    if(kda>maxKDA){
+                        maxKDA=kda;
+                        mvpPlayer=player;
+                    }
+                }
                 //利用ConcurrentHashMap来同步操作
-                for (Map.Entry<Player, Record> entry : players.entrySet()) {
+                for (Map.Entry<Player, Record> entry : entrySet) {
                     Player player= entry.getKey();
                     Record record=entry.getValue();
                     KaryPlugin.updateDatabase(
@@ -174,7 +189,8 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                             record.getDeath(),
                             record.getScoreGain(),
                             record.getAssist(),
-                            gameMode
+                            gameMode,
+                            mvpPlayer.getName()
                     );
                 }
                 players.clear();

@@ -2,6 +2,7 @@ package com.kary.karyplugin.service.impl;
 
 import com.kary.karyplugin.dao.GamesMapper;
 import com.kary.karyplugin.dao.RecordMapper;
+import com.kary.karyplugin.dao.SqlSessionSettings;
 import com.kary.karyplugin.pojo.UserGame;
 import com.kary.karyplugin.service.RecordService;
 import org.apache.ibatis.session.SqlSession;
@@ -18,10 +19,10 @@ public class RecordServiceImpl implements RecordService {
     GamesMapper gamesMapper;
 
     public RecordServiceImpl() {
-        /*session=SqlSessionSettings.getSqlSession();
+        session= SqlSessionSettings.getSqlSession();
         recordMapper=session.getMapper(RecordMapper.class);
-        gamesMapper=session.getMapper(GamesMapper.class);*/
-        recordMapper=new RecordMapper() {
+        gamesMapper=session.getMapper(GamesMapper.class);
+        /*recordMapper=new RecordMapper() {
             @Override
             public void addNewRecord(Integer gameId, String username, Integer kill, Integer death, Integer assist) {
                 Bukkit.getServer().broadcastMessage("新的比赛为："+gameId+","+"玩家"+username+","+"击杀"+kill+","+"死亡"+death+","+"助攻"+assist);
@@ -67,7 +68,7 @@ public class RecordServiceImpl implements RecordService {
             public void addNewGame(Integer type, Integer gameId, Long duration,String mvpPlayer) {
                 Bukkit.getServer().broadcastMessage("加入新游戏:类型："+type+",游戏id"+gameId+",时长"+duration+",MVP"+mvpPlayer);
             }
-        };
+        };*/
     }
 
     @Override
