@@ -12,13 +12,11 @@ import com.kary.hahaha3.exceptions.expired.VerificationCodeExpireException;
 import com.kary.hahaha3.mapper.UserMapper;
 import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.User;
-import com.kary.hahaha3.pojo.vo.VerificationCodeJSON;
 import com.kary.hahaha3.service.UserService;
 import com.kary.hahaha3.utils.AESUtil;
 import com.kary.hahaha3.utils.MailUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,9 +42,6 @@ public class EmailVerificationController extends BaseController {
     @GetMapping("/sendVeriCode/{operation}")
     @Operation(summary = "发送验证码",description = "operation 1是注册,2是改密码,3是登录")
     public JsonResult sendVeriCode(@RequestParam("email") String email, @PathVariable Integer operation, HttpSession session) throws VerificationCodeSendingException, EmailEmptyException, EmailErrorException {
-        if(email==null){
-            throw new EmailEmptyException("请输入邮箱");
-        }
         if(userService.emailIsRegistered(email)&&operation==1){
             throw new EmailErrorException("该邮箱已注册");
         }
@@ -61,7 +56,6 @@ public class EmailVerificationController extends BaseController {
         //先生成验证码
         String verificationCode=MailUtil.getRandom6Digit();
         session.setAttribute("verificationCode",verificationCode);
-        /*System.out.println(session.getAttribute("email")+"///////");*/
         //发送验证码
         try {
             MailUtil.sendMail(email,verificationCode,"验证码");
