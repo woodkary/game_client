@@ -60,7 +60,7 @@ function checkPasswordConfirmation() {
 function getCaptcha() {
     let xhr = new XMLHttpRequest();
     let email = document.getElementById("email").value;
-    xhr.open("GET", "http://localhost:8080/sendVeriCode?email=" + email);
+    xhr.open("GET", "http://localhost:8080/sendVeriCode/1?email=" + email);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.withCredentials = true;
 
@@ -118,7 +118,7 @@ formEL.addEventListener("submit", function (event) {
     }
     axios({
         method: 'post',
-        url: 'http://localhost:8080/register',
+        url: 'http://localhost:8080/typeVeriCode/1',
         data: formData,
         headers: { 'content-type': 'application/json' },
         withCredentials: true
