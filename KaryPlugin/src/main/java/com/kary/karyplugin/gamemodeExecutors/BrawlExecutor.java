@@ -19,6 +19,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
  * @author:123
@@ -34,7 +35,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     //TODO 一场比赛6个人
     private static final int KILL_ONE_ADD =10;
     //将死者,助攻者列表
-    private Map<Player, List<Player>> assistMap=new ConcurrentHashMap<>();
+    private Map<Player, Set<Player>> assistMap=new ConcurrentHashMap<>();
 
     public BrawlExecutor(RecordService recordService, Map<Player, Integer> playersMatchingGamemode,KaryPlugin plugin) {
         this.recordService = recordService;
@@ -61,15 +62,14 @@ public class BrawlExecutor implements Listener, CommandExecutor {
             Player damagee= (Player) damageeEntity;
             Player damager= (Player) damagerEntity;
             //danagerList是所有伤害过damagee的玩家列表
-            assistMap.compute(damagee,(key,danagerList)->{
-                if(danagerList==null){
-                    danagerList=new ArrayList<>();
-                    // 安排任务在主线程中每20个游戏刻执行一次（1秒 = 20游戏刻）
-                    int delayInTicks = 0; // 延迟0个游戏刻
-                    int periodInTicks = 20; // 每20个游戏刻执行一次
-                    //在主线程池中开启助攻计时
-                    Bukkit.getScheduler().runTaskTimer(plugin, new AssistTimer(damagee, assistMap),delayInTicks,periodInTicks);
-                }
+            assistMap.computeIfPresent(damagee,(key, danagerList)->{
+
+                // 安排任务在主线程中每20个游戏刻执行一次（1秒 = 20游戏刻）
+                int delayInTicks = 0; // 延迟0个游戏刻
+                int periodInTicks = 20; // 每20个游戏刻执行一次
+                //在主线程池中开启助攻计时
+                Bukkit.getScheduler().runTaskTimer(plugin, new AssistTimer(damagee,damager, assistMap),delayInTicks,periodInTicks);
+
                 danagerList.add(damager);
                 return danagerList;
             });
@@ -120,8 +120,8 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                 ((Player) commandSender).sendRawMessage("您正在匹配大乱斗，等待其他玩家加入游戏……");
                 if(matchingPlayer.size()==MAX_MATCH_NUM){//达到最大待匹配人数
                     StringBuilder message=new StringBuilder();
-                    for (int i=0;i<MAX_MATCH_NUM;i++) {
-                        Player player=matchingPlayer.get(i);
+                    for (Player player:matchingPlayer) {
+                        assistMap.put(player,new ConcurrentSkipListSet<>());
                         players.put(player,new Record());
                         message.append(player.getName());
                         message.append(",");
@@ -200,11 +200,12 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     }
     class AssistTimer extends TimerTask {
         Player damagee;
-        Map<Player, List<Player>> assistMap;
+        Player damager;
+        Map<Player, Set<Player>> assistMap;
         int second=0;
         int assistExistLimitTime=10;//只计算10秒内的助攻
 
-        public AssistTimer(Player damagee, Map<Player, List<Player>> assistMap) {
+        public AssistTimer(Player damagee,Player damager, Map<Player, Set<Player>> assistMap) {
             this.damagee = damagee;
             this.assistMap = assistMap;
         }
@@ -217,7 +218,10 @@ public class BrawlExecutor implements Listener, CommandExecutor {
             }else{
                 //在不影响其他线程访问damagerList的情况下，移除键值对
                 //把damagee的值damagerList安全替换为null
-                assistMap.compute(damagee,(key,damagerList)-> null);
+                assistMap.computeIfPresent(damagee,(key, damagerList)-> {
+                    damagerList.remove(damager);
+                    return damagerList;
+                });
             }
         }
     }
