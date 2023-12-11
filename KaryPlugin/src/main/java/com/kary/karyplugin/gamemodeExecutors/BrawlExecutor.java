@@ -44,6 +44,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         matchingPlayers.put(LevelUtil.GOLD, Collections.synchronizedList(new ArrayList<>()));
         matchingPlayers.put(LevelUtil.PLATINUM, Collections.synchronizedList(new ArrayList<>()));
         matchingPlayers.put(LevelUtil.DIAMOND, Collections.synchronizedList(new ArrayList<>()));
+        matchingPlayers.put(LevelUtil.MASTER, Collections.synchronizedList(new ArrayList<>()));
         matchingPlayers.put(LevelUtil.KING, Collections.synchronizedList(new ArrayList<>()));
     }
 
