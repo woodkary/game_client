@@ -23,6 +23,6 @@ public class RecordVO {
     private int assists;//新增的
     private double kd;
     private long duration;
-    /*减少的 private boolean win;*/
+    private boolean isMVP;
     private String type;//新增的
 }
