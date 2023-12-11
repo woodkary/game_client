@@ -9,5 +9,6 @@ public interface GamesMapper {
     Integer getMaxGameId();
     void addNewGame(@Param("type")Integer type,
                     @Param("gameId")Integer gameId,
-                    @Param("duration")Long duration);
+                    @Param("duration")Long duration,
+                    @Param("mvpPlayer")String mvpPlayer);
 }

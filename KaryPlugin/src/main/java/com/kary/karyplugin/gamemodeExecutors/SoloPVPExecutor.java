@@ -52,14 +52,16 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     1,1,
                     (Integer) winnerArray[0],
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
             KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     loser.getName(),
                     1,1,
                     (Integer) loserArray[0]-8,
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
         }else if(Integer.valueOf(15).equals(winnerArray[0])){
             KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
@@ -67,14 +69,16 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     1,0,
                     (Integer) winnerArray[0],
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
             KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     loser.getName(),
                     0,1,
                     (Integer) loserArray[0]-8,
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
         }else{
             KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
@@ -82,14 +86,16 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     0,1,
                     (Integer) winnerArray[0],
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
             KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     loser.getName(),
                     1,0,
                     (Integer) loserArray[0]-8,
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
         }
 
@@ -125,14 +131,16 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     2,0,
                     (Integer) winnerArray[0],
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
             KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     loser.getName(),
                     0,2,
                     (Integer) loserArray[0],
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
         }
         if(Integer.valueOf(20).equals(winnerScoreGainAndStartTime[0])){
@@ -146,14 +154,16 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     2,1,
                     (Integer) winnerArray[0],
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
             KaryPlugin.updateDatabase(System.currentTimeMillis() -(Long)winnerArray[1],
                     loser.getName(),
                     1,2,
                     (Integer) loserArray[0],
                     0,
-                    gameMode
+                    gameMode,
+                    winner.getName()
             );
         }
         Bukkit.getServer().broadcastMessage("玩家"+winner.getName()+"击败了"+loser.getName());

@@ -64,8 +64,8 @@ public class RecordServiceImpl implements RecordService {
             }
 
             @Override
-            public void addNewGame(Integer type, Integer gameId, Long duration) {
-                Bukkit.getServer().broadcastMessage("加入新游戏:"+type+","+gameId+","+duration);
+            public void addNewGame(Integer type, Integer gameId, Long duration,String mvpPlayer) {
+                Bukkit.getServer().broadcastMessage("加入新游戏:类型："+type+",游戏id"+gameId+",时长"+duration+",MVP"+mvpPlayer);
             }
         };
     }
@@ -76,7 +76,8 @@ public class RecordServiceImpl implements RecordService {
                                Integer kill,
                                Integer death,
                                Integer gameMode,
-                               Integer assists) {
+                               Integer assists,
+                               String mvpPlayer) {
         //TODO 应该是gameMapper
         Integer maxGameId=gamesMapper.getMaxGameId();
         maxGameId+=1;
@@ -88,7 +89,7 @@ public class RecordServiceImpl implements RecordService {
         if(gameMode==2){
             recordMapper.addGamesCountDrawl(username);
         }
-        gamesMapper.addNewGame(gameMode,maxGameId,duration);
+        gamesMapper.addNewGame(gameMode,maxGameId,duration,mvpPlayer);
     }
 
     @Override
