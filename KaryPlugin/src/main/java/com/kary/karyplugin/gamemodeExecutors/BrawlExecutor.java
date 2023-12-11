@@ -23,8 +23,6 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author:123
  */
-/*TODO 加入输指令匹配机制
- * */
 public class BrawlExecutor implements Listener, CommandExecutor {
     private Integer gameMode= GameModeUtil.BRAWL_MODE;
     private KaryPlugin plugin;
@@ -112,7 +110,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         if (commandSender instanceof Player) {
             Integer gamemode=playersMatchingGamemode.get(commandSender);
             int level= LevelUtil.getLevel(recordService.getScoreTotal(commandSender.getName(),gameMode));
-            if(gamemode==null){//TODO 加入匹配
+            if(gamemode==null){
                 playersMatchingGamemode.put((Player) commandSender, GameModeUtil.BRAWL_MODE);
                 //每一段位的总匹配人数
                 List<Player> matchingPlayer=matchingPlayers.get(level);
@@ -152,6 +150,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         Map<Player, Record> players;//Concurrent
         int second=0;
         int gameLimitTime=60;//1分钟
+        //TODO 改为5分钟
 
         public BrawlMatch(Map<Player, Record> players) {
             this.players = players;

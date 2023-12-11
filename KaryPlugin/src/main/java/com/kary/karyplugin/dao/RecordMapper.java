@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 /**
  * @author:123
  */
-//TODO 加入gameMapper
 public interface RecordMapper {
     void addNewRecord(@Param("game_id")Integer gameId,
                       @Param("username")String username,

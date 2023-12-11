@@ -79,7 +79,6 @@ public class RecordServiceImpl implements RecordService {
                                Integer gameMode,
                                Integer assists,
                                String mvpPlayer) {
-        //TODO 应该是gameMapper
         Integer maxGameId=gamesMapper.getMaxGameId();
         maxGameId+=1;
         recordMapper.addNewRecord(maxGameId,username,kill,death,(gameMode==1)?0:assists);

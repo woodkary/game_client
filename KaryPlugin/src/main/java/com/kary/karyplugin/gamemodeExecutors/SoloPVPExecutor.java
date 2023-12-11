@@ -39,7 +39,6 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
             return;
         }
         //有人退出游戏，则另一人胜利
-        //TODO 这是有一人中途退出的情况，为胜利方加分，中途退出的人多扣8分，记录这场比赛
         Player loser=playerQuitEvent.getPlayer();
         Player winner=playersInSoloPVP.remove(loser);
         playersInSoloPVP.remove(winner);
@@ -119,7 +118,6 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
         Object[] loserScoreGainAndStartTime=playersScoreGainAndMatchStartTime.get(loser);
         loserScoreGainAndStartTime[0]=(Integer)loserScoreGainAndStartTime[0]-10;
         /*playersScoreGainAndMatchStartTime.put(loser,loserScoreGainAndStartTime);*/
-        //TODO 为胜利方加分，记录这场比赛，目前暂定赢+15，输-10，更新数据库
         if(Integer.valueOf(30).equals(winnerScoreGainAndStartTime[0])){
             //2:0，游戏结束
             playersInSoloPVP.remove(winner);
