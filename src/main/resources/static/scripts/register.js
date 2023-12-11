@@ -40,8 +40,10 @@ function checkPasswordStrength(password) {
         passwordStrengthEl.textContent = "";
     } else if (password.length >= minLength && hasNumber && hasCharacter) {
         passwordStrengthEl.textContent = "鲁棒的密码";
+        passwordStrengthEl.style.color="green";
     } else {
         passwordStrengthEl.textContent = "拉跨的密码";
+        passwordStrengthEl.style.color="red";
     }
 }
 
@@ -100,28 +102,72 @@ function getCaptcha() {
         }
     }, 1000);
 }
-function submitUsrAndPwd(){
+function submitUsrAndPwd(event){
+    event.preventDefault();
     const username=document.getElementById("username").value;
     const password=document.getElementById("password").value;
     let formData={};
     formData["username"]=username;
     formData["password"]=password;
-    axios({
-        method: 'post',
-        url: 'http://localhost:8080/register',
-        data: formData,
-        headers: { 'content-type': 'application/json' },
-        withCredentials: true
-    }).then(response => {
-        console.log(response);
-    }).catch(error => {
-        console.error(error);
+    formData=JSON.parse(formData);
+    return new Promise(() => {
+        // 发送第一个请求
+        // 请将实际的请求代码替换成你的实际代码
+        fetch('http://localhost:8080/register', {
+            method: 'POST',
+            data: formData,
+            headers: { 'content-type': 'application/json' },
+            withCredentials: true
+            // 其他请求参数
+        })
+        .then(response => {
+            let r=response.json();
+            if(!response.ok&&response.status !== 400){
+                throw new Error("服务器错误");
+            }
+            if(response.status===400){
+                const usernameMessage = document.getElementById("usernameAvailabilityMessage");
+                usernameMessage.style.color="red";
+                usernameMessage.textContent=r.message;
+            }
+        }).catch(error=>{
+            console.error(error);
+        })
     });
 }
-function submitVeriCode(){
+function submitVeriCode(event){
+    event.preventDefault();
     let formData = document.getElementById("captcha").value;
     formData=JSON.parse(formData);
-    axios({
+    return new Promise((resolve, reject) => {
+        // 发送第一个请求
+        // 请将实际的请求代码替换成你的实际代码
+        fetch('http://localhost:8080/typeVeriCode/1', {
+            method: 'POST',
+            data: formData,
+            headers: { 'content-type': 'application/json' },
+            withCredentials: true
+            // 其他请求参数
+        })
+            .then(response => {
+                let r=response.json();
+                if(!response.ok&&response.status !== 400){
+                    throw new Error("服务器错误");
+                }
+                if(response.status===400){
+                    const usernameMessage = document.getElementById("usernameAvailabilityMessage");
+                    usernameMessage.style.color="red";
+                    usernameMessage.textContent=r.message;
+                }else{
+                    alert("注册成功");
+                    window.location.href = "../pages/login.html";
+                }
+            }).catch(error=>{
+            console.error(error);
+        })
+
+    });
+    /*axios({
         method: 'post',
         url: 'http://localhost:8080/typeVeriCode/1',
         data: formData,
@@ -132,11 +178,24 @@ function submitVeriCode(){
         window.location.href = "../pages/login.html";
     }).catch(error => {
         console.error(error);
-    });
+    });*/
 }
-function submitAccountForm() {
-    submitUsrAndPwd();
-    submitVeriCode();
+function submitAccountForm(event) {
+    event.preventDefault();
+    submitUsrAndPwd(event)
+        .then(response1 => {
+            // 处理第一个请求的结果
+            console.log(response1);
+           return submitVeriCode(event);
+        })
+        .then(response2 => {
+            console.log(response2);
+        })
+        .catch(error=>{
+            // 处理错误
+            console.error(error);
+        })
+
 }
 
 
