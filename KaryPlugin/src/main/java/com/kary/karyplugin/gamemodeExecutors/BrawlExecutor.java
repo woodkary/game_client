@@ -222,6 +222,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
 
         public AssistTimer(Player damagee,Player damager, Map<Player, Map<Player,Integer>> assistMap) {
             this.damagee = damagee;
+            this.damager=damager;
             this.assistMap = assistMap;
         }
 
