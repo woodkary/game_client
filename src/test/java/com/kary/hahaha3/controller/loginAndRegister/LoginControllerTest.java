@@ -9,19 +9,15 @@ import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.service.UserService;
 import com.kary.hahaha3.utils.AESUtil;
 import jakarta.servlet.http.HttpSession;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 public class LoginControllerTest {
@@ -51,6 +47,7 @@ public class LoginControllerTest {
         myAccount.setPwd(user.getPwd());
         myAccount.setEmail(userInDatabase.getEmail());
         myAccount.setRegdate(userInDatabase.getRegdate());
+        myAccount.setPersonalQuote(userInDatabase.getPersonalQuote());
         JsonResult expectedResult=JsonResult.ok(myAccount,"登录成功");
         // Assertions
         assertEquals(expectedResult, result);
@@ -58,21 +55,20 @@ public class LoginControllerTest {
     }
     //未注册登录
     @Test
-    public void testLoginWithoutRegister() throws ErrorInputException {
+    public void testLoginWithoutRegister(){
         User user = new User();
         user.setUsername("NotRegisteredName");
         user.setPwd("NotRegisterPwd");
         HttpSession session = mock(HttpSession.class);
-        assertThrows(new UsernameErrorException("用户不存在").getClass(),()->loginController.login(user.getUsername(), user.getPwd(), session));
+        assertThrows(UsernameErrorException.class,()->loginController.login(user.getUsername(), user.getPwd(), session));
     }
     //密码错误登录
     @Test
     public void testLoginPwdError() throws ErrorInputException {
-        // Mock dependencies
         User user = new User();
         user.setUsername("kary");
         user.setPwd("testLoginErrorPwd");
         HttpSession session = mock(HttpSession.class);
-        assertThrows(new PasswordErrorException("密码错误").getClass(),()->loginController.login(user.getUsername(), user.getPwd(), session));
+        assertThrows(PasswordErrorException.class,()->loginController.login(user.getUsername(), user.getPwd(), session));
     }
 }
