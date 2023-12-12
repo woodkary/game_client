@@ -97,8 +97,10 @@ public class RecordServiceImpl implements RecordService {
                                Double takenDamage,
                                String mvpPlayer) {
         Integer maxGameId=gamesMapper.getMaxGameId();
+        if(maxGameId==null){
+            maxGameId=0;
+        }
         maxGameId+=1;
-        recordMapper.addNewRecord(maxGameId,username,kill,death,(gameMode==1)?0:assists,scoreGain,takeDamage, takenDamage);
         recordMapper.addGamesCount(username);
         if(gameMode==1){
             recordMapper.addGamesCount1v1(username);
@@ -107,6 +109,7 @@ public class RecordServiceImpl implements RecordService {
             recordMapper.addGamesCountDrawl(username);
         }
         gamesMapper.addNewGame(gameMode,maxGameId,duration,mvpPlayer);
+        recordMapper.addNewRecord(maxGameId,username,kill,death,(gameMode==1)?0:assists,scoreGain,takeDamage, takenDamage);
     }
 
     @Override
