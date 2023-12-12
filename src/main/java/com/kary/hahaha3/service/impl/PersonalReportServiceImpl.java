@@ -51,14 +51,20 @@ public class PersonalReportServiceImpl implements PersonalReportService {
         int win = 0;
         int lose = 0;
         double winRate = 0;
+        double averageTakeDamage=0;
+        double averageTakenDamage=0;
 
         List<Record> recordList=recordMapper.selectRecordsByUsername(username);
+        double totalTakeDamage=0.0;
+        double totalTakenDamage=0.0;
         for (Record record : recordList) {
             Games game=gamesMapper.getGameByIdAndType(record.getGameId(),type);
             if(game==null){
                 continue;
             }
             gameNums+=1;
+            totalTakeDamage+= record.getTakeDamage();
+            totalTakenDamage+= record.getTakenDamage();
             if(type==1){
                 if(record.getKill()>record.getDeath()){
                     win+=1;
@@ -66,12 +72,20 @@ public class PersonalReportServiceImpl implements PersonalReportService {
                     lose+=1;
                 }
             }
+            if(type==2&&game.getMvpPlayer().equals(username)){
+                win+=1;
+            }
         }
         winRate=(lose!=0?(win*1.0/lose):win*1.0);
+        averageTakeDamage=(gameNums!=0)?(totalTakeDamage/gameNums):totalTakeDamage;
+        averageTakenDamage=(gameNums!=0)?(totalTakenDamage/gameNums):totalTakenDamage;
+
         res.setGameNums(gameNums);
         res.setWin(win);
         res.setLose(lose);
         res.setWinRate(winRate);
+        res.setAverageTakeDamage(averageTakeDamage);
+        res.setAverageTakenDamage(averageTakenDamage);
         return res;
     }
 }

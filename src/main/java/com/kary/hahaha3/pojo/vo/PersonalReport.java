@@ -16,6 +16,8 @@ public class PersonalReport {
     private int win;
     private int lose;
     private double winRate;
+    private double averageTakeDamage;
+    private double averageTakenDamage;
     private String level;
 }
 
