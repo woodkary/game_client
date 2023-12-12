@@ -8,42 +8,60 @@
     <title>注册页面</title>
     <link rel="stylesheet" href="../styles/register.css">
 </head>
+
 <body>
     <div class="main">
-        <div class="background"></div>
+        <div id="background"></div>
 
-        <nav class="navbar">
-            <img class="LOGO">
-            <a id="return-to-login" href="../pages/login.html">返回登录界面</a>
-        </nav>
+        <div class="navbar">
+            <a href="./login.html"><img class="LOGO"></a>
+        </div>
 
         <div class="container">
-            <h2>创建一个属于你的账号</h2>
+            <div class="logo_container">
+                <a href="./login.html"> <img class="LOGO_sub"></a>
+            </div>
 
             <form id="formEL" onsubmit="return false">
+                <div style="height: 10px;"></div>
                 <div class="form-group" id="account-form">
-
                     <label for="username">用户名:</label>
-                    <input type="text" id="username" name="username" placeholder="输入想取的用户名">
 
+                    <input type="text" id="username" name="username" placeholder="输入想取的用户名"
+                        oninput="checkUsernameAvailability(this.value)">
+
+
+                    <span id="usernameAvailabilityMessage"></span>
+                    <div style="height: 15px;"></div>
                     <label for="password">密码:</label>
-                    <input type="password" id="password" name="password" placeholder="输入想要的密码" ><br><br>
-                    <input type="password" id="retypePassword" name="retypePassword" placeholder="确认输入的密码" >
 
-                    <ul class="password-strength">
-                        <li>密码长度在八位以上</li>
-                        <li>包含数字和字母</li>
-                    </ul>
-
-                    <div class="form-group">
-                        <label for="email">电子邮箱:</label>
-                        <input type="email" id="email" name="email" placeholder="输入你的邮箱"><br><br>
-                    </div>
-                    <button type="submit" id="create-account" >创建账号</button>
+                    <input type="password" id="password" name="password" placeholder="输入想要的密码"
+                        oninput="checkPasswordStrength(this.value)">
+                    <br><br>
+                    <span id="passwordStrengthMessage"></span>
+                    <input type="password" id="retypePassword" name="retypePassword" placeholder="确认输入的密码"
+                        oninput="checkPasswordConfirmation()">
+                    <span id="passwordConfirmationMessage"></span>
                 </div>
-            </form>
-            <br>
+
+                <ul class="password-strength">
+                    <li class="strong">密码长度在八位以上</li>
+                    <li class="medium">包含数字和字母</li>
+                </ul>
+
+                <div class="form-group">
+                    <label for="email">电子邮箱:</label>
+                    <input type="email" id="email" name="email" placeholder="输入你的邮箱"><br><br>
+                    <div class="verification">
+                        <input type="text" placeholder="请输入验证码" id="captcha" required>
+                        <button type="button" onclick="getCaptcha()" id="get-captcha-btn">获取验证码</button>
+                    </div>
+                </div>
+                <span id="emailMessage"></span>
+                <button type="submit" id="create-account" onclick="submitAccountForm(event)">创建账号</button>
         </div>
+        </form>
+        <br>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,33 +9,46 @@
     <link rel="stylesheet" href="../styles/login.css">
 </head>
 <script type="text/javascript" src="../scripts/login.js"></script>
+
 <body>
     <div class="main">
         <div class="background"></div>
         <div class="navbar">
-            <img class="LOGO">
+            <a href="./login.html">
+                <img class="LOGO">
+            </a>
+
         </div>
         <div class="login">
-            <img class="LOGO">
+            <a href="login.html">
+                <img class="LOGO">
+            </a>
+
             <div>
                 <form id="login-form">
                     <input class="in" type="text" placeholder="用户名" id="username" required>
                     <input class="in" type="password" placeholder="密码" id="password" required>
-                    <button class = "in" type="submit" onclick="validateLogin(event)">用户名登录</button>
+                    <button class="in" type="submit" onclick="validateLogin(event)">用户名登录</button>
                 </form>
                 <p class="message" id="verification-message"></p>
 
-                <p class = "account" id="hint">没有账号？</p>
-                <a href="../pages/register.html" class = "account" id="register">注册账号</a>
-                <a href="../pages/reset-password.html" class = "account" id="forget-password">忘记密码</a>
+                <div class="help">
+                    <p class="account" id="text">没有账号？</p>
+                    <a href="../pages/register.html" class="account" id="register">注册账号</a>
+                    <a href="../pages/reset-password.html" class="account" id="forget-password">忘记密码</a>
+                </div>
+
                 <div class="container">
                     <div class="item line" id="line-one"></div>
-                    <div class="item para" ><p>或者</p></div>
+                    <div class="item para">
+                        <p>或者</p>
+                    </div>
                     <div class="item line" id="line-two"></div>
                 </div>
-                <button onclick="redirectToPage(event)" class = "in" type="button">使用邮箱登录</button>
+                <button onclick="redirectToPage(event)" class="in" type="button">使用邮箱登录</button>
             </div>
         </div>
     </div>
 </body>
+
 </html>
