@@ -210,7 +210,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                     int k= record.getKill();
                     int d= record.getDeath();
                     int a= record.getAssist();
-                    double kda= (k * 1.0 + a) /((d!=0)?d:1);
+                    double kda= (k * 1.0 + a*0.7) /((d!=0)?d:1);
                     if(kda>maxKDA){
                         maxKDA=kda;
                         mvpPlayer=player;

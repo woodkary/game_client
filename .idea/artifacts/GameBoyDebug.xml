@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="GameBoyDebug">
+    <output-path>$PROJECT_DIR$/../../../debug server/plugins</output-path>
+    <root id="archive" name="GameBoyDebug.jar">
+      <element id="module-output" name="KaryPlugin" />
+      <element id="file-copy" path="$PROJECT_DIR$/KaryPlugin/src/main/resources/plugin.yml" />
+    </root>
+  </artifact>
+</component>
