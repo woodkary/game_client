@@ -19,16 +19,16 @@
         <div class="login">
             <img class="LOGO">
             <div>
-                <form id="verificationForm">
+                <form id="verificationForm" onsubmit="return false">
                     <input class="in" type="email" placeholder="你的邮箱" id="email" required>
 
 
                     <div class="verification">
                         <input class="in" type="text" placeholder="验证码" id="captcha">
-                        <button class="in" type="submit" id="get-captcha-btn">发送验证码</button>
+                        <button class="in" type="submit" id="get-captcha-btn" onclick="getCaptcha(event)">发送验证码</button>
                     </div>
 
-                    <button class="in" type="submit" onclick="validateEmailLogin(event)" id = email-verification >邮箱验证</button>
+                    <button class="in" type="submit" onclick="validateLogin(event)" id = email-verification >邮箱验证</button>
                     <p class="message" id="verification-message"></p>
                 </form>
                 <div class="help">
@@ -44,7 +44,7 @@
                     <div class="item line" id="line-two"></div>
                 </div>
                 <div>
-                    <button onclick="redirectToPage()" class="in" type="button">使用用户名登录</button>
+                    <button onclick="redirectToLoginPage()" class="in" type="button">使用用户名登录</button>
                     <p class="message" id="verification-message"></p>
                 </div>
             </div>

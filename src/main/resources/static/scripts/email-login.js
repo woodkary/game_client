@@ -1,6 +1,4 @@
 
-document.getElementById("login-form").addEventListener("submit", validateLogin);
-
 function validateLogin(event) {
     event.preventDefault();
     let veriCode=document.getElementById("captcha").value;
@@ -40,12 +38,12 @@ function getCaptcha(event) {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.withCredentials=true;
     
-    xhr.onreadystatechange = function () {
+    xhr.onload = function () {
         let response = JSON.parse(xhr.responseText);
         if (xhr.readyState===4&&xhr.status === 200) {
             alert("已发送验证码");
         }else{
-            console.log("错误"+response);
+            console.log("错误"+response.textContent);
         }
     };
     xhr.send();
