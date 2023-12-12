@@ -1,10 +1,7 @@
 package com.kary.karyplugin.dao;
 
 import com.kary.karyplugin.pojo.UserGame;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 /**
  * @author:123
@@ -37,23 +34,9 @@ public interface RecordMapper {
                       @Param("scoreGain")Integer scoreGain,
                       @Param("takeDamage")Double takeDamage,
                       @Param("takenDamage")Double takenDamage);
-    @Select("select" +
-            "            <if test='gameMode == 1'>" +
-            "                score_total_1v1" +
-            "            </if>" +
-            "            <if test='gameMode == 2'>" +
-            "                score_total_brawl" +
-            "            </if>" +
-            "        from user_game where username=#{username}")
+    @SelectProvider(type = RecordMapperProvider.class, method = "getScoreTotal")
     Integer getScoreTotal(@Param("username")String username,@Param("gameMode")Integer gameMode);
-    @Update("update user_game set" +
-            "        <if test='gameMode == 1'>" +
-            "            score_total_1v1=score_total_1v1+#{addNum}" +
-            "        </if>" +
-            "        <if test='gameMode == 2'>" +
-            "            score_total_brawl=score_total_brawl+#{addNum}" +
-            "        </if>" +
-            "        where username=#{username}")
+    @UpdateProvider(type = RecordMapperProvider.class, method = "addScore")
     void addScore(@Param("username")String username,@Param("gameMode")Integer gameMode,@Param("addNum")Integer addNum);
     @Update("update user_game set games_count=games_count+1 where username=#{username}")
     void addGamesCount(@Param("username")String username);
