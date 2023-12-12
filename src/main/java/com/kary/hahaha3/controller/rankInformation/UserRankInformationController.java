@@ -91,7 +91,7 @@ public class UserRankInformationController extends BaseController {
     @GetMapping("/getRanks")
     @Operation(summary = "获取我自己或别人的所有比赛记录信息，返回List<RecordVO>")
     public JsonResult myAllRankInformation(@RequestParam("username")String username) throws SessionExpireException, MatchTypeErrorException {
-        List<RecordVO> recordVOS=recordVOService.getGamesByUsername(username, null);
+        List<RecordVO> recordVOS=recordVOService.getGamesByUsername(username, null,1);
         return JsonResult.ok(recordVOS,"这是比赛");
     }
     @GetMapping("/getGamesByGameId")
