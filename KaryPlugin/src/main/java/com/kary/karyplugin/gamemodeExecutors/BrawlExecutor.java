@@ -16,6 +16,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,6 +32,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     private RecordService recordService;
     private Map<Player,Integer> playersMatchingGamemode;
     private Map<Integer,List<Player>> matchingPlayers=new ConcurrentHashMap<>();
+    private Player mvpPlayer;
     private static final int MAX_MATCH_NUM=3;
     //TODO 一场比赛6个人
     private static final int KILL_ONE_ADD =10;
@@ -123,15 +125,13 @@ public class BrawlExecutor implements Listener, CommandExecutor {
 
         //对于所有助攻者更新助攻记录
         assistMap.computeIfPresent(deadPlayer,(key, deadAssists)->{
-            PlayerAndTime lastAssist = deadAssists.last(); // 获取最后一个助攻者
             for (Iterator<PlayerAndTime> iterator = deadAssists.iterator(); iterator.hasNext();) {
                 PlayerAndTime assistAndTime = iterator.next();
-                if (assistAndTime.equals(lastAssist)) { // 如果当前的助攻者是最后一个助攻者，那么跳过这个助攻者
-                    continue;
-                }
                 Player assist=assistAndTime.player;
                 players.computeIfPresent(assist,(key2, assistRecord)->{
-                    assistRecord.addOneAssist();
+                    if(!assist.equals(killer)) {
+                        assistRecord.addOneAssist();
+                    }
                     return assistRecord;
                 });
                 iterator.remove(); // 移除已经计算过的助攻者
@@ -164,6 +164,8 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                     for (Player player : matchingPlayer) {
                         player.sendRawMessage("和您在同一局的对手为"+ message+"对局开始");
                     }
+
+                    this.mvpPlayer=matchingPlayer.get(0);
                     // 安排任务在主线程中每20个游戏刻执行一次（1秒 = 20游戏刻）
                     int delayInTicks = 0; // 延迟0个游戏刻
                     int periodInTicks = 20; // 每20个游戏刻执行一次
@@ -184,10 +186,10 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     }
 
     //当匹配完时启动一个新的比赛线程
-    class BrawlMatch extends TimerTask {
+    class BrawlMatch implements Runnable {
         Map<Player, Record> players;//Concurrent
         int second=0;
-        int gameLimitTime=60;//1分钟
+        int gameLimitTime=30;//1分钟
         //TODO 改为5分钟
 
         public BrawlMatch(Map<Player, Record> players) {
@@ -197,12 +199,11 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         @Override
         public void run() {
             //游戏限时
-            if (second < gameLimitTime) {
+            if(second < gameLimitTime) {
                 second += 1;
             }else{
                 Set<Map.Entry<Player, Record>> entrySet=players.entrySet();
                 double maxKDA=Double.MIN_VALUE;
-                Player mvpPlayer=null;
                 for (Map.Entry<Player, Record> entry : entrySet){
                     Player player= entry.getKey();
                     Record record= entry.getValue();
@@ -231,13 +232,14 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                     );
                 }
                 players.clear();
+
             }
         }
     }
-    class AssistTimer extends TimerTask {
+    class AssistTimer implements Runnable {
         Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap;
         int second=0;
-        int assistExistLimitTime=10;//只计算10秒内的助攻
+        int assistExistLimitTime=30;//只计算30秒内的助攻
 
         public AssistTimer(Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap) {
             this.assistMap = assistMap;
@@ -245,7 +247,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
 
         @Override
         public void run(){
-                //计算10秒
+            //计算10秒
             if (second < assistExistLimitTime) {
                 second += 1;
             }else{
@@ -253,6 +255,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                     ConcurrentSkipListSet<PlayerAndTime> assistSet=playerSetEntry.getValue();
                     assistSet.pollFirst();
                 }
+                second=0;
             }
         }
     }

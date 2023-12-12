@@ -8,16 +8,16 @@ public class Record {
     private int death;
     private int assist;
     private int scoreGain;
-    public void addOneKill(){
+    public synchronized void addOneKill(){
         kill+=1;
     }
-    public void addOneDeath(){
+    public synchronized void addOneDeath(){
         death+=1;
     }
-    public void addOneAssist(){
+    public synchronized void addOneAssist(){
         assist+=1;
     }
-    public void addScore(int add){
+    public synchronized void addScore(int add){
         scoreGain+=add;
     }
 
