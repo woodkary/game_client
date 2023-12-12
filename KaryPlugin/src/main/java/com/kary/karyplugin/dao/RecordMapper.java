@@ -17,7 +17,7 @@ public interface RecordMapper {
             "taken_damage" +
             ") " +
             "values (" +
-            "{gameId}," +
+            "#{gameId}," +
             "#{username}," +
             "#{kill}," +
             "#{death}," +
