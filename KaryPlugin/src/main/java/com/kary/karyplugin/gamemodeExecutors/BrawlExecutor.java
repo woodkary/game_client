@@ -91,9 +91,6 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     public void addAssist(EntityDamageByEntityEvent event){
         Entity damagerEntity= event.getDamager();
         Entity damageeEntity=event.getEntity();
-        if(damageeEntity.isDead()){//如果似了，就不算助攻
-            return;
-        }
         //如果两者都是玩家
         if(damageeEntity instanceof Player && damagerEntity instanceof Player){
             Player damagee= (Player) damageeEntity;
