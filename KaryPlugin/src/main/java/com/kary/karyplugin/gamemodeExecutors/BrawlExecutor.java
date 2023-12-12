@@ -69,7 +69,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
             }else if(time-o.time<0){
                 return -1;
             }else {
-                return 0;
+                return Integer.compare(player.hashCode(), o.player.hashCode());
             }
         }
     }
@@ -126,12 +126,14 @@ public class BrawlExecutor implements Listener, CommandExecutor {
 
         //对于所有助攻者更新助攻记录
         assistMap.computeIfPresent(deadPlayer,(key, deadAssists)->{
-            for (PlayerAndTime assistAndTime : deadAssists) {
+            for (Iterator<PlayerAndTime> iterator = deadAssists.iterator(); iterator.hasNext();) {
+                PlayerAndTime assistAndTime = iterator.next();
                 Player assist=assistAndTime.player;
                 players.computeIfPresent(assist,(key2, assistRecord)->{
                     assistRecord.addOneAssist();
                     return assistRecord;
                 });
+                iterator.remove(); // 移除已经计算过的助攻者
             }
             return deadAssists;
         });
@@ -166,6 +168,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                     int periodInTicks = 20; // 每20个游戏刻执行一次
                     //准备完毕，开始比赛线程
                     Bukkit.getScheduler().runTaskTimer(plugin,new BrawlMatch(players), delayInTicks, periodInTicks);
+                    Bukkit.getScheduler().runTaskTimer(plugin,new AssistTimer(assistMap), delayInTicks, periodInTicks);
                     matchingPlayer.clear();
                 }
             }else{
