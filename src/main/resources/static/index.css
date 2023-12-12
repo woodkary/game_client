@@ -11,6 +11,16 @@ body{
   opacity: 0.8;  
   z-index: -1;  
 }
+
+.navigation-bar .LOGO{
+  /* display: block; */
+  /* position: absolute; */
+  /* top: 15px; */
+  width: 250px;
+  margin-top: calc(4vh - 20px);
+  margin-left: 10px;
+}
+
 .navigation-bar {  
   background-color: #2F2E2D;  
   overflow: hidden;  
@@ -18,7 +28,7 @@ body{
   top: 0;  
   left: 0;  
   width: 100%;  
-  height: 7vh;
+  height: 10vh;
   z-index: 100;
 }  
 /* logo样式 */ 
@@ -30,7 +40,7 @@ body{
   height: 30px;
 }  
 /* 导航链接样式 */  
-.navigation-bar a {   
+.navigation-bar #nav a {   
   display: inline-block;  
   margin-left: 3%;  /* 调整按键之间的左侧距离 */  
   padding: 14px;  /* 调整按键的内边距 */  
@@ -39,11 +49,22 @@ body{
   text-decoration: none;  
 }  
 /* 鼠标悬停在链接上时的样式 */  
-.navigation-bar a:hover {  
+.navigation-bar #nav a:hover {  
+  cursor: pointer;
   background-color: #ddd;  
   color: black;  
 } 
-#page1{
+
+
+
+#nav{
+  position: absolute;
+  width: 50%;
+  display: inline-block;
+  top: 10px;
+}
+
+/* #page1{
   position: fixed;
   top: 0;
   left: 10%;
@@ -57,13 +78,17 @@ body{
   position: fixed;
   top: 0;
   left: 22%;
-} 
+}  */
 .search-photo{ 
   position: fixed;  
   top: 1%;
   left: 89%;
   height: 30px;
 }
+.search-photo:hover{ 
+  cursor: pointer;
+}
+
 .line{ 
   position: fixed;  
   top: 1%;
@@ -76,6 +101,11 @@ body{
   left: 93%;
   height: 30px;
 }
+
+.head-photo:hover{ 
+  cursor: pointer;
+}
+
 /* 图片样式 */  
 #big-logo {
   position:absolute;
