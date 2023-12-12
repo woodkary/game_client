@@ -1,162 +1,121 @@
-body{
+body {
   margin: 0;
 }
-.background{
-  width: 100vw;  
-  height: 100vh;  
+
+.background {
+  width: 100vw;
+  height: 100vh;
   background-image: url("images/background.png");
-  background-repeat:no-repeat;  
-  background-size:cover;  
-  position: absolute;  
-  opacity: 0.8;  
-  z-index: -1;  
-}
-
-.navigation-bar .LOGO{
-  /* display: block; */
-  /* position: absolute; */
-  /* top: 15px; */
-  width: 250px;
-  margin-top: calc(4vh - 20px);
-  margin-left: 10px;
-}
-
-.navigation-bar {  
-  background-color: #2F2E2D;  
-  overflow: hidden;  
-  position: fixed;  
-  top: 0;  
-  left: 0;  
-  width: 100%;  
-  height: 10vh;
-  z-index: 100;
-}  
-/* logo样式 */ 
-.logo { 
-  position: fixed;  
-  top: 1.5vh;
-  left: 1vw;
-  width: 150px;
-  height: 30px;
-}  
-/* 导航链接样式 */  
-.navigation-bar #nav a {   
-  display: inline-block;  
-  margin-left: 3%;  /* 调整按键之间的左侧距离 */  
-  padding: 14px;  /* 调整按键的内边距 */  
-  color: #f2f2f2;  
-  text-align: center;  
-  text-decoration: none;  
-}  
-/* 鼠标悬停在链接上时的样式 */  
-.navigation-bar #nav a:hover {  
-  cursor: pointer;
-  background-color: #ddd;  
-  color: black;  
-} 
-
-
-
-#nav{
+  background-repeat: no-repeat;
+  background-size: cover;
   position: absolute;
-  width: 50%;
-  display: inline-block;
-  top: 10px;
+  opacity: 0.8;
+  z-index: -1;
 }
 
-/* #page1{
-  position: fixed;
-  top: 0;
-  left: 10%;
-} 
-#page2{
-  position: fixed;
-  top: 0;
-  left: 16%;
-} 
-#page3{
-  position: fixed;
-  top: 0;
-  left: 22%;
-}  */
-.search-photo{ 
-  position: fixed;  
-  top: 1%;
-  left: 89%;
-  height: 30px;
-}
-.search-photo:hover{ 
-  cursor: pointer;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* 更改字体样式 */
 }
 
-.line{ 
-  position: fixed;  
+.line {
+  position: fixed;
   top: 1%;
   left: 92%;
   height: 30px;
 }
-.head-photo{ 
-  position: fixed;  
+
+.head-photo {
+  position: fixed;
   top: 1%;
   left: 93%;
   height: 30px;
 }
 
-.head-photo:hover{ 
+.head-photo:hover {
   cursor: pointer;
 }
 
-/* 图片样式 */  
+/* 图片样式 */
 #big-logo {
-  position:absolute;
+  position: absolute;
   top: 15%;
   left: 35%;
   width: 450px;
   height: 70px;
 }
 
-.search{
+.search {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 30px;
 }
 
-.search-box {
-  display: flex;
-  position:absolute;
-  top: 35%;
-  left: 30%;
-  width: 650px;
-  height: 50px;
-  background-color:rgba(255,255,255,0.8);
-  border-radius: 20px;
-  border: 20px ;
+/* .search-box {
+  width: 700px;
+  height: 60px;
+  position: absolute;
+  top: 40%;
+  left: 28%;
 }
 
-.search-box input{
+.search-box input {
+  font-size: 16px;
+  width: 650px;
+  height: 50px;
+  border-radius: 42px;
+  border: 2px solid #324B4E;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding-left: 15px;
+}
+
+.search-box input:focus {
+  border-radius: 42px;
+  border-color: 2px solid #1d2c2d;
+}
+
+.search-box #search-button {
+  float: right;
+  cursor: pointer;
+  font-size: 20px;
+  background: none;
+  width: 50px;
+  height: 50px;
+} */
+
+.search-box {
+  display: flex;
+  position: absolute;
+  top: 40%;
+  left: 28%;
+  width: 650px;
+  height: 50px;
+  border-radius: 42px;
+  border: 2px solid #324B4E;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding-left: 15px;
+}
+
+.search-box input {
   width: 550px;
   height: 50px;
   flex: 1;
-  font-size: 16px;
+  font-size: 17px;
   border: none;
   outline: none;
-  margin-left: 20px;
-  background-color: rgba(255,255,255,0.0);
-}
-.search-box button{
-  cursor: pointer;
-  background-color: #f2f2f2;
-  font-size: 20px;
-  float: right;
-  border: none;
-  margin-right: 20px;
-  background-color: rgba(255,255,255,0.0);
+  margin-left: 5px;
+  margin-top: -2px;
+  background-color: rgba(255, 255, 255, 0.0);
 }
 
-.navigation-bar .items{
-position: relative;  
-top: 10px;
-left: 1080px;
-height: 30px;
+.search-box #search-button {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  float: right;
+  margin-right: 10px;
+  margin-top: 4px;
 }
