@@ -7,26 +7,26 @@ import org.apache.ibatis.annotations.*;
  * @author:123
  */
 public interface RecordMapper {
-    @Insert("insert into record(game_id," +
-            "                   username," +
-            "                   kill," +
-            "                   death," +
-            "                   assist," +
-            "                   score_gain," +
-            "                   take_damage," +
-            "                   taken_damage" +
-            "        )" +
-            "        values (" +
-            "                #{game_id}," +
-            "                #{username}," +
-            "                #{kill}," +
-            "                #{death}," +
-            "                #{assist}," +
-            "                #{scoreGain}," +
-            "                #{takeDamage}," +
-            "                #{takenDamage}" +
-            "        )")
-    void addNewRecord(@Param("game_id")Integer gameId,
+    @Insert("insert into record (game_id," +
+            "username," +
+            "`kill`," +
+            "death," +
+            "assist," +
+            "score_gain," +
+            "take_damage," +
+            "taken_damage" +
+            ") " +
+            "values (" +
+            "{gameId}," +
+            "#{username}," +
+            "#{kill}," +
+            "#{death}," +
+            "#{assist}," +
+            "#{scoreGain}," +
+            "#{takeDamage}," +
+            "#{takenDamage}" +
+            ")")
+    void addNewRecord(@Param("gameId")Integer gameId,
                       @Param("username")String username,
                       @Param("kill")Integer kill,
                       @Param("death")Integer death,
