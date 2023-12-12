@@ -126,8 +126,12 @@ public class BrawlExecutor implements Listener, CommandExecutor {
 
         //对于所有助攻者更新助攻记录
         assistMap.computeIfPresent(deadPlayer,(key, deadAssists)->{
+            PlayerAndTime lastAssist = deadAssists.last(); // 获取最后一个助攻者
             for (Iterator<PlayerAndTime> iterator = deadAssists.iterator(); iterator.hasNext();) {
                 PlayerAndTime assistAndTime = iterator.next();
+                if (assistAndTime.equals(lastAssist)) { // 如果当前的助攻者是最后一个助攻者，那么跳过这个助攻者
+                    continue;
+                }
                 Player assist=assistAndTime.player;
                 players.computeIfPresent(assist,(key2, assistRecord)->{
                     assistRecord.addOneAssist();
