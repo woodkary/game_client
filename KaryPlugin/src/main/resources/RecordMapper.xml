@@ -11,7 +11,7 @@
                            assist,
                            score_gain,
                            take_damage,
-                           taken_damage,
+                           taken_damage
         )
         values (
                 #{game_id},
