@@ -24,8 +24,22 @@ public class RecordServiceImpl implements RecordService {
         gamesMapper=session.getMapper(GamesMapper.class);*/
         recordMapper=new RecordMapper() {
             @Override
-            public void addNewRecord(Integer gameId, String username, Integer kill, Integer death, Integer assist) {
-                Bukkit.getServer().broadcastMessage("新的比赛为："+gameId+","+"玩家"+username+","+"击杀"+kill+","+"死亡"+death+","+"助攻"+assist);
+            public void addNewRecord(Integer gameId,
+                                     String username,
+                                     Integer kill,
+                                     Integer death,
+                                     Integer assist,
+                                     Integer scoreGain,
+                                     Double takeDamage,
+                                     Double takenDamage) {
+                Bukkit.getServer().broadcastMessage("新的比赛为："+gameId+","
+                        +"玩家"+username+
+                        ","+"击杀"+kill+
+                        ","+"死亡"+death+
+                        ","+"助攻"+assist+
+                        ","+"加分"+scoreGain+
+                        ","+"总伤害"+takeDamage+
+                        ","+"承伤"+takenDamage);
             }
 
             @Override
@@ -78,10 +92,13 @@ public class RecordServiceImpl implements RecordService {
                                Integer death,
                                Integer gameMode,
                                Integer assists,
+                               Integer scoreGain,
+                               Double takeDamage,
+                               Double takenDamage,
                                String mvpPlayer) {
         Integer maxGameId=gamesMapper.getMaxGameId();
         maxGameId+=1;
-        recordMapper.addNewRecord(maxGameId,username,kill,death,(gameMode==1)?0:assists);
+        recordMapper.addNewRecord(maxGameId,username,kill,death,(gameMode==1)?0:assists,scoreGain,takeDamage, takenDamage);
         recordMapper.addGamesCount(username);
         if(gameMode==1){
             recordMapper.addGamesCount1v1(username);

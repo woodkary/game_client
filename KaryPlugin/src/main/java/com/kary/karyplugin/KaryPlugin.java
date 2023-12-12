@@ -20,8 +20,10 @@ public final class KaryPlugin extends JavaPlugin {
                                              Integer death,
                                              Integer scoreGain,
                                              Integer assist,
-                                             Integer gameMode,
-                                             String mvpPlayer){
+                                             Double takeDamage,
+                                             Double takenDamage,
+                                             String mvpPlayer,
+                                             Integer gameMode){
         recordService.addScore(username,gameMode,scoreGain);
         recordService.recordNewMatch(
                 duration,
@@ -30,6 +32,9 @@ public final class KaryPlugin extends JavaPlugin {
                 death,
                 gameMode,
                 assist,
+                scoreGain,
+                takeDamage,
+                takenDamage,
                 mvpPlayer
         );
     }

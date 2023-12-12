@@ -11,7 +11,10 @@ public interface RecordMapper {
                       @Param("username")String username,
                       @Param("kill")Integer kill,
                       @Param("death")Integer death,
-                      @Param("assist")Integer assist);
+                      @Param("assist")Integer assist,
+                      @Param("scoreGain")Integer scoreGain,
+                      @Param("takeDamage")Double takeDamage,
+                      @Param("takenDamage")Double takenDamage);
     Integer getScoreTotal(@Param("username")String username,@Param("gameMode")Integer gameMode);
     void addScore(@Param("username")String username,@Param("gameMode")Integer gameMode,@Param("addNum")Integer addNum);
     void addGamesCount(@Param("username")String username);

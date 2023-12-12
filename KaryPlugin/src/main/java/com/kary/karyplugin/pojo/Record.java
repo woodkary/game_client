@@ -8,6 +8,25 @@ public class Record {
     private int death;
     private int assist;
     private int scoreGain;
+    private double takeDamage;
+    private double takenDamage;
+
+    public double getTakeDamage() {
+        return takeDamage;
+    }
+
+    public void setTakeDamage(double takeDamage) {
+        this.takeDamage = takeDamage;
+    }
+
+    public double getTakenDamage() {
+        return takenDamage;
+    }
+
+    public void setTakenDamage(double takenDamage) {
+        this.takenDamage = takenDamage;
+    }
+
     public synchronized void addOneKill(){
         kill+=1;
     }
@@ -19,6 +38,12 @@ public class Record {
     }
     public synchronized void addScore(int add){
         scoreGain+=add;
+    }
+    public synchronized void addTakenDamage(double takenDamage){
+        this.takenDamage+=takenDamage;
+    }
+    public synchronized void addTakeDamage(double takeDamage){
+        this.takeDamage+=takeDamage;
     }
 
     public int getKill() {

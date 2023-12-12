@@ -8,14 +8,20 @@
                            username,
                            kill,
                            death,
-                           assist
+                           assist,
+                           score_gain,
+                           take_damage,
+                           taken_damage,
         )
         values (
                 #{game_id},
                 #{username},
                 #{kill},
                 #{death},
-                #{assist}
+                #{assist},
+                #{scoreGain},
+                #{takeDamage},
+                #{takenDamage}
         )
     </insert>
     <select id="getScoreTotal" resultType="int">

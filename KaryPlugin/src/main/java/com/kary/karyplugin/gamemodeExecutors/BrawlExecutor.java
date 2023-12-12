@@ -97,10 +97,21 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         if(damageeEntity instanceof Player && damagerEntity instanceof Player){
             Player damagee= (Player) damageeEntity;
             Player damager= (Player) damagerEntity;
+            double damage=event.getDamage();//本次伤害
             //danagerList是所有伤害过damagee的玩家列表
             assistMap.computeIfPresent(damagee,(key, danagerList)->{
                 danagerList.add(new PlayerAndTime(damager,System.currentTimeMillis()));
                 return danagerList;
+            });
+            //给输出者加伤害
+            players.computeIfPresent(damager,(key, damagerRecord)->{
+                damagerRecord.addTakeDamage(damage);
+                return damagerRecord;
+            });
+            //给受伤者加承伤
+            players.computeIfPresent(damagee,(key, damageeRecord)->{
+                damageeRecord.addTakenDamage(damage);
+                return damageeRecord;
             });
         }
     }
@@ -227,8 +238,10 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                             record.getDeath(),
                             record.getScoreGain(),
                             record.getAssist(),
-                            gameMode,
-                            mvpPlayer.getName()
+                            record.getTakeDamage(),
+                            record.getTakenDamage(),
+                            mvpPlayer.getName(),
+                            gameMode
                     );
                 }
                 players.clear();

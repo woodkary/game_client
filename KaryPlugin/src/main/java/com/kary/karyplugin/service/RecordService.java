@@ -12,10 +12,13 @@ public interface RecordService {
 
     UserGame selectUserByName(String username);
     void recordNewMatch(Long duration,
-                               String username,
-                               Integer kill,
-                               Integer death,
-                               Integer gameMode,
-                               Integer assists,
-                               String mvpPlayer);
+                        String username,
+                        Integer kill,
+                        Integer death,
+                        Integer gameMode,
+                        Integer assists,
+                        Integer scoreGain,
+                        Double takeDamage,
+                        Double takenDamage,
+                        String mvpPlayer);
 }
