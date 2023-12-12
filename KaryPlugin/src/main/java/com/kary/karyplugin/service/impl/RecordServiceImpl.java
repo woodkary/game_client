@@ -14,15 +14,15 @@ import java.util.Date;
  * @author:123
  */
 public class RecordServiceImpl implements RecordService {
-    SqlSession session;
+    public SqlSession session;
     RecordMapper recordMapper;
     GamesMapper gamesMapper;
 
     public RecordServiceImpl() {
-        /*session= SqlSessionSettings.getSqlSession();
+        session= new SqlSessionSettings().getSqlSession();
         recordMapper=session.getMapper(RecordMapper.class);
-        gamesMapper=session.getMapper(GamesMapper.class);*/
-        recordMapper=new RecordMapper() {
+        gamesMapper=session.getMapper(GamesMapper.class);
+        /*recordMapper=new RecordMapper() {
             @Override
             public void addNewRecord(Integer gameId,
                                      String username,
@@ -82,7 +82,7 @@ public class RecordServiceImpl implements RecordService {
             public void addNewGame(Integer type, Integer gameId, Long duration,String mvpPlayer) {
                 Bukkit.getServer().broadcastMessage("加入新游戏:类型："+type+",游戏id"+gameId+",时长"+duration+",MVP"+mvpPlayer);
             }
-        };
+        };*/
     }
 
     @Override

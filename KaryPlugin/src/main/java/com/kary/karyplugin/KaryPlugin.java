@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class KaryPlugin extends JavaPlugin {
     private static Map<Player,Integer> playersMatchingGamemode=new ConcurrentHashMap<>();
-    private static  RecordService recordService=new RecordServiceImpl();
+    private static  RecordServiceImpl recordService=new RecordServiceImpl();
     public static synchronized void updateDatabase(Long duration,
                                              String username,
                                              Integer kill,
@@ -53,6 +53,7 @@ public final class KaryPlugin extends JavaPlugin {
     }
     @Override
     public void onDisable() {
+        recordService.session.close();
         // Plugin shutdown logic
     }
 }

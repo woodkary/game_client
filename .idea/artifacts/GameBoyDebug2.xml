@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="GameBoyDebug2">
+    <output-path>$PROJECT_DIR$/../../../debug server/plugins</output-path>
+    <root id="archive" name="GameBoyDebug2.jar">
+      <element id="module-output" name="KaryPlugin" />
+      <element id="file-copy" path="$PROJECT_DIR$/KaryPlugin/src/main/resources/plugin.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/KaryPlugin/src/main/resources/GamesMapper.xml" />
+      <element id="file-copy" path="$PROJECT_DIR$/KaryPlugin/src/main/resources/database.properties" />
+      <element id="file-copy" path="$PROJECT_DIR$/KaryPlugin/src/main/resources/mybatis-config.xml" />
+      <element id="file-copy" path="$PROJECT_DIR$/KaryPlugin/src/main/resources/RecordMapper.xml" />
+      <element id="library" level="project" name="Maven: junit:junit:4.12" />
+      <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.19.4" />
+      <element id="library" level="project" name="Maven: com.mysql:mysql-connector-j:8.0.31" />
+      <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.3" />
+      <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.5.6" />
+    </root>
+  </artifact>
+</component>
