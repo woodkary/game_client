@@ -8,10 +8,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -41,6 +43,9 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
         //有人退出游戏，则另一人胜利
         Player loser=playerQuitEvent.getPlayer();
         Player winner=playersInSoloPVP.remove(loser);
+        if(winner==null){
+            return;
+        }
         playersInSoloPVP.remove(winner);
 
         Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
@@ -112,7 +117,19 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
 
         Bukkit.getServer().broadcastMessage("玩家"+loser.getName()+"退出了游戏，"+winner.getName()+"获得了胜利");
     }
-
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void figureDamage(EntityDamageByEntityEvent event){
+        Entity damager=event.getDamager();
+        Entity damagee=event.getEntity();
+        double damage=event.getDamage();
+        if(damager instanceof Player&&damagee instanceof Player&&
+           playersInSoloPVP.containsKey(damager)&&playersInSoloPVP.containsKey(damagee)){
+            Object[] damagerArray=playersScoreGainAndMatchStartTime.get(damager);
+            damagerArray[2]=(Double)damagerArray[2]+damage;
+            Object[] damageeArray=playersScoreGainAndMatchStartTime.get(damagee);
+            damageeArray[3]=(Double)damageeArray[3]+damage;
+        }
+    }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void oneMatchOver(PlayerDeathEvent event){
@@ -122,6 +139,9 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
         //有人被杀死了
         Player loser=event.getEntity();//失败者
         Player winner=playersInSoloPVP.get(loser);//胜利者
+        if(winner==null){
+            return;
+        }
 
         Object[] winnerScoreGainAndStartTime=playersScoreGainAndMatchStartTime.get(winner);
         winnerScoreGainAndStartTime[0]=(Integer)winnerScoreGainAndStartTime[0]+15;
@@ -185,6 +205,8 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
             );
         }
         Bukkit.getServer().broadcastMessage("玩家"+winner.getName()+"击败了"+loser.getName());
+        Bukkit.getServer().broadcastMessage(winner.getName()+"造成伤害"+winnerScoreGainAndStartTime[2]+",承伤"+winnerScoreGainAndStartTime[3]);
+        Bukkit.getServer().broadcastMessage(loser.getName()+"造成伤害"+loserScoreGainAndStartTime[2]+",承伤"+loserScoreGainAndStartTime[3]);
     }
 
     @Override
@@ -216,7 +238,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     commandSenderArray[3]=0.0;
                     playersScoreGainAndMatchStartTime.put((Player) commandSender,commandSenderArray);
 
-                    Object[] matchingPlayerArray=new Object[2];
+                    Object[] matchingPlayerArray=new Object[4];
                     matchingPlayerArray[0]= 0;
                     matchingPlayerArray[1]= gameStart;
                     matchingPlayerArray[2]=0.0;
