@@ -21,7 +21,7 @@ public class RecordVO {
     private int kills;
     private int deaths;
     private int assists;//新增的
-    private double kd;
+    private double kda;
     private long duration;
     private boolean isMVP;
     private String type;//新增的

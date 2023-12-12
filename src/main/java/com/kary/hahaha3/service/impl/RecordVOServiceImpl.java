@@ -44,14 +44,15 @@ public class RecordVOServiceImpl implements RecordVOService {
 
             int kill=record.getKill();
             int death=record.getDeath();
-            double kd=kill*1.0/death;
+            int assist= record.getAssist();
+            double kda=(kill*1.0+assist*0.7)/(death!=0?death:1);
             boolean isMVP=username.equals(game.getMvpPlayer());
             RecordVO recordVO=new RecordVO();
             recordVO.setGameTime(game.getGameTime());
             recordVO.setKills(kill);
             recordVO.setDeaths(death);
-            recordVO.setAssists(record.getAssist());
-            recordVO.setKd(kd);
+            recordVO.setAssists(assist);
+            recordVO.setKda(kda);
             recordVO.setDuration(game.getDuration());
             recordVO.setUsername(username);
             recordVO.setMVP(isMVP);
@@ -94,7 +95,7 @@ public class RecordVOServiceImpl implements RecordVOService {
             int kills=record.getKill();
             int deaths=record.getDeath();
             int assists=record.getAssist();
-            double kd=kills*1.0/deaths;
+            double kda=(kills*1.0+assists*0.7)/(deaths!=0?deaths:1);
             long duration=game.getDuration();
             int type=game.getType();
             String typeString = switch (type) {
@@ -108,7 +109,7 @@ public class RecordVOServiceImpl implements RecordVOService {
             recordVO.setKills(kills);
             recordVO.setDeaths(deaths);
             recordVO.setAssists(assists);
-            recordVO.setKd(kd);
+            recordVO.setKda(kda);
             recordVO.setDuration(duration);
             recordVO.setType(typeString);
             recordVO.setMVP(isMVP);
