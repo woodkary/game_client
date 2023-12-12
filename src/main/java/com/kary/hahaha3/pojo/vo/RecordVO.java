@@ -15,6 +15,7 @@ import java.util.Date;
 @EqualsAndHashCode
 @Tag(name = "RecordVO")
 public class RecordVO {
+    private int gameId;
     private String username;
     private Date gameTime;
     /*减少的 private String opponentUsername;*/

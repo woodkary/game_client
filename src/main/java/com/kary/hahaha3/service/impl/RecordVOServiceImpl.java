@@ -41,13 +41,14 @@ public class RecordVOServiceImpl implements RecordVOService {
                 }
                 game=gamesMapper.getGameByIdAndType(record.getGameId(),type);
             }
-
+            int gameId= game.getGameId();
             int kill=record.getKill();
             int death=record.getDeath();
             int assist= record.getAssist();
             double kda=(kill*1.0+assist*0.7)/(death!=0?death:1);
             boolean isMVP=username.equals(game.getMvpPlayer());
             RecordVO recordVO=new RecordVO();
+            recordVO.setGameId(gameId);
             recordVO.setGameTime(game.getGameTime());
             recordVO.setKills(kill);
             recordVO.setDeaths(death);
@@ -78,7 +79,7 @@ public class RecordVOServiceImpl implements RecordVOService {
         if(fromIndex>=res.size()){
             return new ArrayList<>();
         }
-        return res.subList(fromIndex,toIndex< res.size()?toIndex: res.size());
+        return res.subList(fromIndex, Math.min(toIndex, res.size()));
     }
 
     @Override
@@ -105,6 +106,7 @@ public class RecordVOServiceImpl implements RecordVOService {
                 default -> "";
             };
             boolean isMVP=username.equals(game.getMvpPlayer());
+            recordVO.setGameId(gameId);
             recordVO.setUsername(username);
             recordVO.setGameTime(gameTime);
             recordVO.setKills(kills);
