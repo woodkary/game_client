@@ -54,6 +54,7 @@ public class RecordVOServiceImpl implements RecordVOService {
             recordVO.setAssists(assist);
             recordVO.setKda(kda);
             recordVO.setDuration(game.getDuration());
+            recordVO.setScoreGain(record.getScoreGain());
             recordVO.setUsername(username);
             recordVO.setMVP(isMVP);
             recordVO.setTakeDamage(record.getTakeDamage());
@@ -110,6 +111,7 @@ public class RecordVOServiceImpl implements RecordVOService {
             recordVO.setDeaths(deaths);
             recordVO.setAssists(assists);
             recordVO.setKda(kda);
+            recordVO.setScoreGain(record.getScoreGain());
             recordVO.setDuration(duration);
             recordVO.setType(typeString);
             recordVO.setMVP(isMVP);

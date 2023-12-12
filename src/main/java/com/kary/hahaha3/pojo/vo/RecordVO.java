@@ -20,11 +20,12 @@ public class RecordVO {
     /*减少的 private String opponentUsername;*/
     private int kills;
     private int deaths;
-    private int assists;//新增的
+    private int assists;
+    private int scoreGain;
     private double kda;
-    private long duration;
+    private long duration;//持续时间
     private boolean isMVP;
-    private String type;//新增的
-    private double takeDamage;
-    private double takenDamage;
+    private String type;//游戏类型
+    private double takeDamage;//造成伤害
+    private double takenDamage;//承受伤害
 }
