@@ -20,6 +20,8 @@ public class PersonalReport {
     private double averageTakenDamage;//场均承伤
     private double averageKill;//场均击杀
     private double averageDeath;//场均死亡
+    private double averageAssist;//场均助攻
+    private double kda;//总kda
     private String level;
 }
 

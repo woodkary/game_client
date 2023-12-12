@@ -56,12 +56,14 @@ public class PersonalReportServiceImpl implements PersonalReportService {
         double averageTakenDamage = 0;
         double averageKill = 0;
         double averageDeath = 0;
+        double averageAssist=0;
 
         List<Record> recordList = recordMapper.selectRecordsByUsername(username);
         double totalTakeDamage = 0.0;
         double totalTakenDamage = 0.0;
         int totalKill = 0;
         int totalDeath = 0;
+        int totalAssist=0;
         for (Record record : recordList) {
             Games game = gamesMapper.getGameByIdAndType(record.getGameId(), type);
             if (game == null) {
@@ -72,6 +74,7 @@ public class PersonalReportServiceImpl implements PersonalReportService {
             totalTakenDamage += record.getTakenDamage();
             totalKill += record.getKill();
             totalDeath += record.getDeath();
+            totalAssist+=record.getAssist();
             if (type == 1) {
                 if (record.getKill() > record.getDeath()) {
                     win += 1;
@@ -88,6 +91,9 @@ public class PersonalReportServiceImpl implements PersonalReportService {
         averageTakenDamage = (gameNums != 0) ? (totalTakenDamage / gameNums) : totalTakenDamage;
         averageKill = (gameNums != 0) ? (totalKill * 1.0 / gameNums) : totalKill * 1.0;
         averageDeath = (gameNums != 0) ? (totalDeath * 1.0 / gameNums) : totalDeath * 1.0;
+        averageAssist = (gameNums != 0) ? (totalAssist * 1.0 / gameNums) : totalAssist * 1.0;
+
+        double kda=(totalKill * 1.0 + totalAssist*0.7) /((totalDeath!=0)?totalDeath:1);
 
         res.setGameNums(gameNums);
         res.setWin(win);
@@ -97,6 +103,8 @@ public class PersonalReportServiceImpl implements PersonalReportService {
         res.setAverageTakenDamage(averageTakenDamage);
         res.setAverageKill(averageKill);
         res.setAverageDeath(averageDeath);
+        res.setAverageAssist(averageAssist);
+        res.setKda(kda);
         return res;
     }
 }
