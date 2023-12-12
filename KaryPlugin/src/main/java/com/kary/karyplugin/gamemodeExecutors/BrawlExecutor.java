@@ -45,12 +45,12 @@ public class BrawlExecutor implements Listener, CommandExecutor {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             PlayerAndTime that = (PlayerAndTime) o;
-            return time == that.time && Objects.equals(player, that.player);
+            return Objects.equals(player, that.player);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(player, time);
+            return Objects.hash(player);
         }
 
         public PlayerAndTime(Player player, long time) {
