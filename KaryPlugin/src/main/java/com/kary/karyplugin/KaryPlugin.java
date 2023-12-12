@@ -37,6 +37,7 @@ public final class KaryPlugin extends JavaPlugin {
                 takenDamage,
                 mvpPlayer
         );
+        recordService.session.commit();
     }
     //1=Solo
     @Override
