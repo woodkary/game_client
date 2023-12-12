@@ -4,7 +4,6 @@ import com.kary.hahaha3.controller.BaseController;
 import com.kary.hahaha3.exceptions.connection.DatabaseConnectionException;
 import com.kary.hahaha3.exceptions.connection.VerificationCodeSendingException;
 import com.kary.hahaha3.exceptions.emptyInput.EmailEmptyException;
-import com.kary.hahaha3.exceptions.emptyInput.VerificationCodeEmptyException;
 import com.kary.hahaha3.exceptions.errorInput.EmailErrorException;
 import com.kary.hahaha3.exceptions.errorInput.ErrorInputException;
 import com.kary.hahaha3.exceptions.errorInput.VerificationCodeErrorException;
@@ -68,9 +67,6 @@ public class EmailVerificationController extends BaseController {
     @Operation(summary = "验证发送的验证码",description = "operation 1是注册,2是改密码,3是登录"+"\r\n"+"登录本来应该是GET，但懒得改了")
     public JsonResult typeVeriCodeToRegister(@RequestBody String veriCode, @PathVariable Integer operation, HttpSession session) throws Exception {
         String verificationCode= (String) session.getAttribute("verificationCode");
-        if(veriCode==null){
-            throw new VerificationCodeEmptyException("请输入验证码");
-        }
         if(verificationCode==null){
             throw new VerificationCodeExpireException("验证码过期，请重新发送");
         }
@@ -91,8 +87,6 @@ public class EmailVerificationController extends BaseController {
                 case 3:{
                     User userGetByEmail= (User) session.getAttribute("userGetByEmail");
                     String passwordRaw=userGetByEmail.getPwd();
-                    passwordRaw=aesEncoder.decrypt(passwordRaw);
-                    userGetByEmail.setPwd(passwordRaw);
 
                     session.setAttribute("myAccount",userGetByEmail);
                     return JsonResult.ok(userGetByEmail,"登录成功");
