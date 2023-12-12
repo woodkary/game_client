@@ -55,6 +55,8 @@ public class RecordVOServiceImpl implements RecordVOService {
             recordVO.setDuration(game.getDuration());
             recordVO.setUsername(username);
             recordVO.setMVP(isMVP);
+            recordVO.setTakeDamage(record.getTakeDamage());
+            recordVO.setTakenDamage(record.getTakenDamage());
             String typeString = switch (type) {
                 case 1 -> "1v1";
                 case 2 -> "大乱斗";
@@ -110,6 +112,8 @@ public class RecordVOServiceImpl implements RecordVOService {
             recordVO.setDuration(duration);
             recordVO.setType(typeString);
             recordVO.setMVP(isMVP);
+            recordVO.setTakeDamage(record.getTakeDamage());
+            recordVO.setTakenDamage(record.getTakenDamage());
             res.add(recordVO);
         }
         return res;

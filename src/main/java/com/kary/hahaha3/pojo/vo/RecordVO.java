@@ -25,4 +25,6 @@ public class RecordVO {
     private long duration;
     private boolean isMVP;
     private String type;//新增的
+    private double takeDamage;
+    private double takenDamage;
 }

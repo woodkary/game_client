@@ -20,4 +20,6 @@ public class Record {
     private int kill;
     private int death;
     private int assist;
+    private double takeDamage;
+    private double takenDamage;
 }
