@@ -40,10 +40,10 @@ function checkPasswordStrength(password) {
         passwordStrengthEl.textContent = "";
     } else if (password.length >= minLength && hasNumber && hasCharacter) {
         passwordStrengthEl.textContent = "鲁棒的密码";
-        passwordStrengthEl.style.color="green";
+        passwordStrengthEl.style.color = "green";
     } else {
         passwordStrengthEl.textContent = "拉跨的密码";
-        passwordStrengthEl.style.color="red";
+        passwordStrengthEl.style.color = "red";
     }
 }
 
@@ -102,14 +102,14 @@ function getCaptcha() {
         }
     }, 1000);
 }
-function submitUsrAndPwd(event){
+function submitUsrAndPwd(event) {
     event.preventDefault();
-    const username=document.getElementById("username").value;
-    const password=document.getElementById("password").value;
-    let formData={};
-    formData["username"]=username;
-    formData["password"]=password;
-    formData=JSON.stringify(formData);
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    let formData = {};
+    formData["username"] = username;
+    formData["password"] = password;
+    formData = JSON.stringify(formData);
     return new Promise((resolve, reject) => {
         // 发送第一个请求
         // 请将实际的请求代码替换成你的实际代码
@@ -120,30 +120,30 @@ function submitUsrAndPwd(event){
             withCredentials: true
             // 其他请求参数
         })
-        .then(response => {
-            let r=response.json();
-            if(!response.ok&&response.status !== 400){
-                throw new Error("服务器错误");
-            }
-            if(response.status===400){
-                const usernameMessage = document.getElementById("usernameAvailabilityMessage");
-                usernameMessage.style.color="red";
-                usernameMessage.textContent=r.message;
-                throw new Error("输入有错误,错误如下："+r.message);
-            }else {
-                resolve(r);
-            }
+            .then(response => {
+                let r = response.json();
+                if (!response.ok && response.status !== 400) {
+                    throw new Error("服务器错误");
+                }
+                if (response.status === 400) {
+                    const usernameMessage = document.getElementById("usernameAvailabilityMessage");
+                    usernameMessage.style.color = "red";
+                    usernameMessage.textContent = r.message;
+                    throw new Error("输入有错误,错误如下：" + r.message);
+                } else {
+                    resolve(r);
+                }
 
-        }).catch(error=>{
-            console.error(error);
-            reject(error);
-        })
+            }).catch(error => {
+                console.error(error);
+                reject(error);
+            })
     });
 }
-function submitVeriCode(event){
+function submitVeriCode(event) {
     event.preventDefault();
     let formData = document.getElementById("captcha").value;
-    formData=JSON.parse(formData);
+    formData = JSON.parse(formData);
     return new Promise((resolve, reject) => {
         // 发送第一个请求
         // 请将实际的请求代码替换成你的实际代码
@@ -154,25 +154,27 @@ function submitVeriCode(event){
             withCredentials: true
             // 其他请求参数
         })
-        .then(response => {
-            let r=response.json();
-            if(!response.ok&&response.status !== 400){
-                throw new Error("服务器错误");
-            }
-            if(response.status===400){
-                const usernameMessage = document.getElementById("usernameAvailabilityMessage");
-                usernameMessage.style.color="red";
-                usernameMessage.textContent=r.message;
-                throw new Error("输入有错误,错误如下："+r.message);
-            }else{
-                alert("注册成功");
-                resolve(r);
-                window.location.href = "../pages/login.html";
-            }
-        }).catch(error=>{
-            console.error(error);
-            reject(error);
-        })
+            .then(response => {
+                let r = response.json();
+                if (!response.ok && response.status !== 400) {
+                    throw new Error("服务器错误");
+                }
+                if (response.status === 400) {
+                    const usernameMessage = document.getElementById("usernameAvailabilityMessage");
+                    usernameMessage.style.color = "red";
+                    usernameMessage.textContent = r.message;
+                    throw new Error("输入有错误,错误如下：" + r.message);
+                } else {
+                    alert("注册成功");
+                    resolve(r);
+                    window.location.href = "../pages/login.html";
+                }
+            }).catch(error => {
+                let emailMessage = document.getElementById("emailMessage");
+                emailMessage = error.message;
+                console.error(error);
+                reject(error);
+            })
     });
 }
 function submitAccountForm(event) {
@@ -181,12 +183,12 @@ function submitAccountForm(event) {
         .then(response1 => {
             // 处理第一个请求的结果
             console.log(response1);
-           return submitVeriCode(event);
+            return submitVeriCode(event);
         })
         .then(response2 => {
             console.log(response2);
         })
-        .catch(error=>{
+        .catch(error => {
             // 处理错误
             console.error(error);
         })

@@ -27,8 +27,9 @@
                 <div class="form-group" id="account-form">
                     <label for="username">用户名:</label>
 
-                    <input type="text" id="username" name="username" placeholder="输入想取的用户名" oninput="checkUsernameAvailability(this.value)">
-                    
+                    <input type="text" id="username" name="username" placeholder="输入想取的用户名"
+                        oninput="checkUsernameAvailability(this.value)">
+
 
                     <span id="usernameAvailabilityMessage"></span>
                     <div style="height: 15px;"></div>
@@ -42,7 +43,7 @@
                         oninput="checkPasswordConfirmation()">
                     <span id="passwordConfirmationMessage"></span>
                 </div>
-                
+
                 <ul class="password-strength">
                     <li class="strong">密码长度在八位以上</li>
                     <li class="medium">包含数字和字母</li>
@@ -55,9 +56,8 @@
                         <input type="text" placeholder="请输入验证码" id="captcha" required>
                         <button type="button" onclick="getCaptcha()" id="get-captcha-btn">获取验证码</button>
                     </div>
-                    
-                    
                 </div>
+                <span id="emailMessage"></span>
                 <button type="submit" id="create-account" onclick="submitAccountForm()">创建账号</button>
         </div>
         </form>
