@@ -173,6 +173,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                         message.append(",");
                     }
                     for (Player player : matchingPlayer) {
+                        playersMatchingGamemode.remove(player);
                         player.sendRawMessage("和您在同一局的对手为"+ message+"对局开始");
                     }
 
@@ -181,8 +182,8 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                     int delayInTicks = 0; // 延迟0个游戏刻
                     int periodInTicks = 20; // 每20个游戏刻执行一次
                     //准备完毕，开始比赛线程
-                    Bukkit.getScheduler().runTaskTimer(plugin,new BrawlMatch(players), delayInTicks, periodInTicks);
-                    Bukkit.getScheduler().runTaskTimer(plugin,new AssistTimer(assistMap), delayInTicks, periodInTicks);
+                    new BrawlMatch(players).runTaskTimer(plugin, delayInTicks, periodInTicks);
+                    new AssistTimer(assistMap).runTaskTimer(plugin, delayInTicks, periodInTicks);
                     matchingPlayer.clear();
                 }
             }else{
@@ -197,7 +198,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     }
 
     //当匹配完时启动一个新的比赛线程
-    class BrawlMatch implements Runnable {
+    class BrawlMatch extends BukkitRunnable {
         Map<Player, Record> players;//Concurrent
         int second=0;
         int gameLimitTime=30;//1分钟
@@ -227,6 +228,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                         mvpPlayer=player;
                     }
                 }
+                Bukkit.getServer().broadcastMessage("比赛结束!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 //利用ConcurrentHashMap来同步操作
                 for (Map.Entry<Player, Record> entry : entrySet) {
                     Player player= entry.getKey();
@@ -245,11 +247,11 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                     );
                 }
                 players.clear();
-
+                this.cancel();
             }
         }
     }
-    class AssistTimer implements Runnable {
+    class AssistTimer extends BukkitRunnable {
         Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap;
         int second=0;
         int assistExistLimitTime=30;//只计算30秒内的助攻
