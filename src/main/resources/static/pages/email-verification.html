@@ -22,11 +22,13 @@
 
         <div class="container">
             <h2>邮箱验证</h2>
+            <form>
+            <button class="button" type="submit" id="send" onclick="checkVerificationCode(event)">发送验证码</button>
+             </form>
 
             <div class="form-group" id="code-form">
                 <label for="verification-code">验证码:</label>
                 <input type="text" id="verification-code" name="verification-code" placeholder="输入验证码" required>
-                <button class="button" type="submit" id="send" onclick="checkVerificationCode(event)">发送验证码</button>
                 <button class="button" type="submit" id="confirm" onclick="compareVerificationCode(event,document)">确认</button>
             </div>
 
