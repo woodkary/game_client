@@ -228,7 +228,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                         mvpPlayer=player;
                     }
                 }
-                Bukkit.getServer().broadcastMessage("比赛结束!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                Bukkit.getServer().broadcastMessage("比赛结束");
                 //利用ConcurrentHashMap来同步操作
                 for (Map.Entry<Player, Record> entry : entrySet) {
                     Player player= entry.getKey();
