@@ -16,8 +16,10 @@ public class PersonalReport {
     private int win;
     private int lose;
     private double winRate;
-    private double averageTakeDamage;
-    private double averageTakenDamage;
+    private double averageTakeDamage;//场均伤害
+    private double averageTakenDamage;//场均承伤
+    private double averageKill;//场均击杀
+    private double averageDeath;//场均死亡
     private String level;
 }
 
