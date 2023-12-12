@@ -41,18 +41,25 @@ public class RecordVOServiceImpl implements RecordVOService {
                 }
                 game=gamesMapper.getGameByIdAndType(record.getGameId(),type);
             }
-
+            int gameId= game.getGameId();
             int kill=record.getKill();
             int death=record.getDeath();
-            double kd=kill*1.0/death;
+            int assist= record.getAssist();
+            double kda=(kill*1.0+assist*0.7)/(death!=0?death:1);
+            boolean isMVP=username.equals(game.getMvpPlayer());
             RecordVO recordVO=new RecordVO();
+            recordVO.setGameId(gameId);
             recordVO.setGameTime(game.getGameTime());
             recordVO.setKills(kill);
             recordVO.setDeaths(death);
-            recordVO.setAssists(record.getAssist());
-            recordVO.setKd(kd);
+            recordVO.setAssists(assist);
+            recordVO.setKda(kda);
             recordVO.setDuration(game.getDuration());
+            recordVO.setScoreGain(record.getScoreGain());
             recordVO.setUsername(username);
+            recordVO.setMVP(isMVP);
+            recordVO.setTakeDamage(record.getTakeDamage());
+            recordVO.setTakenDamage(record.getTakenDamage());
             String typeString = switch (type) {
                 case 1 -> "1v1";
                 case 2 -> "大乱斗";
@@ -72,7 +79,7 @@ public class RecordVOServiceImpl implements RecordVOService {
         if(fromIndex>=res.size()){
             return new ArrayList<>();
         }
-        return res.subList(fromIndex,toIndex< res.size()?toIndex: res.size());
+        return res.subList(fromIndex, Math.min(toIndex, res.size()));
     }
 
     @Override
@@ -90,7 +97,7 @@ public class RecordVOServiceImpl implements RecordVOService {
             int kills=record.getKill();
             int deaths=record.getDeath();
             int assists=record.getAssist();
-            double kd=kills*1.0/deaths;
+            double kda=(kills*1.0+assists*0.7)/(deaths!=0?deaths:1);
             long duration=game.getDuration();
             int type=game.getType();
             String typeString = switch (type) {
@@ -98,14 +105,20 @@ public class RecordVOServiceImpl implements RecordVOService {
                 case 2 -> "大乱斗";
                 default -> "";
             };
+            boolean isMVP=username.equals(game.getMvpPlayer());
+            recordVO.setGameId(gameId);
             recordVO.setUsername(username);
             recordVO.setGameTime(gameTime);
             recordVO.setKills(kills);
             recordVO.setDeaths(deaths);
             recordVO.setAssists(assists);
-            recordVO.setKd(kd);
+            recordVO.setKda(kda);
+            recordVO.setScoreGain(record.getScoreGain());
             recordVO.setDuration(duration);
             recordVO.setType(typeString);
+            recordVO.setMVP(isMVP);
+            recordVO.setTakeDamage(record.getTakeDamage());
+            recordVO.setTakenDamage(record.getTakenDamage());
             res.add(recordVO);
         }
         return res;

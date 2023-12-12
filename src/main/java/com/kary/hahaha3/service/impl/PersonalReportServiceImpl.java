@@ -32,18 +32,19 @@ public class PersonalReportServiceImpl implements PersonalReportService {
     private GamesMapper gamesMapper;
     @Autowired
     private RecordMapper recordMapper;
+
     @Override
     public PersonalReport getPersonalReport(String username, int type) throws MatchTypeErrorException, UsernameErrorException {
-        if(type!=1&&type!=2){
+        if (type != 1 && type != 2) {
             throw new MatchTypeErrorException("错误的比赛类型");
         }
-        User account=userMapper.selectUserByName(username);
-        if(account==null){
+        User account = userMapper.selectUserByName(username);
+        if (account == null) {
             throw new UsernameErrorException("用户不存在");
         }
-        Integer score=userGameMapper.getScoreByType(username,type);
-        String level= LevelUtil.getLevel(score);
-        PersonalReport res=new PersonalReport();
+        Integer score = userGameMapper.getScoreByType(username, type);
+        String level = LevelUtil.getLevel(score);
+        PersonalReport res = new PersonalReport();
         res.setType(type);
         res.setLevel(level);
 
@@ -51,27 +52,59 @@ public class PersonalReportServiceImpl implements PersonalReportService {
         int win = 0;
         int lose = 0;
         double winRate = 0;
+        double averageTakeDamage = 0;
+        double averageTakenDamage = 0;
+        double averageKill = 0;
+        double averageDeath = 0;
+        double averageAssist=0;
 
-        List<Record> recordList=recordMapper.selectRecordsByUsername(username);
+        List<Record> recordList = recordMapper.selectRecordsByUsername(username);
+        double totalTakeDamage = 0.0;
+        double totalTakenDamage = 0.0;
+        int totalKill = 0;
+        int totalDeath = 0;
+        int totalAssist=0;
         for (Record record : recordList) {
-            Games game=gamesMapper.getGameByIdAndType(record.getGameId(),type);
-            if(game==null){
+            Games game = gamesMapper.getGameByIdAndType(record.getGameId(), type);
+            if (game == null) {
                 continue;
             }
-            gameNums+=1;
-            if(type==1){
-                if(record.getKill()>record.getDeath()){
-                    win+=1;
-                }else {
-                    lose+=1;
+            gameNums += 1;
+            totalTakeDamage += record.getTakeDamage();
+            totalTakenDamage += record.getTakenDamage();
+            totalKill += record.getKill();
+            totalDeath += record.getDeath();
+            totalAssist+=record.getAssist();
+            if (type == 1) {
+                if (record.getKill() > record.getDeath()) {
+                    win += 1;
+                } else {
+                    lose += 1;
                 }
             }
+            if (type == 2 && game.getMvpPlayer().equals(username)) {
+                win += 1;
+            }
         }
-        winRate=(lose!=0?(win*1.0/lose):win*1.0);
+        winRate = (lose != 0 ? (win * 1.0 / lose) : win * 1.0);
+        averageTakeDamage = (gameNums != 0) ? (totalTakeDamage / gameNums) : totalTakeDamage;
+        averageTakenDamage = (gameNums != 0) ? (totalTakenDamage / gameNums) : totalTakenDamage;
+        averageKill = (gameNums != 0) ? (totalKill * 1.0 / gameNums) : totalKill * 1.0;
+        averageDeath = (gameNums != 0) ? (totalDeath * 1.0 / gameNums) : totalDeath * 1.0;
+        averageAssist = (gameNums != 0) ? (totalAssist * 1.0 / gameNums) : totalAssist * 1.0;
+
+        double kda=(totalKill * 1.0 + totalAssist*0.7) /((totalDeath!=0)?totalDeath:1);
+
         res.setGameNums(gameNums);
         res.setWin(win);
         res.setLose(lose);
         res.setWinRate(winRate);
+        res.setAverageTakeDamage(averageTakeDamage);
+        res.setAverageTakenDamage(averageTakenDamage);
+        res.setAverageKill(averageKill);
+        res.setAverageDeath(averageDeath);
+        res.setAverageAssist(averageAssist);
+        res.setKda(kda);
         return res;
     }
 }

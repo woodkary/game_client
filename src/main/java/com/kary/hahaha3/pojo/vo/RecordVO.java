@@ -15,14 +15,18 @@ import java.util.Date;
 @EqualsAndHashCode
 @Tag(name = "RecordVO")
 public class RecordVO {
+    private int gameId;
     private String username;
     private Date gameTime;
     /*减少的 private String opponentUsername;*/
     private int kills;
     private int deaths;
-    private int assists;//新增的
-    private double kd;
-    private long duration;
-    /*减少的 private boolean win;*/
-    private String type;//新增的
+    private int assists;
+    private int scoreGain;
+    private double kda;
+    private long duration;//持续时间
+    private boolean isMVP;
+    private String type;//游戏类型
+    private double takeDamage;//造成伤害
+    private double takenDamage;//承受伤害
 }

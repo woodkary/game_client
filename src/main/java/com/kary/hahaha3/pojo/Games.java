@@ -19,4 +19,5 @@ public class Games {
     private int gameId;
     private Date gameTime;
     private long duration;
+    private String mvpPlayer;
 }

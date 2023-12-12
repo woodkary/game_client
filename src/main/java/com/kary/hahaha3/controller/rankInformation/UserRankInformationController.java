@@ -88,6 +88,12 @@ public class UserRankInformationController extends BaseController {
         List<RecordVO> recordVOS=recordVOService.getGamesByUsername(username, null,page);
         return JsonResult.ok(recordVOS,"这是比赛");
     }
+    @GetMapping("/getRanks")
+    @Operation(summary = "获取我自己或别人的所有比赛记录信息，返回List<RecordVO>",description = "共64个RecordVO")
+    public JsonResult myAllRankInformation(@RequestParam("username")String username) throws SessionExpireException, MatchTypeErrorException {
+        List<RecordVO> recordVOS=recordVOService.getGamesByUsername(username, null,1);
+        return JsonResult.ok(recordVOS,"这是比赛");
+    }
     @GetMapping("/getGamesByGameId")
     @Operation(summary = "通过id获取比赛记录信息，返回List<RecordVO>")
     public JsonResult getGamesByGameId(@RequestParam("gameId")Integer gameId) throws GameNotFoundException {
