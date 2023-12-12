@@ -7,7 +7,7 @@ import org.apache.ibatis.jdbc.SQL;
  * @author:123
  */
 public class RecordMapperProvider {
-    public String addScore(String username, Integer gameMode, Integer addNum){
+    public String addScore(@Param("username")String username,@Param("gameMode")Integer gameMode,@Param("addNum")Integer addNum){
         return new SQL(){{
             UPDATE("user_game");
             if (gameMode == 1){
@@ -18,7 +18,7 @@ public class RecordMapperProvider {
             }
         }}.toString();
     }
-    public String getScoreTotal(String username, Integer gameMode){
+    public String getScoreTotal(@Param("username")String username,@Param("gameMode")Integer gameMode){
         return new SQL(){{
             if(gameMode==1){
                 SELECT("score_total_1v1");
