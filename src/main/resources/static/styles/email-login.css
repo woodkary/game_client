@@ -94,7 +94,7 @@ body {
     opacity: 1.0;
 }
 
-.login .account {
+.login .account{
     display: inline;
     height: 35px;
     line-height: 28px;
@@ -103,25 +103,22 @@ body {
     display: inline;
 }
 
-#text {
+#text{
     margin-left: 20px;
 }
-
-#sign-up {
-    color: #61892e
+#register
+{
+    color:#61892e
 }
-
-#sign-up:hover {
-    color: #6f9b37
+#register:hover{
+    color: #81b440
 }
-
-#forget-password {
+#forget-password{
     margin-left: 50px;
-    color: #407778;
+    color:#407778;
 }
-
-#forget-password:hover {
-    color: rgba(64, 164, 164, 0.581);
+#forget-password:hover{
+    color:rgba(64, 164, 164, 0.581);
     font-size: 10;
 }
 
