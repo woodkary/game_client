@@ -36,11 +36,13 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     private Map<Integer,Set<Player>> matchingPlayers=new ConcurrentHashMap<>();
     private Map<Player,Long[]> playerDuration=new ConcurrentHashMap<>();
     private Player mvpPlayer;
+    private BukkitRunnable assistTimer;
     private static final int MAX_MATCH_NUM=3;
     //TODO 一场比赛6个人
     private static final int KILL_ONE_ADD =10;
     //将死者,助攻者列表
     private Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap=new ConcurrentHashMap<>();
+    //此类用于记录助攻者和助攻时间，用player比较是否相等，以及用加入时间比较大小
     class PlayerAndTime implements Comparable<PlayerAndTime>{
         Player player;
         long time;
@@ -211,7 +213,8 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                     int periodInTicks = 20; // 每20个游戏刻执行一次
                     //准备完毕，开始比赛线程
                     new BrawlMatch(players).runTaskTimer(plugin, delayInTicks, periodInTicks);
-                    new AssistTimer(assistMap).runTaskTimer(plugin, delayInTicks, periodInTicks);
+                    assistTimer=new AssistTimer(assistMap);
+                    assistTimer.runTaskTimer(plugin, delayInTicks, periodInTicks);
                     matchingPlayer.clear();
                 }
             }else{
@@ -229,7 +232,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     class BrawlMatch extends BukkitRunnable {
         Map<Player, Record> players;//Concurrent
         int second=0;
-        int gameLimitTime=30;//1分钟
+        int gameLimitTime=300;//5分钟
         //TODO 改为5分钟
 
         public BrawlMatch(Map<Player, Record> players) {
@@ -241,7 +244,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
             //游戏限时
             if(second < gameLimitTime) {
                 second += 1;
-            }else{
+            }else{//比赛结束
                 Set<Map.Entry<Player, Record>> entrySet=players.entrySet();
                 double maxKDA=Double.MIN_VALUE;
                 Map<Player,Long> playerDur=new HashMap<>();//临时记录每位玩家的游戏时长
@@ -280,14 +283,17 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                     );
                 }
                 players.clear();
+                //结束比赛线程以及助攻线程
                 this.cancel();
+                assistTimer.cancel();
             }
         }
     }
+    //这是个计时器，每秒钟检查一次助攻列表，每十秒移除一个加入时间最早的助攻者
     class AssistTimer extends BukkitRunnable {
         Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap;
         int second=0;
-        int assistExistLimitTime=30;//只计算30秒内的助攻
+        int assistExistLimitTime=10;//只计算10秒内的助攻
 
         public AssistTimer(Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap) {
             this.assistMap = assistMap;
