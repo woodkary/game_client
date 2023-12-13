@@ -182,6 +182,18 @@ function preLoad() {
     username = params.get("username");
     console.log(username);
 }
-function redircetToRecord() {
+
+function redirectToIndex(event){
+    event.preventDefault();
+    window.location.href = "../index.html?username=" + encodeURIComponent(username);
+}
+
+function redirectToPersonal(event) {
+    event.preventDefault();
+    window.location.href = "../pages/personal.html?username=" + encodeURIComponent(username);
+}
+
+function redirectToRecord(event){
+    event.preventDefault();
     window.location.href = "../pages/record.html?username=" + encodeURIComponent(username);
 }

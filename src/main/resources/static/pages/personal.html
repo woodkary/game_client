@@ -20,8 +20,8 @@
         </span>
         <span class="header">
             <ul>
-                <li><a class="header" id="page1" href="../index.html"><i class="fas fa-home"></i> 主页面</a></li>
-                <li><a class="header" id="page2" onclick="toMyRecord(event)"><i class="fas fa-chart-bar"></i> 战绩</a>
+                <li><a class="header" id="page1" onclick="redirectToIndex(event)"><i class="fas fa-home"></i> 主页面</a></li>
+                <li><a class="header" id="page2" onclick="redirectToPersonal(event)"><i class="fas fa-chart-bar"></i> 战绩</a>
                 </li>
                 <li><a class="header" id="page3" href="./forum-home.html"><i class="fas fa-users"></i> 社区</a></li>
             </ul>
@@ -101,7 +101,7 @@
         </div>
         <div id="Rectangle4">
             <div class="Recent">近期战绩</div>
-            <a href="record.html" class="button">全部比赛></a>
+            <a class="button" onclick="redirectToRecord(event)">全部比赛></a>
             <table class="table3" id="recentTable">
                 <tr>
                     <td class="td3" id="result" width="20px">胜利</td>
