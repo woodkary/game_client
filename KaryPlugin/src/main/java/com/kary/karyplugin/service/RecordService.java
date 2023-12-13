@@ -24,4 +24,5 @@ public interface RecordService {
                         String mvpPlayer);
 
     Integer getMaxGameId();
+    Integer addNewGame(Integer type, Integer gameId, Long duration,String mvpPlayer);
 }

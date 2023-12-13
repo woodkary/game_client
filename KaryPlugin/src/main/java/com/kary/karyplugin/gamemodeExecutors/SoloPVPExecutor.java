@@ -37,7 +37,6 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
     }
     @EventHandler(priority = EventPriority.MONITOR)
     public void playerQuit(PlayerQuitEvent playerQuitEvent){
-        Integer maxGameId=recordService.getMaxGameId();
         Player loser=playerQuitEvent.getPlayer();
         int level= LevelUtil.getLevel(recordService.getScoreTotal(loser.getName(),gameMode));
         //如果退出的这个人正在匹配，则把他踢出匹配等待
@@ -51,13 +50,20 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
         if(winner==null){
             return;
         }
-        playersInSoloPVP.remove(winner);
 
+        Integer maxGameId=recordService.getMaxGameId();
+        if(maxGameId==null){
+            maxGameId=0;
+        }
+        maxGameId+=1;
+        playersInSoloPVP.remove(winner);
         Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
         Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
+        long duration=System.currentTimeMillis() -(Long)winnerArray[1];
         if(Integer.valueOf(5).equals(winnerArray[0])){
+            recordService.addNewGame(gameMode,maxGameId,duration,winner.getName());
             KaryPlugin.updateDatabase(maxGameId,
-                    System.currentTimeMillis() -(Long)winnerArray[1],
+                    duration,
                     winner.getName(),
                     1,1,
                     (Integer) winnerArray[0],
@@ -68,7 +74,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     gameMode
             );
             KaryPlugin.updateDatabase(maxGameId,
-                    System.currentTimeMillis() -(Long)winnerArray[1],
+                    duration,
                     loser.getName(),
                     1,1,
                     (Integer) loserArray[0]-8,
@@ -79,8 +85,9 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     gameMode
             );
         }else if(Integer.valueOf(15).equals(winnerArray[0])){
+            recordService.addNewGame(gameMode,maxGameId,System.currentTimeMillis() -(Long)winnerArray[1],winner.getName());
             KaryPlugin.updateDatabase(maxGameId,
-                    System.currentTimeMillis() -(Long)winnerArray[1],
+                    duration,
                     winner.getName(),
                     1,0,
                     (Integer) winnerArray[0],
@@ -91,7 +98,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     gameMode
             );
             KaryPlugin.updateDatabase(maxGameId,
-                    System.currentTimeMillis() -(Long)winnerArray[1],
+                    duration,
                     loser.getName(),
                     0,1,
                     (Integer) loserArray[0]-8,
@@ -102,8 +109,9 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     gameMode
             );
         }else{
+            recordService.addNewGame(gameMode,maxGameId,System.currentTimeMillis() -(Long)winnerArray[1],winner.getName());
             KaryPlugin.updateDatabase(maxGameId,
-                    System.currentTimeMillis() -(Long)winnerArray[1],
+                    duration,
                     winner.getName(),
                     0,1,
                     (Integer) winnerArray[0],
@@ -114,7 +122,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     gameMode
             );
             KaryPlugin.updateDatabase(maxGameId,
-                    System.currentTimeMillis() -(Long)winnerArray[1],
+                    duration,
                     loser.getName(),
                     1,0,
                     (Integer) loserArray[0]-8,
@@ -147,18 +155,17 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
         if(playersInSoloPVP.isEmpty()){
             return;
         }
-        Integer maxGameId=recordService.getMaxGameId();
-        if(maxGameId==null){
-            maxGameId=0;
-        }
-        maxGameId+=1;
         //有人被杀死了
         Player loser=event.getEntity();//失败者
         Player winner=playersInSoloPVP.get(loser);//胜利者
         if(winner==null){
             return;
         }
-
+        Integer maxGameId=recordService.getMaxGameId();
+        if(maxGameId==null){
+            maxGameId=0;
+        }
+        maxGameId+=1;
         Object[] winnerScoreGainAndStartTime=playersScoreGainAndMatchStartTime.get(winner);
         winnerScoreGainAndStartTime[0]=(Integer)winnerScoreGainAndStartTime[0]+15;
         /*playersScoreGainAndMatchStartTime.put(winner,winnerScoreGainAndStartTime);*/
@@ -172,8 +179,10 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
             playersInSoloPVP.remove(loser);
             Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
             Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
+            long duration=System.currentTimeMillis() -(Long)winnerArray[1];
+            recordService.addNewGame(gameMode,maxGameId,System.currentTimeMillis() -(Long)winnerArray[1],winner.getName());
             KaryPlugin.updateDatabase(maxGameId,
-                    System.currentTimeMillis() -(Long)winnerArray[1],
+                    duration,
                     winner.getName(),
                     2,0,
                     (Integer) winnerArray[0],
@@ -184,7 +193,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     gameMode
             );
             KaryPlugin.updateDatabase(maxGameId,
-                    System.currentTimeMillis() -(Long)winnerArray[1],
+                    duration,
                     loser.getName(),
                     0,2,
                     (Integer) loserArray[0],
@@ -201,8 +210,10 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
             playersInSoloPVP.remove(loser);
             Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
             Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
+            long duration=System.currentTimeMillis() -(Long)winnerArray[1];
+            recordService.addNewGame(gameMode,maxGameId,System.currentTimeMillis() -(Long)winnerArray[1],winner.getName());
             KaryPlugin.updateDatabase(maxGameId,
-                    System.currentTimeMillis() -(Long)winnerArray[1],
+                    duration,
                     winner.getName(),
                     2,1,
                     (Integer) winnerArray[0],
@@ -213,7 +224,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     gameMode
             );
             KaryPlugin.updateDatabase(maxGameId,
-                    System.currentTimeMillis() -(Long)winnerArray[1],
+                    duration,
                     loser.getName(),
                     1,2,
                     (Integer) loserArray[0],

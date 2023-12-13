@@ -11,7 +11,7 @@ public interface GamesMapper {
     @Select("select max(game_id) from games")
     Integer getMaxGameId();
     @Insert("insert into games (type,game_id,game_time,duration,mvp_player) values (#{type},#{gameId},now(),#{duration},#{mvpPlayer})")
-    void addNewGame(@Param("type")Integer type,
+    Integer addNewGame(@Param("type")Integer type,
                     @Param("gameId")Integer gameId,
                     @Param("duration")Long duration,
                     @Param("mvpPlayer")String mvpPlayer);

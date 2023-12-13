@@ -6,9 +6,6 @@ import com.kary.karyplugin.dao.SqlSessionSettings;
 import com.kary.karyplugin.pojo.UserGame;
 import com.kary.karyplugin.service.RecordService;
 import org.apache.ibatis.session.SqlSession;
-import org.bukkit.Bukkit;
-
-import java.util.Date;
 
 /**
  * @author:123
@@ -104,13 +101,17 @@ public class RecordServiceImpl implements RecordService {
         if(gameMode==2){
             recordMapper.addGamesCountDrawl(username);
         }
-        gamesMapper.addNewGame(gameMode,maxGameId,duration,mvpPlayer);
         recordMapper.addNewRecord(maxGameId,username,kill,death,(gameMode==1)?0:assists,scoreGain,takeDamage, takenDamage);
     }
 
     @Override
     public Integer getMaxGameId() {
         return gamesMapper.getMaxGameId();
+    }
+
+    @Override
+    public Integer addNewGame(Integer type, Integer gameId, Long duration, String mvpPlayer) {
+        return gamesMapper.addNewGame(type,gameId,duration,mvpPlayer);
     }
 
     @Override
