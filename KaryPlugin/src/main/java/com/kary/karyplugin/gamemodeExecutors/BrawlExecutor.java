@@ -22,6 +22,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * @author:123
@@ -32,7 +33,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     private Map<Player, Record> players=new ConcurrentHashMap<>();
     private RecordService recordService;
     private Map<Player,Integer> playersMatchingGamemode;
-    private Map<Integer,List<Player>> matchingPlayers=new ConcurrentHashMap<>();
+    private Map<Integer,Set<Player>> matchingPlayers=new ConcurrentHashMap<>();
     private Map<Player,Long[]> playerDuration=new ConcurrentHashMap<>();
     private Player mvpPlayer;
     private static final int MAX_MATCH_NUM=3;
@@ -82,18 +83,28 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         this.recordService = recordService;
         this.playersMatchingGamemode = playersMatchingGamemode;
         this.plugin=plugin;
-        matchingPlayers.put(LevelUtil.COPPER, Collections.synchronizedList(new ArrayList<>()));
-        matchingPlayers.put(LevelUtil.SILVER, Collections.synchronizedList(new ArrayList<>()));
-        matchingPlayers.put(LevelUtil.GOLD, Collections.synchronizedList(new ArrayList<>()));
-        matchingPlayers.put(LevelUtil.PLATINUM, Collections.synchronizedList(new ArrayList<>()));
-        matchingPlayers.put(LevelUtil.DIAMOND, Collections.synchronizedList(new ArrayList<>()));
-        matchingPlayers.put(LevelUtil.MASTER, Collections.synchronizedList(new ArrayList<>()));
-        matchingPlayers.put(LevelUtil.KING, Collections.synchronizedList(new ArrayList<>()));
+        matchingPlayers.put(LevelUtil.COPPER, new CopyOnWriteArraySet<>());
+        matchingPlayers.put(LevelUtil.SILVER, new CopyOnWriteArraySet<>());
+        matchingPlayers.put(LevelUtil.GOLD, new CopyOnWriteArraySet<>());
+        matchingPlayers.put(LevelUtil.PLATINUM, new CopyOnWriteArraySet<>());
+        matchingPlayers.put(LevelUtil.DIAMOND,new CopyOnWriteArraySet<>());
+        matchingPlayers.put(LevelUtil.MASTER, new CopyOnWriteArraySet<>());
+        matchingPlayers.put(LevelUtil.KING, new CopyOnWriteArraySet<>());
     }
     @EventHandler(priority = EventPriority.HIGH)
     public void playerQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
         Long[] times=playerDuration.get(player);
+        //说明此人未进入比赛，但可能在匹配
+        if(times==null){
+            int level= LevelUtil.getLevel(recordService.getScoreTotal(player.getName(),gameMode));
+            //在退出玩家的段位了列表，不管有无此玩家，都把他移除
+            matchingPlayers.compute(level,(key,matchingPlayer)->{
+                matchingPlayer.remove(player);
+                return matchingPlayer;
+            });
+            return;
+        }
         times[1]=System.currentTimeMillis();
         Record record=players.get(player);
         //中途退出。排位分扣除2分
@@ -171,7 +182,10 @@ public class BrawlExecutor implements Listener, CommandExecutor {
             if(gamemode==null){
                 playersMatchingGamemode.put((Player) commandSender, GameModeUtil.BRAWL_MODE);
                 //每一段位的总匹配人数
-                List<Player> matchingPlayer=matchingPlayers.get(level);
+                Set<Player> matchingPlayer=matchingPlayers.get(level);
+                if(matchingPlayer.isEmpty()){
+                    this.mvpPlayer= (Player) commandSender;
+                }
                 matchingPlayer.add((Player) commandSender);
                 ((Player) commandSender).sendRawMessage("您正在匹配大乱斗，等待其他玩家加入游戏……");
                 if(matchingPlayer.size()==MAX_MATCH_NUM){//达到最大待匹配人数
@@ -192,8 +206,6 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                         playersMatchingGamemode.remove(player);
                         player.sendRawMessage("和您在同一局的对手为"+ message+"对局开始");
                     }
-
-                    this.mvpPlayer=matchingPlayer.get(0);
                     // 安排任务在主线程中每20个游戏刻执行一次（1秒 = 20游戏刻）
                     int delayInTicks = 0; // 延迟0个游戏刻
                     int periodInTicks = 20; // 每20个游戏刻执行一次

@@ -44,6 +44,10 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
         Player loser=playerQuitEvent.getPlayer();
         Player winner=playersInSoloPVP.remove(loser);
         if(winner==null){
+            int level= LevelUtil.getLevel(recordService.getScoreTotal(loser.getName(),gameMode));
+            //如果退出的这个人正在匹配，则把他踢出匹配等待
+            //不管这个段位是否有人正在匹配，都把这个位置设为null
+            matchingPlayers.compute(level,(key,p)-> null);
             return;
         }
         playersInSoloPVP.remove(winner);
