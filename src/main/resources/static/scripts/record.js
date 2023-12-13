@@ -17,4 +17,25 @@ function handleDataPersonal(type)
         });
 }
 
-    
+var currentPage = 1; // 当前页数  
+var totalPages = 10; // 总页数，根据实际情况进行调整  
+
+function updatePageNum() {  
+  var pageNum = document.getElementById('pageNum');  
+  pageNum.textContent = currentPage;  
+}  
+
+function prevPage() {  
+  if (currentPage > 1) {  
+    currentPage--;  
+    updatePageNum();  
+  }  
+}  
+
+function nextPage() {  
+  if (currentPage < totalPages) {  
+    currentPage++;  
+    updatePageNum();  
+  }  
+}  
+updatePageNum();

@@ -13,7 +13,7 @@
   <!-- import JavaScript -->
   <script src="https://unpkg.com/element-plus"></script>
 </head>
-
+<script src="../scripts/record.js"></script>
 <body>
   <div id="Background"></div>
   <nav>
@@ -53,20 +53,19 @@
       <button><span>失败</span><span>2023.10.18</span></button>
       <button><span>胜利</span><span>2023.10.16</span></button>
     </div>
+    <div class="pagination">  
+      <button onclick="prevPage()"><</button>  
+      <span id="pageNum">1</span>  
+      <button onclick="nextPage()">></button>  
+    </div> 
     <el-button></el-button>
     <div id="Rectangle2">
-      <div class="SmallRectangle Rect1">
-        <p class="Up">时间</p>
-        <p class="Down">10-31 20:46</p>
-      </div>
-      <div class="SmallRectangle Rect2">
-        <p class="Up">类型</p>
-        <p class="Down">单挑</p>
-      </div>
-      <div class="SmallRectangle Rect3">
-        <p class="Up">比赛时长</p>
-        <p class="Down">26分钟</p>
-      </div>
+        <span id="date">时间</span>
+        <span id="date-value">10-31 20:46</span>
+        <span id="type">类型</span>
+        <span id="type-value">单挑</span>
+        <span id="duration">比赛时长</span>
+        <span id="duration-value">26分钟</span>
       <div class="Win">
         <p>胜方</p>
         <table>
