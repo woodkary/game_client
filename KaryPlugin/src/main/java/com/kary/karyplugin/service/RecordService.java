@@ -11,7 +11,8 @@ public interface RecordService {
     void addScore(String username, Integer gameMode, Integer addNum);
 
     UserGame selectUserByName(String username);
-    void recordNewMatch(Long duration,
+    void recordNewMatch(Integer maxGameId,
+                        Long duration,
                         String username,
                         Integer kill,
                         Integer death,
@@ -21,4 +22,6 @@ public interface RecordService {
                         Double takeDamage,
                         Double takenDamage,
                         String mvpPlayer);
+
+    Integer getMaxGameId();
 }

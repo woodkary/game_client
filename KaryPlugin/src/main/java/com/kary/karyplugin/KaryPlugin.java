@@ -14,7 +14,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class KaryPlugin extends JavaPlugin {
     private static Map<Player,Integer> playersMatchingGamemode=new ConcurrentHashMap<>();
     private static  RecordServiceImpl recordService=new RecordServiceImpl();
-    public static synchronized void updateDatabase(Long duration,
+    public static synchronized void updateDatabase(Integer maxGameId,
+                                             Long duration,
                                              String username,
                                              Integer kill,
                                              Integer death,
@@ -26,6 +27,7 @@ public final class KaryPlugin extends JavaPlugin {
                                              Integer gameMode){
         recordService.addScore(username,gameMode,scoreGain);
         recordService.recordNewMatch(
+                maxGameId,
                 duration,
                 username,
                 kill,

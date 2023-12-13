@@ -86,7 +86,8 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public void recordNewMatch(Long duration,
+    public void recordNewMatch(Integer maxGameId,
+                               Long duration,
                                String username,
                                Integer kill,
                                Integer death,
@@ -96,11 +97,6 @@ public class RecordServiceImpl implements RecordService {
                                Double takeDamage,
                                Double takenDamage,
                                String mvpPlayer) {
-        Integer maxGameId=gamesMapper.getMaxGameId();
-        if(maxGameId==null){
-            maxGameId=0;
-        }
-        maxGameId+=1;
         recordMapper.addGamesCount(username);
         if(gameMode==1){
             recordMapper.addGamesCount1v1(username);
@@ -110,6 +106,11 @@ public class RecordServiceImpl implements RecordService {
         }
         gamesMapper.addNewGame(gameMode,maxGameId,duration,mvpPlayer);
         recordMapper.addNewRecord(maxGameId,username,kill,death,(gameMode==1)?0:assists,scoreGain,takeDamage, takenDamage);
+    }
+
+    @Override
+    public Integer getMaxGameId() {
+        return gamesMapper.getMaxGameId();
     }
 
     @Override

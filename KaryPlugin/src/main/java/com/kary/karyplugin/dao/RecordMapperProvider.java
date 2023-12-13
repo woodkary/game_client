@@ -16,6 +16,7 @@ public class RecordMapperProvider {
             if (gameMode == 2){
                 SET("score_total_brawl=score_total_brawl+#{addNum}");
             }
+            WHERE("username=#{username}");
         }}.toString();
     }
     public String getScoreTotal(@Param("username")String username,@Param("gameMode")Integer gameMode){

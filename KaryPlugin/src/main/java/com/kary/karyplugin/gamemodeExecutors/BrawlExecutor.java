@@ -233,10 +233,16 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         Map<Player, Record> players;//Concurrent
         int second=0;
         int gameLimitTime=300;//5分钟
+        Integer maxGameId;
         //TODO 改为5分钟
 
         public BrawlMatch(Map<Player, Record> players) {
             this.players = players;
+            maxGameId=recordService.getMaxGameId();
+            if(maxGameId==null){
+                maxGameId=0;
+            }
+            maxGameId+=1;
         }
 
         @Override
@@ -270,6 +276,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                     Player player= entry.getKey();
                     Record record=entry.getValue();
                     KaryPlugin.updateDatabase(
+                            maxGameId,
                             playerDur.get(player),
                             player.getName(),
                             record.getKill(),
