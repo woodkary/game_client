@@ -90,7 +90,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         matchingPlayers.put(LevelUtil.MASTER, Collections.synchronizedList(new ArrayList<>()));
         matchingPlayers.put(LevelUtil.KING, Collections.synchronizedList(new ArrayList<>()));
     }
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void playerQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
         Long[] times=playerDuration.get(player);
@@ -100,7 +100,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         record.setScoreGain(-2);
 
     }
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void addAssist(EntityDamageByEntityEvent event){
         Entity damagerEntity= event.getDamager();
         Entity damageeEntity=event.getEntity();
@@ -127,7 +127,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void playerKill(PlayerDeathEvent event){
         Player deadPlayer=event.getEntity();
         Player killer=deadPlayer.getKiller();

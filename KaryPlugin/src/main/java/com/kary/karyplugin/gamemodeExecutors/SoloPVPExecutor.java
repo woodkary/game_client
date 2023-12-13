@@ -35,7 +35,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
         this.playersMatchingGamemode=playersMatchingGamemode;
         this.recordService=recordService;
     }
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void playerQuit(PlayerQuitEvent playerQuitEvent){
         if(playersInSoloPVP.isEmpty()){
             return;
@@ -117,7 +117,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
 
         Bukkit.getServer().broadcastMessage("玩家"+loser.getName()+"退出了游戏，"+winner.getName()+"获得了胜利");
     }
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void figureDamage(EntityDamageByEntityEvent event){
         Entity damager=event.getDamager();
         Entity damagee=event.getEntity();
@@ -131,7 +131,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void oneMatchOver(PlayerDeathEvent event){
         if(playersInSoloPVP.isEmpty()){
             return;
