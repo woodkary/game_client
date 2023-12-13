@@ -35,19 +35,19 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
         this.playersMatchingGamemode=playersMatchingGamemode;
         this.recordService=recordService;
     }
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void playerQuit(PlayerQuitEvent playerQuitEvent){
+        Player loser=playerQuitEvent.getPlayer();
+        int level= LevelUtil.getLevel(recordService.getScoreTotal(loser.getName(),gameMode));
+        //如果退出的这个人正在匹配，则把他踢出匹配等待
+        //不管这个段位是否有人正在匹配，都把这个位置设为null
+        matchingPlayers.compute(level,(key,p)-> null);
         if(playersInSoloPVP.isEmpty()){
             return;
         }
         //有人退出游戏，则另一人胜利
-        Player loser=playerQuitEvent.getPlayer();
         Player winner=playersInSoloPVP.remove(loser);
         if(winner==null){
-            int level= LevelUtil.getLevel(recordService.getScoreTotal(loser.getName(),gameMode));
-            //如果退出的这个人正在匹配，则把他踢出匹配等待
-            //不管这个段位是否有人正在匹配，都把这个位置设为null
-            matchingPlayers.compute(level,(key,p)-> null);
             return;
         }
         playersInSoloPVP.remove(winner);

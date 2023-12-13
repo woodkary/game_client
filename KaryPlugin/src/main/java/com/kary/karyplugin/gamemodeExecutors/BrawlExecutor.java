@@ -91,7 +91,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         matchingPlayers.put(LevelUtil.MASTER, new CopyOnWriteArraySet<>());
         matchingPlayers.put(LevelUtil.KING, new CopyOnWriteArraySet<>());
     }
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void playerQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
         Long[] times=playerDuration.get(player);
