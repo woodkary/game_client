@@ -4,14 +4,23 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.Map;
 
-public class QuitMatchingExecutor implements CommandExecutor {
+public class QuitMatchingExecutor implements CommandExecutor, Listener {
     private Map<Player,Integer> playersMatchingGamemode;
 
     public QuitMatchingExecutor(Map<Player, Integer> playersMatchingGamemode) {
         this.playersMatchingGamemode = playersMatchingGamemode;
+    }
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onPlayerQuit(PlayerQuitEvent event){
+        Player player=event.getPlayer();
+        playersMatchingGamemode.remove(player);
     }
 
     @Override
