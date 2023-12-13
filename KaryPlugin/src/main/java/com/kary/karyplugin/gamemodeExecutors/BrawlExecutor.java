@@ -99,7 +99,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         if(times==null){
             int level= LevelUtil.getLevel(recordService.getScoreTotal(player.getName(),gameMode));
             //在退出玩家的段位了列表，不管有无此玩家，都把他移除
-            matchingPlayers.compute(level,(key,matchingPlayer)->{
+            matchingPlayers.computeIfPresent(level,(key, matchingPlayer)->{
                 matchingPlayer.remove(player);
                 return matchingPlayer;
             });
