@@ -145,6 +145,25 @@ public class SoloPVPExecutorTest {
         Field privateField = SoloPVPExecutor.class.getDeclaredField("playersScoreGainAndMatchStartTime");
         privateField.setAccessible(true);
         Map<Player,Object[]> playersScoreGainAndMatchStartTime = spy((Map<Player, Object[]>) privateField.get(soloPVPExecutor));
+        Object[] loserArray = new Object[4];
+        loserArray[0] = 0;
+        loserArray[1] = System.currentTimeMillis();
+        loserArray[2] = 0.0;
+        loserArray[3] = 0.0;
+        playersScoreGainAndMatchStartTime.put(loser, loserArray);
+        Object[] winnerArray = new Object[4];
+        winnerArray[0] = 0;
+        winnerArray[1] = System.currentTimeMillis();
+        winnerArray[2] = 0.0;
+        winnerArray[3] = 0.0;
+        playersScoreGainAndMatchStartTime.put(winner, winnerArray);
+
+        privateField = SoloPVPExecutor.class.getDeclaredField("playersInSoloPVP");
+        privateField.setAccessible(true);
+        Map<Player, Player> playersInSoloPVP = spy((Map<Player, Player>) privateField.get(soloPVPExecutor));
+        playersInSoloPVP.put(winner, loser);
+        playersInSoloPVP.put(loser, winner);
+
 
         soloPVPExecutor.oneMatchOver(event);
         verify(recordService, never()).getMaxGameId();

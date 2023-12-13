@@ -148,6 +148,10 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
             return;
         }
         Integer maxGameId=recordService.getMaxGameId();
+        if(maxGameId==null){
+            maxGameId=0;
+        }
+        maxGameId+=1;
         //有人被杀死了
         Player loser=event.getEntity();//失败者
         Player winner=playersInSoloPVP.get(loser);//胜利者
