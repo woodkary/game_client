@@ -16,6 +16,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
@@ -32,6 +33,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     private RecordService recordService;
     private Map<Player,Integer> playersMatchingGamemode;
     private Map<Integer,List<Player>> matchingPlayers=new ConcurrentHashMap<>();
+    private Map<Player,Long[]> playerDuration=new ConcurrentHashMap<>();
     private Player mvpPlayer;
     private static final int MAX_MATCH_NUM=3;
     //TODO 一场比赛6个人
@@ -88,7 +90,16 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         matchingPlayers.put(LevelUtil.MASTER, Collections.synchronizedList(new ArrayList<>()));
         matchingPlayers.put(LevelUtil.KING, Collections.synchronizedList(new ArrayList<>()));
     }
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void playerQuit(PlayerQuitEvent event){
+        Player player = event.getPlayer();
+        Long[] times=playerDuration.get(player);
+        times[1]=System.currentTimeMillis();
+        Record record=players.get(player);
+        //中途退出。排位分扣除2分
+        record.setScoreGain(-2);
 
+    }
     @EventHandler(priority = EventPriority.MONITOR)
     public void addAssist(EntityDamageByEntityEvent event){
         Entity damagerEntity= event.getDamager();
@@ -173,6 +184,11 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                         message.append(",");
                     }
                     for (Player player : matchingPlayer) {
+                        Long[] times=new Long[2];
+                        //times[0]为开始时间，times[1]为结束时间
+                        times[0]=System.currentTimeMillis();
+                        times[1]=Long.MAX_VALUE;
+                        playerDuration.put(player,times);
                         playersMatchingGamemode.remove(player);
                         player.sendRawMessage("和您在同一局的对手为"+ message+"对局开始");
                     }
@@ -216,9 +232,14 @@ public class BrawlExecutor implements Listener, CommandExecutor {
             }else{
                 Set<Map.Entry<Player, Record>> entrySet=players.entrySet();
                 double maxKDA=Double.MIN_VALUE;
+                Map<Player,Long> playerDur=new HashMap<>();//临时记录每位玩家的游戏时长
                 for (Map.Entry<Player, Record> entry : entrySet){
                     Player player= entry.getKey();
                     Record record= entry.getValue();
+                    Long[] times = playerDuration.remove(player);
+                    //playerRemove[0]为开始时间，playerRemove[1]为结束时间
+                    //如果结束时间为Long.MAX_VALUE，说明玩家没有退出，游戏时长为5分钟
+                    playerDur.put(player,(times[1]==Long.MAX_VALUE)?300000L:(times[1]-times[0]));
                     int k= record.getKill();
                     int d= record.getDeath();
                     int a= record.getAssist();
@@ -234,7 +255,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                     Player player= entry.getKey();
                     Record record=entry.getValue();
                     KaryPlugin.updateDatabase(
-                            300000L,
+                            playerDur.get(player),
                             player.getName(),
                             record.getKill(),
                             record.getDeath(),
