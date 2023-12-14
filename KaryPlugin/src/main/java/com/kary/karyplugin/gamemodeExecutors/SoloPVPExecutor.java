@@ -203,6 +203,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     winner.getName(),
                     gameMode
             );
+            Bukkit.getServer().broadcastMessage("比赛结束，胜利者"+winner.getName()+"比分为2:0");
         }
         if(Integer.valueOf(20).equals(winnerScoreGainAndStartTime[0])){
             //2:1结束
@@ -234,10 +235,11 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     winner.getName(),
                     gameMode
             );
+            Bukkit.getServer().broadcastMessage("比赛结束，胜利者"+winner.getName()+"比分为2:1");
         }
-        Bukkit.getServer().broadcastMessage("玩家"+winner.getName()+"击败了"+loser.getName());
+        /*Bukkit.getServer().broadcastMessage("玩家"+winner.getName()+"击败了"+loser.getName());
         Bukkit.getServer().broadcastMessage(winner.getName()+"造成伤害"+winnerScoreGainAndStartTime[2]+",承伤"+winnerScoreGainAndStartTime[3]);
-        Bukkit.getServer().broadcastMessage(loser.getName()+"造成伤害"+loserScoreGainAndStartTime[2]+",承伤"+loserScoreGainAndStartTime[3]);
+        Bukkit.getServer().broadcastMessage(loser.getName()+"造成伤害"+loserScoreGainAndStartTime[2]+",承伤"+loserScoreGainAndStartTime[3]);*/
     }
 
     @Override
