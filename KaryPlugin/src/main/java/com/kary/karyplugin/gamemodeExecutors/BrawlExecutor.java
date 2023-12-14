@@ -35,8 +35,6 @@ public class BrawlExecutor extends BaseExecutor {
     Map<Integer,Set<Player>> matchingPlayers=new ConcurrentHashMap<>();
     private Map<Player,Long[]> playerDuration=new ConcurrentHashMap<>();
     private Player mvpPlayer;
-    private BukkitRunnable assistTimer;
-    private BukkitRunnable brawlMatch;
     private static final int MAX_MATCH_NUM=3;
     //TODO 一场比赛6个人
     private static final int KILL_ONE_ADD =10;
@@ -63,12 +61,12 @@ public class BrawlExecutor extends BaseExecutor {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             PlayerAndTime that = (PlayerAndTime) o;
-            return Objects.equals(player, that.player);
+            return Objects.equals(player.getUniqueId(), that.player.getUniqueId())&&Objects.equals(player, that.player);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(player);
+            return Objects.hash(player.getUniqueId(),player);
         }
 
         public PlayerAndTime(Player player, long time) {
@@ -82,12 +80,17 @@ public class BrawlExecutor extends BaseExecutor {
 
         @Override
         public int compareTo(PlayerAndTime o) {
+            if(hashCode()==o.hashCode()){
+                return 0;
+            }else if(this.equals(o)){
+                return 0;
+            }
             if(time-o.time>0){
                 return 1;
             }else if(time-o.time<0){
                 return -1;
             }else {
-                return Integer.compare(player.hashCode(), o.player.hashCode());
+                return player.getUniqueId().compareTo(o.player.getUniqueId());
             }
         }
     }
@@ -227,9 +230,9 @@ public class BrawlExecutor extends BaseExecutor {
                         int delayInTicks = 0; // 延迟0个游戏刻
                         int periodInTicks = 20; // 每20个游戏刻执行一次
                         //准备完毕，开始比赛线程
-                        brawlMatch = new BrawlMatch(players);
+                        BukkitRunnable assistTimer=new AssistTimer(assistMap);//先开启助攻计时器
+                        BukkitRunnable brawlMatch = new BrawlMatch(players,assistTimer);//再开启比赛计时器
                         brawlMatch.runTaskTimer(plugin, delayInTicks, periodInTicks);
-                        assistTimer=new AssistTimer(assistMap);
                         assistTimer.runTaskTimer(plugin, delayInTicks, periodInTicks);
                         matchingPlayer.clear();
                     }
@@ -252,10 +255,12 @@ public class BrawlExecutor extends BaseExecutor {
         int second=0;
         int gameLimitTime=30;//5分钟
         Integer maxGameId;
+        BukkitRunnable assistTimer;
         //TODO 改为5分钟
 
-        public BrawlMatch(Map<Player, Record> players) {
+        public BrawlMatch(Map<Player, Record> players,BukkitRunnable assistTimer) {
             this.players = players;
+            this.assistTimer=assistTimer;
             maxGameId=recordService.getMaxGameId();
             if(maxGameId==null){
                 maxGameId=0;
@@ -319,6 +324,7 @@ public class BrawlExecutor extends BaseExecutor {
                 }
                 players.clear();
                 //结束比赛线程以及助攻线程
+                this.cancel();
                 assistTimer.cancel();
             }
         }
@@ -331,12 +337,6 @@ public class BrawlExecutor extends BaseExecutor {
 
         public AssistTimer(Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap) {
             this.assistMap = assistMap;
-        }
-
-        @Override
-        public synchronized void cancel() throws IllegalStateException {
-            super.cancel();
-            brawlMatch.cancel();
         }
 
         @Override
