@@ -2,6 +2,7 @@ package com.kary.karyplugin.gamemodeExecutors;
 
 import com.kary.karyplugin.KaryPlugin;
 import com.kary.karyplugin.service.RecordService;
+import com.kary.karyplugin.utils.CommandUtil;
 import com.kary.karyplugin.utils.GameModeUtil;
 import com.kary.karyplugin.utils.LevelUtil;
 import org.bukkit.Bukkit;
@@ -257,6 +258,7 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     matchingPlayer= (Player) commandSender;
                     matchingPlayers.put(level,matchingPlayer);
                     ((Player) commandSender).sendRawMessage("您正在匹配单人PVP，等待其他玩家加入游戏……");
+                    ((Player) commandSender).performCommand(CommandUtil.COMMAND_QUIT_MATCHING);
                 }else{
                     //将他的对手设为正在匹配的那人，将此人从时正在匹配人的集合移除，此时正在匹配的记录设为null
                     playersInSoloPVP.put((Player) commandSender,matchingPlayer);

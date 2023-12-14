@@ -3,6 +3,7 @@ package com.kary.karyplugin.gamemodeExecutors;
 import com.kary.karyplugin.KaryPlugin;
 import com.kary.karyplugin.pojo.Record;
 import com.kary.karyplugin.service.RecordService;
+import com.kary.karyplugin.utils.CommandUtil;
 import com.kary.karyplugin.utils.GameModeUtil;
 import com.kary.karyplugin.utils.LevelUtil;
 import org.bukkit.Bukkit;
@@ -101,7 +102,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
         //说明此人未进入比赛，但可能在匹配
         if(times==null){
             int level= LevelUtil.getLevel(recordService.getScoreTotal(player.getName(),gameMode));
-            //在退出玩家的段位了列表，不管有无此玩家，都把他移除
+            //在退出玩家的段位列表，不管有无此玩家，都把他移除
             matchingPlayers.compute(level,(key,matchingPlayer)->{
                 matchingPlayer.remove(player);
                 return matchingPlayer;
@@ -191,6 +192,9 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                 }
                 matchingPlayer.add((Player) commandSender);
                 ((Player) commandSender).sendRawMessage("您正在匹配大乱斗，等待其他玩家加入游戏……");
+                if(matchingPlayer.size()<MAX_MATCH_NUM) {//给正在匹配的人发送取消指令
+                    ((Player) commandSender).performCommand(CommandUtil.COMMAND_QUIT_MATCHING);
+                }
                 if(matchingPlayer.size()==MAX_MATCH_NUM){//达到最大待匹配人数
                     StringBuilder message=new StringBuilder();
                     for (Player player:matchingPlayer) {
@@ -232,7 +236,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     class BrawlMatch extends BukkitRunnable {
         Map<Player, Record> players;//Concurrent
         int second=0;
-        int gameLimitTime=300;//5分钟
+        int gameLimitTime=30;//5分钟
         Integer maxGameId;
         //TODO 改为5分钟
 

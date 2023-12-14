@@ -66,7 +66,7 @@ public class BrawlExecutorTest {
 
         int level= LevelUtil.getLevel(recordService.getScoreTotal(player.getName(),gameMode));
         Set<Player> matchingPlayer = matchingPlayers.get(level);
-
+        verify(matchingPlayer).remove(player);
 
 
     }
