@@ -79,8 +79,12 @@ public class UserRankInformationController extends BaseController {
     }
     @GetMapping("/checkIfExist")
     @Operation(summary = "查用户是否存在")
-    public Boolean checkIfExist(@RequestParam("username")String username){
-        return userService.selectUserByName(username)!=null;
+    public Boolean checkIfExist(@RequestParam("username")String username) throws SessionExpireException {
+        User account= userService.selectUserByName(username);
+        if(account==null){
+            throw new SessionExpireException("用户不存在");
+        }
+        return true;
     }
     @GetMapping("/getRanks/{page}")
     @Operation(summary = "获取我自己或别人的比赛记录信息，返回List<RecordVO>")
