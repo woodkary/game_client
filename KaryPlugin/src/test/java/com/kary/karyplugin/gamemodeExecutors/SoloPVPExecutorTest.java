@@ -1,7 +1,6 @@
 package com.kary.karyplugin.gamemodeExecutors;
 
 import com.kary.karyplugin.mapProcessors.MatchingPlayersMapProcessor;
-import com.kary.karyplugin.mapProcessors.PlayersInSoloPVPProcessor;
 import com.kary.karyplugin.service.impl.RecordServiceImpl;
 import com.kary.karyplugin.utils.GameModeUtil;
 import com.kary.karyplugin.utils.LevelUtil;
@@ -9,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 
 import java.lang.reflect.Field;
 import java.text.ParseException;
@@ -33,7 +31,7 @@ public class SoloPVPExecutorTest {
         PlayerQuitEvent event = new PlayerQuitEvent(loser, "kary退出了游戏");
 
         Map<Player, Integer> playersMatchingGamemode = new ConcurrentHashMap<>();
-        RecordServiceImpl recordService = new RecordServiceImpl();
+        RecordServiceImpl recordService = mock(RecordServiceImpl.class);
         when(recordService.getMaxGameId()).thenReturn(maxGameid);
         maxGameid+=1;
         SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
@@ -61,11 +59,9 @@ public class SoloPVPExecutorTest {
         Map<Player, Player> playersInSoloPVPMock = spy(playersInSoloPVP);
         //验证playersInSoloPVP是否做了移除操作
         /*ArgumentCaptor<Player> keyCaptor = ArgumentCaptor.forClass(Player.class);*/
-
-        PlayersInSoloPVPProcessor processor1 = new PlayersInSoloPVPProcessor(playersInSoloPVPMock);
-        Player winner = processor1.removePlayer(loser);
+        /*verify(playersInSoloPVPMock, never()).remove(loser);*/
         verify(playersInSoloPVPMock).remove(loser);
-        Assertions.assertNull(winner);//loser没有参加比赛时，winner应该为null
+
     }
 
     //测试玩家在比赛中退出游戏
@@ -76,7 +72,7 @@ public class SoloPVPExecutorTest {
         PlayerQuitEvent event = new PlayerQuitEvent(loser, "kary退出了游戏");
 
         Map<Player, Integer> playersMatchingGamemode = new ConcurrentHashMap<>();
-        RecordServiceImpl recordService = new RecordServiceImpl();
+        RecordServiceImpl recordService = mock(RecordServiceImpl.class);
         when(recordService.getMaxGameId()).thenReturn(maxGameid);
         maxGameid+=1;
         SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
@@ -117,13 +113,11 @@ public class SoloPVPExecutorTest {
         } catch (Exception e) {
         }
         // 验证playersInSoloPVP是否做了移除操作
-        PlayersInSoloPVPProcessor processor = new PlayersInSoloPVPProcessor(playersInSoloPVP);
-        Player actualWinner = processor.removePlayer(loser);
         verify(playersInSoloPVP).remove(loser);
-        Assertions.assertEquals(winner, actualWinner);//loser参加比赛，移除的actualWinner应该为winner
-
-        //验证模拟的winner是否被移除
-        Assertions.assertTrue(playersInSoloPVP.containsKey(winner));
+        verify(playersInSoloPVP).remove(winner);
+        // 验证playersScoreGainAndMatchStartTime是否做了移除操作
+        verify(playersScoreGainAndMatchStartTime).remove(loser);
+        verify(playersScoreGainAndMatchStartTime).remove(winner);
     }
     @Test
     public void oneMatchOverTest_NotInMatch(){

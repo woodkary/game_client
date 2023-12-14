@@ -3,15 +3,18 @@ package com.kary.karyplugin;
 import com.kary.karyplugin.gamemodeExecutors.BrawlExecutor;
 import com.kary.karyplugin.gamemodeExecutors.QuitMatchingExecutor;
 import com.kary.karyplugin.gamemodeExecutors.SoloPVPExecutor;
-import com.kary.karyplugin.service.RecordService;
 import com.kary.karyplugin.service.impl.RecordServiceImpl;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public final class KaryPlugin extends JavaPlugin {
+/**
+ * @author karywoodOyo
+ */
+public class KaryPlugin extends JavaPlugin {
     private static Map<Player,Integer> playersMatchingGamemode=new ConcurrentHashMap<>();
     private static  RecordServiceImpl recordService=new RecordServiceImpl();
     public static synchronized void updateDatabase(Integer maxGameId,
