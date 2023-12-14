@@ -8,13 +8,11 @@ import com.kary.karyplugin.utils.GameModeUtil;
 import com.kary.karyplugin.utils.LevelUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -28,7 +26,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 /**
  * @author:123
  */
-public class BrawlExecutor implements Listener, CommandExecutor {
+public class BrawlExecutor extends BaseExecutor {
     private Integer gameMode= GameModeUtil.BRAWL_MODE;
     private KaryPlugin plugin;
     private Map<Player, Record> players=new ConcurrentHashMap<>();
@@ -44,6 +42,17 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     private static final int KILL_ONE_ADD =10;
     //将死者,助攻者列表
     private Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap=new ConcurrentHashMap<>();
+
+    @Override
+    public void playerQuitMatching(Player player) {
+        playersMatchingGamemode.remove(player);
+        int level= LevelUtil.getLevel(recordService.getScoreTotal(player.getName(),gameMode));
+        matchingPlayers.computeIfPresent(level,(key, matchingPlayer)->{
+            matchingPlayer.remove(player);
+            return matchingPlayer;
+        });
+    }
+
     //此类用于记录助攻者和助攻时间，用player比较是否相等，以及用加入时间比较大小
     class PlayerAndTime implements Comparable<PlayerAndTime>{
         Player player;
@@ -186,41 +195,46 @@ public class BrawlExecutor implements Listener, CommandExecutor {
             if(gamemode==null){
                 playersMatchingGamemode.put((Player) commandSender, GameModeUtil.BRAWL_MODE);
                 //每一段位的总匹配人数
-                Set<Player> matchingPlayer=matchingPlayers.get(level);
-                if(matchingPlayer.isEmpty()){
-                    this.mvpPlayer= (Player) commandSender;
-                }
-                matchingPlayer.add((Player) commandSender);
-                ((Player) commandSender).sendRawMessage("您正在匹配大乱斗，等待其他玩家加入游戏……");
-                if(matchingPlayer.size()<MAX_MATCH_NUM) {//给正在匹配的人发送取消指令
-                    ((Player) commandSender).performCommand(CommandUtil.COMMAND_QUIT_MATCHING);
-                }
-                if(matchingPlayer.size()==MAX_MATCH_NUM){//达到最大待匹配人数
-                    StringBuilder message=new StringBuilder();
-                    for (Player player:matchingPlayer) {
-                        //对于在场每一位玩家，都有一个攻击者列表
-                        assistMap.put(player, new ConcurrentSkipListSet<>());
-                        players.put(player, new Record());
-                        message.append(player.getName());
-                        message.append(",");
-                        Long[] times = new Long[2];
-                        //times[0]为开始时间，times[1]为结束时间
-                        times[0] = System.currentTimeMillis();
-                        times[1] = Long.MAX_VALUE;
-                        playerDuration.put(player, times);
-                        playersMatchingGamemode.remove(player);
-                        player.sendRawMessage("和您在同一局的对手为" + message + "对局开始");
+                //对于一个level，操控一个matchingPlayer集合
+                matchingPlayers.computeIfPresent(level,(key, matchingPlayer)->{
+                    if(matchingPlayer.isEmpty()){
+                        this.mvpPlayer= (Player) commandSender;
                     }
-                    // 安排任务在主线程中每20个游戏刻执行一次（1秒 = 20游戏刻）
-                    int delayInTicks = 0; // 延迟0个游戏刻
-                    int periodInTicks = 20; // 每20个游戏刻执行一次
-                    //准备完毕，开始比赛线程
-                    brawlMatch = new BrawlMatch(players);
-                    brawlMatch.runTaskTimer(plugin, delayInTicks, periodInTicks);
-                    assistTimer=new AssistTimer(assistMap);
-                    assistTimer.runTaskTimer(plugin, delayInTicks, periodInTicks);
-                    matchingPlayer.clear();
-                }
+                    matchingPlayer.add((Player) commandSender);
+                    ((Player) commandSender).sendRawMessage("您正在匹配大乱斗，等待其他玩家加入游戏……");
+                    if(matchingPlayer.size()<MAX_MATCH_NUM) {//给正在匹配的人发送取消指令
+                        commandSender.setOp(true);
+                        ((Player) commandSender).performCommand(CommandUtil.COMMAND_QUIT_MATCHING);
+                        commandSender.setOp(false);
+                    }
+                    if(matchingPlayer.size()==MAX_MATCH_NUM){//达到最大待匹配人数
+                        StringBuilder message=new StringBuilder();
+                        for (Player player:matchingPlayer) {
+                            //对于在场每一位玩家，都有一个攻击者列表
+                            assistMap.put(player, new ConcurrentSkipListSet<>());
+                            players.put(player, new Record());
+                            message.append(player.getName());
+                            message.append(",");
+                            Long[] times = new Long[2];
+                            //times[0]为开始时间，times[1]为结束时间
+                            times[0] = System.currentTimeMillis();
+                            times[1] = Long.MAX_VALUE;
+                            playerDuration.put(player, times);
+                            playersMatchingGamemode.remove(player);
+                            player.sendRawMessage("和您在同一局的对手为" + message + "对局开始");
+                        }
+                        // 安排任务在主线程中每20个游戏刻执行一次（1秒 = 20游戏刻）
+                        int delayInTicks = 0; // 延迟0个游戏刻
+                        int periodInTicks = 20; // 每20个游戏刻执行一次
+                        //准备完毕，开始比赛线程
+                        brawlMatch = new BrawlMatch(players);
+                        brawlMatch.runTaskTimer(plugin, delayInTicks, periodInTicks);
+                        assistTimer=new AssistTimer(assistMap);
+                        assistTimer.runTaskTimer(plugin, delayInTicks, periodInTicks);
+                        matchingPlayer.clear();
+                    }
+                    return matchingPlayer;
+                });
             }else{
                 if(gamemode==GameModeUtil.BRAWL_MODE){
                     ((Player) commandSender).sendRawMessage("您已在大乱斗匹配中，无需再加入匹配");
@@ -297,6 +311,11 @@ public class BrawlExecutor implements Listener, CommandExecutor {
                             mvpPlayer.getName(),
                             gameMode
                     );
+                    player.sendRawMessage("请选择游戏模式");
+                    player.setOp(true);
+                    player.performCommand(CommandUtil.COMMAND_SOLO_PVP);
+                    player.performCommand(CommandUtil.COMMAND_BRAWL);
+                    player.setOp(false);
                 }
                 players.clear();
                 //结束比赛线程以及助攻线程

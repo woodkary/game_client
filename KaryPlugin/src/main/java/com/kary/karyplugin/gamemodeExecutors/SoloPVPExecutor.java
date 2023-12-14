@@ -7,13 +7,11 @@ import com.kary.karyplugin.utils.GameModeUtil;
 import com.kary.karyplugin.utils.LevelUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -22,7 +20,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 //gamemode==1才符合
-public class SoloPVPExecutor implements CommandExecutor, Listener {
+public class SoloPVPExecutor extends BaseExecutor {
     private Map<Player,Player> playersInSoloPVP=new ConcurrentHashMap<>();
     private Map<Player,Integer> playersMatchingGamemode;
     //Object[]数组对应分数int和开始时间long
@@ -205,6 +203,16 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     gameMode
             );
             Bukkit.getServer().broadcastMessage("比赛结束，胜利者"+winner.getName()+"比分为2:0");
+            winner.sendRawMessage("请选择游戏模式");
+            winner.setOp(true);
+            winner.performCommand(CommandUtil.COMMAND_SOLO_PVP);
+            winner.performCommand(CommandUtil.COMMAND_BRAWL);
+            winner.setOp(false);
+            loser.sendRawMessage("请选择游戏模式");
+            loser.setOp(true);
+            loser.performCommand(CommandUtil.COMMAND_SOLO_PVP);
+            loser.performCommand(CommandUtil.COMMAND_BRAWL);
+            loser.setOp(false);
         }
         if(Integer.valueOf(20).equals(winnerScoreGainAndStartTime[0])){
             //2:1结束
@@ -237,6 +245,16 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                     gameMode
             );
             Bukkit.getServer().broadcastMessage("比赛结束，胜利者"+winner.getName()+"比分为2:1");
+            winner.sendRawMessage("请选择游戏模式");
+            winner.setOp(true);
+            winner.performCommand(CommandUtil.COMMAND_SOLO_PVP);
+            winner.performCommand(CommandUtil.COMMAND_BRAWL);
+            winner.setOp(false);
+            loser.sendRawMessage("请选择游戏模式");
+            loser.setOp(true);
+            loser.performCommand(CommandUtil.COMMAND_SOLO_PVP);
+            loser.performCommand(CommandUtil.COMMAND_BRAWL);
+            loser.setOp(false);
         }
         /*Bukkit.getServer().broadcastMessage("玩家"+winner.getName()+"击败了"+loser.getName());
         Bukkit.getServer().broadcastMessage(winner.getName()+"造成伤害"+winnerScoreGainAndStartTime[2]+",承伤"+winnerScoreGainAndStartTime[3]);
@@ -255,10 +273,11 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
                 if(matchingPlayer==null){
                     //如果此时没有一人正在匹配，把此人设为正在匹配，并加入记录此时正在匹配人的集合
                     playersMatchingGamemode.put((Player) commandSender, GameModeUtil.SOLOPVP_MODE);
-                    matchingPlayer= (Player) commandSender;
-                    matchingPlayers.put(level,matchingPlayer);
+                    matchingPlayers.put(level,(Player) commandSender);
                     ((Player) commandSender).sendRawMessage("您正在匹配单人PVP，等待其他玩家加入游戏……");
-                    ((Player) commandSender).performCommand(CommandUtil.COMMAND_QUIT_MATCHING);
+                    commandSender.setOp(true);
+                   ((Player) commandSender).performCommand(CommandUtil.COMMAND_QUIT_MATCHING);
+                    commandSender.setOp(false);
                 }else{
                     //将他的对手设为正在匹配的那人，将此人从时正在匹配人的集合移除，此时正在匹配的记录设为null
                     playersInSoloPVP.put((Player) commandSender,matchingPlayer);
@@ -295,5 +314,12 @@ public class SoloPVPExecutor implements CommandExecutor, Listener {
             }
         }
         return result;
+    }
+
+    @Override
+    public void playerQuitMatching(Player player) {
+        playersMatchingGamemode.remove(player);
+        int level= LevelUtil.getLevel(recordService.getScoreTotal(player.getName(),gameMode));
+        matchingPlayers.remove(level);
     }
 }
