@@ -27,19 +27,19 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author:123
  */
 public class BrawlExecutor extends BaseExecutor {
-    private Integer gameMode= GameModeUtil.BRAWL_MODE;
-    private KaryPlugin plugin;
-    private Map<Player, Record> players=new ConcurrentHashMap<>();
-    private RecordService recordService;
-    private Map<Player,Integer> playersMatchingGamemode;
+    Integer gameMode= GameModeUtil.BRAWL_MODE;
+    KaryPlugin plugin;
+    Map<Player, Record> players=new ConcurrentHashMap<>();
+    RecordService recordService;
+    Map<Player,Integer> playersMatchingGamemode;
     Map<Integer,Set<Player>> matchingPlayers=new ConcurrentHashMap<>();
-    private Map<Player,Long[]> playerDuration=new ConcurrentHashMap<>();
-    private Player mvpPlayer;
+    Map<Player,Long[]> playerDuration=new ConcurrentHashMap<>();
+    Player mvpPlayer;
     private static final int MAX_MATCH_NUM=3;
     //TODO 一场比赛6个人
     private static final int KILL_ONE_ADD =10;
     //将死者,助攻者列表
-    private Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap=new ConcurrentHashMap<>();
+    Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap=new ConcurrentHashMap<>();
 
     @Override
     public void playerQuitMatching(Player player) {

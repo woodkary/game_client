@@ -1,6 +1,7 @@
 package com.kary.karyplugin.gamemodeExecutors;
 
 import com.kary.karyplugin.KaryPlugin;
+import com.kary.karyplugin.pojo.Record;
 import com.kary.karyplugin.service.RecordService;
 import com.kary.karyplugin.service.impl.RecordServiceImpl;
 import com.kary.karyplugin.utils.GameModeUtil;
@@ -15,8 +16,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.*;
 
@@ -82,23 +82,23 @@ public class BrawlExecutorTest {
         Player player2 = mock(Player.class);
         when(player.getName()).thenReturn("kary2");
 
-        Field privateField = BrawlExecutor.class.getDeclaredField("playerDuration");
-        privateField.setAccessible(true);
-        Map<Player, Long[]> playerDuration = spy((Map<Player, Long[]>)privateField.get(brawlExecutor));
+        Map<Player, Long[]> playerDuration = brawlExecutor.playerDuration;
+        playerDuration.put(player,new Long[]{1L,2L});
+        playerDuration.put(player1,new Long[]{3L,4L});
+        playerDuration.put(player2,new Long[]{5L,6L});
 
-
-        Map<Integer, Set<Player>> matchingPlayers = brawlExecutor.matchingPlayers;
+        Map<Player, Record> players = spy(brawlExecutor.players);
+        players.put(player, new Record());
+        brawlExecutor.players=players;
 
         brawlExecutor.playerQuit(event);
 
         Long[] times = playerDuration.get(player);
-        assertNull(times);//player没有参加游戏，就没有times  vvv
-
-        int level= LevelUtil.getLevel(recordService.getScoreTotal(player.getName(),gameMode));
-        Set<Player> matchingPlayer = matchingPlayers.get(level);
-        assertFalse(matchingPlayer.remove(player));
-        assertTrue(matchingPlayer.remove(player));
-
+        assertEquals(times[0].longValue(), 1);
+        assertNotEquals(times[1].longValue(), 2);
+        verify(players).get(player);
+        assertEquals(players.get(player).getScoreGain(),-2);
+        assertEquals(times[1].longValue(), 2);
 
     }
 }
