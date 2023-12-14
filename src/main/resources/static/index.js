@@ -27,21 +27,29 @@ function search() {
   let username = document.getElementById("username").value;
   if (validityState.valueMissing) {
     input.setCustomValidity("用户名不能为空");
+    input.reportValidity();
+    return;
   }
-  let usernameExist = false;
+
   fetch(`http://localhost:8080/ranks/checkIfExist?username=${encodeURIComponent(username)}`)
   .then(response => {
-    console.log(response.text);
     console.log(response.status);
     if (response.status === 200) {
-      //window.location.href = `pages/personal.html?username=${encodeURIComponent(username)}`;
+      window.location.href = `pages/personal.html?username=${encodeURIComponent(username)}`;
     } else {
       input.setCustomValidity("用户名不存在");
+      input.reportValidity();
     }
   })
   .catch(error => {
     console.error("Error:", error);
   });
 }
+
+function redirectToIndex(event){
+  event.preventDefault();
+  window.location.href = "index.html?username=" + encodeURIComponent(username);
+}
+
 
 
