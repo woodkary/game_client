@@ -71,4 +71,34 @@ public class BrawlExecutorTest {
 
 
     }
+    @Test
+    public void playerInMatchQuitTest() throws NoSuchFieldException, IllegalAccessException {
+        Player player = mock(Player.class);
+        when(player.getName()).thenReturn("kary");
+        PlayerQuitEvent event = new PlayerQuitEvent(player, "kary退出了游戏");
+
+        Player player1 = mock(Player.class);
+        when(player.getName()).thenReturn("kary1");
+        Player player2 = mock(Player.class);
+        when(player.getName()).thenReturn("kary2");
+
+        Field privateField = BrawlExecutor.class.getDeclaredField("playerDuration");
+        privateField.setAccessible(true);
+        Map<Player, Long[]> playerDuration = spy((Map<Player, Long[]>)privateField.get(brawlExecutor));
+
+
+        Map<Integer, Set<Player>> matchingPlayers = brawlExecutor.matchingPlayers;
+
+        brawlExecutor.playerQuit(event);
+
+        Long[] times = playerDuration.get(player);
+        assertNull(times);//player没有参加游戏，就没有times  vvv
+
+        int level= LevelUtil.getLevel(recordService.getScoreTotal(player.getName(),gameMode));
+        Set<Player> matchingPlayer = matchingPlayers.get(level);
+        assertFalse(matchingPlayer.remove(player));
+        assertTrue(matchingPlayer.remove(player));
+
+
+    }
 }
