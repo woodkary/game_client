@@ -195,5 +195,63 @@ public class SoloPVPExecutorTest {
         assertEquals(30,winnerArray[0]);
         assertEquals (-20,loserArray[0]);
     }
+    @Test
+    public void oneMatchOverTest_20() throws NoSuchFieldException, IllegalAccessException, ParseException {
+        Player loser = mock(Player.class);
+        when(loser.getName()).thenReturn("kary");
+        Player winner = mock(Player.class);
+        when(winner.getName()).thenReturn("kary1");
+        PlayerDeathEvent event = new PlayerDeathEvent(loser,new ArrayList<>(),0, null);
+
+
+        Map<Player, Integer> playersMatchingGamemode = new ConcurrentHashMap<>();
+        RecordServiceImpl recordService = mock(RecordServiceImpl.class);
+        when(recordService.getMaxGameId()).thenReturn(maxGameid);
+        maxGameid+=1;
+        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
+
+        Field privateField = SoloPVPExecutor.class.getDeclaredField("playersScoreGainAndMatchStartTime");
+        privateField.setAccessible(true);
+        Map<Player,Object[]> playersScoreGainAndMatchStartTime = spy((Map<Player, Object[]>) privateField.get(soloPVPExecutor));
+        Object[] loserArray = new Object[4];
+        loserArray[0] = 0;
+        loserArray[1] = System.currentTimeMillis();
+        loserArray[2] = 0.0;
+        loserArray[3] = 0.0;
+        playersScoreGainAndMatchStartTime.put(loser, loserArray);
+        Object[] winnerArray = new Object[4];
+        winnerArray[0] = 0;
+        winnerArray[1] = System.currentTimeMillis();
+        winnerArray[2] = 0.0;
+        winnerArray[3] = 0.0;
+        playersScoreGainAndMatchStartTime.put(winner, winnerArray);
+        privateField.set(soloPVPExecutor, playersScoreGainAndMatchStartTime);
+
+        privateField = SoloPVPExecutor.class.getDeclaredField("playersInSoloPVP");
+        privateField.setAccessible(true);
+        Map<Player, Player> playersInSoloPVP = spy((Map<Player, Player>) privateField.get(soloPVPExecutor));
+        playersInSoloPVP.put(winner, loser);
+        playersInSoloPVP.put(loser, winner);
+        privateField.set(soloPVPExecutor, playersInSoloPVP);
+
+
+        //执行三次，也就是2:1
+        try{
+            soloPVPExecutor.oneMatchOver(event);
+        }catch (Exception e){}
+        event=new PlayerDeathEvent(winner,new ArrayList<>(),0, null);
+        try{
+            soloPVPExecutor.oneMatchOver(event);
+        }catch (Exception e){}
+        event=new PlayerDeathEvent(loser,new ArrayList<>(),0, null);
+        try{
+            soloPVPExecutor.oneMatchOver(event);
+        }catch (Exception e){}
+
+        verify(recordService,times(3)).getMaxGameId();
+        //Assert that the winner's score is 20 and the loser's score is -5
+        assertEquals(20,winnerArray[0]);
+        assertEquals (-5,loserArray[0]);
+    }
 
 }
