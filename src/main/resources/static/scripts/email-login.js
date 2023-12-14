@@ -1,7 +1,7 @@
 
 function validateLogin(event) {
     event.preventDefault();
-
+    
 }
 
 function getCaptcha(event) {
