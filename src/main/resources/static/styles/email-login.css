@@ -1,6 +1,15 @@
+@font-face {
+    font-family: "pixel";
+    src: url("../fonts/点点像素体-方形.ttf") format("truetype");
+  }
+  
+
 body {
+    font-family: 'pixel';
+    font-weight: bold;
     margin: 0;
 }
+
 
 .LOGO {
     content: url("../images/LOGO.png");
@@ -55,9 +64,11 @@ body {
     width: 250px;
     padding: 5px;
     height: 30px;
-    font-family: "Arial";
+    /* font-family: "Arial"; */
     font-size: medium;
-    font-weight: 545;
+    /* font-weight: 545; */
+    font-family: 'pixel';
+    font-weight: bold;
 }
 
 .in text {
@@ -73,6 +84,8 @@ body {
     margin-top: 15px;
     width: 125px;
     font-size: small;
+    font-family: 'pixel';
+    font-weight: bold;
 }
 
 #verification-message {
@@ -87,6 +100,8 @@ body {
     display: block;
     width: 265px;
     height: 37px;
+    font-family: 'pixel';
+    font-weight: 500;
 }
 
 .login button:hover {
@@ -99,6 +114,8 @@ body {
     height: 35px;
     line-height: 28px;
     font-size: 15px;
+    font-family: 'pixel';
+    font-weight: bold;
     padding: 0;
     display: inline;
 }
@@ -120,6 +137,8 @@ body {
 #forget-password:hover{
     color:rgba(64, 164, 164, 0.581);
     font-size: 10;
+    font-family: 'pixel';
+    font-weight: bold;
 }
 
 .login .container {
