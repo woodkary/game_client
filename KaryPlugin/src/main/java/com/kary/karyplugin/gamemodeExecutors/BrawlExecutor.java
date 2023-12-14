@@ -232,7 +232,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     class BrawlMatch extends BukkitRunnable {
         Map<Player, Record> players;//Concurrent
         int second=0;
-        int gameLimitTime=30;//5分钟
+        int gameLimitTime=300;//5分钟
         Integer maxGameId;
         //TODO 改为5分钟
 
@@ -275,11 +275,11 @@ public class BrawlExecutor implements Listener, CommandExecutor {
 
                 }
                 Bukkit.getServer().broadcastMessage("比赛结束");
+                recordService.addNewGame(gameMode,maxGameId,300000L,mvpPlayer.getName());
                 //利用ConcurrentHashMap来同步操作
                 for (Map.Entry<Player, Record> entry : entrySet) {
                     Player player= entry.getKey();
                     Record record=entry.getValue();
-                    recordService.addNewGame(gameMode,maxGameId,300000L,mvpPlayer.getName());
                     KaryPlugin.updateDatabase(
                             maxGameId,
                             playerDur.get(player),
@@ -304,7 +304,7 @@ public class BrawlExecutor implements Listener, CommandExecutor {
     class AssistTimer extends BukkitRunnable {
         Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap;
         int second=0;
-        int assistExistLimitTime=20;//只计算10秒内的助攻
+        int assistExistLimitTime=10;//只计算10秒内的助攻
 
         public AssistTimer(Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap) {
             this.assistMap = assistMap;
