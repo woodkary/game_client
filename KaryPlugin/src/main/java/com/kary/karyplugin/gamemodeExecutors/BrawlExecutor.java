@@ -32,7 +32,7 @@ public class BrawlExecutor extends BaseExecutor {
     private Map<Player, Record> players=new ConcurrentHashMap<>();
     private RecordService recordService;
     private Map<Player,Integer> playersMatchingGamemode;
-    private Map<Integer,Set<Player>> matchingPlayers=new ConcurrentHashMap<>();
+    Map<Integer,Set<Player>> matchingPlayers=new ConcurrentHashMap<>();
     private Map<Player,Long[]> playerDuration=new ConcurrentHashMap<>();
     private Player mvpPlayer;
     private BukkitRunnable assistTimer;

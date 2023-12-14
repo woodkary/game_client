@@ -16,6 +16,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.*;
 
 public class BrawlExecutorTest {
@@ -53,11 +55,9 @@ public class BrawlExecutorTest {
 
         Field privateField = BrawlExecutor.class.getDeclaredField("playerDuration");
         privateField.setAccessible(true);
-        Map<Player, Long[]> playerDuration = (Map<Player, Long[]>) spy(privateField.get(brawlExecutor));
+        Map<Player, Long[]> playerDuration = spy((Map<Player, Long[]>)privateField.get(brawlExecutor));
 
-        privateField = BrawlExecutor.class.getDeclaredField("matchingPlayers");
-        privateField.setAccessible(true);
-        Map<Integer, Set<Player>> matchingPlayers = (Map<Integer,Set<Player>>) spy(privateField.get(brawlExecutor));
+        Map<Integer, Set<Player>> matchingPlayers = brawlExecutor.matchingPlayers;
 
         brawlExecutor.playerQuit(event);
 
@@ -66,7 +66,8 @@ public class BrawlExecutorTest {
 
         int level= LevelUtil.getLevel(recordService.getScoreTotal(player.getName(),gameMode));
         Set<Player> matchingPlayer = matchingPlayers.get(level);
-        verify(matchingPlayer).remove(player);
+        assertFalse(matchingPlayer.remove(player));
+        assertTrue(matchingPlayer.remove(player));
 
 
     }
