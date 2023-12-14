@@ -24,6 +24,7 @@ import static org.mockito.Mockito.*;
  * @author:123
  */
 public class SoloPVPExecutorTest {
+    private int maxGameid=2;
     //测试玩家在匹配中退出游戏
     @Test
     public void soloPVPQuitTest_NotInMatch() throws NoSuchFieldException, IllegalAccessException {
@@ -33,6 +34,8 @@ public class SoloPVPExecutorTest {
 
         Map<Player, Integer> playersMatchingGamemode = new ConcurrentHashMap<>();
         RecordServiceImpl recordService = new RecordServiceImpl();
+        when(recordService.getMaxGameId()).thenReturn(maxGameid);
+        maxGameid+=1;
         SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
 
         //执行操作
@@ -74,6 +77,8 @@ public class SoloPVPExecutorTest {
 
         Map<Player, Integer> playersMatchingGamemode = new ConcurrentHashMap<>();
         RecordServiceImpl recordService = new RecordServiceImpl();
+        when(recordService.getMaxGameId()).thenReturn(maxGameid);
+        maxGameid+=1;
         SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
 
         // 获取playersInSoloPVP并添加模拟玩家
@@ -104,6 +109,7 @@ public class SoloPVPExecutorTest {
         playersScoreGainAndMatchStartTime.put(winner, winnerArray);
         privateField.set(soloPVPExecutor, playersScoreGainAndMatchStartTime);
 
+
         //执行操作
 
         try {
@@ -127,7 +133,10 @@ public class SoloPVPExecutorTest {
 
         Map<Player, Integer> playersMatchingGamemode = new ConcurrentHashMap<>();
         RecordServiceImpl recordService = mock(RecordServiceImpl.class);
+        when(recordService.getMaxGameId()).thenReturn(maxGameid);
+        maxGameid+=1;
         SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
+
 
         soloPVPExecutor.oneMatchOver(event);
         verify(recordService, never()).getMaxGameId();
@@ -144,6 +153,8 @@ public class SoloPVPExecutorTest {
 
         Map<Player, Integer> playersMatchingGamemode = new ConcurrentHashMap<>();
         RecordServiceImpl recordService = mock(RecordServiceImpl.class);
+        when(recordService.getMaxGameId()).thenReturn(maxGameid);
+        maxGameid+=1;
         SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
 
         Field privateField = SoloPVPExecutor.class.getDeclaredField("playersScoreGainAndMatchStartTime");
