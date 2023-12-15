@@ -11,6 +11,7 @@ window.onload = function () {
     let ID = document.getElementById("ID");
     ID.textContent = username;
     handleRankScore();
+
 }
 function handleRankScore() {
     let rank = document.getElementById("rank"); // 获取元素
@@ -184,13 +185,13 @@ function setInputDataPersonalBrawl(data) {
     document.getElementById("levelBrawl").textContent = data.level;
 }
 function setInputDataAll(data) {
-    document.getElementById("kdaAll").textContent = data.kda;
+    document.getElementById("kdaAll").textContent = (data.kda).toFixed(2);
     document.getElementById("winRateAll").textContent = toPercentageValue(data.winRate);
     document.getElementById("totalKillsAll").textContent = data.totalKills;
     document.getElementById("gameNumsAll").textContent = data.gameNums;
 }
 function setInputDataMonth(data) {
-    document.getElementById("kdaMonth").textContent = data.kda;
+    document.getElementById("kdaMonth").textContent = (data.kda).toFixed(2);
     document.getElementById("winRateMonth").textContent = toPercentageValue(data.winRate);
     document.getElementById("totalKillsMonth").textContent = data.totalKills;
     document.getElementById("gameNumsMonth").textContent = data.gameNums;
