@@ -38,6 +38,8 @@ public class BrawlExecutor extends BaseExecutor {
     private static final int MAX_MATCH_NUM=3;
     //TODO 一场比赛6个人
     private static final int KILL_ONE_ADD =10;
+    private static final int ASSIST_ONE_ADD =5;
+    private static final int SLAIN_ONE_ADD =-4;
     //将死者,助攻者列表
     Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap=new ConcurrentHashMap<>();
 
@@ -161,6 +163,7 @@ public class BrawlExecutor extends BaseExecutor {
         //更新死亡者的记录
         players.computeIfPresent(deadPlayer,(key, deadRecord)->{
             deadRecord.addOneDeath();
+            deadRecord.addScore(SLAIN_ONE_ADD);//被杀，扣分
             return deadRecord;
         });
 
@@ -180,6 +183,8 @@ public class BrawlExecutor extends BaseExecutor {
                 players.computeIfPresent(assist,(key2, assistRecord)->{
                     if(!assist.equals(killer)) {
                         assistRecord.addOneAssist();
+                        //助攻一人，加分
+                        assistRecord.addScore(ASSIST_ONE_ADD);
                     }
                     return assistRecord;
                 });

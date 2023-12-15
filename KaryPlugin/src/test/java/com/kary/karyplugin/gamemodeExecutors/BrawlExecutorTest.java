@@ -8,13 +8,16 @@ import com.kary.karyplugin.utils.GameModeUtil;
 import com.kary.karyplugin.utils.LevelUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 
@@ -117,7 +120,7 @@ public class BrawlExecutorTest {
 
         Map<Player, ConcurrentSkipListSet<BrawlExecutor.PlayerAndTime>> assistMap = brawlExecutor.assistMap;
         assistMap=spy(assistMap);
-        assistMap.put(damager,new ConcurrentSkipListSet<>());
+        //放入被伤害者的助攻列表
         assistMap.put(damagee,new ConcurrentSkipListSet<>());
         brawlExecutor.assistMap=assistMap;//监测助攻列表
         ConcurrentSkipListSet<BrawlExecutor.PlayerAndTime> danagerList=brawlExecutor.assistMap.get(damagee);
@@ -139,5 +142,116 @@ public class BrawlExecutorTest {
         //检验两者的伤害值
         assertEquals(damagerRecord.getTakeDamage(),2,0.0001);
         assertEquals(damageeRecord.getTakenDamage(),2,0.0001);
+    }
+    @Test
+    public void playerKillTest(){
+        Player killer = mock(Player.class);
+        Player deadPlayer = mock(Player.class);
+        Player assistPlayer1 = mock(Player.class);
+        Player assistPlayer2 = mock(Player.class);
+        Player assistPlayer3 = mock(Player.class);
+
+        when(killer.getName()).thenReturn("killer");
+        when(killer.getUniqueId()).thenReturn(UUID.fromString("aca624b8-3f21-4203-b7b5-2fb6bc19b949"));
+        when(deadPlayer.getName()).thenReturn("deadPlayer");
+        when(deadPlayer.getKiller()).thenReturn(killer);
+        when(deadPlayer.getUniqueId()).thenReturn(UUID.randomUUID());
+        when(assistPlayer1.getName()).thenReturn("assistPlayer1");
+        when(assistPlayer2.getName()).thenReturn("assistPlayer2");
+        when(assistPlayer3.getName()).thenReturn("assistPlayer3");
+        when(assistPlayer1.getUniqueId()).thenReturn(UUID.fromString("22e3c337-84f2-4bcd-a33d-7c64e0c22654"));
+        when(assistPlayer2.getUniqueId()).thenReturn(UUID.fromString("f79c3201-72ba-4560-95b1-d956b087893e"));
+        when(assistPlayer3.getUniqueId()).thenReturn(UUID.fromString("613949e7-814a-4140-a844-11cbc363abca"));
+
+        Map<Player, Record> players = spy(brawlExecutor.players);
+        players.put(deadPlayer, new Record());
+        players.put(killer, new Record());
+        players.put(assistPlayer1, new Record());
+        players.put(assistPlayer2, new Record());
+        players.put(assistPlayer3, new Record());
+        brawlExecutor.players=players;//放入监测记录的数组
+
+        Map<Player, ConcurrentSkipListSet<BrawlExecutor.PlayerAndTime>> assistMap = spy(brawlExecutor.assistMap);
+        ConcurrentSkipListSet<BrawlExecutor.PlayerAndTime> deadAssists = new ConcurrentSkipListSet<>();
+        deadAssists.add(new BrawlExecutor.PlayerAndTime(assistPlayer1,System.currentTimeMillis()));
+        deadAssists.add(new BrawlExecutor.PlayerAndTime(assistPlayer2,System.currentTimeMillis()));
+        deadAssists.add(new BrawlExecutor.PlayerAndTime(assistPlayer3,System.currentTimeMillis()));
+        assistMap.put(deadPlayer,deadAssists);//放入被杀死者的助攻列表，假设有三个人
+        brawlExecutor.assistMap=assistMap;//监测助攻列表
+
+        brawlExecutor.playerKill(new PlayerDeathEvent(deadPlayer,new ArrayList<>(),3,"killer 杀死了 deadPlayer"));//杀死了deadPlayer
+
+        Record deadRecord = players.get(deadPlayer);
+        assertEquals(deadRecord.getDeath(),1);
+        assertEquals(deadRecord.getScoreGain(),-4);//被杀死者扣四分
+
+        Record killerRecord = players.get(killer);
+        assertEquals(killerRecord.getKill(),1);
+        assertEquals(killerRecord.getScoreGain(),10);//杀一人，加十分
+
+        Record assistRecord1 = players.get(assistPlayer1);
+        assertEquals(assistRecord1.getAssist(),1);
+        assertEquals(assistRecord1.getScoreGain(),5);//助攻一人，加五分
+        Record assistRecord2 = players.get(assistPlayer2);
+        assertEquals(assistRecord2.getAssist(),1);
+        assertEquals(assistRecord2.getScoreGain(),5);
+        Record assistRecord3 = players.get(assistPlayer3);
+        assertEquals(assistRecord3.getAssist(),1);
+        assertEquals(assistRecord3.getScoreGain(),5);
+
+        assertEquals(deadAssists.size(),0);//助攻列表应该被清空
+
+    }
+    @Test
+    public void playerKillTest_OneOfThemIsKiller(){
+        Player killer = mock(Player.class);
+        Player deadPlayer = mock(Player.class);
+        Player assistPlayer1 = mock(Player.class);
+        Player assistPlayer2 = mock(Player.class);
+
+        when(killer.getName()).thenReturn("killer");
+        when(killer.getUniqueId()).thenReturn(UUID.fromString("aca624b8-3f21-4203-b7b5-2fb6bc19b949"));
+        when(deadPlayer.getName()).thenReturn("deadPlayer");
+        when(deadPlayer.getKiller()).thenReturn(killer);
+        when(deadPlayer.getUniqueId()).thenReturn(UUID.randomUUID());
+        when(assistPlayer1.getName()).thenReturn("assistPlayer1");
+        when(assistPlayer2.getName()).thenReturn("assistPlayer2");
+        when(assistPlayer1.getUniqueId()).thenReturn(UUID.fromString("22e3c337-84f2-4bcd-a33d-7c64e0c22654"));
+        when(assistPlayer2.getUniqueId()).thenReturn(UUID.fromString("f79c3201-72ba-4560-95b1-d956b087893e"));
+
+        Map<Player, Record> players = spy(brawlExecutor.players);
+        players.put(deadPlayer, new Record());
+        players.put(killer, new Record());
+        players.put(assistPlayer1, new Record());
+        players.put(assistPlayer2, new Record());
+        brawlExecutor.players=players;//放入监测记录的数组
+
+        Map<Player, ConcurrentSkipListSet<BrawlExecutor.PlayerAndTime>> assistMap = spy(brawlExecutor.assistMap);
+        ConcurrentSkipListSet<BrawlExecutor.PlayerAndTime> deadAssists = new ConcurrentSkipListSet<>();
+        deadAssists.add(new BrawlExecutor.PlayerAndTime(assistPlayer1,System.currentTimeMillis()));
+        deadAssists.add(new BrawlExecutor.PlayerAndTime(assistPlayer2,System.currentTimeMillis()));
+        deadAssists.add(new BrawlExecutor.PlayerAndTime(killer,System.currentTimeMillis()));
+        assistMap.put(deadPlayer,deadAssists);//放入被杀死者的助攻列表，假设有三个人
+        brawlExecutor.assistMap=assistMap;//监测助攻列表
+
+        brawlExecutor.playerKill(new PlayerDeathEvent(deadPlayer,new ArrayList<>(),3,"killer 杀死了 deadPlayer"));//杀死了deadPlayer
+
+        Record deadRecord = players.get(deadPlayer);
+        assertEquals(deadRecord.getDeath(),1);
+        assertEquals(deadRecord.getScoreGain(),-4);//被杀死者扣四分
+
+        Record killerRecord = players.get(killer);
+        assertEquals(killerRecord.getKill(),1);
+        assertEquals(killerRecord.getScoreGain(),10);//杀一人，加十分，而不是十五分
+        assertEquals(killerRecord.getAssist(),0);//杀人者也是助攻者，应该不加助攻
+
+        Record assistRecord1 = players.get(assistPlayer1);
+        assertEquals(assistRecord1.getAssist(),1);
+        assertEquals(assistRecord1.getScoreGain(),5);//助攻一人，加五分
+        Record assistRecord2 = players.get(assistPlayer2);
+        assertEquals(assistRecord2.getAssist(),1);
+        assertEquals(assistRecord2.getScoreGain(),5);
+
+        assertEquals(deadAssists.size(),0);//助攻列表应该被清空
     }
 }
