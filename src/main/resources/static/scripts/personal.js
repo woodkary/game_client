@@ -1,12 +1,9 @@
 let username = null;
+
 preLoad();
-window.onload = function() {
+window.onload = function () {
     let ID = document.getElementById("ID");
-    if (ID) {
-        ID.textContent = username;
-    } else {
-        console.error('Element with ID "ID" not found');
-    }
+    ID.textContent = username;
 }
 
 handleDataPersonal(1);
@@ -33,6 +30,8 @@ function handleDataPersonal(type) {
         console.log(jsonResult.responseText);
         if (xhr.status === 200) {
             let data = jsonResult.data;
+            let rank = document.getElementById("rank"); // 获取元素
+            rank.textContent = '排位分:' + data.score;
             if (type === 1)
                 setInputDataPersonalSin(data);
             if (type === 2)
@@ -194,7 +193,6 @@ function preLoad() {
     let query = window.location.search;
     let params = new URLSearchParams(query);
     username = params.get("username");
-
 }
 
 function toPercentageValue(value) {
@@ -203,7 +201,7 @@ function toPercentageValue(value) {
 }
 
 
-function redirectToIndex(event){
+function redirectToIndex(event) {
     event.preventDefault();
     let myUsername = sessionStorage.getItem('myUsername');
     console.log(myUsername);
@@ -217,7 +215,7 @@ function redirectToPersonal(event) {
     window.location.href = "../pages/personal.html?username=" + encodeURIComponent(myUsername);
 }
 
-function redirectToRecord(event){
+function redirectToRecord(event) {
     event.preventDefault();
     window.location.href = "../pages/record.html?username=" + encodeURIComponent(username);
 }
