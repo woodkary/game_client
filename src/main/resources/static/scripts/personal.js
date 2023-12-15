@@ -176,6 +176,7 @@ function setInputDataMonth(data) {
     document.getElementById("totalKillsMonth").textContent = data.totalKills;
     document.getElementById("gameNumsMonth").textContent = data.gameNums;
 }
+
 function preLoad() {
     let query = window.location.search;
     let params = new URLSearchParams(query);
@@ -185,12 +186,16 @@ function preLoad() {
 
 function redirectToIndex(event){
     event.preventDefault();
-    window.location.href = "../index.html?username=" + encodeURIComponent(username);
+    let myUsername = sessionStorage.getItem('myUsername');
+    console.log(myUsername);
+    window.location.href = "../index.html?username=" + encodeURIComponent(myUsername);
 }
 
 function redirectToPersonal(event) {
     event.preventDefault();
-    window.location.href = "../pages/personal.html?username=" + encodeURIComponent(username);
+    let myUsername = sessionStorage.getItem('myUsername');
+    console.log(myUsername);
+    window.location.href = "../pages/personal.html?username=" + encodeURIComponent(myUsername);
 }
 
 function redirectToRecord(event){

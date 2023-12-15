@@ -53,8 +53,6 @@ function getCaptcha(event) {
 }
 
 
-
-
 function redirectToIndexPage(username) {
     window.location.href = "../index.html?username=" + encodeURIComponent(username);
 }
