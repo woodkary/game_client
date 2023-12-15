@@ -1,17 +1,22 @@
 let username = null;
-
+let soloRank = 0;
+let brawlRank = 0;
 preLoad();
-window.onload = function () {
-    let ID = document.getElementById("ID");
-    ID.textContent = username;
-}
-
 handleDataPersonal(1);
 handleDataPersonal(2);
 handleDataAll();
 handleDataMonth();
 
-
+window.onload = function () {
+    let ID = document.getElementById("ID");
+    ID.textContent = username;
+    handleRankScore();
+}
+function handleRankScore() {
+    let rank = document.getElementById("rank"); // 获取元素
+    rank.textContent = "排位分:" + (((soloRank + brawlRank) < 0) ? 0 : (soloRank + brawlRank));
+    console.log(rank);
+}
 
 function handleDataPersonal(type) {
     let xhr = new XMLHttpRequest();
@@ -30,12 +35,14 @@ function handleDataPersonal(type) {
         console.log(jsonResult.responseText);
         if (xhr.status === 200) {
             let data = jsonResult.data;
-            let rank = document.getElementById("rank"); // 获取元素
-            rank.textContent = '排位分:' + data.score;
-            if (type === 1)
+
+            if (type === 1) {
                 setInputDataPersonalSin(data);
-            if (type === 2)
+                soloRank = data.score;
+            } if (type === 2) {
                 setInputDataPersonalBrawl(data);
+                brawlRank = data.score;
+            }
         } else {
             console.log(jsonResult.message);
         }
