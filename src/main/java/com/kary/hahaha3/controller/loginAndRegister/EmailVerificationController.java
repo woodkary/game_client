@@ -25,6 +25,9 @@ import javax.mail.MessagingException;
 import java.util.List;
 
 
+/**
+ * @author karywoodOyo
+ */
 @RestController
 @Tag(name = "邮箱验证")
 public class EmailVerificationController extends BaseController {
@@ -72,7 +75,7 @@ public class EmailVerificationController extends BaseController {
     public JsonResult typeVeriCodeToRegister(@RequestBody String veriCode, @PathVariable Integer operation, HttpSession session) throws Exception {
         String verificationCode= (String) session.getAttribute("verificationCode");
         if(verificationCode==null){
-            throw new VerificationCodeExpireException("验证码过期，请重新发送");
+            throw new VerificationCodeExpireException("验证码过期，请重新发送，或者考虑下载最新版本的Node.js");
         }
         if(verificationCode.equals(veriCode)){
             Integer flag=2;
