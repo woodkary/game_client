@@ -48,7 +48,7 @@ public class UserRankInformationController extends BaseController {
     @Qualifier("UserService")
     private UserService userService;
     @GetMapping("/othersAllRecords")
-    @Operation(summary = "统计别人的战绩信息，即全部场次部分，仅返回一个Records对象。请看Records类")
+    @Operation(summary = "统计别人的战绩信息，即全部场次部分",description="仅返回一个Records对象。请看Records类")
     public JsonResult getOthersAllGame(@RequestParam("username")String username,HttpSession session) throws SessionExpireException {
         User account= userService.selectUserByName(username);
         if(account==null){
@@ -68,13 +68,14 @@ public class UserRankInformationController extends BaseController {
         return JsonResult.ok(records,"你的本月战绩信息");
     }
     @GetMapping("/othersReport/{type}")
-    @Operation(summary = "统计战报，仅返回一个PersonalReport对象。个人主页中需要调用两次")
+    @Operation(summary = "统计战报",description="仅返回一个PersonalReport对象。个人主页中需要调用两次")
     public JsonResult getPersonalReport(@RequestParam("username")String username,@PathVariable int type,HttpSession session) throws SessionExpireException, UsernameErrorException, MatchTypeErrorException {
         User account= userService.selectUserByName(username);
         if(account==null){
             throw new SessionExpireException("用户不存在");
         }
         PersonalReport personalReport=personalReportService.getPersonalReport(username, type);
+        //将PersonalReport对象转换为json字符串
         return JsonResult.ok(personalReport,"这是个人战报");
     }
     @GetMapping("/checkIfExist")

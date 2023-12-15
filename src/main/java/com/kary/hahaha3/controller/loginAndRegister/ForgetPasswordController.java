@@ -34,7 +34,7 @@ public class ForgetPasswordController extends BaseController {
     private UserService userService;
 
     @PostMapping("/resetPassword")
-    @Operation(summary = "重置密码",description = "reset password")
+    @Operation(summary = "重置密码",description = "仅需要输入密码")
     public JsonResult resetPassword(@RequestBody String password,
                                     HttpSession session) throws Exception {
         User userGetByEmail= (User) session.getAttribute("userGetByEmail");
