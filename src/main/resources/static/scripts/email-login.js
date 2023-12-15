@@ -2,7 +2,7 @@ function validateLogin(event) {
     event.preventDefault();
     let veriCode = document.getElementById("captcha").value;
     console.log(veriCode);
-    let veriCodeJson = JSON.stringify(veriCode);
+    let veriCodeJson = JSON.parse(veriCode);
     console.log(veriCodeJson);
 
     let xmlHttpRequest = new XMLHttpRequest();
