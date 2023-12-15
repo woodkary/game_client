@@ -1,5 +1,14 @@
 let username = null;
 preLoad();
+window.onload = function() {
+    let ID = document.getElementById("ID");
+    if (ID) {
+        ID.textContent = username;
+    } else {
+        console.error('Element with ID "ID" not found');
+    }
+}
+
 handleDataPersonal(1);
 handleDataPersonal(2);
 handleDataAll();
@@ -18,7 +27,10 @@ function handleDataPersonal(type) {
 
     xhr.onload = function () {
         let response = xhr.responseText;
+        console.log(response);
         let jsonResult = JSON.parse(response);
+        console.log(jsonResult);
+        console.log(jsonResult.responseText);
         if (xhr.status === 200) {
             let data = jsonResult.data;
             if (type === 1)
@@ -28,6 +40,7 @@ function handleDataPersonal(type) {
         } else {
             console.log(jsonResult.message);
         }
+
     };
     xhr.send();
 }
@@ -154,25 +167,25 @@ function setInputDataPersonalSin(data) {
     document.getElementById("gameNumsSin").textContent = data.gameNums;
     document.getElementById("winSin").textContent = data.win;
     document.getElementById("loseSin").textContent = data.lose;
-    document.getElementById("winRateSin").textContent = data.winRate;
+    document.getElementById("winRateSin").textContent = toPercentageValue(data.winRate);
     document.getElementById("levelSin").textContent = data.level;
 }
 function setInputDataPersonalBrawl(data) {
     document.getElementById("gameNumsBrawl").textContent = data.gameNums;
     document.getElementById("winBrawl").textContent = data.win;
     document.getElementById("loseBrawl").textContent = data.lose;
-    document.getElementById("winRateBrawl").textContent = data.winRate;
+    document.getElementById("winRateBrawl").textContent = toPercentageValue(data.winRate);
     document.getElementById("levelBrawl").textContent = data.level;
 }
 function setInputDataAll(data) {
     document.getElementById("kdaAll").textContent = data.kda;
-    document.getElementById("winRateAll").textContent = data.winRate;
+    document.getElementById("winRateAll").textContent = toPercentageValue(data.winRate);
     document.getElementById("totalKillsAll").textContent = data.totalKills;
     document.getElementById("gameNumsAll").textContent = data.gameNums;
 }
 function setInputDataMonth(data) {
     document.getElementById("kdaMonth").textContent = data.kda;
-    document.getElementById("winRateMonth").textContent = data.winRate;
+    document.getElementById("winRateMonth").textContent = toPercentageValue(data.winRate);
     document.getElementById("totalKillsMonth").textContent = data.totalKills;
     document.getElementById("gameNumsMonth").textContent = data.gameNums;
 }
@@ -181,8 +194,14 @@ function preLoad() {
     let query = window.location.search;
     let params = new URLSearchParams(query);
     username = params.get("username");
-    console.log(username);
+
 }
+
+function toPercentageValue(value) {
+    let percentageValue = value * 100;
+    return percentageValue.toFixed(2) + '%';
+}
+
 
 function redirectToIndex(event){
     event.preventDefault();
