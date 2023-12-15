@@ -310,7 +310,6 @@ td {
   width: 30px; /* 调整图片的宽度 */
   height: auto; /* 根据宽度调整高度 */
 }
-
 .row .result {
   font-size: 18px;
 }

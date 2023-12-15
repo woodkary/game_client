@@ -101,18 +101,35 @@ border-radius: 20px;
 text-align: center;  
 padding: 20px; 
 }
-button{
+.record-button{
 width: 90%;
-height: 10%;
+height: 11%;
 display: flex;  
 justify-content: space-between;
 align-items: center;
-background-image:url(../images/beehive_end.png) ;
-background-size: 50px 50px;
-border: 2px solid #f2f2f2;  
+background-color: #a6ccea;
+border: none;
 cursor: pointer;
 border-radius: 10px;
 margin-bottom: 1vh;
+padding-left: 5%;
+padding-right: 5%;
+}
+.record-button img {
+  width: 30px; /* 调整图片的宽度 */
+  height: auto; /* 根据宽度调整高度 */
+}
+.record-button .result {
+  font-size: 18px;
+}
+.record-button .kills{
+  font-size: 16px;
+}
+.record-button .deaths{
+  font-size: 16px;
+}
+.record-button .gametime{
+  font-size: 16px;
 }
 .pagination{
   display: flex;  
@@ -123,19 +140,13 @@ margin-bottom: 1vh;
 }
 #left{
   background-color: #f2f2f2;
+  border: none;
+  cursor: pointer;
 }
 #right{
   background-color: #f2f2f2;
-}
-button span:first-child {  
-align-self: center; 
-font-size: 16px; 
-
-}  
-button span:last-child {  
-align-self:center;
-font-size: 16px;  
-padding-left: 10px;  
+  border: none;
+  cursor: pointer;
 }
 #Rectangle2{
 position: absolute;
@@ -184,16 +195,16 @@ left: 5%;
 top: 15%;
 width: 80%;  
 height: 30%;  
-background-color: rgb(48, 137, 227);  
-border: 1px solid #ddd;  
+background: linear-gradient(to bottom, rgba(255, 0, 255, 0.3), white);
+border: none;  
 text-align: center;  
 padding: 20px; 
 }
 .Win p{
 position: absolute;
-top: -10%;
+top: -8%;
 left: 2%;
-font-size: 30px
+font-size: 30px;
 }
 .Win table{
 position: absolute;
@@ -212,16 +223,16 @@ left: 5%;
 top: 55%;
 width: 80%;  
 height: 30%;  
-background-color: rgb(227, 81, 81);
-border: 1px solid #ddd;  
+background: linear-gradient(to bottom, rgba(255, 0, 0, 0.3), white);
+border: none;  
 text-align: center;  
 padding: 20px; 
 }
 .Lose p{
 position: absolute;
-top: -10%;
+top: -8%;
 left: 2%;
-font-size: 30px
+font-size: 30px;
 }
 .Lose table{
 position: absolute;
