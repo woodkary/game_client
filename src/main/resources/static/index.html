@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="./styles/header.css">
 </head>
 
+
 <body>
   <div class="background"></div>
 
@@ -18,8 +19,8 @@
     </span>
     <span class="header">
       <ul>
-        <li><a class="header" id="page1" href="index.html"><i class="fas fa-home"></i> 主页面</a></li>
-        <li><a class="header" id="page2" onclick="toMyRecord(event)"><i class="fas fa-chart-bar"></i> 战绩</a></li>
+        <li><a class="header" id="page1" onclick="redirectToIndex(event)"><i class="fas fa-home"></i> 主页面</a></li>
+        <li><a class="header" id="page2" onclick="toMyRecord(event)"><i class="fas fa-chart-bar"></i> 我的战绩</a></li>
         <li><a class="header" id="page3" href="./pages/forum-home.html"><i class="fas fa-users"></i> 社区</a></li>
       </ul>
     </span>
@@ -31,8 +32,9 @@
 
   <div class="search">
     <div class="search-box">
-      <input type="text" id="username" placeholder="请输入想搜索的用户名" required>
+      <input type="text" id="username" placeholder="请输入想搜索用户名">
       <img src="./images/search_new.png" onclick="search()" id="search-button"></img>
+
 
     </div>
   </div>
