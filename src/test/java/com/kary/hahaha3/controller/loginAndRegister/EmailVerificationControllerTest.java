@@ -6,6 +6,7 @@ import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.service.UserService;
 import com.kary.hahaha3.utils.AESUtil;
 import jakarta.servlet.http.HttpSession;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -43,10 +44,13 @@ public class EmailVerificationControllerTest {
     @MockBean
     private UserMapper userMapper;
     private MockHttpSession session;
-
+    @BeforeEach
+    public void beforeEach(){
+        session = new MockHttpSession();
+    }
     @Test
     public void testEmailIsRegistered() throws Exception {
-        session = new MockHttpSession();
+
         when(userService.emailIsRegistered("834479572@qq.com")).thenReturn(true);
         // 模拟发送GET请求到"/sendVeriCode/{operation}"，并验证响应状态码为400，响应内容为JSON格式的对象
         mockMvc.perform(MockMvcRequestBuilders.get("/sendVeriCode/{operation}",1).session(session).param("email","834479572@qq.com"))
@@ -56,7 +60,7 @@ public class EmailVerificationControllerTest {
     }
     @Test
     public void testSendVeriCodeSuccess() throws Exception {
-        session = new MockHttpSession();
+
         List<User> users = new ArrayList<>();
         when(userMapper.selectUserByEmail("2452826804@qq.com")).thenReturn(users);
         // 模拟发送GET请求到"/sendVeriCode/{operation}"，并验证响应状态码为200，响应内容为JSON格式的对象
@@ -71,7 +75,7 @@ public class EmailVerificationControllerTest {
     }
     @Test
     public void testSendVeriCodeChangePwdOrLogin() throws Exception {
-        session = new MockHttpSession();
+
         List<User>users = new ArrayList<>();
         User user = userMapper.selectUserByName("miximixi");
         users.add(user);
@@ -87,18 +91,19 @@ public class EmailVerificationControllerTest {
     }
     @Test
     public void testTypeVeriCodeError() throws Exception {
-        session = new MockHttpSession();
+
         session.setAttribute("verificationCode","111111");
         mockMvc.perform(MockMvcRequestBuilders.post("/typeVeriCode/{operation}",1)
                         .session(session)
                         .contentType(MediaType.APPLICATION_JSON) // 设置Content-Type为JSON
-                        .content("111111"))
+                        .content("123456"))
                 .andExpect(status().is4xxClientError())
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(content().json("{\"code\":400,\"data\":\"VerificationCodeErrorException\",\"message\":\"验证码错误，请重试\"}"));
     }
     @Test
     public void testTypeVeriCodeToRegisterSuccess() throws Exception {
-        session = new MockHttpSession();
+
         session.setAttribute("verificationCode","111111");
         when(userService.insertUser((String) session.getAttribute("username"), (String) session.getAttribute("password"), (String) session.getAttribute("email"))).thenReturn(1);
         mockMvc.perform(MockMvcRequestBuilders.post("/typeVeriCode/{operation}",1)
@@ -110,7 +115,7 @@ public class EmailVerificationControllerTest {
     }
     @Test
     public void testTypeVeriCodeToChangePwdSuccess() throws Exception {
-        session = new MockHttpSession();
+
         session.setAttribute("verificationCode","111111");
         mockMvc.perform(MockMvcRequestBuilders.post("/typeVeriCode/{operation}",2)
                         .session(session)
@@ -121,15 +126,37 @@ public class EmailVerificationControllerTest {
     }
     @Test
     public void testTypeVeriCodeToLoginSuccess() throws Exception {
-        session = new MockHttpSession();
+
         User user = new User();
         user.setPwd("123456");
         session.setAttribute("userGetByEmail",user);
-        mockMvc.perform(MockMvcRequestBuilders.post("/typeVeriCode/{operation}",2)
+        session.setAttribute("verificationCode","111111");
+        mockMvc.perform(MockMvcRequestBuilders.post("/typeVeriCode/{operation}",3)
                         .session(session)
                         .contentType(MediaType.APPLICATION_JSON) // 设置Content-Type为JSON
                         .content("111111"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\"code\":200,\"message\":\"发送邮箱成功，请准备修改密码\"}"));
+                .andExpect(content().json("{\"code\":200,\"message\":\"登录成功\"}"));
+    }
+    @Test
+    public void testDatabaseConnectionError() throws Exception {
+
+        session.setAttribute("verificationCode","111111");
+        mockMvc.perform(MockMvcRequestBuilders.post("/typeVeriCode/{operation}",1)
+                        .session(session)
+                        .contentType(MediaType.APPLICATION_JSON) // 设置Content-Type为JSON
+                        .content("111111"))
+                .andExpect(status().is4xxClientError())
+                .andExpect(content().json("{\"code\":400,\"data\":\"DatabaseConnectionException\",\"message\":\"更新数据库出错\"}"));
+    }
+    @Test
+    public void testOperationError() throws Exception {
+        session.setAttribute("verificationCode","111111");
+        mockMvc.perform(MockMvcRequestBuilders.post("/typeVeriCode/{operation}",4)
+                        .session(session)
+                        .contentType(MediaType.APPLICATION_JSON) // 设置Content-Type为JSON
+                        .content("111111"))
+                .andExpect(status().is4xxClientError())
+                .andExpect(content().json("{\"code\":400,\"data\":\"ErrorInputException\",\"message\":\"操作不当，请重试\"}"));
     }
 }

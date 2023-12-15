@@ -50,7 +50,11 @@ public class EmailVerificationController extends BaseController {
             User userGetByEmail=users.get(0);
             session.setAttribute("userGetByEmail",userGetByEmail);
         }else{
-            session.setAttribute("email",email);
+            if(operation==1) {//如果是注册，就要把邮箱存起来
+                session.setAttribute("email",email);
+            }else{
+                throw new EmailErrorException("该邮箱未注册");
+            }
         }
         //先生成验证码
         String verificationCode=MailUtil.getRandom6Digit();
@@ -68,7 +72,7 @@ public class EmailVerificationController extends BaseController {
     public JsonResult typeVeriCodeToRegister(@RequestBody String veriCode, @PathVariable Integer operation, HttpSession session) throws Exception {
         String verificationCode= (String) session.getAttribute("verificationCode");
         if(verificationCode==null){
-            throw new VerificationCodeExpireException("验证码过期，请重新发送");
+            throw new VerificationCodeExpireException("验证码过期，请重新发送，或者考虑下载最新版本的Node.js");
         }
         if(verificationCode.equals(veriCode)){
             Integer flag=2;
