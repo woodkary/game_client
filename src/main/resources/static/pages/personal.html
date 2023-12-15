@@ -28,7 +28,6 @@
                 <li><a class="header" id="page3" href="./forum-home.html"><i class="fas fa-users"></i> 社区</a></li>
             </ul>
         </span>
-
     </nav>
     <div id="Rectangle">
         <a href="personal.html" class="button1">战绩总览</a>
@@ -37,6 +36,7 @@
         <div id="Rectangle1">
             <img class="Head0" src="../images/head-black.png" alt="Head0">
             <div class="ID" id="ID"></div>
+            <img id="rankPhoto" src="../images/wImage@1x.png">
             <div class="Rank" id="rank">Rank分:</div>
         </div>
         <div id="Rectangle2">
@@ -104,48 +104,80 @@
         <div id="Rectangle4">
             <div class="Recent">近期战绩</div>
             <a class="button" onclick="redirectToRecord(event)">全部比赛></a>
-            <table class="table3" id="recentTable">
-                <tr>
-                    <td class="td3" id="result" width="20px">胜利</td>
-                    <td class="td3" id="type" width="20px">(单挑)</td>
-                    <td class="td3" id="gameTime" width="100px">时间</td>
-                </tr>
-                <tr>
-                    <td class="td3" width="20px">胜利</td>
-                    <td class="td3" width="20px">(单挑)</td>
-                    <td class="td3" width="100px">时间</td>
-                </tr>
-                <tr>
-                    <td class="td3" width="20px">失败</td>
-                    <td class="td3" width="20px">(单挑)</td>
-                    <td class="td3" width="100px">时间</td>
-                </tr>
-                <tr>
-                    <td class="td3" width="20px">失败</td>
-                    <td class="td3" width="20px">(单挑)</td>
-                    <td class="td3" width="100px">时间</td>
-                </tr>
-                <tr>
-                    <td class="td3" width="20px">胜利</td>
-                    <td class="td3" width="20px">(单挑)</td>
-                    <td class="td3" width="100px">时间</td>
-                </tr>
-                <tr>
-                    <td class="td3" width="20px">胜利</td>
-                    <td class="td3" width="20px">(单挑)</td>
-                    <td class="td3" width="100px">时间</td>
-                </tr>
-                <tr>
-                    <td class="td3" width="20px">胜利</td>
-                    <td class="td3" width="20px">(死斗)</td>
-                    <td class="td3" width="100px">时间</td>
-                </tr>
-                <tr>
-                    <td class="td3" width="20px">失败</td>
-                    <td class="td3" width="20px">(单挑)</td>
-                    <td class="td3" width="100px">时间</td>
-                </tr>
-            </table>
+            <div class="table3" id="recentTable">
+                <div class="row">
+                    <span class="result">胜利</span>
+                    <span class="type">(单挑)</span>
+                    <img class="kill" src="../images/strength.png">
+                    <span class="kills">0</span>
+                    <img class="death" src="../images/wither.png">
+                    <span class="deaths">0</span>
+                    <span class="gametime">2023-10-31</span>
+                </div>
+                <div class="row">
+                    <span class="result">胜利</span>
+                    <span class="type">(单挑)</span>
+                    <img class="kill" src="../images/strength.png">
+                    <span class="kills">0</span>
+                    <img class="death" src="../images/wither.png">
+                    <span class="deaths">0</span>
+                    <span class="gametime">2023-10-31</span>
+                </div>
+                <div class="row">
+                    <span class="result">胜利</span>
+                    <span class="type">(单挑)</span>
+                    <img class="kill" src="../images/strength.png">
+                    <span class="kills">0</span>
+                    <img class="death" src="../images/wither.png">
+                    <span class="deaths">0</span>
+                    <span class="gametime">2023-10-31</span>
+                </div>
+                <div class="row">
+                    <span class="result">胜利</span>
+                    <span class="type">(单挑)</span>
+                    <img class="kill" src="../images/strength.png">
+                    <span class="kills">0</span>
+                    <img class="death" src="../images/wither.png">
+                    <span class="deaths">0</span>
+                    <span class="gametime">2023-10-31</span>
+                </div>
+                <div class="row">
+                    <span class="result">胜利</span>
+                    <span class="type">(单挑)</span>
+                    <img class="kill" src="../images/strength.png">
+                    <span class="kills">0</span>
+                    <img class="death" src="../images/wither.png">
+                    <span class="deaths">0</span>
+                    <span class="gametime">2023-10-31</span>
+                </div>
+                <div class="row">
+                    <span class="result">胜利</span>
+                    <span class="type">(单挑)</span>
+                    <img class="kill" src="../images/strength.png">
+                    <span class="kills">0</span>
+                    <img class="death" src="../images/wither.png">
+                    <span class="deaths">0</span>
+                    <span class="gametime">2023-10-31</span>
+                </div>
+                <div class="row">
+                    <span class="result">胜利</span>
+                    <span class="type">(单挑)</span>
+                    <img class="kill" src="../images/strength.png">
+                    <span class="kills">0</span>
+                    <img class="death" src="../images/wither.png">
+                    <span class="deaths">0</span>
+                    <span class="gametime">2023-10-31</span>
+                </div>
+                <div class="row">
+                    <span class="result">胜利</span>
+                    <span class="type">(单挑)</span>
+                    <img class="kill" src="../images/strength.png">
+                    <span class="kills">0</span>
+                    <img class="death" src="../images/wither.png">
+                    <span class="deaths">0</span>
+                    <span class="gametime">2023-10-31</span>
+                </div>
+            </div>
         </div>
     </div>
 </body>

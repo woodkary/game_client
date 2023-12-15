@@ -100,7 +100,13 @@ body {
   font-size: 22px;
   color: black;
 }
-
+#rank{
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  width: 123px;
+  height: 153px;
+}
 .Rank {
   position: absolute;
   top: 45%;
@@ -279,35 +285,45 @@ td {
   background-color: #aab300;
   /* 鼠标悬停时的背景颜色 */
 }
-
 .table3 {
   position: absolute;
-  top: 15%;
+  top: 10%;
   left: 3%;
   width: 90%;
+  height: 80%;
+  display: grid;
+  grid-template-rows: repeat(8, 1fr);
+  flex-direction: column;
   border-collapse: collapse;
-  table-layout: fixed;
+  overflow: auto;
+  background-color: #A6CCEA;
+}
+.row {
+  display: flex;
+  align-items: center; /* 元素在垂直方向上居中 */
+  justify-content: space-between; /* 元素水平方向上均匀分布 */
+  border: 1px solid black;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.row img {
+  width: 30px; /* 调整图片的宽度 */
+  height: auto; /* 根据宽度调整高度 */
+}
+.row .result {
+  font-size: 24px;
 }
 
-.td3 {
-  padding: 18px;
-  background-color: #fff;
-  border-left: none;
-  border-right: none;
+.row .result {
+  font-size: 18px;
 }
 
-.table3 tr .td3:nth-child(1) {
-  border-right: 0;
-  text-align: left;
+.row: .kills {
+  width: 30px;
+  height: 30px;
 }
 
-.table3 tr .td3:nth-child(2) {
-  border-left: 0;
-  border-right: 0;
-  text-align: left;
-}
-
-.table3 tr .td3:nth-child(3) {
-  border-left: 0;
-  text-align: right;
+.row: .deaths {
+  width: 20px;
+  height: 20px;
 }
