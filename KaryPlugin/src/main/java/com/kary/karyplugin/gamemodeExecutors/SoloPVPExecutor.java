@@ -21,13 +21,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 //gamemode==1才符合
 public class SoloPVPExecutor extends BaseExecutor {
-    private Map<Player,Player> playersInSoloPVP=new ConcurrentHashMap<>();
-    private Map<Player,Integer> playersMatchingGamemode;
+    Map<Player,Player> playersInSoloPVP=new ConcurrentHashMap<>();
+    Map<Player,Integer> playersMatchingGamemode;
     //Object[]数组对应分数int和开始时间long
-    private Map<Player,Object[]> playersScoreGainAndMatchStartTime=new ConcurrentHashMap<>();
-    private Map<Integer,Player> matchingPlayers=new ConcurrentHashMap<>();
-    private RecordService recordService;
-    private Integer gameMode=GameModeUtil.SOLOPVP_MODE;
+    Map<Player,Object[]> playersScoreGainAndMatchStartTime=new ConcurrentHashMap<>();
+    Map<Integer,Player> matchingPlayers=new ConcurrentHashMap<>();
+    RecordService recordService;
+    Integer gameMode=GameModeUtil.SOLOPVP_MODE;
 
 
     public SoloPVPExecutor(Map<Player,Integer> playersMatchingGamemode,RecordService recordService) {
