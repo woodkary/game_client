@@ -100,7 +100,7 @@ body {
   font-size: 22px;
   color: black;
 }
-#rank{
+#rankPhoto{
   position: absolute;
   top: 10%;
   left: 50%;
@@ -310,20 +310,7 @@ td {
   width: 30px; /* 调整图片的宽度 */
   height: auto; /* 根据宽度调整高度 */
 }
-.row .result {
-  font-size: 24px;
-}
 
 .row .result {
   font-size: 18px;
-}
-
-.row .kills {
-  width: 30px;
-  height: 30px;
-}
-
-.row .deaths {
-  width: 20px;
-  height: 20px;
 }
