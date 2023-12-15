@@ -105,7 +105,7 @@ public class BrawlExecutorTest {
         assertEquals(times[0].longValue(), 1);
         assertNotEquals(times[1].longValue(), 2);
         verify(players).get(player);
-        assertEquals(players.get(player).getScoreGain(),-2);
+        assertEquals(players.get(player).getScoreGain(),-15);
         assertEquals(times[1].longValue(), 2);
 
     }

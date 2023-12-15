@@ -125,8 +125,8 @@ public class BrawlExecutor extends BaseExecutor {
         }
         times[1]=System.currentTimeMillis();
         Record record=players.get(player);
-        //中途退出。排位分扣除2分
-        record.setScoreGain(-2);
+        //中途退出。排位分扣除15分
+        record.setScoreGain(-15);
 
     }
     @EventHandler(priority = EventPriority.HIGH)
