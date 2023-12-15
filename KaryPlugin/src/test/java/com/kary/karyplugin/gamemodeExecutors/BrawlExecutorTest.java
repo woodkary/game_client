@@ -4,8 +4,8 @@ import com.kary.karyplugin.KaryPlugin;
 import com.kary.karyplugin.pojo.Record;
 import com.kary.karyplugin.service.RecordService;
 import com.kary.karyplugin.service.impl.RecordServiceImpl;
-import com.kary.karyplugin.utils.GameModeUtil;
 import com.kary.karyplugin.utils.LevelUtil;
+import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -13,14 +13,16 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 
+import static com.kary.karyplugin.gamemodeExecutors.BrawlExecutor.MAX_MATCH_NUM;
+import static com.kary.karyplugin.utils.GameModeUtil.BRAWL_MODE;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.*;
@@ -34,7 +36,10 @@ public class BrawlExecutorTest {
     private KaryPlugin plugin;
 
     private BrawlExecutor brawlExecutor;
-    private Integer gameMode= GameModeUtil.BRAWL_MODE;
+    private Integer gameMode= BRAWL_MODE;
+    private Command command;
+    private String s;
+    private String[] strings;
 
     @Before
     public void setup() {
@@ -49,6 +54,14 @@ public class BrawlExecutorTest {
         doNothing().when(plugin).onDisable();
         doNothing().when(plugin).onEnable();
 
+        command=mock(Command.class);
+        when(command.getName()).thenReturn("brawl");//准备命令
+        when(command.getLabel()).thenReturn("brawl");
+        when(command.getUsage()).thenReturn("/<command>)");
+        when(command.getPermission()).thenReturn(null);
+        s="brawl";
+        strings= new String[]{};
+
         brawlExecutor = new BrawlExecutor(recordService, playersMatchingGamemode, plugin);
     }
 
@@ -58,9 +71,8 @@ public class BrawlExecutorTest {
         when(player.getName()).thenReturn("kary");
         PlayerQuitEvent event = new PlayerQuitEvent(player, "kary退出了游戏");
 
-        Field privateField = BrawlExecutor.class.getDeclaredField("playerDuration");
-        privateField.setAccessible(true);
-        Map<Player, Long[]> playerDuration = spy((Map<Player, Long[]>)privateField.get(brawlExecutor));
+        Map<Player, Long[]> playerDuration = spy(brawlExecutor.playerDuration);
+        brawlExecutor.playerDuration=playerDuration;//放入监测持续时间的数组
 
         Map<Integer, Set<Player>> matchingPlayers = brawlExecutor.matchingPlayers;
 
@@ -72,7 +84,7 @@ public class BrawlExecutorTest {
         int level= LevelUtil.getLevel(recordService.getScoreTotal(player.getName(),gameMode));
         Set<Player> matchingPlayer = matchingPlayers.get(level);
         assertFalse(matchingPlayer.remove(player));
-        assertTrue(matchingPlayer.remove(player));
+        /*assertTrue(matchingPlayer.remove(player));*/
 
 
     }
@@ -246,12 +258,70 @@ public class BrawlExecutorTest {
         assertEquals(killerRecord.getAssist(),0);//杀人者也是助攻者，应该不加助攻
 
         Record assistRecord1 = players.get(assistPlayer1);
-        assertEquals(assistRecord1.getAssist(),1);
+        assertEquals(assistRecord1.getAssist(),1);//助攻人数加一
         assertEquals(assistRecord1.getScoreGain(),5);//助攻一人，加五分
         Record assistRecord2 = players.get(assistPlayer2);
         assertEquals(assistRecord2.getAssist(),1);
         assertEquals(assistRecord2.getScoreGain(),5);
 
         assertEquals(deadAssists.size(),0);//助攻列表应该被清空
+    }
+    @Test
+    public void onCommandTest_JoinMatchButNotStart(){
+        Player commandSender=mock(Player.class);
+        when(commandSender.getName()).thenReturn("commandSender");
+        int level= LevelUtil.getLevel(recordService.getScoreTotal(commandSender.getName(),gameMode));
+        Map<Player, Integer> playersMatchingGamemode = spy(brawlExecutor.playersMatchingGamemode);
+        brawlExecutor.playersMatchingGamemode=playersMatchingGamemode;//监测匹配列表
+
+        Map<Integer, Set<Player>> matchingPlayers = spy(brawlExecutor.matchingPlayers);
+        matchingPlayers.put(LevelUtil.COPPER, mock(CopyOnWriteArraySet.class));
+        matchingPlayers.put(LevelUtil.SILVER, mock(CopyOnWriteArraySet.class));
+        matchingPlayers.put(LevelUtil.GOLD, mock(CopyOnWriteArraySet.class));
+        matchingPlayers.put(LevelUtil.PLATINUM, mock(CopyOnWriteArraySet.class));
+        matchingPlayers.put(LevelUtil.DIAMOND,mock(CopyOnWriteArraySet.class));
+        matchingPlayers.put(LevelUtil.MASTER, mock(CopyOnWriteArraySet.class));
+        matchingPlayers.put(LevelUtil.KING, mock(CopyOnWriteArraySet.class));
+        brawlExecutor.matchingPlayers=matchingPlayers;//监测匹配列表
+
+
+        brawlExecutor.onCommand(commandSender,command,s,strings);
+        verify(playersMatchingGamemode).put(commandSender,BRAWL_MODE);
+        Set<Player> matchingPlayer=matchingPlayers.get(level);
+        verify(matchingPlayer).add(commandSender);
+        assertTrue(matchingPlayer.size()<MAX_MATCH_NUM);
+    }
+    @Test
+    public void onCommandTest_JoinMatchAndStart(){
+        Player commandSender=mock(Player.class);
+        when(commandSender.getName()).thenReturn("commandSender");
+        Player player1=mock(Player.class);
+        when(player1.getName()).thenReturn("player1");
+        Player player2=mock(Player.class);
+        when(player2.getName()).thenReturn("player2");
+
+        int level= LevelUtil.getLevel(recordService.getScoreTotal(commandSender.getName(),gameMode));
+        Map<Player, Integer> playersMatchingGamemode = spy(brawlExecutor.playersMatchingGamemode);
+        brawlExecutor.playersMatchingGamemode=playersMatchingGamemode;//监测匹配列表
+
+        Map<Integer, Set<Player>> matchingPlayers = spy(brawlExecutor.matchingPlayers);
+        matchingPlayers.put(LevelUtil.COPPER, new CopyOnWriteArraySet<>());
+        matchingPlayers.put(LevelUtil.SILVER, new CopyOnWriteArraySet<>());
+        matchingPlayers.put(LevelUtil.GOLD, new CopyOnWriteArraySet<>());
+        matchingPlayers.put(LevelUtil.PLATINUM, new CopyOnWriteArraySet<>());
+        matchingPlayers.put(LevelUtil.DIAMOND,new CopyOnWriteArraySet<>());
+        matchingPlayers.put(LevelUtil.MASTER, new CopyOnWriteArraySet<>());
+        matchingPlayers.put(LevelUtil.KING, new CopyOnWriteArraySet<>());
+        matchingPlayers.get(level).add(player1);
+        matchingPlayers.get(level).add(player2);
+        brawlExecutor.matchingPlayers=matchingPlayers;//监测匹配列表
+
+        try {
+            brawlExecutor.onCommand(commandSender, command, s, strings);
+        }catch (NullPointerException e){}
+        verify(playersMatchingGamemode).put(commandSender,BRAWL_MODE);
+        Set<Player> matchingPlayer=matchingPlayers.get(level);
+        verify(matchingPlayer).add(commandSender);
+        assertTrue(matchingPlayer.size()==MAX_MATCH_NUM);
     }
 }

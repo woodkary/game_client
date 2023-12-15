@@ -35,7 +35,7 @@ public class BrawlExecutor extends BaseExecutor {
     Map<Integer,Set<Player>> matchingPlayers=new ConcurrentHashMap<>();
     Map<Player,Long[]> playerDuration=new ConcurrentHashMap<>();
     Player mvpPlayer;
-    private static final int MAX_MATCH_NUM=3;
+    static final int MAX_MATCH_NUM=3;
     //TODO 一场比赛6个人
     private static final int KILL_ONE_ADD =10;
     private static final int ASSIST_ONE_ADD =5;
