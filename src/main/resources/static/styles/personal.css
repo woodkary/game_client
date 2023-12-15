@@ -318,12 +318,12 @@ td {
   font-size: 18px;
 }
 
-.row: .kills {
+.row .kills {
   width: 30px;
   height: 30px;
 }
 
-.row: .deaths {
+.row .deaths {
   width: 20px;
   height: 20px;
 }
