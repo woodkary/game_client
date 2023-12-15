@@ -176,12 +176,29 @@ function setInputDataMonth(data) {
     document.getElementById("totalKillsMonth").textContent = data.totalKills;
     document.getElementById("gameNumsMonth").textContent = data.gameNums;
 }
+
 function preLoad() {
     let query = window.location.search;
     let params = new URLSearchParams(query);
     username = params.get("username");
     console.log(username);
 }
-function redircetToRecord() {
+
+function redirectToIndex(event){
+    event.preventDefault();
+    let myUsername = sessionStorage.getItem('myUsername');
+    console.log(myUsername);
+    window.location.href = "../index.html?username=" + encodeURIComponent(myUsername);
+}
+
+function redirectToPersonal(event) {
+    event.preventDefault();
+    let myUsername = sessionStorage.getItem('myUsername');
+    console.log(myUsername);
+    window.location.href = "../pages/personal.html?username=" + encodeURIComponent(myUsername);
+}
+
+function redirectToRecord(event){
+    event.preventDefault();
     window.location.href = "../pages/record.html?username=" + encodeURIComponent(username);
 }

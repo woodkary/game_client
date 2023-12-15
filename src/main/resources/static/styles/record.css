@@ -94,13 +94,22 @@ position: absolute;
 left: 3%;
 top: 20%;
 width: 20%;  
-height: 70%;  
+height: 67%;  
 background-color: #f2f2f2;  
 border: 1px solid #ddd;  
 border-radius: 20px;
 text-align: center;  
 padding: 20px; 
-
+}
+.pagination{
+  display: flex;  
+  justify-content: center;  
+  position: absolute;
+  left: 10%;
+  top: 95%;
+}
+.pagination button{
+  background-color: #f2f2f2;
 }
 button{
 width: 90%;
@@ -135,39 +144,35 @@ border: 1px solid #ddd;
 text-align: center;  
 padding: 20px; 
 } 
-.SmallRectangle {  
-width: 10%;      
-height: 10%;      
-background-color: #ffffff;      
-border: none;      
-display: flex; /* 设置矩形的显示方式为flex */  
-flex-direction: column; /* 设置矩形的排列方式为列方向 */  
-justify-content: center; /* 设置矩形的文字水平居中 */  
-align-items: center; /* 设置矩形的文字垂直居中 */    
-position: absolute;
-}
-.Rect1 {  
-left: 2%;
-top: 1%;  
-}  
-.Rect2 {  
-left: 13%;
-top: 1%;  
-}  
-.Rect3 {   
-left: 24%;
-top: 1%;  
-}
-.Up{
+#date{
   position: absolute;
-  text-align: center; 
-  top: 1px;
-}  
-.Down
-{
+  top: 2%;
+  left: 6%;
+}
+#date-value{
   position: absolute;
-  text-align: center;
-  top: 30px;
+  top: 7%;
+  left: 3%;
+}
+#type{
+  position: absolute;
+  top: 2%;
+  left: 15%;
+}
+#type-value{
+  position: absolute;
+  top: 7%;
+  left: 15%;
+}
+#duration{
+  position: absolute;
+  top: 2%;
+  left: 23%;
+}
+#duration-value{
+  position: absolute;
+  top: 7%;
+  left: 24%;
 }
 .Win{
 position: absolute;
