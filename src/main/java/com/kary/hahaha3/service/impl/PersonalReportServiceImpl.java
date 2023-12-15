@@ -47,6 +47,7 @@ public class PersonalReportServiceImpl implements PersonalReportService {
         PersonalReport res = new PersonalReport();
         res.setType(type);
         res.setLevel(level);
+        res.setScore(score);
 
         int gameNums = 0;
         int win = 0;
