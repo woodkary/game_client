@@ -19,6 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import static com.kary.karyplugin.utils.GameModeUtil.BRAWL_MODE;
 import static com.kary.karyplugin.utils.GameModeUtil.SOLOPVP_MODE;
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
@@ -361,11 +362,24 @@ public class SoloPVPExecutorTest {
         matchingPlayers.put(LevelUtil.getLevel(recordService.getScoreTotal(matchingPlayer.getName(),SOLOPVP_MODE)),matchingPlayer);
         soloPVPExecutor.matchingPlayers=matchingPlayers;
 
+        Map<Player, Object[]> playersScoreGainAndMatchStartTime = spy(soloPVPExecutor.playersScoreGainAndMatchStartTime);
+        soloPVPExecutor.playersScoreGainAndMatchStartTime=playersScoreGainAndMatchStartTime;
+
+        Map<Player, Player> playersInSoloPVP = spy(soloPVPExecutor.playersInSoloPVP);
+        soloPVPExecutor.playersInSoloPVP=playersInSoloPVP;
+
 
         //开始执行
         soloPVPExecutor.onCommand(player,command,s,strings);
         //验证
         assertNull(playersMatchingGamemode.get(player));
         verify(player).sendRawMessage("您已匹配对手"+matchingPlayer.getName()+",对局开始");
+        //检测运行时间
+        /*assertArrayEquals(playersScoreGainAndMatchStartTime.get(player),new Object[]{0,System.currentTimeMillis(),0.0,0.0});*/
+        /*assertArrayEquals(playersScoreGainAndMatchStartTime.get(matchingPlayer),new Object[]{0,System.currentTimeMillis(),0.0,0.0});*/
+        assertNotNull(playersScoreGainAndMatchStartTime.get(player));
+        assertNotNull(playersScoreGainAndMatchStartTime.get(matchingPlayer));
+        assertEquals(matchingPlayer,playersInSoloPVP.get(player));
+        assertEquals(player,playersInSoloPVP.get(matchingPlayer));
     }
 }
