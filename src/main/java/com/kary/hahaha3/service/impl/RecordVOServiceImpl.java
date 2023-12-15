@@ -68,7 +68,15 @@ public class RecordVOServiceImpl implements RecordVOService {
             recordVO.setType(typeString);
             records.add(recordVO);
         }
-
+        records.sort((o1, o2) -> {
+            if(o1.getGameTime().after(o2.getGameTime())){
+                return -1;
+            }else if(o1.getGameTime().before(o2.getGameTime())){
+                return 1;
+            }else{
+                return 0;
+            }
+        });
         return records;
     }
 
@@ -121,6 +129,15 @@ public class RecordVOServiceImpl implements RecordVOService {
             recordVO.setTakenDamage(record.getTakenDamage());
             res.add(recordVO);
         }
+        res.sort((o1, o2) -> {
+            if(o1.getGameTime().after(o2.getGameTime())){
+                return -1;
+            }else if(o1.getGameTime().before(o2.getGameTime())){
+                return 1;
+            }else{
+                return 0;
+            }
+        });
         return res;
     }
 
