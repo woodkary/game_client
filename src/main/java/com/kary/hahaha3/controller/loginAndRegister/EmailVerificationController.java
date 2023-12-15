@@ -25,9 +25,6 @@ import javax.mail.MessagingException;
 import java.util.List;
 
 
-/**
- * @author karywoodOyo
- */
 @RestController
 @Tag(name = "邮箱验证")
 public class EmailVerificationController extends BaseController {
