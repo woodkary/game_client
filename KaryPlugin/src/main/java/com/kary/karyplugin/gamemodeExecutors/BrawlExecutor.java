@@ -52,7 +52,7 @@ public class BrawlExecutor extends BaseExecutor {
     }
 
     //此类用于记录助攻者和助攻时间，用player比较是否相等，以及用加入时间比较大小
-    class PlayerAndTime implements Comparable<PlayerAndTime>{
+    static class PlayerAndTime implements Comparable<PlayerAndTime>{
         Player player;
         long time;
 
@@ -230,7 +230,7 @@ public class BrawlExecutor extends BaseExecutor {
                         int delayInTicks = 0; // 延迟0个游戏刻
                         int periodInTicks = 20; // 每20个游戏刻执行一次
                         //准备完毕，开始比赛线程
-                        BukkitRunnable assistTimer=new AssistTimer(assistMap);//先开启助攻计时器
+                        BukkitRunnable assistTimer= new AssistTimer(assistMap);//先开启助攻计时器
                         BukkitRunnable brawlMatch = new BrawlMatch(players,assistTimer);//再开启比赛计时器
                         brawlMatch.runTaskTimer(plugin, delayInTicks, periodInTicks);
                         assistTimer.runTaskTimer(plugin, delayInTicks, periodInTicks);
@@ -330,7 +330,7 @@ public class BrawlExecutor extends BaseExecutor {
         }
     }
     //这是个计时器，每秒钟检查一次助攻列表，每十秒移除一个加入时间最早的助攻者
-    class AssistTimer extends BukkitRunnable {
+    static class AssistTimer extends BukkitRunnable {
         Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap;
         int second=0;
         int assistExistLimitTime=10;//只计算10秒内的助攻
