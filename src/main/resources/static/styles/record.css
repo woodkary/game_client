@@ -122,6 +122,9 @@ padding-right: 5%;
 .record-button .result {
   font-size: 18px;
 }
+.record-button .type{
+  font-size: 14px;
+}
 .record-button .kills{
   font-size: 16px;
 }
