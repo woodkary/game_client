@@ -86,7 +86,7 @@ public class PersonalReportServiceImpl implements PersonalReportService {
                 win += 1;
             }
         }
-        winRate = (lose != 0 ? (win * 1.0 / lose) : win * 1.0);
+        winRate = (gameNums != 0 ? (win * 1.0 / gameNums) : win * 1.0);
         averageTakeDamage = (gameNums != 0) ? (totalTakeDamage / gameNums) : totalTakeDamage;
         averageTakenDamage = (gameNums != 0) ? (totalTakenDamage / gameNums) : totalTakenDamage;
         averageKill = (gameNums != 0) ? (totalKill * 1.0 / gameNums) : totalKill * 1.0;
