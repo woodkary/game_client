@@ -231,6 +231,7 @@ function redirectToRecord(event) {
     window.location.href = "../pages/record.html?username=" + encodeURIComponent(username);
 }
 
+
 function getRanksInfo() {
     console.log(username);
     fetch(`http://localhost:8080/ranks/getRanks?username=${username}`)
@@ -240,20 +241,58 @@ function getRanksInfo() {
             return response.json();
         })
         .then(data => {
-            console.log(data);
-            const ul = document.getElementById("recordList");
+            console.log(data.data);
+            const ul = document.getElementById("recordTable");
             ul.innerHTML = ""; // Clear the existing list
-
-            for (let i = 0; i < 8; i++) {
-                const record = data[i];
+            let count = data.data.length > 8 ? 8 : data.data.length;
+            console.log(count);
+            for (let i = 0; i < count; i++) {
+                const record = data.data[i];
                 console.log(typeof record);
                 const li = document.createElement("li");
-                li.textContent = `Game ${i + 1}: ${record.data.type} ${record.kills} kills ${record.deaths} deaths ${record.assists} assists ${record.gameTime}`;
+
+                let win = record.mvp === true ? "胜利" : "失败";
+
+                const date = new Date(record.gameTime);
+
+                // Get the year, month, and day
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1; // getMonth returns a zero-based month, so add 1
+                const day = date.getDate();
+
+                const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+
+                li.innerHTML = `
+                <div class="row">
+                    <img class="head_photo" src="../images/portrait_0.jpg" />
+                    <span class="info">
+                        <span class="type">1 VS 1</span>
+                        <span class="gametime">${formattedDate}</span>
+                    </span>
+                    <span class="kda">
+                        <img class="kill" src="../images/strength.png">
+                        <span class="kills">
+                            <p>${record.kills}</p>
+                        </span>
+                        <img class="death" src="../images/wither.png">
+                        <span class="deaths">
+                            <p>${record.deaths}</p>
+                        </span>
+                    </span>
+                    <span class="result_win">
+                        <p>${win}</p>
+                    </span>
+                </div>
+            `;
                 ul.appendChild(li);
             }
+
         })
         .catch(error => {
             console.error("Error fetching ranks info:", error);
+            console.log(error.name);
+            console.log(error.message);
+            console.log(error.stack);
         });
 }
 
