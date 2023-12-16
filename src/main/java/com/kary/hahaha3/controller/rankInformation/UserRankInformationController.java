@@ -114,7 +114,7 @@ public class UserRankInformationController extends BaseController {
         if(num==1){
             return JsonResult.ok(num,"修改成功");
         }else{
-            throw new DatabaseUpdateException("修改失败");
+            throw new DatabaseUpdateException("修改失败，请重试");
         }
     }
 }
