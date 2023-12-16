@@ -110,7 +110,7 @@ public class RecordVOServiceImpl implements RecordVOService {
             long duration=game.getDuration();
             int type=game.getType();
             String typeString="";
-            switch (game.getType()){
+            switch (type){
                 case 1:typeString="1v1";break;
                 case 2:typeString="大乱斗";break;
                 default:break;
