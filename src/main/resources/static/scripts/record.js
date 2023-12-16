@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 let username = "";
 preLoad();
 window.onload = function () {
@@ -112,5 +113,46 @@ function updateDetailedInfo(gameid){
 }
 
 
+=======
+function setInputDataPersonal(data) {
+  document.getElementById("gameNums").textContent = data.gameNums;
+  document.getElementById("win").textContent = data.win;
+  document.getElementById("lose").textContent = data.lose;
+  document.getElementById("winRate").textContent = data.winRate;
+  document.getElementById("level").textContent = data.level;
+}
 
 
+function handleDataPersonal(type) {
+  fetch(`http://localhost:8080/ranks/myReport/${type}`)
+    .then(response => response.json())
+    .then(data => setInputDataPersonal(data))
+    .catch(error => {
+      console.error(error);
+    });
+}
+>>>>>>> Stashed changes
+
+
+<<<<<<< Updated upstream
+=======
+function updatePageNum() {
+  var pageNum = document.getElementById('pageNum');
+  pageNum.textContent = currentPage;
+}
+
+function prevPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    updatePageNum();
+  }
+}
+
+function nextPage() {
+  if (currentPage < totalPages) {
+    currentPage++;
+    updatePageNum();
+  }
+}
+updatePageNum();
+>>>>>>> Stashed changes
