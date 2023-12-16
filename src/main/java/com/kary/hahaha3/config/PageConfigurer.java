@@ -15,8 +15,8 @@ public class PageConfigurer implements WebMvcConfigurer {
                 .addPathPatterns(
                         "/index.html",
                         "pages/personal.html",
-                        "pages/forum-home.html"
-                )
+                        "pages/record.html"
+                        )
                 .excludePathPatterns("/login",
                         "**/register",
                         "**/resetPassword",
