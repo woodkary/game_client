@@ -60,11 +60,14 @@ public class RecordVOServiceImpl implements RecordVOService {
             recordVO.setMVP(isMVP);
             recordVO.setTakeDamage(record.getTakeDamage());
             recordVO.setTakenDamage(record.getTakenDamage());
-            String typeString = switch (type) {
-                case 1 -> "1v1";
-                case 2 -> "大乱斗";
-                default -> "";
-            };
+            String typeString="";
+            if(type!=null) {
+                typeString = switch (type) {
+                    case 1 -> "1v1";
+                    case 2 -> "大乱斗";
+                    default -> "";
+                };
+            }
             recordVO.setType(typeString);
             records.add(recordVO);
         }
