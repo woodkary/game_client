@@ -29,8 +29,8 @@
         </span>
     </nav>
     <div id="Rectangle">
-        <a href="personal.html" class="button1">战绩总览</a>
-        <a href="record.html" class="button2">历史战绩</a>
+        <a onclick="redirectToPersonal(event)" class="button1">战绩总览</a>
+        <a onclick="redirectToRecord(event)" class="button2">历史战绩</a>
         <hr class="HorizontalLine">
         <div id="Rectangle1">
             <img class="Head0" src="../images/head-black.png" alt="Head0">
@@ -100,11 +100,22 @@
                 </tr>
             </table>
         </div>
+        
+
+
+
+
+
         <div id="Rectangle4">
             <div class="Recent">近期战绩</div>
             <a class="button" onclick="redirectToRecord(event)">全部比赛></a>
             <div class="table3" id="recentTable">
-                <div class="row">
+
+
+                <li id="recordList">
+                    
+                </li>
+                <!-- <div class="row">
                     <span class="result">胜利</span>
                     <span class="type">(单挑)</span>
                     <img class="kill" src="../images/strength.png">
@@ -166,19 +177,18 @@
                     <img class="death" src="../images/wither.png">
                     <span class="deaths">0</span>
                     <span class="gametime">2023-10-31</span>
-                </div>
-                <div class="row">
-                    <span class="result">胜利</span>
-                    <span class="type">(单挑)</span>
-                    <img class="kill" src="../images/strength.png">
-                    <span class="kills">0</span>
-                    <img class="death" src="../images/wither.png">
-                    <span class="deaths">0</span>
-                    <span class="gametime">2023-10-31</span>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
     <script src="../scripts/personal.js"></script>
 </body>
 

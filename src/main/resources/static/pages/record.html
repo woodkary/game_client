@@ -22,8 +22,8 @@
     </span>
     <span class="header">
       <ul>
-        <li><a class="header" id="page1" href="../index.html"><i class="fas fa-home"></i> 主页面</a></li>
-        <li><a class="header" id="page2" onclick="toMyRecord(event)"><i class="fas fa-chart-bar"></i> 我的战绩</a>
+        <li><a class="header" id="page1" onclick="redirectToIndex(event)"><i class="fas fa-home"></i> 主页面</a></li>
+        <li><a class="header" id="page2" onclick="redirectToPersonal(event)"><i class="fas fa-chart-bar"></i> 我的战绩</a>
         </li>
         <li><a class="header" id="page3" href="./forum-home.html"><i class="fas fa-users"></i> 社区</a></li>
       </ul>
@@ -32,8 +32,8 @@
   </nav>
 
   <div id="Rectangle">
-    <a href="personal.html" class="button1">战绩总览</a>
-    <a href="record.html" class="button2">历史战绩</a>
+    <a onclick="redirectToPersonal(event)" class="button1">战绩总览</a>
+    <a onclick="redirectToRecord(event)" class="button2">历史战绩</a>
     <hr class="HorizontalLine">
     <p class="Text">历史战绩</p>
     <!-- <form>  
@@ -117,7 +117,7 @@
       </button>
     </div>
     <div class="pagination">
-      <button onclick="prevPage()" id="left"><</button>
+      <button onclick="prevPage()" id="left"> < </button>
           <span id="pageNum">1</span>
           <button onclick="nextPage()" id="right">></button>
     </div>

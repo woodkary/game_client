@@ -6,13 +6,20 @@ handleDataPersonal(1);
 handleDataPersonal(2);
 handleDataAll();
 handleDataMonth();
+//soloRank 和 brawlRank 在上面的函数里面处理了
 
 window.onload = function () {
     let ID = document.getElementById("ID");
     ID.textContent = username;
-    handleRankScore();
-
+    getRanksInfo();
 }
+
+function preLoad() {
+    let query = window.location.search;
+    let params = new URLSearchParams(query);
+    username = params.get("username");
+}
+
 function handleRankScore() {
     let rank = document.getElementById("rank"); // 获取元素
     rank.textContent = "排位分:" + (((soloRank + brawlRank) < 0) ? 0 : (soloRank + brawlRank));
@@ -44,6 +51,7 @@ function handleDataPersonal(type) {
                 setInputDataPersonalBrawl(data);
                 brawlRank = data.score;
             }
+            handleRankScore();
         } else {
             console.log(jsonResult.message);
         }
@@ -197,11 +205,6 @@ function setInputDataMonth(data) {
     document.getElementById("gameNumsMonth").textContent = data.gameNums;
 }
 
-function preLoad() {
-    let query = window.location.search;
-    let params = new URLSearchParams(query);
-    username = params.get("username");
-}
 
 function toPercentageValue(value) {
     let percentageValue = value * 100;
@@ -227,3 +230,31 @@ function redirectToRecord(event) {
     event.preventDefault();
     window.location.href = "../pages/record.html?username=" + encodeURIComponent(username);
 }
+
+function getRanksInfo() {
+    console.log(username);
+    fetch(`http://localhost:8080/ranks/getRanks?username=${username}`)
+        .then(response => {
+            console.log(response);
+            console.log(response.textContent);
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            const ul = document.getElementById("recordList");
+            ul.innerHTML = ""; // Clear the existing list
+
+            for (let i = 0; i < 8; i++) {
+                const record = data[i];
+                console.log(typeof record);
+                const li = document.createElement("li");
+                li.textContent = `Game ${i + 1}: ${record.data.type} ${record.kills} kills ${record.deaths} deaths ${record.assists} assists ${record.gameTime}`;
+                ul.appendChild(li);
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching ranks info:", error);
+        });
+}
+
+
