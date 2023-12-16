@@ -14,11 +14,9 @@ public class PageConfigurer implements WebMvcConfigurer {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns(
                         "/index.html",
-                        "/forum/**",
                         "pages/personal.html",
-                        "pages/forum-home.html",
-                        "/ranks/**",
-                        "/forum/**")
+                        "pages/forum-home.html"
+                )
                 .excludePathPatterns("/login",
                         "**/register",
                         "**/resetPassword",
