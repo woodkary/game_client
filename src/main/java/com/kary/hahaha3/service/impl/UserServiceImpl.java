@@ -37,6 +37,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Integer updateUserPortrait(String username, Integer portrait) {
+        return userGameMapper.updatePortrait(username,portrait);
+    }
+
+    @Override
     @Transactional
     public Integer insertUser(String username, String pwd, String email) {
         Integer num1,num2,num3;

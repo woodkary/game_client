@@ -3,6 +3,7 @@ package com.kary.hahaha3.controller.rankInformation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kary.hahaha3.controller.BaseController;
+import com.kary.hahaha3.exceptions.DatabaseUpdateException;
 import com.kary.hahaha3.exceptions.JsonException;
 import com.kary.hahaha3.exceptions.errorInput.GameNotFoundException;
 import com.kary.hahaha3.exceptions.errorInput.MatchTypeErrorException;
@@ -14,6 +15,7 @@ import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.pojo.vo.PersonalReport;
 import com.kary.hahaha3.pojo.vo.RecordVO;
 import com.kary.hahaha3.pojo.vo.Records;
+import com.kary.hahaha3.pojo.vo.SetPortraitJSON;
 import com.kary.hahaha3.service.PersonalReportService;
 import com.kary.hahaha3.service.RecordVOService;
 import com.kary.hahaha3.service.RecordsService;
@@ -104,5 +106,15 @@ public class UserRankInformationController extends BaseController {
     public JsonResult getGamesByGameId(@RequestParam("gameId")Integer gameId) throws GameNotFoundException {
         List<RecordVO> recordVOS=recordVOService.getGamesByGameId(gameId);
         return JsonResult.ok(recordVOS,"这是比赛");
+    }
+    @PostMapping("/portrait")
+    @Operation(summary = "修改头像",description = "请输入用户名username和头像id portrait")
+    public JsonResult updatePortrait(@RequestBody SetPortraitJSON setPortraitJSON) throws DatabaseUpdateException {
+        Integer num=userService.updateUserPortrait(setPortraitJSON.getUsername(),setPortraitJSON.getPortrait());
+        if(num==1){
+            return JsonResult.ok(num,"修改成功");
+        }else{
+            throw new DatabaseUpdateException("修改失败");
+        }
     }
 }
