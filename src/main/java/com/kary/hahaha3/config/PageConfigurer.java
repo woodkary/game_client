@@ -12,7 +12,7 @@ public class PageConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
-                .addPathPatterns("/getRank/**",
+                .addPathPatterns(
                         "/index.html",
                         "/forum/**",
                         "pages/personal.html",
