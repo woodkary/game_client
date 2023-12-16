@@ -101,6 +101,7 @@ public class BrawlExecutor extends BaseExecutor {
         this.recordService = recordService;
         this.playersMatchingGamemode = playersMatchingGamemode;
         this.plugin=plugin;
+        //首先，所有段位都应该有个匹配集合
         matchingPlayers.put(LevelUtil.COPPER, new CopyOnWriteArraySet<>());
         matchingPlayers.put(LevelUtil.SILVER, new CopyOnWriteArraySet<>());
         matchingPlayers.put(LevelUtil.GOLD, new CopyOnWriteArraySet<>());

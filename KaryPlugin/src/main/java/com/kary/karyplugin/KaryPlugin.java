@@ -15,9 +15,11 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author karywoodOyo
  */
+//每有一个新游戏模式加入，都要继承BaseExecutor，插入到QuitMatchingExecutor,然后在onEnable里面注册事件和命令
 public class KaryPlugin extends JavaPlugin {
     private static Map<Player,Integer> playersMatchingGamemode=new ConcurrentHashMap<>();
     private static  RecordServiceImpl recordService=new RecordServiceImpl();
+    //更新数据库操作
     public static synchronized void updateDatabase(Integer maxGameId,
                                              Long duration,
                                              String username,
@@ -57,6 +59,7 @@ public class KaryPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new BaseController(recordService),this);
         Bukkit.getPluginCommand("soloPVP").setExecutor(soloPVPExecutor);
         Bukkit.getPluginCommand("brawl").setExecutor(brawlExecutor);
+        //加入新游戏模式，需要修改此处
         Bukkit.getPluginCommand("quitMatching").setExecutor(new QuitMatchingExecutor(playersMatchingGamemode,soloPVPExecutor,brawlExecutor));
         Bukkit.getPluginCommand("testDatabase").setExecutor(new DatabaseTester(recordService));
     }
