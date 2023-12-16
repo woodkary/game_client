@@ -43,11 +43,13 @@ public class PersonalReportServiceImpl implements PersonalReportService {
             throw new UsernameErrorException("用户不存在");
         }
         Integer score = userGameMapper.getScoreByType(username, type);
+        Integer portrait = userGameMapper.getPortrait(username);
         String level = LevelUtil.getLevel(score);
         PersonalReport res = new PersonalReport();
         res.setType(type);
         res.setLevel(level);
         res.setScore(score);
+        res.setPortrait(portrait);
 
         int gameNums = 0;
         int win = 0;

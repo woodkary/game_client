@@ -9,12 +9,19 @@
                                games_count,
                                score_total_brawl,
                                games_count_1v1,
-                               games_count_brawl
-        )values (#{username},0,0,0,0,0)
+                               games_count_brawl,
+                               portrait
+        )values (#{username},0,0,0,0,0,0)
     </insert>
+    <update id="updatePortrait">
+        update user_game set portrait=#{portrait} where username=#{username}
+    </update>
     <delete id="deleteUser">
         delete from user_game where username=#{username}
     </delete>
+    <select id="getPortrait" resultType="int">
+        select portrait from user_game where username=#{username}
+    </select>
     <select id="getScoreByType" resultType="int">
         select
             <if test="type==1">

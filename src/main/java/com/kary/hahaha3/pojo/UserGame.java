@@ -15,4 +15,5 @@ public class UserGame {
     private String scoreTotal1v1;
     private int gameCount;
     private int scoreTotalBrawl;
+    private int portrait;
 }
