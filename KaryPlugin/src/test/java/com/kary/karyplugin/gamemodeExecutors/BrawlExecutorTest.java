@@ -316,12 +316,25 @@ public class BrawlExecutorTest {
         matchingPlayers.get(level).add(player2);
         brawlExecutor.matchingPlayers=matchingPlayers;//监测匹配列表
 
+        Map<Player, ConcurrentSkipListSet<BrawlExecutor.PlayerAndTime>> assistMap = spy(brawlExecutor.assistMap);
+        brawlExecutor.assistMap=assistMap;
+
         try {
             brawlExecutor.onCommand(commandSender, command, s, strings);
         }catch (NullPointerException e){}
+        //检测commandSender是否成功匹配
         verify(playersMatchingGamemode).put(commandSender,BRAWL_MODE);
         Set<Player> matchingPlayer=matchingPlayers.get(level);
-        verify(matchingPlayer).add(commandSender);
-        assertTrue(matchingPlayer.size()==MAX_MATCH_NUM);
+        //检测游戏是否已经可以开始
+        if(MAX_MATCH_NUM!=matchingPlayer.size()){
+            throw new RuntimeException("失败");
+        };
+        if(!matchingPlayer.contains(commandSender)){
+            throw new RuntimeException("失败");
+        }
+        verify(assistMap).put(commandSender,mock(ConcurrentSkipListSet.class));
+        verify(assistMap).put(player1,mock(ConcurrentSkipListSet.class));
+        verify(assistMap).put(player2,mock(ConcurrentSkipListSet.class));
+
     }
 }
