@@ -1,17 +1,30 @@
 let username = null;
-
+let soloRank = 0;
+let brawlRank = 0;
 preLoad();
-window.onload = function () {
-    let ID = document.getElementById("ID");
-    ID.textContent = username;
-}
-
 handleDataPersonal(1);
 handleDataPersonal(2);
 handleDataAll();
 handleDataMonth();
+//soloRank 和 brawlRank 在上面的函数里面处理了
 
+window.onload = function () {
+    let ID = document.getElementById("ID");
+    ID.textContent = username;
+    getRanksInfo();
+}
 
+function preLoad() {
+    let query = window.location.search;
+    let params = new URLSearchParams(query);
+    username = params.get("username");
+}
+
+function handleRankScore() {
+    let rank = document.getElementById("rank"); // 获取元素
+    rank.textContent = "排位分:" + (((soloRank + brawlRank) < 0) ? 0 : (soloRank + brawlRank));
+    console.log(rank);
+}
 
 function handleDataPersonal(type) {
     let xhr = new XMLHttpRequest();
@@ -30,12 +43,15 @@ function handleDataPersonal(type) {
         console.log(jsonResult.responseText);
         if (xhr.status === 200) {
             let data = jsonResult.data;
-            let rank = document.getElementById("rank"); // 获取元素
-            rank.textContent = '排位分:' + data.score;
-            if (type === 1)
+
+            if (type === 1) {
                 setInputDataPersonalSin(data);
-            if (type === 2)
+                soloRank = data.score;
+            } if (type === 2) {
                 setInputDataPersonalBrawl(data);
+                brawlRank = data.score;
+            }
+            handleRankScore();
         } else {
             console.log(jsonResult.message);
         }
@@ -177,23 +193,18 @@ function setInputDataPersonalBrawl(data) {
     document.getElementById("levelBrawl").textContent = data.level;
 }
 function setInputDataAll(data) {
-    document.getElementById("kdaAll").textContent = data.kda;
+    document.getElementById("kdaAll").textContent = (data.kda).toFixed(2);
     document.getElementById("winRateAll").textContent = toPercentageValue(data.winRate);
     document.getElementById("totalKillsAll").textContent = data.totalKills;
     document.getElementById("gameNumsAll").textContent = data.gameNums;
 }
 function setInputDataMonth(data) {
-    document.getElementById("kdaMonth").textContent = data.kda;
+    document.getElementById("kdaMonth").textContent = (data.kda).toFixed(2);
     document.getElementById("winRateMonth").textContent = toPercentageValue(data.winRate);
     document.getElementById("totalKillsMonth").textContent = data.totalKills;
     document.getElementById("gameNumsMonth").textContent = data.gameNums;
 }
 
-function preLoad() {
-    let query = window.location.search;
-    let params = new URLSearchParams(query);
-    username = params.get("username");
-}
 
 function toPercentageValue(value) {
     let percentageValue = value * 100;
@@ -219,3 +230,31 @@ function redirectToRecord(event) {
     event.preventDefault();
     window.location.href = "../pages/record.html?username=" + encodeURIComponent(username);
 }
+
+function getRanksInfo() {
+    console.log(username);
+    fetch(`http://localhost:8080/ranks/getRanks?username=${username}`)
+        .then(response => {
+            console.log(response);
+            console.log(response.textContent);
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            const ul = document.getElementById("recordList");
+            ul.innerHTML = ""; // Clear the existing list
+
+            for (let i = 0; i < 8; i++) {
+                const record = data[i];
+                console.log(typeof record);
+                const li = document.createElement("li");
+                li.textContent = `Game ${i + 1}: ${record.data.type} ${record.kills} kills ${record.deaths} deaths ${record.assists} assists ${record.gameTime}`;
+                ul.appendChild(li);
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching ranks info:", error);
+        });
+}
+
+

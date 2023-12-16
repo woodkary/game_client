@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <title>历史战绩</title>
-  <link rel="stylesheet" href="../styles/record.css">
+  <link rel="stylesheet" href="../styles/record2.css">
   <script src="https://unpkg.com/vue@next"></script>
   <!-- import CSS -->
-  <link rel="stylesheet" href="../styles/record.css">
+  <link rel="stylesheet" href="../styles/record2.css">
   <link rel="stylesheet" href="../styles/header.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <!-- import JavaScript -->
@@ -22,21 +22,20 @@
     </span>
     <span class="header">
       <ul>
-        <li><a class="header" id="page1" onclick="redirectToIndex(event)"><i class="fas fa-home"></i> 主页面</a></li>
-        <li><a class="header" id="page2" onclick="redirectToPersonal(event)"><i class="fas fa-chart-bar"></i> 我的战绩</a>
+        <li><a class="header" id="page1" href="../index.html"><i class="fas fa-home"></i>主页面</a></li>
+        <li><a class="header" id="page2" onclick="toMyRecord(event)"><i class="fas fa-chart-bar"></i>我的战绩</a>
         </li>
-        <li><a class="header" id="page3" href="./forum-home.html"><i class="fas fa-users"></i> 社区</a></li>
+        <li><a class="header" id="page3" href="./forum-home.html"><i class="fas fa-users"></i>社区</a></li>
       </ul>
     </span>
 
   </nav>
 
   <div id="Rectangle">
-
-    <a onclick="redirectToPersonal(event)" class="button1">战绩总览</a>
-    <a onclick="redirectToRecord(event)" class="button2">历史战绩</a>
-    <!-- <hr class="HorizontalLine"> -->
-    <!-- <p class="Text">历史战绩</p> -->
+    <a href="personal.html" class="button1">战绩总览</a>
+    <a href="record.html" class="button2">历史战绩</a>
+    <hr class="HorizontalLine">
+    <p class="Text">历史战绩</p>
     <!-- <form>  
       <select id="Select" name="Select">  
         <option value="choice1" selected>单挑</option>  
@@ -118,8 +117,7 @@
       </button>
     </div>
     <div class="pagination">
-      <button onclick="prevPage()" id="left">
-        < </button>
+      <button onclick="prevPage()" id="left"><</button>
           <span id="pageNum">1</span>
           <button onclick="nextPage()" id="right">></button>
     </div>
@@ -128,11 +126,11 @@
       <span id="date">时间</span>
       <span id="date-value">10-31 20:46</span>
       <span id="type">类型</span>
-      <span id="type-value">单挑</span>
+      <span id="type-value">死斗</span>
       <span id="duration">比赛时长</span>
       <span id="duration-value">26分钟</span>
-      <div class="Win">
-        <p>胜方</p>
+      <div class="melee">
+        <p>死斗</p>
         <table>
           <tr>
             <td>用户名</td>
@@ -142,11 +140,6 @@
             <td>伤害</td>
             <td>承伤</td>
           </tr>
-        </table>
-      </div>
-      <div class="Lose">
-        <p>败方</p>
-        <table>
           <tr>
             <td>用户名</td>
             <td>击杀数</td>
@@ -155,11 +148,43 @@
             <td>伤害</td>
             <td>承伤</td>
           </tr>
-        </table>
+            <tr>
+              <td>用户名</td>
+              <td>击杀数</td>
+              <td>死亡数</td>
+              <td>KDA</td>
+              <td>伤害</td>
+              <td>承伤</td>
+            </tr>
+            <tr>
+              <td>用户名</td>
+              <td>击杀数</td>
+              <td>死亡数</td>
+              <td>KDA</td>
+              <td>伤害</td>
+              <td>承伤</td>
+            </tr>
+            <tr>
+              <td>用户名</td>
+              <td>击杀数</td>
+              <td>死亡数</td>
+              <td>KDA</td>
+              <td>伤害</td>
+              <td>承伤</td>
+            </tr>
+            <tr>
+              <td>用户名</td>
+              <td>击杀数</td>
+              <td>死亡数</td>
+              <td>KDA</td>
+              <td>伤害</td>
+              <td>承伤</td>
+            </tr>
+          </table>
       </div>
     </div>
   </div>
-  <script src="../scripts/record.js"></script>
+  <script src="../scripts/record2.js"></script>
 </body>
 
 </html>

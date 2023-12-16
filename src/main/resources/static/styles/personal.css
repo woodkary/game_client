@@ -2,25 +2,19 @@ body {
   margin: 0;
 }
 
-.background {
-  width: 100%;
-  height: 100vh;
-  background-image: url("../images/background.png");
+.background{
+  background-image: url('../images/expedition.jpg');
+  background-size: 100%;
   background-repeat: no-repeat;
-  background-size: cover;
-  margin-top: 0px;
-  position: absolute;
-  opacity: 0.8;
-  z-index: -1;
 }
 
-#Rectangle {
+#main {
   position: absolute;
-  left: 5%;
-  top: 10%;
+  left: 3%;
+  top: 13%;
   width: 90vw;
-  height: 85vh;
-  background-color: #f2f2f2;
+  height: 90vh;
+  background-color: #edf4e9ba;
   border: 1px solid #ddd;
   text-align: center;
   padding: 20px;
@@ -47,20 +41,41 @@ body {
 .button2 {
   display: inline-block;
   padding: 10px 18px;
-  color: black;
+  color: #fff;
   /* 按钮的文本颜色 */
   text-decoration: none;
   border-radius: 4px;
   /* 按钮的圆角 */
   position: absolute;
-  top: 3%;
-  left: 82%;
+  top: 8%;
+  right: 30%;
+  overflow: hidden;
+  z-index: 1;
+  transition: .5s;
+  height: 20px;
+  background-color: #16a085;
 }
 
-.button2:hover {
-  background-color: #aab300;
-  /* 鼠标悬停时的背景颜色 */
+.button2::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: 2px solid #16a085;
+  border-radius: 20px;
+  transform-origin: center;
 }
+
+.button2:hover::before {
+  transform: scale(1.25);
+  transition: all ease-out .5s;
+  border: 5px solid #96f3e0;
+  opacity: 3;
+}
+
 
 .HorizontalLine {
   position: absolute;
@@ -71,17 +86,24 @@ body {
   text-align: center;
 }
 
+#Rectangle1, #Rectangle2, #Rectangle3, #Rectangle4{
+  background-color: #ffffffad;
+}
+
 #Rectangle1 {
   position: absolute;
   left: 3%;
-  top: 11%;
+  top: 4%;
   width: 55%;
-  height: 20%;
-  background-color: #ffffff;
+  height: 25%;
   border: none;
   text-align: center;
   padding: 20px;
-  opacity: 0.6;
+  background-image: url('../images/fight_2.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 0%;
+  color: rgb(255, 255, 255);
 }
 
 .Head0 {
@@ -98,14 +120,20 @@ body {
   left: 23%;
   transform: translate(-50%, -50%);
   font-size: 22px;
-  color: black;
 }
-#rank{
+#rankPhoto1, #rankPhoto2, #rankPhoto3{
   position: absolute;
-  top: 10%;
-  left: 50%;
-  width: 123px;
-  height: 153px;
+  bottom: 0%;
+  width: 10%;
+}
+#rankPhoto1{
+  right: 0%;
+}
+#rankPhoto2{
+  right: 11%;
+}
+#rankPhoto3{
+  right: 22%;
 }
 .Rank {
   position: absolute;
@@ -113,7 +141,6 @@ body {
   left: 70%;
   transform: translate(-50%, -50%);
   font-size: 30px;
-  color: black;
 }
 
 #Rectangle2 {
@@ -122,11 +149,11 @@ body {
   top: 38%;
   width: 55%;
   height: 25%;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   border: none;
   text-align: center;
   padding: 20px;
-  opacity: 0.6;
+
 }
 
 .all {
@@ -159,7 +186,7 @@ body {
 
 .table1 td {
   padding: 18px;
-  background-color: #fff;
+  /* background-color: #fff; */
   border: none;
 }
 
@@ -177,7 +204,7 @@ body {
   left: 50%;
   width: 3px;
   height: 70%;
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
 }
 
 .table2 {
@@ -192,7 +219,7 @@ body {
 
 .table2 td {
   padding: 18px;
-  background-color: #fff;
+  /* background-color: #fff; */
   border: none;
 }
 
@@ -214,7 +241,7 @@ body {
   border: none;
   text-align: center;
   padding: 20px;
-  opacity: 0.6;
+
 }
 
 .Report {
@@ -245,15 +272,15 @@ td {
 
 #Rectangle4 {
   position: absolute;
-  left: 70%;
-  top: 11%;
-  width: 25%;
-  height: 80%;
+  right: 3%;
+  bottom:4%;
+  width: 31%;
+  height: 75%;
   background-color: #ffffff;
   border: 1px solid #ddd;
   text-align: center;
   padding: 20px;
-  opacity: 0.6;
+
 }
 
 .Recent {
@@ -287,43 +314,82 @@ td {
 }
 .table3 {
   position: absolute;
-  top: 10%;
-  left: 3%;
+  top: 5%;
+  left: 5%;
   width: 90%;
-  height: 80%;
+  height: 90%;
   display: grid;
   grid-template-rows: repeat(8, 1fr);
   flex-direction: column;
   border-collapse: collapse;
   overflow: auto;
-  background-color: #A6CCEA;
+  
 }
 .row {
+  height: 60px;
   display: flex;
   align-items: center; /* 元素在垂直方向上居中 */
   justify-content: space-between; /* 元素水平方向上均匀分布 */
-  border: 1px solid black;
-  padding-left: 5%;
+  /* border: 1px solid black; */
+  /* padding-left: 5%; */
   padding-right: 5%;
+  /* background-color: #A6CCEA; */
+  margin-bottom: 10px;
 }
 .row img {
   width: 30px; /* 调整图片的宽度 */
   height: auto; /* 根据宽度调整高度 */
 }
 .row .result {
-  font-size: 24px;
-}
-
-.row .result {
   font-size: 18px;
 }
 
-.row: .kills {
-  width: 30px;
-  height: 30px;
+.row .head_photo{
+  width: 50px;
 }
 
-.row: .deaths {
-  width: 20px;
-  height: 20px;
+.info{
+  position: absolute;
+  display: inline-block;
+  left: 55px;
+}
+
+.info .gametime, .info .type{
+  display: block;
+  text-align: left;
+}
+
+.info .type{
+  margin-bottom: 10px;
+}
+
+.kda{
+  position: absolute;
+  left:165px;
+}
+
+.kda img, .kda span{
+  margin-right: 15px;
+  display: inline-block;
+  /* justify-items: center; */
+}
+
+.kda p{
+  text-align: justify;
+}
+
+.result_win{
+  text-align: justify;
+  text-align:center;
+  height: 100%;
+  width: 80px;
+  background: linear-gradient(to right, #ffffff, #b5ffc6, #83fb9f);
+}
+
+.result_lose{
+  text-align: justify;
+  text-align:center;
+  height: 100%;
+  width: 80px;
+  background: linear-gradient(to right, #ffffff, #ffcab5, #fb8983);;
 }
