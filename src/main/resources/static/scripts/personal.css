@@ -1,0 +1,592 @@
+body {
+  margin: 0;
+}
+
+.background {
+  background-image: url('../images/expedition.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+#main {
+  position: absolute;
+  left: 3%;
+  top: 13%;
+  width: 90vw;
+  height: 90vh;
+  background-color: #edf4e9ba;
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 20px;
+}
+
+.button1 {
+  display: inline-block;
+  padding: 10px 18px;
+  color: black;
+  /* 按钮的文本颜色 */
+  text-decoration: none;
+  border-radius: 4px;
+  /* 按钮的圆角 */
+  position: absolute;
+  top: 3%;
+  left: 75%;
+}
+
+.button1:hover {
+  background-color: #aab300;
+  /* 鼠标悬停时的背景颜色 */
+}
+
+.button2 {
+  display: inline-block;
+  padding: 10px 18px;
+  color: #fff;
+  /* 按钮的文本颜色 */
+  text-decoration: none;
+  border-radius: 4px;
+  /* 按钮的圆角 */
+  position: absolute;
+  top: 8%;
+  right: 30%;
+  overflow: hidden;
+  z-index: 1;
+  transition: .5s;
+  height: 20px;
+  background-color: #16a085;
+}
+
+.button2::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: 2px solid #16a085;
+  border-radius: 20px;
+  transform-origin: center;
+}
+
+.button2:hover::before {
+  transform: scale(1.25);
+  transition: all ease-out .5s;
+  border: 5px solid #96f3e0;
+  opacity: 3;
+}
+
+
+.HorizontalLine {
+  position: absolute;
+  top: 8%;
+  /* 这些百分比可以根据您的需要进行调整 */
+  width: 100%;
+  left: 0;
+  text-align: center;
+}
+
+#Rectangle1,
+#Rectangle2,
+#Rectangle3,
+#Rectangle4 {
+  background-color: #ffffffc6;
+}
+
+#Rectangle1 {
+  position: absolute;
+  left: 3%;
+  top: 4%;
+  width: 55%;
+  height: 25%;
+  border: none;
+  text-align: center;
+  padding: 20px;
+  background-image: url('../images/fight_2.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 0%;
+  color: rgb(255, 255, 255);
+}
+
+.Head0 {
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  width: 70px;
+  height: 80px;
+}
+
+.ID {
+  position: absolute;
+  top: 45%;
+  left: 23%;
+  transform: translate(-50%, -50%);
+  font-size: 22px;
+}
+
+#rankPhoto1,
+#rankPhoto2,
+#rankPhoto3 {
+  position: absolute;
+  bottom: 0%;
+  width: 10%;
+}
+
+#rankPhoto1 {
+  right: 0%;
+}
+
+#rankPhoto2 {
+  right: 11%;
+}
+
+#rankPhoto3 {
+  right: 22%;
+}
+
+.Rank {
+  position: absolute;
+  top: 45%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+}
+
+#Rectangle2 {
+  position: absolute;
+  left: 3%;
+  top: 36%;
+  width: 55%;
+  height: 27%;
+  background-color: #ffffffc6;
+  border: none;
+  padding: 20px;
+}
+
+.container_kda,
+.container_1v1_win_percentage,
+.container_1v1_kills,
+.container_scrimmage_win_percentage,
+.container_scrimmage_kills {
+  width: 175px;
+  height: 175px;
+}
+
+.container_kda {
+  background-image: url("../images/fight_record_1.PNG");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 30px;
+}
+
+.container_1v1_win_percentage,
+.container_1v1_kills,
+.container_scrimmage_win_percentage,
+.container_scrimmage_kills {
+  background-image: url("../images/fight_record_3.PNG");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 30px;
+}
+
+.container_kda {
+  left: 0px;
+  color: #d7a455;font-family: Arial, sans-serif;
+
+}
+
+.container_1v1_win_percentage {
+  left: 160px;
+  color: #ffffffeb;font-family: Arial, sans-serif;
+}
+
+.container_1v1_kills {
+  left: 320px;
+  color: #ffffffeb;font-family: Arial, sans-serif;
+}
+
+.container_scrimmage_win_percentage {
+  left: 480px;
+  color: #ffffffeb;font-family: Arial, sans-serif;
+}
+
+.container_scrimmage_kills {
+  left: 640px;
+  color: #ffffffeb;font-family: Arial, sans-serif;
+}
+
+
+#Game_Data,
+#KDA_Data {
+  text-align: center;
+  font-size: 20px;
+  
+}
+
+#text_kda,
+#Game_Data_title {
+  margin-top: 53px;
+  font-size: 16px;
+}
+
+#value_kda,
+#Game_Data_value {
+  /* margin-top: 2px; */
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+#Game_Data_description {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.757);
+}
+
+.all {
+  position: absolute;
+  top: 10%;
+  left: 6%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: black;
+}
+
+.month {
+  position: absolute;
+  top: 10%;
+  left: 56%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: black;
+}
+
+.table1 {
+  position: absolute;
+  top: 20%;
+  left: 3%;
+  width: 45%;
+  height: 80%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.table1 td {
+  padding: 18px;
+  /* background-color: #fff; */
+  border: none;
+}
+
+.table1 td:nth-of-type(2) {
+  font-size: 25px;
+}
+
+.table1 td:nth-of-type(4) {
+  font-size: 25px;
+}
+
+.vertical-line {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  width: 3px;
+  height: 70%;
+  /* background-color: #f2f2f2; */
+}
+
+.table2 {
+  position: absolute;
+  top: 20%;
+  left: 53%;
+  width: 45%;
+  height: 80%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.table2 td {
+  padding: 18px;
+  /* background-color: #fff; */
+  border: none;
+}
+
+.table2 td:nth-of-type(2) {
+  font-size: 25px;
+}
+
+.table2 td:nth-of-type(4) {
+  font-size: 25px;
+}
+
+#Rectangle3 {
+  position: absolute;
+  left: 3%;
+  top: 70%;
+  width: 55%;
+  height: 20%;
+  border: none;
+  text-align: center;
+  padding: 20px;
+
+}
+
+.Report {
+  position: absolute;
+  top: 12%;
+  left: 8%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: rgb(77, 77, 77);
+}
+
+.Data_table {
+  position: absolute;
+  top: 25%;
+  left: 4%;
+  width: 90%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th,
+td {
+  border: 3px solid #f2f2f2;
+  padding: 8px;
+  text-align: left;
+  background-color: #ffffff;
+}
+
+#Rectangle4 {
+  position: absolute;
+  right: 3%;
+  bottom: 4%;
+  width: 31%;
+  height: 75%;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 20px;
+
+}
+
+.Recent {
+  position: absolute;
+  top: 4%;
+  left: 13%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: black;
+}
+
+.button {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #ffffff;
+  /* 按钮的背景颜色 */
+  color: black;
+  /* 按钮的文本颜色 */
+  border: 1px solid #0056b3;
+  text-decoration: none;
+  border-radius: 8px;
+  /* 按钮的圆角 */
+  position: absolute;
+  top: 2%;
+  left: 70%;
+}
+
+.button:hover {
+  background-color: #aab300;
+  /* 鼠标悬停时的背景颜色 */
+}
+
+.table3 {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  display: grid;
+  grid-template-rows: repeat(8, 1fr);
+  flex-direction: column;
+  border-collapse: collapse;
+  overflow: auto;
+
+}
+
+.row {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  /* 元素在垂直方向上居中 */
+  justify-content: space-between;
+  /* 元素水平方向上均匀分布 */
+  /* border: 1px solid black; */
+  /* padding-left: 5%; */
+  padding-right: 5%;
+  /* background-color: #A6CCEA; */
+  margin-bottom: 10px;
+}
+
+.row img {
+  width: 30px;
+  /* 调整图片的宽度 */
+  height: auto;
+  /* 根据宽度调整高度 */
+}
+
+.row .result {
+  font-size: 18px;
+}
+
+.row .head_photo {
+  width: 50px;
+}
+
+.info {
+  position: absolute;
+  display: inline-block;
+  left: 55px;
+}
+
+.info .gametime,
+.info .type {
+  display: block;
+  text-align: left;
+}
+
+.info .type {
+  margin-bottom: 10px;
+}
+
+.kda {
+  position: absolute;
+  left: 165px;
+}
+
+.kda img,
+.kda span {
+  margin-right: 15px;
+  display: inline-block;
+  /* justify-items: center; */
+}
+
+.kda p {
+  text-align: justify;
+}
+
+.result_win {
+  font-size: 20px;
+  font-weight: bolder;
+  text-align: justify;
+  text-align: center;
+  height: 100%;
+  width: 80px;
+  background: linear-gradient(to right, #66b0540a, #eff9ea, #d2f8cc);
+  color: #3dbb68;
+  ;
+}
+
+.result_lose {
+  font-size: 20px;
+  font-weight: bolder;
+  text-align: justify;
+  text-align: center;
+  height: 100%;
+  width: 80px;
+  background: linear-gradient(to right, #ead6d605, #faeeee, #fbe4e4);
+  color: #db6b6b;
+}
+
+
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+}
+
+#help {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px black;
+}
+
+#help .tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: rgb(255, 255, 255);
+  color: #d7a455;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: 150%;
+  left: 50%;
+  margin-left: -74px;
+  padding: 5px;
+  border: 2px solid #d7a455;
+
+  /* 淡入 - 1秒内从 0% 到 100% 显示: */
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+#help .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #d7a455 transparent;
+}
+
+#help:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
