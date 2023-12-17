@@ -2,7 +2,7 @@ body {
   margin: 0;
 }
 
-.background{
+.background {
   background-image: url('../images/expedition.jpg');
   background-size: 100%;
   background-repeat: no-repeat;
@@ -86,7 +86,10 @@ body {
   text-align: center;
 }
 
-#Rectangle1, #Rectangle2, #Rectangle3, #Rectangle4{
+#Rectangle1,
+#Rectangle2,
+#Rectangle3,
+#Rectangle4 {
   background-color: #ffffffc6;
 }
 
@@ -121,20 +124,27 @@ body {
   transform: translate(-50%, -50%);
   font-size: 22px;
 }
-#rankPhoto1, #rankPhoto2, #rankPhoto3{
+
+#rankPhoto1,
+#rankPhoto2,
+#rankPhoto3 {
   position: absolute;
   bottom: 0%;
   width: 10%;
 }
-#rankPhoto1{
+
+#rankPhoto1 {
   right: 0%;
 }
-#rankPhoto2{
+
+#rankPhoto2 {
   right: 11%;
 }
-#rankPhoto3{
+
+#rankPhoto3 {
   right: 22%;
 }
+
 .Rank {
   position: absolute;
   top: 45%;
@@ -154,16 +164,16 @@ body {
   padding: 20px;
 }
 
-.container_kda, 
-.container_1v1_win_percentage, 
-.container_1v1_kills, 
+.container_kda,
+.container_1v1_win_percentage,
+.container_1v1_kills,
 .container_scrimmage_win_percentage,
-.container_scrimmage_kills{
+.container_scrimmage_kills {
   width: 175px;
   height: 175px;
 }
 
-.container_kda{
+.container_kda {
   background-image: url("../images/fight_record_1.PNG");
   background-size: 100%;
   background-repeat: no-repeat;
@@ -171,10 +181,10 @@ body {
   top: 30px;
 }
 
-.container_1v1_win_percentage, 
-.container_1v1_kills, 
+.container_1v1_win_percentage,
+.container_1v1_kills,
 .container_scrimmage_win_percentage,
-.container_scrimmage_kills{
+.container_scrimmage_kills {
   background-image: url("../images/fight_record_3.PNG");
   background-size: 100%;
   background-repeat: no-repeat;
@@ -184,52 +194,52 @@ body {
 
 .container_kda {
   left: 0px;
+  color: #d7a455;font-family: Arial, sans-serif;
+
 }
 
 .container_1v1_win_percentage {
   left: 160px;
+  color: #ffffffeb;font-family: Arial, sans-serif;
 }
 
-.container_1v1_kills{
+.container_1v1_kills {
   left: 320px;
+  color: #ffffffeb;font-family: Arial, sans-serif;
 }
 
-.container_scrimmage_win_percentage{
+.container_scrimmage_win_percentage {
   left: 480px;
+  color: #ffffffeb;font-family: Arial, sans-serif;
 }
 
-.container_scrimmage_kills{
+.container_scrimmage_kills {
   left: 640px;
+  color: #ffffffeb;font-family: Arial, sans-serif;
 }
 
+
+.Game_Data,
 .KDA_Data {
-  color: #d7a455;
-}
-
-.Game_Data{
-  color: #ffffffeb;
-}
-
-.Game_Data, .KDA_Data {
   text-align: center;
   font-size: 20px;
-  font-family: Arial, sans-serif;
+  
 }
 
-#text_kda, 
-#Game_Data_title {
+.text_kda,
+.Game_Data_title {
   margin-top: 53px;
   font-size: 16px;
 }
 
-#value_kda, 
-#Game_Data_value{
+.value_kda,
+.Game_Data_value {
   /* margin-top: 2px; */
   font-size: 28px;
   margin-bottom: 5px;
 }
 
-#Game_Data_description{
+.Game_Data_description {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.757);
 }
@@ -350,7 +360,7 @@ td {
 #Rectangle4 {
   position: absolute;
   right: 3%;
-  bottom:4%;
+  bottom: 4%;
   width: 31%;
   height: 75%;
   background-color: #ffffff;
@@ -389,6 +399,7 @@ td {
   background-color: #aab300;
   /* 鼠标悬停时的背景颜色 */
 }
+
 .table3 {
   position: absolute;
   top: 5%;
@@ -400,77 +411,87 @@ td {
   flex-direction: column;
   border-collapse: collapse;
   overflow: auto;
-  
+
 }
+
 .row {
   height: 60px;
   display: flex;
-  align-items: center; /* 元素在垂直方向上居中 */
-  justify-content: space-between; /* 元素水平方向上均匀分布 */
+  align-items: center;
+  /* 元素在垂直方向上居中 */
+  justify-content: space-between;
+  /* 元素水平方向上均匀分布 */
   /* border: 1px solid black; */
   /* padding-left: 5%; */
   padding-right: 5%;
   /* background-color: #A6CCEA; */
   margin-bottom: 10px;
 }
+
 .row img {
-  width: 30px; /* 调整图片的宽度 */
-  height: auto; /* 根据宽度调整高度 */
+  width: 30px;
+  /* 调整图片的宽度 */
+  height: auto;
+  /* 根据宽度调整高度 */
 }
+
 .row .result {
   font-size: 18px;
 }
 
-.row .head_photo{
+.row .head_photo {
   width: 50px;
 }
 
-.info{
+.info {
   position: absolute;
   display: inline-block;
   left: 55px;
 }
 
-.info .gametime, .info .type{
+.info .gametime,
+.info .type {
   display: block;
   text-align: left;
 }
 
-.info .type{
+.info .type {
   margin-bottom: 10px;
 }
 
-.kda{
+.kda {
   position: absolute;
-  left:165px;
+  left: 165px;
 }
 
-.kda img, .kda span{
+.kda img,
+.kda span {
   margin-right: 15px;
   display: inline-block;
   /* justify-items: center; */
 }
 
-.kda p{
+.kda p {
   text-align: justify;
 }
 
-.result_win{
+.result_win {
   font-size: 20px;
   font-weight: bolder;
   text-align: justify;
-  text-align:center;
+  text-align: center;
   height: 100%;
   width: 80px;
   background: linear-gradient(to right, #66b0540a, #eff9ea, #d2f8cc);
-  color: #3dbb68;;
+  color: #3dbb68;
+  ;
 }
 
-.result_lose{
+.result_lose {
   font-size: 20px;
   font-weight: bolder;
   text-align: justify;
-  text-align:center;
+  text-align: center;
   height: 100%;
   width: 80px;
   background: linear-gradient(to right, #ead6d605, #faeeee, #fbe4e4);
@@ -479,24 +500,34 @@ td {
 
 
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
 }
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
+  /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%;
+  /* Could be more or less, depending on screen size */
 }
 
 .close {
