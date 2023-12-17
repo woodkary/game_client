@@ -87,7 +87,7 @@ body {
 }
 
 #Rectangle1, #Rectangle2, #Rectangle3, #Rectangle4{
-  background-color: #ffffffad;
+  background-color: #ffffffc6;
 }
 
 #Rectangle1 {
@@ -146,14 +146,92 @@ body {
 #Rectangle2 {
   position: absolute;
   left: 3%;
-  top: 38%;
+  top: 36%;
   width: 55%;
-  height: 25%;
-  /* background-color: #ffffff; */
+  height: 27%;
+  background-color: #ffffffc6;
   border: none;
-  text-align: center;
   padding: 20px;
+}
 
+.container_kda, 
+.container_1v1_win_percentage, 
+.container_1v1_kills, 
+.container_scrimmage_win_percentage,
+.container_scrimmage_kills{
+  width: 175px;
+  height: 175px;
+}
+
+.container_kda{
+  background-image: url("../images/fight_record_1.PNG");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 30px;
+}
+
+.container_1v1_win_percentage, 
+.container_1v1_kills, 
+.container_scrimmage_win_percentage,
+.container_scrimmage_kills{
+  background-image: url("../images/fight_record_3.PNG");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 30px;
+}
+
+.container_kda {
+  left: 0px;
+}
+
+.container_1v1_win_percentage {
+  left: 160px;
+}
+
+.container_1v1_kills{
+  left: 320px;
+}
+
+.container_scrimmage_win_percentage{
+  left: 480px;
+}
+
+.container_scrimmage_kills{
+  left: 640px;
+}
+
+.KDA_Data {
+  color: #d7a455;
+}
+
+.Game_Data{
+  color: #ffffffeb;
+}
+
+.Game_Data, .KDA_Data {
+  text-align: center;
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+}
+
+#text_kda, 
+#Game_Data_title {
+  margin-top: 53px;
+  font-size: 16px;
+}
+
+#value_kda, 
+#Game_Data_value{
+  /* margin-top: 2px; */
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+#Game_Data_description{
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.757);
 }
 
 .all {
@@ -237,7 +315,6 @@ body {
   top: 70%;
   width: 55%;
   height: 20%;
-  background-color: #ffffff;
   border: none;
   text-align: center;
   padding: 20px;
@@ -246,17 +323,17 @@ body {
 
 .Report {
   position: absolute;
-  top: 10%;
-  left: 6%;
+  top: 12%;
+  left: 8%;
   transform: translate(-50%, -50%);
   font-size: 18px;
-  color: black;
+  color: rgb(77, 77, 77);
 }
 
-table {
+.Data_table {
   position: absolute;
-  top: 30%;
-  left: 3%;
+  top: 25%;
+  left: 4%;
   width: 90%;
   border-collapse: collapse;
   table-layout: fixed;
@@ -379,21 +456,26 @@ td {
 }
 
 .result_win{
+  font-size: 20px;
+  font-weight: bolder;
   text-align: justify;
   text-align:center;
   height: 100%;
   width: 80px;
-  background: linear-gradient(to right, #ffffff, #b5ffc6, #83fb9f);
+  background: linear-gradient(to right, #66b0540a, #eff9ea, #d2f8cc);
+  color: #3dbb68;;
 }
 
 .result_lose{
+  font-size: 20px;
+  font-weight: bolder;
   text-align: justify;
   text-align:center;
   height: 100%;
   width: 80px;
-  background: linear-gradient(to right, #ffffff, #ffcab5, #fb8983);;
+  background: linear-gradient(to right, #ead6d605, #faeeee, #fbe4e4);
+  color: #db6b6b;
 }
-
 
 
 .modal {
@@ -434,4 +516,46 @@ td {
 .avatar {
   width: 100px;
   height: 100px;
+}
+
+#help {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px black;
+}
+
+#help .tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: rgb(255, 255, 255);
+  color: #d7a455;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: 150%;
+  left: 50%;
+  margin-left: -74px;
+  padding: 5px;
+  border: 2px solid #d7a455;
+
+  /* 淡入 - 1秒内从 0% 到 100% 显示: */
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+#help .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #d7a455 transparent;
+}
+
+#help:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }
