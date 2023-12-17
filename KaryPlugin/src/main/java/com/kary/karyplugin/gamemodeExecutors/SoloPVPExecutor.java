@@ -26,13 +26,18 @@ import java.util.concurrent.ConcurrentSkipListSet;
 //gamemode==1才符合
 public class SoloPVPExecutor extends BaseExecutor {
     KaryPlugin plugin;
+    //正在单挑的两个玩家
     Map<Player,Player> playersInSoloPVP=new ConcurrentHashMap<>();
+    //所有玩家正在匹配的游戏模式，全局共享
     Map<Player,Integer> playersMatchingGamemode;
     //Object[]数组对应分数int和开始时间long
+    //比赛中的玩家数据记录
     Map<Player,Object[]> playersScoreGainAndMatchStartTime=new ConcurrentHashMap<>();
+    //每个段位正在匹配玩的玩家
     Map<Integer,Player> matchingPlayers=new ConcurrentHashMap<>();
     RecordService recordService;
     Integer gameMode=GameModeUtil.SOLOPVP_MODE;
+    //存储所有的比赛场地
     ConcurrentSkipListSet<double[]> warFieldPosition=new ConcurrentSkipListSet<>((o1, o2) -> {
         if(o1[0]!=o2[0]){
             return (int)(o1[0]-o2[0]);
@@ -48,6 +53,7 @@ public class SoloPVPExecutor extends BaseExecutor {
         Object[] playerArray=playersScoreGainAndMatchStartTime.get(player);
         if(playerArray!=null){
             double[] position=(double[])playerArray[4];
+            //如果这个人还在游戏中，就把他传送回场地
             respawnEvent.setRespawnLocation(new Location(Bukkit.getWorld("world"),position[0],position[1],position[2]));
 
         }
@@ -56,6 +62,7 @@ public class SoloPVPExecutor extends BaseExecutor {
         this.playersMatchingGamemode=playersMatchingGamemode;
         this.recordService=recordService;
         this.plugin=plugin;
+        //共有6个比赛场地
         warFieldPosition.add(new double[]{-17,90,-395});
         warFieldPosition.add(new double[]{125,70,-400});
         warFieldPosition.add(new double[]{-58,126,-32});

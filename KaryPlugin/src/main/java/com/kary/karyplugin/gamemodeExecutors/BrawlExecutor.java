@@ -33,11 +33,15 @@ public class BrawlExecutor extends BaseExecutor {
     public static final Location BRAWL_LOCATION=new Location(Bukkit.getWorld("world"),137,26,-220);
     Integer gameMode= GameModeUtil.BRAWL_MODE;
     KaryPlugin plugin;
+    //每位玩家的记录
     Map<Player, Record> players=new ConcurrentHashMap<>();
     RecordService recordService;
     Map<Player,Integer> playersMatchingGamemode;
+    //正在匹配的玩家
     Map<Integer,Set<Player>> matchingPlayers=new ConcurrentHashMap<>();
+    //每位玩家的游戏时长，一般都是五分钟，除了中途退出
     Map<Player,Long[]> playerDuration=new ConcurrentHashMap<>();
+    //mvPlayer是本局比赛的mvp
     Player mvpPlayer;
     static final int MAX_MATCH_NUM=3;
     //TODO 一场比赛6个人
