@@ -205,12 +205,12 @@ function updateDetailedInfo(gameid) {
         melee.innerHTML = `<p>死斗</p>
         <table id = "meleeTable">
           <tr>
-            <td>用户名</td>
-            <td>击杀数</td>
-            <td>死亡数</td>
-            <td>KDA</td>
-            <td>伤害</td>
-            <td>承伤</td>
+            <th>用户名</th>
+            <th>击杀数</th>
+            <th>死亡数</th>
+            <th>KDA</th>
+            <th>伤害</th>
+            <th>承伤</th>
           </tr>
           </table>`; // Clear the existing list
         const table = document.getElementById("meleeTable");
@@ -231,57 +231,53 @@ function updateDetailedInfo(gameid) {
         }
       } else {
         melee.innerHTML = "";
-        melee.innerHTML = `<div class="Win">
-        <p>胜方</p>
-        <img class="photo" id="win_photo" src="../images/Steve.png">
+        melee.innerHTML = `        <div class="Win">
+        <p>WIN</p>
+        <img class="photo" id="win_photo" src="../images/portrait_2.jpg" style="border: 2px solid blueviolet;">
+        <div class="username" id="win_username" colspan="12"
+          style="text-align: center; position: absolute; top:200px; left: 185px;">小帅</div>
         <table class="Win_table">
           <tr>
-            <td class="username" id="win_username" colspan="12">
-              <div>用户名</div>
-            </td>
+            <th class="kills_word" colspan="2">击杀数<i class="fas fa-star animate-flicker"></i></th>
+            <th class="deaths_word" colspan="2">死亡数<i class="fas fa-skull-crossbones"></i></th>
+            <th class="damage_word" colspan="3">伤害 <i class="fas fa-heartbeat"></i></th>
+            <th class="taken_word" colspan="3">承伤<i class="fas fa-shield-alt"></i></th>
+            <th class="kda_word" colspan="2">KDA<i class="fas fa-chart-line"></i></th>
+
           </tr>
           <tr>
-            <td class="kills_word" colspan="2">击杀数</td>
-            <td class="kills" id="win_kills" colspan="2">用户名</td>
-            <td class="deaths_word" colspan="2">死亡数</td>
-            <td class="deaths" id="win_deaths" colspan="2">用户名</td>
-            <td class="kda_word" colspan="2">KDA</td>
-            <td class="kda" id="win_kda" colspan="2">用户名</td>
-          </tr>
-          <tr>
-            <td class="damage_word" colspan="3">伤害</td>
-            <td class="damage" id="win_damage" colspan="3">用户名</td>
-            <td class="taken_word" colspan="3">承伤</td>
-            <td class="taken" id="win_taken" colspan="3">用户名</td>
+            <td class="kills_value" id="win_kills" colspan="2">用户名</td>
+            <td class="deaths_value" id="win_deaths" colspan="2">用户名</td>
+            <td class="damage_value" id="win_damage" colspan="3">用户名</td>
+            <td class="taken_value" id="win_taken" colspan="3">用户名</td>
+            <td class="kda_value" id="win_kda" colspan="2">用户名</td>
           </tr>
         </table>
       </div>
-    </div>
-    <div class="Lose">
-      <p>败方</p>
-      <img class="photo" id="lose_photo" src="../images/Creepe.jpg">
-      <table class="Lose_table">
-        <tr>
-          <td class="username" id="lose_username" colspan="12">
-            <div>用户名</div>
-          </td>
-        </tr>
-        <tr>
-          <td class="kills_word" colspan="2">击杀数</td>
-          <td class="kills" id="lose_kills" colspan="2">用户名</td>
-          <td class="deaths_word" colspan="2">死亡数</td>
-          <td class="deaths" id="lose_deaths" colspan="2">用户名</td>
-          <td class="kda_word" colspan="2">KDA</td>
-          <td class="kda" id="lose_kda" colspan="2">用户名</td>
-        </tr>
-        <tr>
-          <td class="damage_word" colspan="3">伤害</td>
-          <td class="damage" id="lose_damage" colspan="3">用户名</td>
-          <td class="taken_word" colspan="3">承伤</td>
-          <td class="taken" id="lose_taken" colspan="3">用户名</td>
-        </tr>
-      </table>
-  </div>`
+      <div class="Lose">
+        <p>LOSE</p>
+        <img class="photo" id="lose_photo" src="../images/portrait_3.jpg" style="border: 2px solid blueviolet;">
+        <div class="username" id="lose_username" colspan="12"
+          style="text-align: center; position: absolute; top:200px; left: 185px;">小美</div>
+        <table class="Lose_table">
+          <tr>
+            <th class="kills_word" colspan="2">击杀数<i class="fas fa-star animate-flicker"></i></th>
+            <th class="deaths_word" colspan="2">死亡数<i class="fas fa-skull-crossbones"></i></th>
+            <th class="damage_word" colspan="3">伤害 <i class="fas fa-heartbeat"></i></th>
+            <th class="taken_word" colspan="3">承伤<i class="fas fa-shield-alt"></i></th>
+            <th class="kda_word" colspan="2">KDA<i class="fas fa-chart-line"></i></th>
+
+          </tr>
+          <tr>
+
+            <td class="kills_value" id="lose_kills" colspan="2">用户名</td>
+            <td class="deaths_value" id="lose_deaths" colspan="2">用户名</td>
+            <td class="damage_value" id="lose_damage" colspan="3">用户名</td>
+            <td class="taken_value" id="lose_taken" colspan="3">用户名</td>
+            <td class="kda_value" id="lose_kda" colspan="2">用户名</td>
+          </tr>
+        </table>
+      </div>`
 
         let winner = data.data[0].mvp ? data.data[0] : data.data[1];
         let loser = data.data[0].mvp ? data.data[1] : data.data[0];
