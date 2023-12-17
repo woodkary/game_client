@@ -44,8 +44,9 @@ public class BrawlExecutor extends BaseExecutor {
     //mvPlayer是本局比赛的mvp
     Player mvpPlayer;
     static final int MAX_MATCH_NUM=3;
-    //TODO 一场比赛6个人
-    private static final int KILL_ONE_ADD =10;
+    //TODO 修改：一场比赛6个人
+
+    private static final int KILL_ONE_ADD =10;//这是加分项
     private static final int ASSIST_ONE_ADD =5;
     private static final int SLAIN_ONE_ADD =-4;
     //将死者,助攻者列表
