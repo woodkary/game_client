@@ -148,6 +148,8 @@ function updateDetailedInfo(gameid) {
       const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute < 10 ? '0' + minute : minute}`;
       document.getElementById("date-value").textContent = formattedDate + formattedTime;
 
+      //kda=(kill*1.0+assist*0.7)/(death!=0?death:1)
+      
       const gameMode = data.data[0].type;
       console.log(gameMode);
       if (gameMode === "大乱斗") {
