@@ -1,8 +1,7 @@
-body {
+body{
   margin: 0;
 }
-
-#Background {
+#Background{
   width: 100%;
   height: 100%;
   background-image: url("../images/background.png");
@@ -14,28 +13,26 @@ body {
 
 }
 
-.search-photo {
+.search-photo{
   position: fixed;
   top: 1%;
   left: 89%;
   height: 30px;
 }
-
-.line {
+.line{
   position: fixed;
   top: 1%;
   left: 92%;
   height: 30px;
 }
-
-.head-photo {
+.head-photo{
   position: fixed;
   top: 1%;
   left: 93%;
   height: 30px;
 }
 
-#Rectangle {
+#Rectangle{
   position: absolute;
   left: 5%;
   top: 10%;
@@ -46,68 +43,53 @@ body {
   text-align: center;
   padding: 20px;
 }
-
 .button1 {
   display: inline-block;
   padding: 10px 18px;
-  color: black;
-  /* 按钮的文本颜色 */
+  color:black; /* 按钮的文本颜色 */
   text-decoration: none;
-  border-radius: 4px;
-  /* 按钮的圆角 */
+  border-radius: 4px; /* 按钮的圆角 */
   position: absolute;
   top: 3%;
   left: 75%;
 }
-
 .button1:hover {
-  background-color: #aab300;
-  /* 鼠标悬停时的背景颜色 */
+  background-color: #aab300; /* 鼠标悬停时的背景颜色 */
 }
-
 .button2 {
   display: inline-block;
   padding: 10px 18px;
-  color: black;
-  /* 按钮的文本颜色 */
+  color:black; /* 按钮的文本颜色 */
   text-decoration: none;
-  border-radius: 4px;
-  /* 按钮的圆角 */
+  border-radius: 4px; /* 按钮的圆角 */
   position: absolute;
   top: 3%;
   left: 82%;
 }
-
 .button2:hover {
-  background-color: #aab300;
-  /* 鼠标悬停时的背景颜色 */
+  background-color: #aab300; /* 鼠标悬停时的背景颜色 */
 }
-
 .HorizontalLine {
   position: absolute;
-  top: 8%;
-  /* 这些百分比可以根据您的需要进行调整 */
+  top: 8%;  /* 这些百分比可以根据您的需要进行调整 */
   width: 100%;
   left: 0;
   text-align: center;
 }
-
-.Text {
+.Text{
   position: absolute;
   top: 6%;
   left: 3%;
   font-size: 30px;
 }
-
-#Select {
+#Select{
   position: absolute;
   top: 11%;
   left: 13%;
   width: 80px;
   background-color: #f2f2f2;
 }
-
-#Rectangle1 {
+#Rectangle1{
   position: absolute;
   left: 3%;
   top: 20%;
@@ -119,8 +101,7 @@ body {
   text-align: center;
   padding: 20px;
 }
-
-.record-button {
+.record-button{
   width: 100%;
   height: 11%;
   display: flex;
@@ -134,49 +115,38 @@ body {
   padding-left: 5%;
   padding-right: 5%;
 }
-
 .record-button img {
-  width: 30px;
-  /* 调整图片的宽度 */
-  height: auto;
-  /* 根据宽度调整高度 */
+  width: 30px; /* 调整图片的宽度 */
+  height: auto; /* 根据宽度调整高度 */
 }
-
 .record-button .result {
   font-size: 18px;
 }
-
-.record-button .type {
+.record-button .type{
   font-size: 14px;
 }
-
-.record-button .kills {
+.record-button .kills{
   font-size: 16px;
 }
-
-.record-button .deaths {
+.record-button .deaths{
   font-size: 16px;
 }
-
-.record-button .gametime {
+.record-button .gametime{
   font-size: 16px;
 }
-
-.pagination {
+.pagination{
   display: flex;
   justify-content: center;
   position: absolute;
   left: 10%;
   top: 95%;
 }
-
-#left {
+#left{
   background-color: #f2f2f2;
   border: none;
   cursor: pointer;
 }
-
-#right {
+#right{
   background-color: #f2f2f2;
   border: none;
   cursor: pointer;
