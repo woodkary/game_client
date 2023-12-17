@@ -231,10 +231,8 @@ color: black;
   border-left: 1px solid black;
   font-size: 12px;
 }
-.Win .Win_table tr:nth-child(1) td:nth-child(1), tr:nth-child(1) td:nth-child(2)
+.Win .Win_table tr:nth-child(1) td:nth-child(1)
 {
-  border-right: none;
-  border-left: none;
   font-size: 20px;
 }
 .Win .Win_table tr:nth-child(2) td:nth-child(1),
@@ -305,10 +303,8 @@ padding: 20px;
   border-left: 1px solid black;
   font-size: 12px;
 }
-.Lose .Lose_table tr:nth-child(1) td:nth-child(1), tr:nth-child(1) td:nth-child(2)
+.Lose .Lose_table tr:nth-child(1) td:nth-child(1)
 {
-  border-right: none;
-  border-left: none;
   font-size: 20px;
 }
 .Lose .Lose_table tr:nth-child(2) td:nth-child(1),
