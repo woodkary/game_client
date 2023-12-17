@@ -7,6 +7,7 @@ import com.kary.karyplugin.utils.CommandUtil;
 import com.kary.karyplugin.utils.GameModeUtil;
 import com.kary.karyplugin.utils.LevelUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
@@ -16,6 +17,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
@@ -27,6 +29,8 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author:123
  */
 public class BrawlExecutor extends BaseExecutor {
+    //比赛现场地只有一个
+    public static final Location BRAWL_LOCATION=new Location(Bukkit.getWorld("world"),137,26,-220);
     Integer gameMode= GameModeUtil.BRAWL_MODE;
     KaryPlugin plugin;
     Map<Player, Record> players=new ConcurrentHashMap<>();
@@ -51,6 +55,13 @@ public class BrawlExecutor extends BaseExecutor {
             matchingPlayer.remove(player);
             return matchingPlayer;
         });
+    }
+    @EventHandler(priority = EventPriority.HIGH)
+    public void respawn(PlayerRespawnEvent event){
+        Player player=event.getPlayer();
+        if(players.containsKey(player)){
+            event.setRespawnLocation(BRAWL_LOCATION);
+        }
     }
 
     //此类用于记录助攻者和助攻时间，用player比较是否相等，以及用加入时间比较大小
@@ -230,6 +241,7 @@ public class BrawlExecutor extends BaseExecutor {
                             times[1] = Long.MAX_VALUE;
                             playerDuration.put(player, times);
                             playersMatchingGamemode.remove(player);
+                            player.teleport(BRAWL_LOCATION);
                             player.sendRawMessage("和您在同一局的对手为" + message + "对局开始");
                         }
                         // 安排任务在主线程中每20个游戏刻执行一次（1秒 = 20游戏刻）

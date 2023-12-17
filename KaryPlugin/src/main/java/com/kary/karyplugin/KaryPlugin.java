@@ -6,6 +6,7 @@ import com.kary.karyplugin.gamemodeExecutors.QuitMatchingExecutor;
 import com.kary.karyplugin.gamemodeExecutors.SoloPVPExecutor;
 import com.kary.karyplugin.service.impl.RecordServiceImpl;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class KaryPlugin extends JavaPlugin {
     private static Map<Player,Integer> playersMatchingGamemode=new ConcurrentHashMap<>();
     private static  RecordServiceImpl recordService=new RecordServiceImpl();
+    public static final Location WORLD_SPAWN_POINT=new Location(Bukkit.getWorld("world"),223,4,-345);
     //更新数据库操作
     public static synchronized void updateDatabase(Integer maxGameId,
                                              Long duration,
@@ -52,7 +54,7 @@ public class KaryPlugin extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         Bukkit.getServer().setIdleTimeout(3000);
-        SoloPVPExecutor soloPVPExecutor=new SoloPVPExecutor(playersMatchingGamemode,recordService);
+        SoloPVPExecutor soloPVPExecutor=new SoloPVPExecutor(this,playersMatchingGamemode,recordService);
         BrawlExecutor brawlExecutor=new BrawlExecutor(recordService,playersMatchingGamemode,this);
         Bukkit.getPluginManager().registerEvents(soloPVPExecutor, this);
         Bukkit.getPluginManager().registerEvents(brawlExecutor,this);

@@ -1,5 +1,6 @@
 package com.kary.karyplugin.gamemodeExecutors;
 
+import com.kary.karyplugin.KaryPlugin;
 import com.kary.karyplugin.mapProcessors.MatchingPlayersMapProcessor;
 import com.kary.karyplugin.service.impl.RecordServiceImpl;
 import com.kary.karyplugin.utils.LevelUtil;
@@ -8,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -28,6 +30,13 @@ import static org.mockito.Mockito.*;
  */
 public class SoloPVPExecutorTest {
     private int maxGameid=2;
+    private KaryPlugin plugin;
+    @Before
+    public void before(){
+        plugin=mock(KaryPlugin.class);
+        doNothing().when(plugin).onDisable();
+        doNothing().when(plugin).onEnable();
+    }
     //测试玩家在匹配中退出游戏
     @Test
     public void soloPVPQuitTest_NotInMatch() throws NoSuchFieldException, IllegalAccessException {
@@ -39,7 +48,7 @@ public class SoloPVPExecutorTest {
         RecordServiceImpl recordService = mock(RecordServiceImpl.class);
         when(recordService.getMaxGameId()).thenReturn(maxGameid);
         maxGameid+=1;
-        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
+        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(plugin,playersMatchingGamemode, recordService);
 
         //执行操作
         soloPVPExecutor.playerQuit(event);
@@ -78,7 +87,7 @@ public class SoloPVPExecutorTest {
         RecordServiceImpl recordService = mock(RecordServiceImpl.class);
         when(recordService.getMaxGameId()).thenReturn(maxGameid);
         maxGameid+=1;
-        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
+        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(plugin,playersMatchingGamemode, recordService);
 
         // 获取playersInSoloPVP并添加模拟玩家
         Field privateField = SoloPVPExecutor.class.getDeclaredField("playersInSoloPVP");
@@ -132,7 +141,7 @@ public class SoloPVPExecutorTest {
         RecordServiceImpl recordService = mock(RecordServiceImpl.class);
         when(recordService.getMaxGameId()).thenReturn(maxGameid);
         maxGameid+=1;
-        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
+        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(plugin, playersMatchingGamemode,recordService);
 
 
         soloPVPExecutor.oneMatchOver(event);
@@ -152,7 +161,7 @@ public class SoloPVPExecutorTest {
         RecordServiceImpl recordService = mock(RecordServiceImpl.class);
         when(recordService.getMaxGameId()).thenReturn(maxGameid);
         maxGameid+=1;
-        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
+        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(plugin,playersMatchingGamemode, recordService);
 
         Field privateField = SoloPVPExecutor.class.getDeclaredField("playersScoreGainAndMatchStartTime");
         privateField.setAccessible(true);
@@ -205,7 +214,7 @@ public class SoloPVPExecutorTest {
         RecordServiceImpl recordService = mock(RecordServiceImpl.class);
         when(recordService.getMaxGameId()).thenReturn(maxGameid);
         maxGameid+=1;
-        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
+        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(plugin,playersMatchingGamemode, recordService);
 
         Field privateField = SoloPVPExecutor.class.getDeclaredField("playersScoreGainAndMatchStartTime");
         privateField.setAccessible(true);
@@ -262,7 +271,7 @@ public class SoloPVPExecutorTest {
         RecordServiceImpl recordService = mock(RecordServiceImpl.class);
         when(recordService.getMaxGameId()).thenReturn(maxGameid);
         maxGameid+=1;
-        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
+        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(plugin,playersMatchingGamemode, recordService);
 
         Map<Player, Player> playersInSoloPVP = spy(soloPVPExecutor.playersInSoloPVP);
         playersInSoloPVP.put(damagee,damager);
@@ -295,7 +304,7 @@ public class SoloPVPExecutorTest {
         RecordServiceImpl recordService = mock(RecordServiceImpl.class);
         when(recordService.getMaxGameId()).thenReturn(maxGameid);
         maxGameid+=1;
-        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
+        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(plugin,playersMatchingGamemode, recordService);
 
         Player player=mock(Player.class);
         when(player.getName()).thenReturn("commandSender");//准备玩家
@@ -318,7 +327,7 @@ public class SoloPVPExecutorTest {
         RecordServiceImpl recordService = mock(RecordServiceImpl.class);
         when(recordService.getMaxGameId()).thenReturn(maxGameid);
         maxGameid+=1;
-        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
+        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(plugin,playersMatchingGamemode, recordService);
 
         Player player=mock(Player.class);
         when(player.getName()).thenReturn("commandSender");//准备玩家
@@ -344,7 +353,7 @@ public class SoloPVPExecutorTest {
         //假设游戏id是maxGameid
         when(recordService.getMaxGameId()).thenReturn(maxGameid);
         maxGameid+=1;
-        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(playersMatchingGamemode, recordService);
+        SoloPVPExecutor soloPVPExecutor = new SoloPVPExecutor(plugin,playersMatchingGamemode, recordService);
 
         Player player=mock(Player.class);
         when(player.getName()).thenReturn("commandSender");//准备玩家
