@@ -96,7 +96,7 @@ function getRanksInfo(pageNum) {
           <span class="deaths">${record.deaths}</span>
           <span class="gametime">${formattedDate}</span>
         </div>`
-        ;
+          ;
         li.className = "record-button";
         let gameId = record.gameId;
         console.log(gameId);
@@ -149,7 +149,7 @@ function updateDetailedInfo(gameid) {
       document.getElementById("date-value").textContent = formattedDate + formattedTime;
 
       //kda=(kill*1.0+assist*0.7)/(death!=0?death:1)
-      
+
       const gameMode = data.data[0].type;
       console.log(gameMode);
       if (gameMode === "大乱斗") {
@@ -169,22 +169,58 @@ function updateDetailedInfo(gameid) {
         }
       }
 
-      for (let i = 0; i < data.data.length; i++) {
-        const record = data.data[i];
-        console.log(record);
-        console.log(record.textContent);
-        const li = document.createElement("li");
-        if (gameMode === "大乱斗") {
-          const melee = document.getElementById("melee");
+      if (gameMode === "大乱斗") {
+        for (let i = 0; i < data.data.length; i++) {
+          const record = data.data[i];
+          console.log(record);
+          console.log(record.textContent);
+          const li = document.createElement("li");
+          const melee = document.getElementById("");
           li.innerHTML = `
 
 
           `;
           melee.appendChild(li);
-        } else {
-
-          //直接填数据上去
         }
+      } else {
+        let winner = data.data[0].mvp ? data.data[0] : data.data[1];
+        let loser = data.data[0].mvp ? data.data[1] : data.data[0];
+        console.log(winner);
+        // Get the elements
+        const winUsername = document.getElementById('win_username');
+        const winKills = document.getElementById('win_kills');
+        const winDeaths = document.getElementById('win_deaths');
+        const winKda = document.getElementById('win_kda');
+        const winDamage = document.getElementById('win_damage');
+        const winTaken = document.getElementById('win_taken');
+        const winPhoto = document.getElementById('win_photo');
+
+        // Update the text content
+        winUsername.textContent = winner.username;
+        winKills.textContent = winner.kills;
+        winDeaths.textContent = winner.deaths;
+        winKda.textContent = winner.kda;
+        winDamage.textContent = Math.floor(winner.takeDamage);
+        winTaken.textContent = Math.floor(winner.takenDamage);
+        winPhoto.src ="../images/portrait_"+winner.portrait+'.jpg';
+
+        // Get the elements for the losing side
+        const loseUsername = document.getElementById('lose_username');
+        const loseKills = document.getElementById('lose_kills');
+        const loseDeaths = document.getElementById('lose_deaths');
+        const loseKda = document.getElementById('lose_kda');
+        const loseDamage = document.getElementById('lose_damage');
+        const loseTaken = document.getElementById('lose_taken');
+        const losePhoto = document.getElementById('lose_photo');
+
+        // Update the text content for the losing side
+        loseUsername.textContent = loser.username;
+        loseKills.textContent = loser.kills;
+        loseDeaths.textContent = loser.deaths;
+        loseKda.textContent = loser.kda;
+        loseDamage.textContent = Math.floor(loser.takeDamage);
+        loseTaken.textContent = Math.floor(loser.takenDamage);
+        //直接填数据上去
       }
     })
     .catch(error => {
