@@ -52,8 +52,8 @@ function handleDataPersonal(type) {
                 setInputDataPersonalBrawl(data);
                 brawlRank = data.score;
             }
-            //let portrait = document.getElementById("portrait");
-            //portrait.src = "../images/portrait_" + data.portrait + ".jpg";
+            let portrait = document.getElementById("portrait");
+            portrait.src = "../images/portrait_" + data.portrait + ".jpg";
             handleRankScore();
         } else {
             console.log(jsonResult.message);
@@ -333,7 +333,6 @@ function selectAvatar(portrait) {
     var portraitElement = document.getElementById("portrait");
     console.log('Portrait element:', portraitElement); // 输出portrait元素
     portraitElement.src = '../images/portrait_' + portrait + '.jpg';
-
     // Close the modal
     fetch('http://localhost:8080/ranks/portrait', {
         method: 'POST',
