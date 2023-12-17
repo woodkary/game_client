@@ -31,7 +31,7 @@ public class QuitMatchingExecutor implements CommandExecutor, Listener {
         Integer gamemode=playersMatchingGamemode.remove(commandSender);
         if(gamemode!=null){
             Player player=((Player) commandSender);
-            //通知所有的监听器取消掉该玩家
+            //有人退出匹配，通知所有的监听器取消掉该玩家
             for (BaseExecutor executor : executors) {
                 executor.playerQuitMatching(player);
             }

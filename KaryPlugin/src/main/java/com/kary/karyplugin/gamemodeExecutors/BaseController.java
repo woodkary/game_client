@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 /**
  * @author:123
  */
+//检验有无注册，以及发出选择游戏模式的提示
 public class BaseController implements Listener {
     RecordService recordService;
 
