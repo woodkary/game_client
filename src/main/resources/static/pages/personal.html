@@ -45,47 +45,48 @@
         <div id="Rectangle1">
             <img class="Head0" style="border-color: darkmagenta;border-style: solid;" alt="Head0" id="portrait">
             <div class="ID" id="ID">Cool Boy</div>
-            <img id="rankPhoto1" src="../images/wImage@1x.png">
+            <!-- <img id="rankPhoto1" src="../images/wImage@1x.png">
             <img id="rankPhoto2" src="../images/wImage@1x.png">
-            <img id="rankPhoto3" src="../images/wImage@1x.png">
+            <img id="rankPhoto3" src="../images/wImage@1x.png"> -->
             <div class="Rank" id="rank">Rank Points: 2345</div>
         </div>
+        
         <div id="Rectangle2">
-            <div class="all">全部场次</div>
-            <div class="month">本月</div>
-            <table class="table1">
-                <tr>
-                    <td>KDA</td>
-                    <td id="kdaAll"></td>
-                    <td>胜率</td>
-                    <td id="winRateAll"></td>
-                </tr>
-                <tr>
-                    <td>总击杀</td>
-                    <td id="totalKillsAll"></td>
-                    <td>场次</td>
-                    <td id="gameNumsAll"></td>
-                </tr>
-            </table>
-            <div class="vertical-line"></div>
-            <table class="table2">
-                <tr>
-                    <td>KDA</td>
-                    <td id="kdaMonth"></td>
-                    <td>胜率</td>
-                    <td id="winRateMonth"></td>
-                </tr>
-                <tr>
-                    <td>总击杀</td>
-                    <td id="totalKillsMonth"></td>
-                    <td>场次</td>
-                    <td id="gameNumsMonth"></td>
-                </tr>
-            </table>
+            <div class="Data_browser"
+            style="position: absolute; top: 6%; left: 3%; color: rgb(77, 77, 77); font-size: 18px;font-weight: 600;">
+            数据总览：</div>
+            <div class="container_kda">
+                <div class="KDA_Data" id="text_kda">KDA</div>
+                <div class="KDA_Data" id="value_kda">0.0</div>
+                <div class="fas fa-question-circle" id="help" style="color: #d7a455;">
+                    <span class="tooltiptext">KDA=Kills/Dead</span>
+                </div>
+            </div>
+            <div class="container_1v1_win_percentage">
+                <div class="Game_Data" id="Game_Data_title">1 V 1</div>
+                <div class="Game_Data" id="Game_Data_value">63%</div>
+                <div class="Game_Data" id="Game_Data_description">35场</div>
+            </div>
+            <div class="container_1v1_kills">
+                <div class="Game_Data" id="Game_Data_title">1 V 1</div>
+                <div class="Game_Data" id="Game_Data_value">362</div>
+                <div class="Game_Data" id="Game_Data_description">Kills</div>
+            </div>
+            <div class="container_scrimmage_win_percentage">
+                <div class="Game_Data" id="Game_Data_title">大乱斗</div>
+                <div class="Game_Data" id="Game_Data_value">75%</div>
+                <div class="Game_Data" id="Game_Data_description">20场</div>
+            </div>
+            <div class="container_scrimmage_kills">
+                <div class="Game_Data" id="Game_Data_title">大乱斗</div>
+                <div class="Game_Data" id="Game_Data_value">657</div>
+                <div class="Game_Data" id="Game_Data_description">Kills</div>
+            </div>
         </div>
+
         <div id="Rectangle3">
-            <div class="Report">个人战报</div>
-            <table>
+            <div class="Report">表格展示：</div>
+            <table class="Data_table">
                 <tr>
                     <th>类型</th>
                     <th>总场次</th>
@@ -135,10 +136,10 @@
             <div class="table3" id="recordTable">
                 <div class="row">
                     <img class="head_photo" src="../images/portrait_0.jpg" />
-                    <span class="info">
+                    <sapn class="info">
                         <span class="type">1 VS 1</span>
                         <span class="gametime">2023-10-31</span>
-                    </span>
+                    </sapn>
                     <span class="kda">
                         <img class="kill" src="../images/strength.png">
                         <span class="kills">
@@ -149,7 +150,7 @@
                             <p>0</p>
                         </span>
                     </span>
-                    <span class="result_win">
+                    <span class="result_lose">
                         <p>失败</p>
                     </span>
 
