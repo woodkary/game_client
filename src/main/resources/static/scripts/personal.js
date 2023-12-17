@@ -327,19 +327,20 @@ window.onclick = function (event) {
 }
 
 // Function to select an avatar
-function selectAvatar(path) {
-    console.log('Path:', path); // 输出path的值
+function selectAvatar(portrait) {
+    console.log('Path:', portrait); // 输出path的值
     // Set the new avatar
     var portraitElement = document.getElementById("portrait");
     console.log('Portrait element:', portraitElement); // 输出portrait元素
-    portraitElement.src = '../images/portrait_' + path + '.jpg';
+    portraitElement.src = '../images/portrait_' + portrait + '.jpg';
+
     // Close the modal
     fetch('http://localhost:8080/ranks/portrait', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, path }),
+        body: JSON.stringify({ username, portrait }),
     })
         .then(response => response.json())
         .then(data => console.log(data))
