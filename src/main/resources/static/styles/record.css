@@ -369,62 +369,84 @@ body {
   height: 25%;
 }
 
-.Win .Win_table {
+
+/* 全局表格样式 */
+.Win_table {
   position: absolute;
   top: 50%;
-  left: 10%;
-  width: 80%;
+  left: 25px;
+  width: 350px;
   height: 40%;
-  border: 1px solid black;
-  border-collapse: collapse;
-  /* 合并相邻的边框 */
+  border-collapse: collapse; /* 折叠边框 */
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
 }
 
-.Win .Win_table td {
-  color: black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-  font-size: 12px;
+/* 表头样式 */
+.Win_table th {
+  background-color: #009879;
+  color: white;
+  height: 60px;
+  font-size: 16px;
 }
 
-.Win .Win_table tr:nth-child(1) td:nth-child(1) {
-  font-size: 20px;
+/* 图标的动画和样式 */
+.Win_table .animate-flicker {
+  animation: flickerAnimation 1s infinite;
 }
 
-.Win .Win_table tr:nth-child(2) td:nth-child(1),
-tr:nth-child(2) td:nth-child(2) {
-  border-right: none;
-  border-left: none;
+/* 表格单元格样式 */
+.Win_table td {
+  background-color: #f2f2f200;
+  color: #333;
+  padding: 8px;
 }
 
-.Win .Win_table tr:nth-child(2) td:nth-child(3) {
-  border-right: none;
+/* KDA, 死亡数和击杀数单元格特殊样式 */
+.deaths_value, .kills_value, .kda_value, .damage_value, .taken_value {
+  font-weight: bold;
 }
 
-.Win .Win_table tr:nth-child(2) td:nth-child(4) {
-  border-left: none;
+/* 悬停效果 */
+.Win_table tr:hover {
+  background-color: #ddd;
 }
 
-.Win .Win_table tr:nth-child(2) td:nth-child(5) {
-  border-right: none;
+/* 表格动画效果 */
+@keyframes tableAnimation {
+  0%   { opacity: 0; transform: translateY(-50px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-.Win .Win_table tr:nth-child(2) td:nth-child(6) {
-  border-left: none;
+/* 应用动画效果 */
+.Win_table {
+  animation: tableAnimation 1s;
 }
 
-.Win .Win_table tr:nth-child(3) td:nth-child(1),
-tr:nth-child(3) td:nth-child(2) {
-  border-right: none;
-  border-left: none;
+/* 表格数据行进入动画效果 */
+@keyframes rowEnterAnimation {
+  0%   { opacity: 0; transform: translateX(-50px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 
-.Win .Win_table tr:nth-child(3) td:nth-child(3) {
-  border-right: none;
+/* 应用动画效果 */
+.Win_table tr {
+  animation: rowEnterAnimation 0.5s forwards;
+}
+@keyframes flickerAnimation {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
-.Win .Win_table tr:nth-child(3) td:nth-child(4) {
-  border-left: none;
+
+.Win_table th i.animate-flicker,
+.Win_table th i.fa-skull-crossbones,
+.Win_table th i.fa-heartbeat,
+.Win_table th i.fa-shield-alt,
+.Win_table th i.fa-chart-line {
+  animation: flickerAnimation 1s infinite;
 }
 
 .Lose {
@@ -455,60 +477,82 @@ tr:nth-child(3) td:nth-child(2) {
   height: 25%;
 }
 
-.Lose .Lose_table {
+/* 全局表格样式 */
+.Lose_table {
   position: absolute;
   top: 50%;
-  left: 10%;
-  width: 80%;
+  left: 25px;
+  width: 350px;
   height: 40%;
-  border: 1px solid black;
-  border-collapse: collapse;
-  /* 合并相邻的边框 */
+  border-collapse: collapse; /* 折叠边框 */
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
 }
 
-.Lose .Lose_table td {
-  color: black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-  font-size: 12px;
+/* 表头样式 */
+.Lose_table th {
+  background-color: #980300;
+  color: white;
+  height: 60px;
+  font-size: 16px;
 }
 
-.Lose .Lose_table tr:nth-child(1) td:nth-child(1) {
-  font-size: 20px;
+/* 图标的动画和样式 */
+.Lose_table .animate-flicker {
+  animation: flickerAnimation 1s infinite;
 }
 
-.Lose .Lose_table tr:nth-child(2) td:nth-child(1),
-tr:nth-child(2) td:nth-child(2) {
-  border-right: none;
-  border-left: none;
+/* 表格单元格样式 */
+.Lose_table td {
+  background-color: #f2f2f200;
+  color: #333;
+  padding: 8px;
 }
 
-.Lose .Lose_table tr:nth-child(2) td:nth-child(3) {
-  border-right: none;
+/* KDA, 死亡数和击杀数单元格特殊样式 */
+.deaths_value, .kills_value, .kda_value, .damage_value, .taken_value {
+  font-weight: bold;
 }
 
-.Lose .Lose_table tr:nth-child(2) td:nth-child(4) {
-  border-left: none;
+
+/* 悬停效果 */
+.Lose_table tr:hover {
+  background-color: #ddd;
 }
 
-.Lose .Lose_table tr:nth-child(2) td:nth-child(5) {
-  border-right: none;
+/* 表格动画效果 */
+@keyframes tableAnimation {
+  0%   { opacity: 0; transform: translateY(-50px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-.Lose .Lose_table tr:nth-child(2) td:nth-child(6) {
-  border-left: none;
+/* 应用动画效果 */
+.Lose_table {
+  animation: tableAnimation 1s;
 }
 
-.Lose .Lose_table tr:nth-child(3) td:nth-child(1),
-tr:nth-child(3) td:nth-child(2) {
-  border-right: none;
-  border-left: none;
+/* 表格数据行进入动画效果 */
+@keyframes rowEnterAnimation {
+  0%   { opacity: 0; transform: translateX(-50px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 
-.Lose .Lose_table tr:nth-child(3) td:nth-child(3) {
-  border-right: none;
+/* 应用动画效果 */
+.Lose_table tr {
+  animation: rowEnterAnimation 0.5s forwards;
+}
+@keyframes flickerAnimation {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
-.Lose .Lose_table tr:nth-child(3) td:nth-child(4) {
-  border-left: none;
+
+.Lose_table th i.animate-flicker,
+.Lose_table th i.fa-skull-crossbones,
+.Lose_table th i.fa-heartbeat,
+.Lose_table th i.fa-shield-alt,
+.Lose_table th i.fa-chart-line {
+  animation: flickerAnimation 1s infinite;
 }
