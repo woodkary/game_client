@@ -196,8 +196,8 @@ padding: 20px;
 position: absolute;
 left: 5%;
 top: 15%;
-width: 80%;  
-height: 30%;  
+width: 40%;
+height: 70%;
 background: linear-gradient(to bottom, rgba(84, 173, 161, 0.5), white);
 border: none;  
 text-align: center;  
@@ -205,46 +205,137 @@ padding: 20px;
 }
 .Win p{
 position: absolute;
-top: -8%;
-left: 2%;
-font-size: 30px;
+top: -3%;
+left: 5%;
+font-size: 40px;
 }
-.Win table{
+.Win .photo{
+  position: absolute;
+  top: 15%;
+  left: 35%;
+  width: 30%;
+  height: 25%;
+}
+.Win .Win_table{
 position: absolute;
-top: 23%;
-left: 2%;
-width: 90%;
+top: 50%;
+left: 10%;
+width: 80%;
+  height: 40%;
 border: 1px solid black;
-border-collapse: collapse;  /* 合并相邻的边框 */ 
+border-collapse: collapse;  /* 合并相邻的边框 */
 }
-.Win  table td{
+.Win .Win_table td{
 color: black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  font-size: 12px;
 }
+.Win .Win_table tr:nth-child(1) td:nth-child(1), tr:nth-child(1) td:nth-child(2)
+{
+  border-right: none;
+  border-left: none;
+  font-size: 20px;
+}
+.Win .Win_table tr:nth-child(2) td:nth-child(1),
+tr:nth-child(2) td:nth-child(2) {
+  border-right: none;
+  border-left: none;
+}
+.Win .Win_table tr:nth-child(2) td:nth-child(3){
+  border-right: none;
+}
+.Win .Win_table tr:nth-child(2) td:nth-child(4){
+  border-left: none;
+}
+.Win .Win_table tr:nth-child(2) td:nth-child(5){
+  border-right: none;
+}
+.Win .Win_table tr:nth-child(2) td:nth-child(6){
+  border-left: none;
+}
+.Win .Win_table tr:nth-child(3) td:nth-child(1),
+tr:nth-child(3) td:nth-child(2) {
+  border-right: none;
+  border-left: none;
+}
+.Win .Win_table tr:nth-child(3) td:nth-child(3){
+  border-right: none;
+}
+.Win .Win_table tr:nth-child(3) td:nth-child(4){
+  border-left: none;
+}
+
 .Lose{
 position: absolute;
-left: 5%;
-top: 55%;
-width: 80%;  
-height: 30%;  
+left: 50%;
+top: 15%;
+width: 40%;
+height: 70%;
 background: linear-gradient(to bottom, rgba(211, 92, 92, 0.5), white);
 border: none;  
 text-align: center;  
 padding: 20px; 
 }
 .Lose p{
-position: absolute;
-top: -8%;
-left: 2%;
-font-size: 30px;
+  position: absolute;
+  top: -3%;
+  left: 5%;
+  font-size: 40px;
 }
-.Lose table{
-position: absolute;
-top: 23%;
-left: 2%;
-width: 90%;
-border: 1px solid black;
-border-collapse: collapse;  /* 合并相邻的边框 */ 
+.Lose .photo{
+  position: absolute;
+  top: 15%;
+  left: 35%;
+  width: 30%;
+  height: 25%;
 }
-.Lose  table td{
-color: black;
+.Lose .Lose_table{
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  width: 80%;
+  height: 40%;
+  border: 1px solid black;
+  border-collapse: collapse;  /* 合并相邻的边框 */
+}
+.Lose .Lose_table td{
+  color: black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  font-size: 12px;
+}
+.Lose .Lose_table tr:nth-child(1) td:nth-child(1), tr:nth-child(1) td:nth-child(2)
+{
+  border-right: none;
+  border-left: none;
+  font-size: 20px;
+}
+.Lose .Lose_table tr:nth-child(2) td:nth-child(1),
+tr:nth-child(2) td:nth-child(2) {
+  border-right: none;
+  border-left: none;
+}
+.Lose .Lose_table tr:nth-child(2) td:nth-child(3){
+  border-right: none;
+}
+.Lose .Lose_table tr:nth-child(2) td:nth-child(4){
+  border-left: none;
+}
+.Lose .Lose_table tr:nth-child(2) td:nth-child(5){
+  border-right: none;
+}
+.Lose .Lose_table tr:nth-child(2) td:nth-child(6){
+  border-left: none;
+}
+.Lose .Lose_table tr:nth-child(3) td:nth-child(1),
+tr:nth-child(3) td:nth-child(2) {
+  border-right: none;
+  border-left: none;
+}
+.Lose .Lose_table tr:nth-child(3) td:nth-child(3){
+  border-right: none;
+}
+.Lose .Lose_table tr:nth-child(3) td:nth-child(4){
+  border-left: none;
 }
