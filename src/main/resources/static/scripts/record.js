@@ -1,10 +1,26 @@
 let username = "";
 let currentPage = 1; // 当前页数  
 let totalPages = 8; // 总页数，根据实际情况进行调整  
+let initGameMode;
 
 preLoad();
 window.onload = function () {
   initPageNum();
+  let cssFiles = document.querySelectorAll('link[rel="stylesheet"]');
+  let link = cssFiles[0];
+  if (gameMode === "大乱斗") {
+    if (link) {
+      console.log(link);
+      link.href = "../styles/record2.css";
+      console.log(link);
+    }
+  } else {
+    if (link) {
+      console.log(link);
+      link.href = "../styles/record.css";
+      console.log(link);
+    }
+  }
 }
 
 function preLoad() {
@@ -152,8 +168,10 @@ function updateDetailedInfo(gameid) {
 
       const gameMode = data.data[0].type;
       console.log(gameMode);
+      initGameMode = gameMode;
+      let cssFiles = document.querySelectorAll('link[rel="stylesheet"]');
+      let link = cssFiles[0];
       if (gameMode === "大乱斗") {
-        const link = document.querySelector('link[href="../styles/record.css"]');
         console.log(link);
         if (link) {
           console.log(link);
@@ -169,20 +187,91 @@ function updateDetailedInfo(gameid) {
         }
       }
 
+      let melee = document.getElementById("melee1");
+
       if (gameMode === "大乱斗") {
+        melee.className = 'melee';
+        melee.innerHTML = `       <p>死斗</p>
+        <table id = "meleeTable">
+          <tr>
+            <td>用户名</td>
+            <td>击杀数</td>
+            <td>死亡数</td>
+            <td>KDA</td>
+            <td>伤害</td>
+            <td>承伤</td>
+          </tr>
+
+          </table>`; // Clear the existing list
+        const table = document.getElementById("meleeTable");
         for (let i = 0; i < data.data.length; i++) {
           const record = data.data[i];
           console.log(record);
           console.log(record.textContent);
-          const li = document.createElement("li");
-          const melee = document.getElementById("");
-          li.innerHTML = `
-
-
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+          <td>${record.username}</td>
+          <td>${record.kills}</td>
+          <td>${record.deaths}</td>
+          <td>${record.kda}</td>
+          <td>${record.takeDamage}</td>
+          <td>${record.takenDamage}</td>
           `;
-          melee.appendChild(li);
+          table.appendChild(tr);
         }
       } else {
+        melee.innerHTML = `<div class="Win">
+        <p>胜方</p>
+        <img class="photo" id="win_photo" src="../images/portrait_1.jpg">
+        <table class="Win_table">
+          <tr>
+            <td class="username" id="win_username" colspan="12">
+              <div>用户名</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="kills_word" colspan="2">击杀数</td>
+            <td class="kills" id="win_kills" colspan="2">用户名</td>
+            <td class="deaths_word" colspan="2">死亡数</td>
+            <td class="deaths" id="win_deaths" colspan="2">用户名</td>
+            <td class="kda_word" colspan="2">KDA</td>
+            <td class="kda" id="win_kda" colspan="2">用户名</td>
+          </tr>
+          <tr>
+            <td class="damage_word" colspan="3">伤害</td>
+            <td class="damage" id="win_damage" colspan="3">用户名</td>
+            <td class="taken_word" colspan="3">承伤</td>
+            <td class="taken" id="win_taken" colspan="3">用户名</td>
+          </tr>
+        </table>
+      </div>
+      <div class="Lose">
+        <p>败方</p>
+        <img class="photo" id="lose_photo" src="../images/portrait_1.jpg">
+        <table class="Lose_table">
+          <tr>
+            <td class="username" id="lose_username" colspan="12">
+              <div>用户名</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="kills_word" colspan="2">击杀数</td>
+            <td class="kills" id="lose_kills" colspan="2">用户名</td>
+            <td class="deaths_word" colspan="2">死亡数</td>
+            <td class="deaths" id="lose_deaths" colspan="2">用户名</td>
+            <td class="kda_word" colspan="2">KDA</td>
+            <td class="kda" id="lose_kda" colspan="2">用户名</td>
+          </tr>
+          <tr>
+            <td class="damage_word" colspan="3">伤害</td>
+            <td class="damage" id="lose_damage" colspan="3">用户名</td>
+            <td class="taken_word" colspan="3">承伤</td>
+            <td class="taken" id="lose_taken" colspan="3">用户名</td>
+          </tr>
+        </table>
+      </div>
+    </div>`
+
         let winner = data.data[0].mvp ? data.data[0] : data.data[1];
         let loser = data.data[0].mvp ? data.data[1] : data.data[0];
         console.log(winner);
@@ -196,14 +285,14 @@ function updateDetailedInfo(gameid) {
         const winPhoto = document.getElementById('win_photo');
 
         // Update the text content
-        
+
         winUsername.textContent = winner.username;
         winKills.textContent = winner.kills;
         winDeaths.textContent = winner.deaths;
         winKda.textContent = winner.kda;
         winDamage.textContent = Math.floor(winner.takeDamage);
         winTaken.textContent = Math.floor(winner.takenDamage);
-        winPhoto.src ="../images/portrait_"+winner.portrait+'.png';
+        winPhoto.src = "../images/portrait_" + winner.portrait + '.png';
 
         // Get the elements for the losing side
         const loseUsername = document.getElementById('lose_username');
@@ -221,13 +310,14 @@ function updateDetailedInfo(gameid) {
         loseKda.textContent = loser.kda;
         loseDamage.textContent = Math.floor(loser.takeDamage);
         loseTaken.textContent = Math.floor(loser.takenDamage);
-        losePhoto.src ="../images/portrait_"+loser.portrait+'.png';
+        losePhoto.src = "../images/portrait_" + loser.portrait + '.png';
         //直接填数据上去
       }
     })
     .catch(error => {
       console.error("Error fetching records:", error);
     });
+
 }
 
 function setInputDataPersonal(data) {
