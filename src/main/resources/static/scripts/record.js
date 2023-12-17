@@ -101,17 +101,26 @@ function getRanksInfo(pageNum) {
         const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
 
         console.log(typeof record);
-        const li = document.createElement("div");
+        const li = document.createElement("button");
         li.innerHTML = `
-        <div>
-          <span class="${record.mvp === true ? 'result_win' : 'result_lose'}">${record.mvp === true ? '胜利' : '失败'}</span>
-          <span class="type">(${record.type === '大乱斗' ? '死斗' : '单挑'})</span>
-          <img class="kill" src="../images/strength.png">
-          <span class="kills">${record.kills}</span>
-          <img class="death" src="../images/wither.png">
-          <span class="deaths">${record.deaths}</span>
-          <span class="gametime">${formattedDate}</span>
-        </div>`
+        <img class="head_photo" src="../images/Creepe.jpg" />
+        <sapn class="info">
+            <span class="type">1 VS 1</span>
+            <span class="gametime">2023-10-31</span>
+        </sapn>
+        <span class="kda">
+            <img class="kill" src="../images/strength.png">
+            <span class="kills">
+                <p>0</p>
+            </span>
+            <img class="death" src="../images/wither.png">
+            <span class="deaths">
+                <p>0</p>
+            </span>
+        </span>
+        <span class="result_win">
+            <p>WIN</p>
+        </span>`
           ;
         li.className = "record-button";
         let gameId = record.gameId;
