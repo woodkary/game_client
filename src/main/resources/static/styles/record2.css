@@ -342,7 +342,7 @@ body {
   top: 15%;
   width: 80%;
   height: 70%;
-  background: linear-gradient(to bottom, rgba(84, 173, 161, 0.5), rgba(165, 231, 222, 0.3), white);
+  background: linear-gradient(to bottom, #bbffb0, #eff9ea, #66b0540a);
   border: none;
   text-align: center;
   padding: 20px;
@@ -353,6 +353,7 @@ body {
   top: -2%;
   left: 2%;
   font-size: 30px;
+  color: #3dbb68;
 }
 
 .melee table {
@@ -369,4 +370,102 @@ body {
 .melee table td {
   color: black;
 
+}
+
+.melee table {
+  position: absolute;
+  top: 13%;
+  left: 36px;
+  width: 90%;
+  height: 80%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+th,
+td {
+  padding: 12px 15px;
+  text-align: center;
+}
+th {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: center;
+}
+tr {
+  border-bottom: 1px solid #dddddd;
+}
+tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+tr:hover {
+  background-color: #f1f1f1;
+}
+.fa {
+  padding-right: 5px;
+}
+
+
+/* 表格动画效果 */
+@keyframes tableAnimation {
+  0%   { opacity: 0; transform: translateY(-50px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 应用动画效果 */
+.melee table{
+  animation: tableAnimation 1s;
+}
+
+/* KDA, 死亡数和击杀数单元格特殊样式 */
+.deaths_value, .kills_value, .kda_value, .damage_value, .taken_value {
+  font-weight: bold;
+}
+
+
+/* 悬停效果 */
+.melee table tr:hover {
+  background-color: #ddd;
+}
+
+/* 表格动画效果 */
+@keyframes tableAnimation {
+  0%   { opacity: 0; transform: translateY(-50px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 应用动画效果 */
+.melee table {
+  animation: tableAnimation 1s;
+}
+
+/* 表格数据行进入动画效果 */
+@keyframes rowEnterAnimation {
+  0%   { opacity: 0; transform: translateX(-50px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* 应用动画效果 */
+.melee table tr {
+  animation: rowEnterAnimation 0.5s forwards;
+}
+@keyframes flickerAnimation {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.melee table th i.fa-user,
+.melee table th i.animate-flicker,
+.melee table th i.fa-skull-crossbones,
+.melee table th i.fa-heartbeat,
+.melee table th i.fa-shield-alt,
+.melee table th i.fa-chart-line {
+  animation: flickerAnimation 1s infinite;
 }
