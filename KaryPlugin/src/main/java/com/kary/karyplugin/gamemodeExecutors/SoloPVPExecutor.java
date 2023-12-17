@@ -65,6 +65,7 @@ public class SoloPVPExecutor extends BaseExecutor {
     }
     @EventHandler(priority = EventPriority.MONITOR)
     public void playerQuit(PlayerQuitEvent playerQuitEvent){
+        //只需要统计三局没打完的比赛
         Player loser=playerQuitEvent.getPlayer();
         int level= LevelUtil.getLevel(recordService.getScoreTotal(loser.getName(),gameMode));
         //如果退出的这个人正在匹配，则把他踢出匹配等待
@@ -89,6 +90,7 @@ public class SoloPVPExecutor extends BaseExecutor {
         Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
         long duration=System.currentTimeMillis() -(Long)winnerArray[1];
         if(Integer.valueOf(5).equals(winnerArray[0])){
+            //胜利者只有5分，说明游戏此时1：1
             recordService.addNewGame(gameMode,maxGameId,duration,winner.getName());
             KaryPlugin.updateDatabase(maxGameId,
                     duration,
@@ -113,6 +115,7 @@ public class SoloPVPExecutor extends BaseExecutor {
                     gameMode
             );
         }else if(Integer.valueOf(15).equals(winnerArray[0])){
+            //1：0
             recordService.addNewGame(gameMode,maxGameId,System.currentTimeMillis() -(Long)winnerArray[1],winner.getName());
             KaryPlugin.updateDatabase(maxGameId,
                     duration,
@@ -137,6 +140,7 @@ public class SoloPVPExecutor extends BaseExecutor {
                     gameMode
             );
         }else{
+            //0：1
             recordService.addNewGame(gameMode,maxGameId,System.currentTimeMillis() -(Long)winnerArray[1],winner.getName());
             KaryPlugin.updateDatabase(maxGameId,
                     duration,
@@ -174,7 +178,7 @@ public class SoloPVPExecutor extends BaseExecutor {
         if(damager instanceof Player&&damagee instanceof Player&&
            playersInSoloPVP.containsKey(damager)&&playersInSoloPVP.containsKey(damagee)){
             Object[] damagerArray=playersScoreGainAndMatchStartTime.get(damager);
-            damagerArray[2]=(Double)damagerArray[2]+damage;
+            damagerArray[2]=(Double)damagerArray[2]+damage;//算伤害和承伤
             Object[] damageeArray=playersScoreGainAndMatchStartTime.get(damagee);
             damageeArray[3]=(Double)damageeArray[3]+damage;
         }
@@ -191,6 +195,7 @@ public class SoloPVPExecutor extends BaseExecutor {
         if(winner==null){
             return;
         }
+        //新游戏id
         Integer maxGameId=recordService.getMaxGameId();
         if(maxGameId==null){
             maxGameId=0;
@@ -204,9 +209,10 @@ public class SoloPVPExecutor extends BaseExecutor {
         loserScoreGainAndStartTime[0]=(Integer)loserScoreGainAndStartTime[0]-10;
         /*playersScoreGainAndMatchStartTime.put(loser,loserScoreGainAndStartTime);*/
         if(Integer.valueOf(30).equals(winnerScoreGainAndStartTime[0])){
-            //2:0，游戏结束
+            //胜利者有30分，说明2:0，游戏结束
             playersInSoloPVP.remove(winner);
             playersInSoloPVP.remove(loser);
+            //获取数据
             Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
             Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
             long duration=System.currentTimeMillis() -(Long)winnerArray[1];
@@ -236,9 +242,10 @@ public class SoloPVPExecutor extends BaseExecutor {
             Bukkit.getServer().broadcastMessage("比赛结束，胜利者"+winner.getName()+"比分为2:0");
             goBackToSpawnPoint(loser, winner, winnerArray);
         }else if(Integer.valueOf(20).equals(winnerScoreGainAndStartTime[0])){
-            //2:1结束
+            //胜利者有20分，说明2:1结束
             playersInSoloPVP.remove(winner);
             playersInSoloPVP.remove(loser);
+            //获取数据
             Object[] winnerArray=playersScoreGainAndMatchStartTime.remove(winner);
             Object[] loserArray=playersScoreGainAndMatchStartTime.remove(loser);
             long duration=System.currentTimeMillis() -(Long)winnerArray[1];
@@ -276,7 +283,7 @@ public class SoloPVPExecutor extends BaseExecutor {
     private void goBackToSpawnPoint(Player loser, Player winner, Object[] winnerArray) {
         winner.sendRawMessage("请选择游戏模式");
         winner.setOp(true);
-        winner.performCommand(CommandUtil.COMMAND_SOLO_PVP);
+        winner.performCommand(CommandUtil.COMMAND_SOLO_PVP);//重新弹出选择框
         winner.performCommand(CommandUtil.COMMAND_BRAWL);
         winner.setOp(false);
         loser.sendRawMessage("请选择游戏模式");
@@ -285,9 +292,9 @@ public class SoloPVPExecutor extends BaseExecutor {
         loser.performCommand(CommandUtil.COMMAND_BRAWL);
         loser.setOp(false);
         double[] position=(double[])winnerArray[4];
-        warFieldPosition.add(position);
+        warFieldPosition.add(position);//把场地还回去
         winner.teleport(KaryPlugin.WORLD_SPAWN_POINT);
-        loser.teleport(KaryPlugin.WORLD_SPAWN_POINT);
+        loser.teleport(KaryPlugin.WORLD_SPAWN_POINT);//回到出生地
     }
 
     @Override
@@ -312,6 +319,7 @@ public class SoloPVPExecutor extends BaseExecutor {
                     new BukkitRunnable() {
                         @Override
                         public void run() {
+                            //如果有空闲的场地
                             if(!warFieldPosition.isEmpty()){
                                 //将他的对手设为正在匹配的那人，将此人从时正在匹配人的集合移除，此时正在匹配的记录设为null
                                 //这局比赛的位置
@@ -328,11 +336,11 @@ public class SoloPVPExecutor extends BaseExecutor {
                                 //三局两胜比赛开始，初始双方都为0分,游戏开始时间均为当前时间，初始伤害、承伤均为0
                                 long gameStart=System.currentTimeMillis();
                                 Object[] commandSenderArray=new Object[5];
-                                commandSenderArray[0]= 0;
-                                commandSenderArray[1]= gameStart;
-                                commandSenderArray[2]=0.0;
-                                commandSenderArray[3]=0.0;
-                                commandSenderArray[4]=position;
+                                commandSenderArray[0]= 0;//初始分数
+                                commandSenderArray[1]= gameStart;//开始时间
+                                commandSenderArray[2]=0.0;//初始伤害
+                                commandSenderArray[3]=0.0;//初始承伤
+                                commandSenderArray[4]=position;//场地位置
                                 playersScoreGainAndMatchStartTime.put((Player) commandSender,commandSenderArray);
 
                                 Object[] matchingPlayerArray=new Object[5];
@@ -351,7 +359,7 @@ public class SoloPVPExecutor extends BaseExecutor {
                             }
 
                         }
-                    }.runTaskTimer(plugin,0,20);
+                    }.runTaskTimer(plugin,0,20);//每秒检查一次有没有空闲场地，没有就一直等待
                     result=true;
                 }
             }else{
