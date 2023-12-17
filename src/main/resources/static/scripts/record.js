@@ -89,8 +89,8 @@ function getRanksInfo(pageNum) {
     .then(data => {
       const ul = document.getElementById("Rectangle1");
       ul.innerHTML = ""; // Clear the existing list
-      totalPages = Math.ceil(data.data.length / 8);
-      for (let i = 8 * (pageNum - 1); i < 8 * pageNum; i++) {
+      totalPages = Math.ceil(data.data.length / 7);
+      for (let i = 7 * (pageNum - 1); i < 7 * pageNum; i++) {
         const record = data.data[i];
         // Get the year, month, and day
         const date = new Date(record.gameTime);
@@ -100,26 +100,27 @@ function getRanksInfo(pageNum) {
 
         const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
 
+
         console.log(typeof record);
         const li = document.createElement("button");
         li.innerHTML = `
-        <img class="head_photo" src="../images/Creepe.jpg" />
+        <img class="head_photo" src="../images/${record.type === "大乱斗" ? "Creepe.jpg" : "Steve.png"}" />
         <sapn class="info">
-            <span class="type">1 VS 1</span>
-            <span class="gametime">2023-10-31</span>
+            <span class="type">${record.type === "大乱斗" ? "死斗" : "单挑"}</span>
+            <span class="gametime">${formattedDate}</span>
         </sapn>
         <span class="kda">
             <img class="kill" src="../images/strength.png">
             <span class="kills">
-                <p>0</p>
+                <p>${record.kills}</p>
             </span>
             <img class="death" src="../images/wither.png">
             <span class="deaths">
-                <p>0</p>
+                <p>${record.deaths}</p>
             </span>
         </span>
-        <span class="result_win">
-            <p>WIN</p>
+        <span class=${record.mvp ? "result_win" : "result_lose"}>
+            <p>${record.mvp ? "胜利" : "失败"}</p>
         </span>`
           ;
         li.className = "record-button";
@@ -197,10 +198,11 @@ function updateDetailedInfo(gameid) {
       }
 
       let melee = document.getElementById("melee1");
+      melee.className = 'melee';
 
       if (gameMode === "大乱斗") {
         melee.className = 'melee';
-        melee.innerHTML = `       <p>死斗</p>
+        melee.innerHTML = `<p>死斗</p>
         <table id = "meleeTable">
           <tr>
             <td>用户名</td>
@@ -210,7 +212,6 @@ function updateDetailedInfo(gameid) {
             <td>伤害</td>
             <td>承伤</td>
           </tr>
-
           </table>`; // Clear the existing list
         const table = document.getElementById("meleeTable");
         for (let i = 0; i < data.data.length; i++) {
@@ -229,9 +230,10 @@ function updateDetailedInfo(gameid) {
           table.appendChild(tr);
         }
       } else {
+        melee.innerHTML = "";
         melee.innerHTML = `<div class="Win">
         <p>胜方</p>
-        <img class="photo" id="win_photo" src="../images/portrait_1.jpg">
+        <img class="photo" id="win_photo" src="../images/Steve.png">
         <table class="Win_table">
           <tr>
             <td class="username" id="win_username" colspan="12">
@@ -254,32 +256,32 @@ function updateDetailedInfo(gameid) {
           </tr>
         </table>
       </div>
-      <div class="Lose">
-        <p>败方</p>
-        <img class="photo" id="lose_photo" src="../images/portrait_1.jpg">
-        <table class="Lose_table">
-          <tr>
-            <td class="username" id="lose_username" colspan="12">
-              <div>用户名</div>
-            </td>
-          </tr>
-          <tr>
-            <td class="kills_word" colspan="2">击杀数</td>
-            <td class="kills" id="lose_kills" colspan="2">用户名</td>
-            <td class="deaths_word" colspan="2">死亡数</td>
-            <td class="deaths" id="lose_deaths" colspan="2">用户名</td>
-            <td class="kda_word" colspan="2">KDA</td>
-            <td class="kda" id="lose_kda" colspan="2">用户名</td>
-          </tr>
-          <tr>
-            <td class="damage_word" colspan="3">伤害</td>
-            <td class="damage" id="lose_damage" colspan="3">用户名</td>
-            <td class="taken_word" colspan="3">承伤</td>
-            <td class="taken" id="lose_taken" colspan="3">用户名</td>
-          </tr>
-        </table>
-      </div>
-    </div>`
+    </div>
+    <div class="Lose">
+      <p>败方</p>
+      <img class="photo" id="lose_photo" src="../images/Creepe.jpg">
+      <table class="Lose_table">
+        <tr>
+          <td class="username" id="lose_username" colspan="12">
+            <div>用户名</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="kills_word" colspan="2">击杀数</td>
+          <td class="kills" id="lose_kills" colspan="2">用户名</td>
+          <td class="deaths_word" colspan="2">死亡数</td>
+          <td class="deaths" id="lose_deaths" colspan="2">用户名</td>
+          <td class="kda_word" colspan="2">KDA</td>
+          <td class="kda" id="lose_kda" colspan="2">用户名</td>
+        </tr>
+        <tr>
+          <td class="damage_word" colspan="3">伤害</td>
+          <td class="damage" id="lose_damage" colspan="3">用户名</td>
+          <td class="taken_word" colspan="3">承伤</td>
+          <td class="taken" id="lose_taken" colspan="3">用户名</td>
+        </tr>
+      </table>
+  </div>`
 
         let winner = data.data[0].mvp ? data.data[0] : data.data[1];
         let loser = data.data[0].mvp ? data.data[1] : data.data[0];

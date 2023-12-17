@@ -196,6 +196,7 @@
       <button onclick="nextPage()" id="right" style="background-color: white;">&gt;</button>
     </div>
     <el-button></el-button>
+
     <div id="Rectangle2">
       <span id="date">时间</span>
       <span id="date-value">10-31 20:46</span>
@@ -203,31 +204,33 @@
       <span id="type-value">单挑</span>
       <span id="duration">比赛时长</span>
       <span id="duration-value">26分钟</span>
-      <div class="Win">
-        <p>胜方</p>
-        <img class="photo" id="win_photo" src="../images/Steve.png">
-        <table class="Win_table">
-          <tr>
-            <td class="username" id="win_username" colspan="12">
-              <div>用户名</div>
-            </td>
-          </tr>
-          <tr>
-            <td class="kills_word" colspan="2">击杀数</td>
-            <td class="kills" id="win_kills" colspan="2">用户名</td>
-            <td class="deaths_word" colspan="2">死亡数</td>
-            <td class="deaths" id="win_deaths" colspan="2">用户名</td>
-            <td class="kda_word" colspan="2">KDA</td>
-            <td class="kda" id="win_kda" colspan="2">用户名</td>
-          </tr>
-          <tr>
-            <td class="damage_word" colspan="3">伤害</td>
-            <td class="damage" id="win_damage" colspan="3">用户名</td>
-            <td class="taken_word" colspan="3">承伤</td>
-            <td class="taken" id="win_taken" colspan="3">用户名</td>
-          </tr>
-        </table>
-      </div>
+      <div class="melee" id="melee1">
+        <div class="Win">
+          <p>胜方</p>
+          <img class="photo" id="win_photo" src="../images/Steve.png">
+          <table class="Win_table">
+            <tr>
+              <td class="username" id="win_username" colspan="12">
+                <div>用户名</div>
+              </td>
+            </tr>
+            <tr>
+              <td class="kills_word" colspan="2">击杀数</td>
+              <td class="kills" id="win_kills" colspan="2">用户名</td>
+              <td class="deaths_word" colspan="2">死亡数</td>
+              <td class="deaths" id="win_deaths" colspan="2">用户名</td>
+              <td class="kda_word" colspan="2">KDA</td>
+              <td class="kda" id="win_kda" colspan="2">用户名</td>
+            </tr>
+            <tr>
+              <td class="damage_word" colspan="3">伤害</td>
+              <td class="damage" id="win_damage" colspan="3">用户名</td>
+              <td class="taken_word" colspan="3">承伤</td>
+              <td class="taken" id="win_taken" colspan="3">用户名</td>
+            </tr>
+          </table>
+        </div>
+      
       <div class="Lose">
         <p>败方</p>
         <img class="photo" id="lose_photo" src="../images/Creepe.jpg">
@@ -254,6 +257,7 @@
         </table>
       </div>
     </div>
+  </div>
   </div>
   <!-- import JavaScript -->
   <script src="../scripts/record.js"></script>
