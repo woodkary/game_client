@@ -18,6 +18,7 @@ public class RecordVO {
     private int gameId;
     private String username;
     private Date gameTime;
+    private int portrait;
     /*减少的 private String opponentUsername;*/
     private int kills;
     private int deaths;
