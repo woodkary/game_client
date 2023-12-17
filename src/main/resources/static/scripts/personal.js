@@ -142,8 +142,8 @@ function setInputDataPersonalBrawl(data) {
     document.getElementById("levelBrawl").textContent = data.level;
 }
 function setInputDataAll(data) {
-    document.getElementById("kdaAll").textContent = (data.kda).toFixed(2);
-    document.getElementById("winRateAll").textContent = toPercentageValue(data.winRate);
+    document.getElementById("value_kda").textContent = (data.kda).toFixed(2);
+    document.getElementById("winRateAll ").textContent = toPercentageValue(data.winRate);
     document.getElementById("totalKillsAll").textContent = data.totalKills;
     document.getElementById("gameNumsAll").textContent = data.gameNums;
 }
