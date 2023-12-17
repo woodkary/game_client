@@ -47,6 +47,7 @@ public class BrawlExecutor extends BaseExecutor {
     //将死者,助攻者列表
     Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap=new ConcurrentHashMap<>();
 
+    //有人离开游戏时，取消掉该玩家
     @Override
     public void playerQuitMatching(Player player) {
         playersMatchingGamemode.remove(player);
@@ -60,7 +61,7 @@ public class BrawlExecutor extends BaseExecutor {
     public void respawn(PlayerRespawnEvent event){
         Player player=event.getPlayer();
         if(players.containsKey(player)){
-            event.setRespawnLocation(BRAWL_LOCATION);
+            event.setRespawnLocation(BRAWL_LOCATION);//让所有参加比赛的玩家重生在比赛现场
         }
     }
 
@@ -152,6 +153,7 @@ public class BrawlExecutor extends BaseExecutor {
             double damage=event.getDamage();//本次伤害
             //danagerList是所有伤害过damagee的玩家列表
             assistMap.computeIfPresent(damagee,(key, danagerList)->{
+                //在受击者的助攻列表中加入攻击者和攻击时间
                 danagerList.add(new PlayerAndTime(damager,System.currentTimeMillis()));
                 return danagerList;
             });
@@ -189,6 +191,7 @@ public class BrawlExecutor extends BaseExecutor {
 
         //对于所有助攻者更新助攻记录
         assistMap.computeIfPresent(deadPlayer,(key, deadAssists)->{
+            //deadAssists是死亡的玩家的助攻者列表
             for (Iterator<PlayerAndTime> iterator = deadAssists.iterator(); iterator.hasNext();) {
                 PlayerAndTime assistAndTime = iterator.next();
                 Player assist=assistAndTime.player;
@@ -232,6 +235,7 @@ public class BrawlExecutor extends BaseExecutor {
                         for (Player player:matchingPlayer) {
                             //对于在场每一位玩家，都有一个攻击者列表
                             assistMap.put(player, new ConcurrentSkipListSet<>());
+                            //每一位玩家都有一个记录
                             players.put(player, new Record());
                             message.append(player.getName());
                             message.append(",");
@@ -247,7 +251,7 @@ public class BrawlExecutor extends BaseExecutor {
                         // 安排任务在主线程中每20个游戏刻执行一次（1秒 = 20游戏刻）
                         int delayInTicks = 0; // 延迟0个游戏刻
                         int periodInTicks = 20; // 每20个游戏刻执行一次
-                        //准备完毕，开始比赛线程
+
                         BukkitRunnable assistTimer= new AssistTimer(assistMap);//先开启助攻计时器
                         BukkitRunnable brawlMatch = new BrawlMatch(players,assistTimer);//再开启比赛计时器
                         brawlMatch.runTaskTimer(plugin, delayInTicks, periodInTicks);
@@ -297,10 +301,11 @@ public class BrawlExecutor extends BaseExecutor {
                 final double[] maxKDA = {Double.MIN_VALUE};
                 Map<Player,Long> playerDur=new HashMap<>();//临时记录每位玩家的游戏时长
                 for (Map.Entry<Player, Record> entry : entrySet){
+                    //遍历集合，找到mvp玩家
                     Player player= entry.getKey();
                     Record record= entry.getValue();
                     playerDuration.computeIfPresent(player,(key, times)->{
-                        //playerRemove[0]为开始时间，playerRemove[1]为结束时间
+                        //times[0]为开始时间，times[1]为结束时间
                         //如果结束时间为Long.MAX_VALUE，说明玩家没有退出，游戏时长为5分钟
                                 playerDur.put(player,(times[1]==Long.MAX_VALUE)?300000L:(times[1]-times[0]));
                                 int k= record.getKill();
@@ -318,7 +323,7 @@ public class BrawlExecutor extends BaseExecutor {
                 }
                 Bukkit.getServer().broadcastMessage("比赛结束");
                 recordService.addNewGame(gameMode,maxGameId,300000L,mvpPlayer.getName());
-                //利用ConcurrentHashMap来同步操作
+                //更新数据库，利用ConcurrentHashMap来同步操作
                 for (Map.Entry<Player, Record> entry : entrySet) {
                     Player player= entry.getKey();
                     Record record=entry.getValue();
@@ -347,7 +352,7 @@ public class BrawlExecutor extends BaseExecutor {
             }
         }
     }
-    //这是个计时器，每秒钟检查一次助攻列表，每十秒移除一个加入时间最早的助攻者
+    //这是个计时器，每十秒移除一个加入时间最早的助攻者
     static class AssistTimer extends BukkitRunnable {
         Map<Player, ConcurrentSkipListSet<PlayerAndTime>> assistMap;
         int second=0;
@@ -365,7 +370,7 @@ public class BrawlExecutor extends BaseExecutor {
             }else{
                 for (Map.Entry<Player, ConcurrentSkipListSet<PlayerAndTime>> playerSetEntry : assistMap.entrySet()) {
                     ConcurrentSkipListSet<PlayerAndTime> assistSet=playerSetEntry.getValue();
-                    assistSet.pollFirst();
+                    assistSet.pollFirst();//移除加入时间最早的助攻者
                 }
                 second=0;
             }
