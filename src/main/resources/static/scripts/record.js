@@ -196,13 +196,14 @@ function updateDetailedInfo(gameid) {
         const winPhoto = document.getElementById('win_photo');
 
         // Update the text content
+        
         winUsername.textContent = winner.username;
         winKills.textContent = winner.kills;
         winDeaths.textContent = winner.deaths;
         winKda.textContent = winner.kda;
         winDamage.textContent = Math.floor(winner.takeDamage);
         winTaken.textContent = Math.floor(winner.takenDamage);
-        winPhoto.src ="../images/portrait_"+winner.portrait+'.jpg';
+        winPhoto.src ="../images/portrait_"+winner.portrait+'.png';
 
         // Get the elements for the losing side
         const loseUsername = document.getElementById('lose_username');
@@ -220,6 +221,7 @@ function updateDetailedInfo(gameid) {
         loseKda.textContent = loser.kda;
         loseDamage.textContent = Math.floor(loser.takeDamage);
         loseTaken.textContent = Math.floor(loser.takenDamage);
+        losePhoto.src ="../images/portrait_"+loser.portrait+'.png';
         //直接填数据上去
       }
     })
