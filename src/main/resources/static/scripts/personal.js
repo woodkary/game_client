@@ -41,9 +41,10 @@ function handleDataPersonal(type) {
         let jsonResult = JSON.parse(response);
         console.log(jsonResult);
         console.log(jsonResult.responseText);
+        let data = jsonResult.data;
+        console.log(data);
+        console.log(data.portrait);
         if (xhr.status === 200) {
-            let data = jsonResult.data;
-
             if (type === 1) {
                 setInputDataPersonalSin(data);
                 soloRank = data.score;
@@ -51,6 +52,8 @@ function handleDataPersonal(type) {
                 setInputDataPersonalBrawl(data);
                 brawlRank = data.score;
             }
+            //let portrait = document.getElementById("portrait");
+            //portrait.src = "../images/portrait_" + data.portrait + ".jpg";
             handleRankScore();
         } else {
             console.log(jsonResult.message);
@@ -262,11 +265,14 @@ function getRanksInfo() {
 
                 const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
 
+                const result = record.mvp ? "result_win" : "result_lose";
+                const type = record.type === "大乱斗" ? "大乱斗" : "单挑赛";
+
                 li.innerHTML = `
                 <div class="row">
                     <img class="head_photo" src="../images/portrait_0.jpg" />
                     <span class="info">
-                        <span class="type">1 VS 1</span>
+                        <span class="type">${type}</span>
                         <span class="gametime">${formattedDate}</span>
                     </span>
                     <span class="kda">
@@ -279,7 +285,7 @@ function getRanksInfo() {
                             <p>${record.deaths}</p>
                         </span>
                     </span>
-                    <span class="result_win">
+                    <span class=${result}>
                         <p>${win}</p>
                     </span>
                 </div>
@@ -297,3 +303,48 @@ function getRanksInfo() {
 }
 
 
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("portrait");
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function () {
+    if (username === sessionStorage.getItem('myUsername')) {
+        modal.style.display = "block";
+    }
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+// Function to select an avatar
+function selectAvatar(path) {
+    console.log('Path:', path); // 输出path的值
+    // Set the new avatar
+    var portraitElement = document.getElementById("portrait");
+    console.log('Portrait element:', portraitElement); // 输出portrait元素
+    portraitElement.src = '../images/portrait_' + path + '.jpg';
+    // Close the modal
+    fetch('http://localhost:8080/ranks/portrait', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, path }),
+    })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch((error) => console.error('Error:', error));
+
+
+    modal.style.display = "none";
+}
