@@ -556,3 +556,14 @@ body {
 .Lose_table th i.fa-chart-line {
   animation: flickerAnimation 1s infinite;
 }
+
+/* 表格动画效果 */
+@keyframes tableAnimation {
+  0%   { opacity: 0; transform: translateY(-50px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 应用动画效果 */
+.Win_table .Lose_table{
+  animation: tableAnimation 1s;
+}
