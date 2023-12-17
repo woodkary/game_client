@@ -97,7 +97,7 @@ function submitVeriCode(event) {
                     usernameMessage.textContent = r.message;
                     throw new Error("输入有错误,错误如下：" + r.message);
                 } else {
-                    alert("注册成功");
+                    alert("修改成功");
                     resolve(r);
                     window.location.href = "../pages/login.html";
                 }
