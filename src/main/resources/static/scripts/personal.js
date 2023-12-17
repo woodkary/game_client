@@ -345,5 +345,6 @@ function selectAvatar(portrait) {
         .then(data => console.log(data))
         .catch((error) => console.error('Error:', error));
 
+
     modal.style.display = "none";
 }
