@@ -292,6 +292,7 @@ public class BrawlExecutor extends BaseExecutor {
             if(second < gameLimitTime) {
                 second += 1;
             }else{//比赛结束
+                assistTimer.cancel();
                 Set<Map.Entry<Player, Record>> entrySet=players.entrySet();
                 final double[] maxKDA = {Double.MIN_VALUE};
                 Map<Player,Long> playerDur=new HashMap<>();//临时记录每位玩家的游戏时长
@@ -343,7 +344,6 @@ public class BrawlExecutor extends BaseExecutor {
                 players.clear();
                 //结束比赛线程以及助攻线程
                 this.cancel();
-                assistTimer.cancel();
             }
         }
     }
