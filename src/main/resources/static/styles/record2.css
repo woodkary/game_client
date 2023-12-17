@@ -1,110 +1,129 @@
-body{
-    margin: 0;
-  }
-  #Background{
-    width: 100%;  
-  height: 100%;  
-  background-image: url("../images/background.png");  
-  background-repeat: no-repeat;  
-  background-size: cover;  
-  margin-top: 0px;  
-  position: fixed;  
-  z-index: -1;  
-  
-  }
-  
-  .search-photo{ 
-    position: fixed;  
-    top: 1%;
-    left: 89%;
-    height: 30px;
-  }
-  .line{ 
-    position: fixed;  
-    top: 1%;
-    left: 92%;
-    height: 30px;
-  }
-  .head-photo{ 
-    position: fixed;  
-    top: 1%;
-    left: 93%;
-    height: 30px;
-  }
-  
-  #Rectangle{
-    position: absolute;
-    left: 5%;
-    top: 10%;
-    width: 90vw;  
-    height: 85vh;  
-    background-color: #f2f2f2;  
-    border: 1px solid #ddd;  
-    text-align: center;  
-    padding: 20px;    
-  }
-  .button1 {  
-  display: inline-block;  
-  padding: 10px 18px;    
-  color:black; /* 按钮的文本颜色 */  
-  text-decoration: none;  
-  border-radius: 4px; /* 按钮的圆角 */ 
+body {
+  margin: 0;
+}
+
+#Background {
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 0px;
+  position: fixed;
+  z-index: -1;
+
+}
+
+.search-photo {
+  position: fixed;
+  top: 1%;
+  left: 89%;
+  height: 30px;
+}
+
+.line {
+  position: fixed;
+  top: 1%;
+  left: 92%;
+  height: 30px;
+}
+
+.head-photo {
+  position: fixed;
+  top: 1%;
+  left: 93%;
+  height: 30px;
+}
+
+#Rectangle {
+  position: absolute;
+  left: 5%;
+  top: 10%;
+  width: 90vw;
+  height: 85vh;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 20px;
+}
+
+.button1 {
+  display: inline-block;
+  padding: 10px 18px;
+  color: black;
+  /* 按钮的文本颜色 */
+  text-decoration: none;
+  border-radius: 4px;
+  /* 按钮的圆角 */
   position: absolute;
   top: 3%;
-  left: 75%; 
-  }  
-  .button1:hover {  
-  background-color: #aab300; /* 鼠标悬停时的背景颜色 */  
-  }
-  .button2 {  
-  display: inline-block;  
-  padding: 10px 18px;    
-  color:black; /* 按钮的文本颜色 */  
-  text-decoration: none;  
-  border-radius: 4px; /* 按钮的圆角 */ 
+  left: 75%;
+}
+
+.button1:hover {
+  background-color: #aab300;
+  /* 鼠标悬停时的背景颜色 */
+}
+
+.button2 {
+  display: inline-block;
+  padding: 10px 18px;
+  color: black;
+  /* 按钮的文本颜色 */
+  text-decoration: none;
+  border-radius: 4px;
+  /* 按钮的圆角 */
   position: absolute;
   top: 3%;
-  left: 82%; 
-  }  
-  .button2:hover {  
-  background-color: #aab300; /* 鼠标悬停时的背景颜色 */  
-  }
-  .HorizontalLine {  
-  position: absolute; 
-  top: 8%;  /* 这些百分比可以根据您的需要进行调整 */  
-  width: 100%;  
+  left: 82%;
+}
+
+.button2:hover {
+  background-color: #aab300;
+  /* 鼠标悬停时的背景颜色 */
+}
+
+.HorizontalLine {
+  position: absolute;
+  top: 8%;
+  /* 这些百分比可以根据您的需要进行调整 */
+  width: 100%;
   left: 0;
   text-align: center;
-  }   
-  .Text{
+}
+
+.Text {
   position: absolute;
   top: 6%;
   left: 3%;
   font-size: 30px;
-  }
-  #Select{
+}
+
+#Select {
   position: absolute;
   top: 11%;
   left: 13%;
   width: 80px;
   background-color: #f2f2f2;
-  }
-  #Rectangle1{
+}
+
+#Rectangle1 {
   position: absolute;
   left: 3%;
   top: 20%;
-  width: 20%;  
-  height: 67%;  
-  background-color: #f2f2f2;  
-  border: 1px solid #ddd;  
+  width: 20%;
+  height: 67%;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
   border-radius: 20px;
-  text-align: center;  
-  padding: 20px; 
-  }
-  .record-button{
+  text-align: center;
+  padding: 20px;
+}
+
+.record-button {
   width: 100%;
   height: 11%;
-  display: flex;  
+  display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #a6ccea;
@@ -114,112 +133,134 @@ body{
   margin-bottom: 1vh;
   padding-left: 5%;
   padding-right: 5%;
-  }
-  .record-button img {
-    width: 30px; /* 调整图片的宽度 */
-    height: auto; /* 根据宽度调整高度 */
-  }
-  .record-button .result {
-    font-size: 18px;
-  }
-  .record-button .type{
-    font-size: 14px;
-  }
-  .record-button .kills{
-    font-size: 16px;
-  }
-  .record-button .deaths{
-    font-size: 16px;
-  }
-  .record-button .gametime{
-    font-size: 16px;
-  }
-  .pagination{
-    display: flex;  
-    justify-content: center;  
-    position: absolute;
-    left: 10%;
-    top: 95%;
-  }
-  #left{
-    background-color: #f2f2f2;
-    border: none;
-    cursor: pointer;
-  }
-  #right{
-    background-color: #f2f2f2;
-    border: none;
-    cursor: pointer;
-  }
-  #Rectangle2{
+}
+
+.record-button img {
+  width: 30px;
+  /* 调整图片的宽度 */
+  height: auto;
+  /* 根据宽度调整高度 */
+}
+
+.record-button .result {
+  font-size: 18px;
+}
+
+.record-button .type {
+  font-size: 14px;
+}
+
+.record-button .kills {
+  font-size: 16px;
+}
+
+.record-button .deaths {
+  font-size: 16px;
+}
+
+.record-button .gametime {
+  font-size: 16px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 10%;
+  top: 95%;
+}
+
+#left {
+  background-color: #f2f2f2;
+  border: none;
+  cursor: pointer;
+}
+
+#right {
+  background-color: #f2f2f2;
+  border: none;
+  cursor: pointer;
+}
+
+#Rectangle2 {
   position: absolute;
   left: 30%;
   top: 11%;
-  width: 60%;  
-  height: 80%;  
-  background-color: #ffffff;  
-  border: 1px solid #ddd;  
-  text-align: center;  
-  padding: 20px; 
-  } 
-  #date{
-    position: absolute;
-    top: 2%;
-    left: 6%;
-  }
-  #date-value{
-    position: absolute;
-    top: 7%;
-    left: 3%;
-  }
-  #type{
-    position: absolute;
-    top: 2%;
-    left: 15%;
-  }
-  #type-value{
-    position: absolute;
-    top: 7%;
-    left: 15%;
-  }
-  #duration{
-    position: absolute;
-    top: 2%;
-    left: 23%;
-  }
-  #duration-value{
-    position: absolute;
-    top: 7%;
-    left: 24%;
-  }
-  .melee{
+  width: 60%;
+  height: 80%;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 20px;
+}
+
+#date {
+  position: absolute;
+  top: 2%;
+  left: 6%;
+}
+
+#date-value {
+  position: absolute;
+  top: 7%;
+  left: 3%;
+}
+
+#type {
+  position: absolute;
+  top: 2%;
+  left: 15%;
+}
+
+#type-value {
+  position: absolute;
+  top: 7%;
+  left: 15%;
+}
+
+#duration {
+  position: absolute;
+  top: 2%;
+  left: 23%;
+}
+
+#duration-value {
+  position: absolute;
+  top: 7%;
+  left: 24%;
+}
+
+.melee {
   position: absolute;
   left: 5%;
   top: 15%;
-  width: 80%;  
-  height: 70%;  
-  background: linear-gradient(to bottom, rgba(84, 173, 161, 0.5),rgba(165, 231, 222, 0.3), white);
-  border: none;  
-  text-align: center;  
-  padding: 20px; 
-  }
-  .melee p{
+  width: 80%;
+  height: 70%;
+  background: linear-gradient(to bottom, rgba(84, 173, 161, 0.5), rgba(165, 231, 222, 0.3), white);
+  border: none;
+  text-align: center;
+  padding: 20px;
+}
+
+.melee p {
   position: absolute;
   top: -2%;
   left: 2%;
   font-size: 30px;
-  }
-  .melee table{
+}
+
+.melee table {
   position: absolute;
   top: 13%;
   left: 2%;
   width: 90%;
   height: 80%;
-  border:non
-  border-collapse: collapse;  /* 合并相邻的边框 */ 
-  }
-  .melee  table td{
+  border: none;
+   border-collapse: collapse;
+  /* 合并相邻的边框 */
+}
+
+.melee table td {
   color: black;
 
-  }
-  
+}

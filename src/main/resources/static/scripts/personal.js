@@ -46,7 +46,7 @@ function handleDataPersonal(type) {
         console.log(data.portrait);
         if (xhr.status === 200) {
             if (type === 1) {
-                setInputDataPersonalSin(data);
+                setInputDataPersonalSin(data);  
                 soloRank = data.score;
             } if (type === 2) {
                 setInputDataPersonalBrawl(data);
@@ -88,8 +88,6 @@ function handleDataAll() {
 }
 
 
-
-
 function handleDataMonth() {
     let xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
@@ -127,58 +125,6 @@ function getRanks(username, page) {
         .catch(function (error) {
             console.log(error);
         });
-}
-
-function setInputDataRecent(data) {
-    // 获取表格元素
-    var table = document.getElementById("recentTable");
-
-    // 清空表格内容
-    while (table.firstChild) {
-        table.firstChild.remove();
-    }
-
-    // 遍历记录，并将数据填充到表格中
-    for (var i = 0; i < 8; i++) {
-        // 创建新的表格行
-        var row = document.createElement("tr");
-
-        // 获取当前记录的索引
-        var index = i % data.length;
-
-        // 获取当前记录对象
-        var record = data[index];
-
-        // 创建并填充单元格
-        var resultCell = document.createElement("td");
-        if (record.kills > record.deaths) {
-            resultCell.textContent = "胜利";
-        } else {
-            resultCell.textContent = "失败";
-        }
-        row.appendChild(resultCell);
-        resultCell.setAttribute("class", "td3"); // 添加 class 属性
-        resultCell.setAttribute("id", "result" + i); // 添加 id 属性
-        resultCell.setAttribute("width", "20px"); // 添加 width 属性
-        row.appendChild(resultCell);
-
-        var typeCell = document.createElement("td");
-        typeCell.textContent = record.type;
-        typeCell.setAttribute("class", "td3"); // 添加 class 属性
-        typeCell.setAttribute("id", "type" + i); // 添加 id 属性
-        typeCell.setAttribute("width", "20px"); // 添加 width 属性
-        row.appendChild(typeCell);
-
-        var timeCell = document.createElement("td");
-        timeCell.textContent = record.gameTime;
-        timeCell.setAttribute("class", "td3"); // 添加 class 属性
-        timeCell.setAttribute("id", "gameTime" + i); // 添加 id 属性
-        timeCell.setAttribute("width", "100px"); // 添加 width 属性
-        row.appendChild(timeCell);
-
-        // 将行添加到表格中
-        table.appendChild(row);
-    }
 }
 
 function setInputDataPersonalSin(data) {
@@ -256,9 +202,9 @@ function getRanksInfo() {
 
                 let win = record.mvp === true ? "胜利" : "失败";
 
-                const date = new Date(record.gameTime);
 
                 // Get the year, month, and day
+                const date = new Date(record.gameTime);
                 const year = date.getFullYear();
                 const month = date.getMonth() + 1; // getMonth returns a zero-based month, so add 1
                 const day = date.getDate();
@@ -266,7 +212,7 @@ function getRanksInfo() {
                 const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
 
                 const result = record.mvp ? "result_win" : "result_lose";
-                const type = record.type === "大乱斗" ? "大乱斗" : "单挑赛";
+                const type = record.type === "大乱斗" ? "死斗" : "单挑";
 
                 li.innerHTML = `
                 <div class="row">

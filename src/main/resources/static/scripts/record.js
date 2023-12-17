@@ -12,13 +12,13 @@ function preLoad() {
   let params = new URLSearchParams(query);
   username = params.get("username");
   console.log(username);
+  getRanksInfo(1);
+
 }
 
 function initPageNum() {
   let pageNum = document.getElementById('pageNum');
   pageNum.textContent = '1';
-  getRanksInfo(1);
-
 }
 function updatePageNum() {
   var pageNum = document.getElementById('pageNum');
@@ -76,22 +76,33 @@ function getRanksInfo(pageNum) {
       totalPages = Math.ceil(data.data.length / 8);
       for (let i = 8 * (pageNum - 1); i < 8 * pageNum; i++) {
         const record = data.data[i];
+        // Get the year, month, and day
+        const date = new Date(record.gameTime);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // getMonth returns a zero-based month, so add 1
+        const day = date.getDate();
+
+        const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+
         console.log(typeof record);
         const li = document.createElement("div");
         li.innerHTML = `
-        <button class="record-button">
-        <span class="${record.result === '胜利' ? 'result_win' : 'result_lose'}">${record.result}</span>
-        <span class="type">(${record.type})</span>
-        <img class="kill" src="../images/strength.png">
-        <span class="kills">${record.kills}</span>
-        <img class="death" src="../images/wither.png">
-        <span class="deaths">${record.deaths}</span>
-        <span class="gametime">${record.gametime}</span>
-      </button>
-        `
+        <div class="record-button">
+          <span class="${record.mvp === true ? 'result_win' : 'result_lose'}">${record.mvp === true ? '胜利' : '失败'}</span>
+          <span class="type">(${record.type === '大乱斗' ? '死斗' : '单挑'})</span>
+          <img class="kill" src="../images/strength.png">
+          <span class="kills">${record.kills}</span>
+          <img class="death" src="../images/wither.png">
+          <span class="deaths">${record.deaths}</span>
+          <span class="gametime">${formattedDate}</span>
+        </div>`;
+
         let gameId = record.gameId;
         console.log(gameId);
-        li.addEventListener('click', updateDetailedInfo(gameId));
+        if (i === 8 * (pageNum - 1)) {
+          updateDetailedInfo(gameId);
+        }
+        li.addEventListener('click', () => updateDetailedInfo(gameId));
         ul.appendChild(li);
       }
     })
@@ -109,17 +120,17 @@ function updateDetailedInfo(gameid) {
     })
     .then(data => {
       console.log(data.data);
-      const ul = document.getElementById("detailedRecordList");
       //type
-      document.getElementById("type-value").textContent = data.data[0].type;
+      document.getElementById("type-value").textContent = data.data[0].type === "大乱斗" ? "死斗" : "单挑";
       //duration
       let durationInMs = data.data[0].duration; // 从后端获取的毫秒数
       let minutes = Math.floor(durationInMs / 60000); // 转换为分钟
       let seconds = Math.floor((durationInMs / 1000) % 60); // 转换为秒
       if (seconds === 0) {
         document.getElementById("duration-value").textContent = `${minutes}分钟`; // 设置文本内容
-      }
-      else {
+      } else if (minutes === 0) {
+        document.getElementById("duration-value").textContent = `${seconds}秒`; // 设置文本内容
+      } else {
         document.getElementById("duration-value").textContent = `${minutes}分钟 ${seconds}秒`; // 设置文本内容
       }
       //date
@@ -132,28 +143,51 @@ function updateDetailedInfo(gameid) {
       const minute = date.getMinutes();
       const second = date.getSeconds();
 
-      const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
-      const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute < 10 ? '0' + minute : minute}:${second < 10 ? '0' + second : second}`;
+      const formattedDate = `${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}  `;
+      const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute < 10 ? '0' + minute : minute}`;
       document.getElementById("date-value").textContent = formattedDate + formattedTime;
 
+      const gameMode = data.data[0].type;
+      console.log(gameMode);
+      if (gameMode === "大乱斗") {
+        const link = document.querySelector('link[href="../styles/record.css"]');
+        console.log(link);
+        if (link) {
+          console.log(link);
+          link.href = "../styles/record2.css";
+          console.log(link);
+        }
+      } else {
+        const link = document.querySelector('link[href="../styles/record2.css"]');
+        if (link) {
+          console.log(link);
+          link.href = "../styles/record.css";
+          console.log(link);
+        }
+      }
 
       for (let i = 0; i < data.data.length; i++) {
         const record = data.data[i];
+        console.log(record);
+        console.log(record.textContent);
         const li = document.createElement("li");
-        if (record.type === "大乱斗") {
+        if (gameMode === "大乱斗") {
+          const melee = document.getElementById("melee");
+          li.innerHTML = `
+            
 
+          `;
+          melee.appendChild(li);
+        } else {
 
+          //直接填数据上去
         }
-
-
-        ul.appendChild(li);
       }
     })
     .catch(error => {
       console.error("Error fetching records:", error);
     });
 }
-
 
 function setInputDataPersonal(data) {
   document.getElementById("gameNums").textContent = data.gameNums;
