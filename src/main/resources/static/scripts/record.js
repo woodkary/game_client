@@ -62,24 +62,45 @@ function getRanksInfo(pageNum) {
   console.log(username);
   fetch(`http://localhost:8080/ranks/getRanks?username=${username}`)
     .then(response => {
-      console.log(response);
-      console.log(response.textContent);
       return response.json();
     })
     .then(data => {
-      console.log(data);
-      const ul = document.getElementById("recordList");
+      console.log(data.data);
+      const ul = document.getElementById("recordTable");
       ul.innerHTML = ""; // Clear the existing list
-
+      
       for (let i = 8 * (pageNum - 1); i < 8 * pageNum; i++) {
-        const record = data[i];
+        const record = data.data[i];
         console.log(typeof record);
         const li = document.createElement("li");
-        li.textContent = `Game ${i + 1}: ${record.data.type} ${record.kills} kills ${record.deaths} deaths ${record.assists} assists ${record.gameTime}`;
+
+        li.innerHTML = `
+        <div class="row">
+            <img class="head_photo" src="../images/portrait_0.jpg" />
+            <span class="info">
+                <span class="type">1 VS 1</span>
+                <span class="gametime">${formattedDate}</span>
+            </span>
+            <span class="kda">
+                <img class="kill" src="../images/strength.png">
+                <span class="kills">
+                    <p>${record.kills}</p>
+                </span>
+                <img class="death" src="../images/wither.png">
+                <span class="deaths">
+                    <p>${record.deaths}</p>
+                </span>
+            </span>
+            <span class="result_win">
+                <p>${win}</p>
+            </span>
+        </div>
+    `;
+
+
         ul.appendChild(li);
         
-        let gameid = record.gameid;
-        li.addEventListener('click', updateDetailedInfo(gameid));
+        li.addEventListener('click', updateDetailedInfo(record.gameid));
 
       }
     })
