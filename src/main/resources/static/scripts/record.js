@@ -87,7 +87,7 @@ function getRanksInfo(pageNum) {
         console.log(typeof record);
         const li = document.createElement("div");
         li.innerHTML = `
-        <div class="record-button">
+        <div>
           <span class="${record.mvp === true ? 'result_win' : 'result_lose'}">${record.mvp === true ? '胜利' : '失败'}</span>
           <span class="type">(${record.type === '大乱斗' ? '死斗' : '单挑'})</span>
           <img class="kill" src="../images/strength.png">
@@ -95,8 +95,9 @@ function getRanksInfo(pageNum) {
           <img class="death" src="../images/wither.png">
           <span class="deaths">${record.deaths}</span>
           <span class="gametime">${formattedDate}</span>
-        </div>`;
-
+        </div>`
+        ;
+        li.className = "record-button";
         let gameId = record.gameId;
         console.log(gameId);
         if (i === 8 * (pageNum - 1)) {
@@ -174,7 +175,7 @@ function updateDetailedInfo(gameid) {
         if (gameMode === "大乱斗") {
           const melee = document.getElementById("melee");
           li.innerHTML = `
-            
+
 
           `;
           melee.appendChild(li);
