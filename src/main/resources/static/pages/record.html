@@ -34,7 +34,7 @@
 
   </nav>
 
-  <div id="Rectangle">
+  <div id="main">
 
     <a onclick="redirectToPersonal(event)" class="button1">战绩总览</a>
     <a onclick="redirectToRecord(event)" class="button2">历史战绩</a>
@@ -46,7 +46,8 @@
         <option value="choice2">死斗</option>  
       </select>  
     </form> -->
-
+    <hr class="HorizontalLine">
+    <p class="Text">历史战绩</p>
     <div id="Rectangle1">
       <button class="record-button">
         <img class="head_photo" src="../images/Creepe.jpg" />
@@ -204,42 +205,35 @@
       <span id="type-value">单挑</span>
       <span id="duration">比赛时长</span>
       <span id="duration-value">26分钟</span>
-      <div class="melee" id="melee1">
-        <div class="Win">
-          <p>胜方</p>
-          <img class="photo" id="win_photo" src="../images/Steve.png">
-          <table class="Win_table">
-            <tr>
-              <td class="username" id="win_username" colspan="12">
-                <div>用户名</div>
-              </td>
-            </tr>
-            <tr>
-              <td class="kills_word" colspan="2">击杀数</td>
-              <td class="kills" id="win_kills" colspan="2">用户名</td>
-              <td class="deaths_word" colspan="2">死亡数</td>
-              <td class="deaths" id="win_deaths" colspan="2">用户名</td>
-              <td class="kda_word" colspan="2">KDA</td>
-              <td class="kda" id="win_kda" colspan="2">用户名</td>
-            </tr>
-            <tr>
-              <td class="damage_word" colspan="3">伤害</td>
-              <td class="damage" id="win_damage" colspan="3">用户名</td>
-              <td class="taken_word" colspan="3">承伤</td>
-              <td class="taken" id="win_taken" colspan="3">用户名</td>
-            </tr>
-          </table>
-        </div>
-      
-      <div class="Lose">
-        <p>败方</p>
-        <img class="photo" id="lose_photo" src="../images/Creepe.jpg">
-        <table class="Lose_table">
+
+      <div class="Win">
+        <p>WIN</p>
+        <img class="photo" id="win_photo" src="../images/portrait_2.jpg" style="border: 2px solid blueviolet;">
+        <div class="username" id="win_username" colspan="12"
+          style="text-align: center; position: absolute; top:200px; left: 185px;">小帅</div>
+        <table class="Win_table">
           <tr>
-            <td class="username" id="lose_username" colspan="12">
-              <div>用户名</div>
-            </td>
+            <td class="kills_word" colspan="2">击杀数</td>
+            <td class="kills" id="win_kills" colspan="2">用户名</td>
+            <td class="deaths_word" colspan="2">死亡数</td>
+            <td class="deaths" id="win_deaths" colspan="2">用户名</td>
+            <td class="kda_word" colspan="2">KDA</td>
+            <td class="kda" id="win_kda" colspan="2">用户名</td>
           </tr>
+          <tr>
+            <td class="damage_word" colspan="3">伤害</td>
+            <td class="damage" id="win_damage" colspan="3">用户名</td>
+            <td class="taken_word" colspan="3">承伤</td>
+            <td class="taken" id="win_taken" colspan="3">用户名</td>
+          </tr>
+        </table>
+      </div>
+      <div class="Lose">
+        <p>LOSE</p>
+        <img class="photo" id="lose_photo" src="../images/portrait_3.jpg" style="border: 2px solid blueviolet;">
+        <div class="username" id="lose_username" colspan="12"
+          style="text-align: center; position: absolute; top:200px; left: 185px;">小美</div>
+        <table class="Lose_table">
           <tr>
             <td class="kills_word" colspan="2">击杀数</td>
             <td class="kills" id="lose_kills" colspan="2">用户名</td>

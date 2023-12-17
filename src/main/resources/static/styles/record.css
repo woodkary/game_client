@@ -24,20 +24,22 @@ body {
 
 }
 
-.search-photo{ 
-  position: fixed;  
+.search-photo {
+  position: fixed;
   top: 1%;
   left: 89%;
   height: 30px;
 }
-.line{ 
-  position: fixed;  
+
+.line {
+  position: fixed;
   top: 1%;
   left: 92%;
   height: 30px;
 }
-.head-photo{ 
-  position: fixed;  
+
+.head-photo {
+  position: fixed;
   top: 1%;
   left: 93%;
   height: 30px;
@@ -49,56 +51,119 @@ body {
   top: 13%;
   width: 90vw;
   height: 90vh;
-  background-color: #edf4e9ba;
+  background-color: #edf4e9f2;
   border: 1px solid #ddd;
+  border-radius: 10px;
   text-align: center;
   padding: 20px;
 }
-.button1 {  
-display: inline-block;  
-padding: 10px 18px;    
-color:black; /* 按钮的文本颜色 */  
-text-decoration: none;  
-border-radius: 4px; /* 按钮的圆角 */ 
-position: absolute;
-top: 3%;
-left: 75%; 
-}  
-.button1:hover {  
-background-color: #aab300; /* 鼠标悬停时的背景颜色 */  
+
+.button1 {
+  display: inline-block;
+  padding: 10px 18px;
+  color: #fff;
+  /* 按钮的文本颜色 */
+  text-decoration: none;
+  border-radius: 4px;
+  /* 按钮的圆角 */
+  position: absolute;
+  top: 2%;
+  left: 73%;
+  overflow: hidden;
+  z-index: 1;
+  transition: .5s;
+  height: 20px;
+  background-color: #16a085;
 }
-.button2 {  
-display: inline-block;  
-padding: 10px 18px;    
-color:black; /* 按钮的文本颜色 */  
-text-decoration: none;  
-border-radius: 4px; /* 按钮的圆角 */ 
-position: absolute;
-top: 3%;
-left: 82%; 
-}  
-.button2:hover {  
-background-color: #aab300; /* 鼠标悬停时的背景颜色 */  
+
+.button1:hover,
+.button2:hover {
+  cursor: pointer;
 }
-.HorizontalLine {  
-position: absolute; 
-top: 8%;  /* 这些百分比可以根据您的需要进行调整 */  
-width: 100%;  
-left: 0;
-text-align: center;
-}   
-.Text{
-position: absolute;
-top: 6%;
-left: 3%;
-font-size: 30px;
+
+.button1::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: 2px solid #16a085;
+  border-radius: 20px;
+  transform-origin: center;
 }
-#Select{
-position: absolute;
-top: 11%;
-left: 13%;
-width: 80px;
-background-color: #f2f2f2;
+
+.button1:hover::before {
+  transform: scale(1.25);
+  transition: all ease-out .5s;
+  border: 5px solid #96f3e0;
+  opacity: 3;
+}
+
+
+.button2 {
+  display: inline-block;
+  padding: 10px 18px;
+  color: #fff;
+  /* 按钮的文本颜色 */
+  text-decoration: none;
+  border-radius: 4px;
+  /* 按钮的圆角 */
+  position: absolute;
+  top: 2%;
+  left: 82%;
+  overflow: hidden;
+  z-index: 1;
+  transition: .5s;
+  height: 20px;
+  background-color: #16a085;
+}
+
+.button2::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: 2px solid #16a085;
+  border-radius: 20px;
+  transform-origin: center;
+}
+
+.button2:hover::before {
+  transform: scale(1.25);
+  transition: all ease-out .5s;
+  border: 5px solid #96f3e0;
+  opacity: 3;
+}
+
+.HorizontalLine {
+  position: absolute;
+  top: 8%;
+  /* 这些百分比可以根据您的需要进行调整 */
+  width: 100%;
+  left: 0;
+  text-align: center;
+  border: 1px solid #0000004d;
+}
+
+.Text {
+  position: absolute;
+  top: -2%;
+  left: 3%;
+  font-size: 30px;
+  color: #000000a8;
+}
+
+#Select {
+  position: absolute;
+  top: 11%;
+  left: 13%;
+  width: 80px;
+  background-color: #f2f2f2;
 }
 
 #Rectangle1 {
@@ -142,7 +207,7 @@ background-color: #f2f2f2;
 
 .record-button .head_photo {
   width: 50px;
-  border:2px solid blueviolet;
+  border: 2px solid blueviolet;
 }
 
 .info {
@@ -226,187 +291,224 @@ background-color: #f2f2f2;
   cursor: pointer;
 }
 
-#Rectangle2{
-position: absolute;
-left: 30%;
-top: 11%;
-width: 60%;  
-height: 80%;  
-background-color: #ffffff;  
-border: 1px solid #ddd;  
-text-align: center;  
-padding: 20px; 
-} 
-#date{
+
+#Rectangle2 {
+  position: absolute;
+  left: 500px;
+  top: 11%;
+  width: 60%;
+  height: 80%;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#date {
   position: absolute;
   top: 2%;
   left: 6%;
 }
-#date-value{
+
+#date-value {
   position: absolute;
   top: 7%;
   left: 3%;
 }
-#type{
+
+#type {
   position: absolute;
   top: 2%;
   left: 15%;
 }
-#type-value{
+
+#type-value {
   position: absolute;
   top: 7%;
   left: 15%;
 }
-#duration{
+
+#duration {
   position: absolute;
   top: 2%;
   left: 23%;
 }
-#duration-value{
+
+#duration-value {
   position: absolute;
   top: 7%;
   left: 24%;
 }
-.Win{
-position: absolute;
-left: 5%;
-top: 15%;
-width: 40%;
-height: 70%;
-background: linear-gradient(to bottom, rgba(84, 173, 161, 0.5), white);
-border: none;  
-text-align: center;  
-padding: 20px; 
-}
-.Win p{
-position: absolute;
-top: -3%;
-left: 5%;
-font-size: 40px;
-}
-.Win .photo{
+
+.Win {
   position: absolute;
+  left: 5%;
   top: 15%;
-  left: 35%;
-  width: 30%;
-  height: 25%;
-}
-.Win .Win_table{
-position: absolute;
-top: 50%;
-left: 10%;
-width: 80%;
-  height: 40%;
-border: 1px solid black;
-border-collapse: collapse;  /* 合并相邻的边框 */
-}
-.Win .Win_table td{
-color: black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-  font-size: 12px;
-}
-.Win .Win_table tr:nth-child(1) td:nth-child(1)
-{
-  font-size: 20px;
-}
-.Win .Win_table tr:nth-child(2) td:nth-child(1),
-tr:nth-child(2) td:nth-child(2) {
-  border-right: none;
-  border-left: none;
-}
-.Win .Win_table tr:nth-child(2) td:nth-child(3){
-  border-right: none;
-}
-.Win .Win_table tr:nth-child(2) td:nth-child(4){
-  border-left: none;
-}
-.Win .Win_table tr:nth-child(2) td:nth-child(5){
-  border-right: none;
-}
-.Win .Win_table tr:nth-child(2) td:nth-child(6){
-  border-left: none;
-}
-.Win .Win_table tr:nth-child(3) td:nth-child(1),
-tr:nth-child(3) td:nth-child(2) {
-  border-right: none;
-  border-left: none;
-}
-.Win .Win_table tr:nth-child(3) td:nth-child(3){
-  border-right: none;
-}
-.Win .Win_table tr:nth-child(3) td:nth-child(4){
-  border-left: none;
+  width: 40%;
+  height: 70%;
+  background: linear-gradient(to bottom, #bbffb0, #eff9ea, #66b0540a);
+  border: none;
+  text-align: center;
+  padding: 20px;
 }
 
-.Lose{
-position: absolute;
-left: 50%;
-top: 15%;
-width: 40%;
-height: 70%;
-background: linear-gradient(to bottom, rgba(211, 92, 92, 0.5), white);
-border: none;  
-text-align: center;  
-padding: 20px; 
-}
-.Lose p{
+.Win p {
   position: absolute;
   top: -3%;
   left: 5%;
   font-size: 40px;
+  color: #3dbb68;
 }
-.Lose .photo{
+
+.Win .photo {
   position: absolute;
   top: 15%;
   left: 35%;
   width: 30%;
   height: 25%;
 }
-.Lose .Lose_table{
+
+.Win .Win_table {
   position: absolute;
   top: 50%;
   left: 10%;
   width: 80%;
   height: 40%;
   border: 1px solid black;
-  border-collapse: collapse;  /* 合并相邻的边框 */
+  border-collapse: collapse;
+  /* 合并相邻的边框 */
 }
-.Lose .Lose_table td{
+
+.Win .Win_table td {
   color: black;
   border-bottom: 1px solid black;
   border-left: 1px solid black;
   font-size: 12px;
 }
-.Lose .Lose_table tr:nth-child(1) td:nth-child(1)
-{
+
+.Win .Win_table tr:nth-child(1) td:nth-child(1) {
   font-size: 20px;
 }
+
+.Win .Win_table tr:nth-child(2) td:nth-child(1),
+tr:nth-child(2) td:nth-child(2) {
+  border-right: none;
+  border-left: none;
+}
+
+.Win .Win_table tr:nth-child(2) td:nth-child(3) {
+  border-right: none;
+}
+
+.Win .Win_table tr:nth-child(2) td:nth-child(4) {
+  border-left: none;
+}
+
+.Win .Win_table tr:nth-child(2) td:nth-child(5) {
+  border-right: none;
+}
+
+.Win .Win_table tr:nth-child(2) td:nth-child(6) {
+  border-left: none;
+}
+
+.Win .Win_table tr:nth-child(3) td:nth-child(1),
+tr:nth-child(3) td:nth-child(2) {
+  border-right: none;
+  border-left: none;
+}
+
+.Win .Win_table tr:nth-child(3) td:nth-child(3) {
+  border-right: none;
+}
+
+.Win .Win_table tr:nth-child(3) td:nth-child(4) {
+  border-left: none;
+}
+
+.Lose {
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  width: 40%;
+  height: 70%;
+  background: linear-gradient(to bottom, #f9c9c9,#faeeee, #ead6d605);
+  border: none;
+  text-align: center;
+  padding: 20px;
+}
+
+.Lose p {
+  position: absolute;
+  top: -3%;
+  left: 5%;
+  font-size: 40px;
+  color: #db6b6b;
+}
+
+.Lose .photo {
+  position: absolute;
+  top: 15%;
+  left: 35%;
+  width: 30%;
+  height: 25%;
+}
+
+.Lose .Lose_table {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  width: 80%;
+  height: 40%;
+  border: 1px solid black;
+  border-collapse: collapse;
+  /* 合并相邻的边框 */
+}
+
+.Lose .Lose_table td {
+  color: black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  font-size: 12px;
+}
+
+.Lose .Lose_table tr:nth-child(1) td:nth-child(1) {
+  font-size: 20px;
+}
+
 .Lose .Lose_table tr:nth-child(2) td:nth-child(1),
 tr:nth-child(2) td:nth-child(2) {
   border-right: none;
   border-left: none;
 }
-.Lose .Lose_table tr:nth-child(2) td:nth-child(3){
+
+.Lose .Lose_table tr:nth-child(2) td:nth-child(3) {
   border-right: none;
 }
-.Lose .Lose_table tr:nth-child(2) td:nth-child(4){
+
+.Lose .Lose_table tr:nth-child(2) td:nth-child(4) {
   border-left: none;
 }
-.Lose .Lose_table tr:nth-child(2) td:nth-child(5){
+
+.Lose .Lose_table tr:nth-child(2) td:nth-child(5) {
   border-right: none;
 }
-.Lose .Lose_table tr:nth-child(2) td:nth-child(6){
+
+.Lose .Lose_table tr:nth-child(2) td:nth-child(6) {
   border-left: none;
 }
+
 .Lose .Lose_table tr:nth-child(3) td:nth-child(1),
 tr:nth-child(3) td:nth-child(2) {
   border-right: none;
   border-left: none;
 }
-.Lose .Lose_table tr:nth-child(3) td:nth-child(3){
+
+.Lose .Lose_table tr:nth-child(3) td:nth-child(3) {
   border-right: none;
 }
-.Lose .Lose_table tr:nth-child(3) td:nth-child(4){
+
+.Lose .Lose_table tr:nth-child(3) td:nth-child(4) {
   border-left: none;
 }
