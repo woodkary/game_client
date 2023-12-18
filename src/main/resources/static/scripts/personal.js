@@ -213,7 +213,7 @@ function getRanksInfo() {
 
                 li.innerHTML = `
                 <div class="row">
-                    <img class="head_photo" src="../images/portrait_0.jpg" />
+                    <img class="head_photo" src="../images/${record.type==="大乱斗"?"Creepe.jpg":"Steve.png"}"/>
                     <span class="info">
                         <span class="type">${type}</span>
                         <span class="gametime">${formattedDate}</span>
