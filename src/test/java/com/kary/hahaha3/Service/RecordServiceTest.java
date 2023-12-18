@@ -108,4 +108,70 @@ public class RecordServiceTest {
         res.setTotalKills(3);
         assertEquals(res,recordsService.getAllGame("test"));
     }
+    @Test
+    public void testRecordsServiceGetAllGameThisMonth(){
+        Record record = new Record();
+        record.setGameId(1);
+        record.setUsername("test");
+        record.setKill(2);
+        record.setDeath(0);
+        record.setAssist(2);
+        record.setScoreGain(20);
+        record.setTakeDamage(10);
+        Record record1 = new Record();
+        record1.setGameId(1);
+        record1.setUsername("test");
+        record1.setKill(1);
+        record1.setDeath(2);
+        record1.setAssist(2);
+        record1.setScoreGain(20);
+        record1.setTakeDamage(10);
+        List<Record> recordList = new ArrayList<>();
+        recordList.add(record);
+        recordList.add(record1);
+        when(recordMapper.selectRecordsByUsername("test")).thenReturn(recordList);
+        Games games = new Games();
+        games.setType(1);
+        games.setGameId(1);
+        when(gamesMapper.getThisMonthGameById(1)).thenReturn(games);
+        Records res = new Records();
+        res.setGameNums(2);
+        res.setWinRate(0.5);
+        res.setKda(1.5);
+        res.setTotalKills(3);
+        assertEquals(res,recordsService.getAllGame("test"));
+    }
+    @Test
+    public void testRecordsServiceGetAllGameThisMonth_1(){
+        Record record = new Record();
+        record.setGameId(1);
+        record.setUsername("test");
+        record.setKill(2);
+        record.setDeath(0);
+        record.setAssist(2);
+        record.setScoreGain(20);
+        record.setTakeDamage(10);
+        Record record1 = new Record();
+        record1.setGameId(1);
+        record1.setUsername("test");
+        record1.setKill(1);
+        record1.setDeath(2);
+        record1.setAssist(2);
+        record1.setScoreGain(20);
+        record1.setTakeDamage(10);
+        List<Record> recordList = new ArrayList<>();
+        recordList.add(record);
+        recordList.add(record1);
+        when(recordMapper.selectRecordsByUsername("test")).thenReturn(recordList);
+        Games games = new Games();
+        games.setType(1);
+        games.setGameId(1);
+        when(gamesMapper.getThisMonthGameById(1)).thenReturn(games,null);
+        Records res = new Records();
+        res.setGameNums(1);
+        res.setWinRate(1);
+        res.setKda(2);
+        res.setTotalKills(2);
+        assertEquals(res,recordsService.getAllGame("test"));
+    }
 }
