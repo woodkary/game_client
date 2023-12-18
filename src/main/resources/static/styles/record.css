@@ -1,337 +1,569 @@
-body{
+@font-face {
+  font-family: "pixel";
+  src: url("../fonts/点点像素体-方形.ttf") format("truetype");
+}
+
+body {
   margin: 0;
+  font-family: 'pixel';
+  font-weight: bold;
 }
-#Background{
-  width: 100%;  
-height: 100%;  
-background-image: url("../images/background.png");  
-background-repeat: no-repeat;  
-background-size: cover;  
-margin-top: 0px;  
-position: fixed;  
-z-index: -1;  
+
+
+#Background {
+  width: 100%;
+  height: 100%;
+
+  background-image: url('../images/expedition.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+
+  margin-top: 0px;
+  position: fixed;
+  z-index: -1;
 
 }
 
-.search-photo{ 
-  position: fixed;  
+.search-photo {
+  position: fixed;
   top: 1%;
   left: 89%;
   height: 30px;
 }
-.line{ 
-  position: fixed;  
+
+.line {
+  position: fixed;
   top: 1%;
   left: 92%;
   height: 30px;
 }
-.head-photo{ 
-  position: fixed;  
+
+.head-photo {
+  position: fixed;
   top: 1%;
   left: 93%;
   height: 30px;
 }
 
-#Rectangle{
+#main {
   position: absolute;
-  left: 5%;
-  top: 10%;
-  width: 90vw;  
-  height: 85vh;  
-  background-color: #f2f2f2;  
-  border: 1px solid #ddd;  
-  text-align: center;  
-  padding: 20px;    
+  left: 3%;
+  top: 13%;
+  width: 90vw;
+  height: 90vh;
+  background-color: #edf4e9f2;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
 }
-.button1 {  
-display: inline-block;  
-padding: 10px 18px;    
-color:black; /* 按钮的文本颜色 */  
-text-decoration: none;  
-border-radius: 4px; /* 按钮的圆角 */ 
-position: absolute;
-top: 3%;
-left: 75%; 
-}  
-.button1:hover {  
-background-color: #aab300; /* 鼠标悬停时的背景颜色 */  
+
+.button1 {
+  display: inline-block;
+  padding: 10px 18px;
+  color: #fff;
+  /* 按钮的文本颜色 */
+  text-decoration: none;
+  border-radius: 4px;
+  /* 按钮的圆角 */
+  position: absolute;
+  top: 2%;
+  left: 73%;
+  overflow: hidden;
+  z-index: 1;
+  transition: .5s;
+  height: 20px;
+  background-color: #16a085;
 }
-.button2 {  
-display: inline-block;  
-padding: 10px 18px;    
-color:black; /* 按钮的文本颜色 */  
-text-decoration: none;  
-border-radius: 4px; /* 按钮的圆角 */ 
-position: absolute;
-top: 3%;
-left: 82%; 
-}  
-.button2:hover {  
-background-color: #aab300; /* 鼠标悬停时的背景颜色 */  
+
+.button1:hover,
+.button2:hover {
+  cursor: pointer;
 }
-.HorizontalLine {  
-position: absolute; 
-top: 8%;  /* 这些百分比可以根据您的需要进行调整 */  
-width: 100%;  
-left: 0;
-text-align: center;
-}   
-.Text{
-position: absolute;
-top: 6%;
-left: 3%;
-font-size: 30px;
+
+.button1::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: 2px solid #16a085;
+  border-radius: 20px;
+  transform-origin: center;
 }
-#Select{
-position: absolute;
-top: 11%;
-left: 13%;
-width: 80px;
-background-color: #f2f2f2;
+
+.button1:hover::before {
+  transform: scale(1.25);
+  transition: all ease-out .5s;
+  border: 5px solid #96f3e0;
+  opacity: 3;
 }
-#Rectangle1{
-position: absolute;
-left: 3%;
-top: 20%;
-width: 20%;  
-height: 67%;  
-background-color: #f2f2f2;  
-border: 1px solid #ddd;  
-border-radius: 20px;
-text-align: center;  
-padding: 20px; 
+
+
+.button2 {
+  display: inline-block;
+  padding: 10px 18px;
+  color: #fff;
+  /* 按钮的文本颜色 */
+  text-decoration: none;
+  border-radius: 4px;
+  /* 按钮的圆角 */
+  position: absolute;
+  top: 2%;
+  left: 82%;
+  overflow: hidden;
+  z-index: 1;
+  transition: .5s;
+  height: 20px;
+  background-color: #16a085;
 }
-.record-button{
-width: 100%;
-height: 11%;
-display: flex;  
-justify-content: space-between;
-align-items: center;
-background-color: #a6ccea;
-border: none;
-cursor: pointer;
-border-radius: 10px;
-margin-bottom: 1vh;
-padding-left: 5%;
-padding-right: 5%;
+
+.button2::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: 2px solid #16a085;
+  border-radius: 20px;
+  transform-origin: center;
 }
+
+.button2:hover::before {
+  transform: scale(1.25);
+  transition: all ease-out .5s;
+  border: 5px solid #96f3e0;
+  opacity: 3;
+}
+
+.HorizontalLine {
+  position: absolute;
+  top: 8%;
+  /* 这些百分比可以根据您的需要进行调整 */
+  width: 100%;
+  left: 0;
+  text-align: center;
+  border: 1px solid #0000004d;
+}
+
+.Text {
+  position: absolute;
+  top: -2%;
+  left: 3%;
+  font-size: 30px;
+  color: #000000a8;
+}
+
+#Select {
+  position: absolute;
+  top: 11%;
+  left: 13%;
+  width: 80px;
+  background-color: #f2f2f2;
+}
+
+#Rectangle1 {
+  position: absolute;
+  left: 3%;
+  bottom: 6%;
+  width: 400px;
+  height: 75%;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.record-button {
+  width: 100%;
+  height: 11%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding-left: 5%;
+  padding-right: 5%;
+  background-color: white;
+}
+
 .record-button img {
-  width: 30px; /* 调整图片的宽度 */
-  height: auto; /* 根据宽度调整高度 */
+  width: 30px;
+  /* 调整图片的宽度 */
+  height: auto;
+  /* 根据宽度调整高度 */
 }
+
 .record-button .result {
   font-size: 18px;
 }
-.record-button .type{
-  font-size: 14px;
+
+.record-button .head_photo {
+  width: 50px;
+  border: 2px solid blueviolet;
 }
-.record-button .kills{
-  font-size: 16px;
-}
-.record-button .deaths{
-  font-size: 16px;
-}
-.record-button .gametime{
-  font-size: 16px;
-}
-.pagination{
-  display: flex;  
-  justify-content: center;  
+
+.info {
+  font-family: 'pixel';
+  font-weight: bolder;
   position: absolute;
-  left: 10%;
-  top: 95%;
+  display: inline-block;
+  left: 100px;
 }
-#left{
+
+.info .gametime,
+.info .type {
+  display: block;
+  text-align: left;
+}
+
+.info .type {
+  margin-bottom: 10px;
+}
+
+.kda {
+  font-family: 'pixel';
+  font-weight: bolder;
+  position: absolute;
+  left: 180px;
+}
+
+.kda img,
+.kda span {
+  margin-right: 15px;
+  display: inline-block;
+  /* justify-items: center; */
+}
+
+.kda p {
+  text-align: justify;
+}
+
+.result_win {
+  font-family: 'pixel';
+  font-size: 20px;
+  font-weight: bolder;
+  text-align: justify;
+  text-align: center;
+  height: 100%;
+  width: 80px;
+  background: linear-gradient(to right, #66b0540a, #eff9ea, #d2f8cc);
+  color: #3dbb68;
+  ;
+}
+
+.result_lose {
+  font-family: 'pixel';
+  font-size: 20px;
+  font-weight: bolder;
+  text-align: justify;
+  text-align: center;
+  height: 100%;
+  width: 80px;
+  background: linear-gradient(to right, #ead6d605, #faeeee, #fbe4e4);
+  color: #db6b6b;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 230px;
+  top: 86%;
+}
+
+#left {
   background-color: #f2f2f2;
   border: none;
   cursor: pointer;
 }
-#right{
+
+#right {
   background-color: #f2f2f2;
   border: none;
   cursor: pointer;
 }
-#Rectangle2{
-position: absolute;
-left: 30%;
-top: 11%;
-width: 60%;  
-height: 80%;  
-background-color: #ffffff;  
-border: 1px solid #ddd;  
-text-align: center;  
-padding: 20px; 
-} 
-#date{
+
+
+#Rectangle2 {
+  position: absolute;
+  left: 500px;
+  top: 11%;
+  width: 60%;
+  height: 80%;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#date {
   position: absolute;
   top: 2%;
   left: 6%;
 }
-#date-value{
+
+#date-value {
   position: absolute;
   top: 7%;
   left: 3%;
 }
-#type{
+
+#type {
   position: absolute;
   top: 2%;
   left: 15%;
 }
-#type-value{
+
+#type-value {
   position: absolute;
   top: 7%;
   left: 15%;
 }
-#duration{
+
+#duration {
   position: absolute;
   top: 2%;
   left: 23%;
 }
-#duration-value{
+
+#duration-value {
   position: absolute;
   top: 7%;
   left: 24%;
 }
-.Win{
-position: absolute;
-left: 5%;
-top: 15%;
-width: 40%;
-height: 70%;
-background: linear-gradient(to bottom, rgba(84, 173, 161, 0.5), white);
-border: none;  
-text-align: center;  
-padding: 20px; 
-}
-.Win p{
-position: absolute;
-top: -3%;
-left: 5%;
-font-size: 40px;
-}
-.Win .photo{
+
+.Win {
   position: absolute;
+  left: 5%;
   top: 15%;
-  left: 35%;
-  width: 30%;
-  height: 25%;
-}
-.Win .Win_table{
-position: absolute;
-top: 50%;
-left: 10%;
-width: 80%;
-  height: 40%;
-border: 1px solid black;
-border-collapse: collapse;  /* 合并相邻的边框 */
-}
-.Win .Win_table td{
-color: black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-  font-size: 12px;
-}
-.Win .Win_table tr:nth-child(1) td:nth-child(1)
-{
-  font-size: 20px;
-}
-.Win .Win_table tr:nth-child(2) td:nth-child(1),
-tr:nth-child(2) td:nth-child(2) {
-  border-right: none;
-  border-left: none;
-}
-.Win .Win_table tr:nth-child(2) td:nth-child(3){
-  border-right: none;
-}
-.Win .Win_table tr:nth-child(2) td:nth-child(4){
-  border-left: none;
-}
-.Win .Win_table tr:nth-child(2) td:nth-child(5){
-  border-right: none;
-}
-.Win .Win_table tr:nth-child(2) td:nth-child(6){
-  border-left: none;
-}
-.Win .Win_table tr:nth-child(3) td:nth-child(1),
-tr:nth-child(3) td:nth-child(2) {
-  border-right: none;
-  border-left: none;
-}
-.Win .Win_table tr:nth-child(3) td:nth-child(3){
-  border-right: none;
-}
-.Win .Win_table tr:nth-child(3) td:nth-child(4){
-  border-left: none;
+  width: 40%;
+  height: 70%;
+  background: linear-gradient(to bottom, #bbffb0, #eff9ea, #66b0540a);
+  border: none;
+  text-align: center;
+  padding: 20px;
 }
 
-.Lose{
-position: absolute;
-left: 50%;
-top: 15%;
-width: 40%;
-height: 70%;
-background: linear-gradient(to bottom, rgba(211, 92, 92, 0.5), white);
-border: none;  
-text-align: center;  
-padding: 20px; 
-}
-.Lose p{
+.Win p {
   position: absolute;
   top: -3%;
   left: 5%;
   font-size: 40px;
+  color: #3dbb68;
 }
-.Lose .photo{
+
+.Win .photo {
   position: absolute;
   top: 15%;
   left: 35%;
   width: 30%;
   height: 25%;
 }
-.Lose .Lose_table{
+
+
+/* 全局表格样式 */
+.Win_table {
   position: absolute;
   top: 50%;
-  left: 10%;
-  width: 80%;
+  left: 25px;
+  width: 350px;
   height: 40%;
-  border: 1px solid black;
-  border-collapse: collapse;  /* 合并相邻的边框 */
+  border-collapse: collapse; /* 折叠边框 */
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
 }
-.Lose .Lose_table td{
-  color: black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-  font-size: 12px;
+
+/* 表头样式 */
+.Win_table th {
+  background-color: #009879;
+  color: white;
+  height: 60px;
+  font-size: 16px;
 }
-.Lose .Lose_table tr:nth-child(1) td:nth-child(1)
-{
-  font-size: 20px;
+
+/* 图标的动画和样式 */
+.Win_table .animate-flicker {
+  animation: flickerAnimation 1s infinite;
 }
-.Lose .Lose_table tr:nth-child(2) td:nth-child(1),
-tr:nth-child(2) td:nth-child(2) {
-  border-right: none;
-  border-left: none;
+
+/* 表格单元格样式 */
+.Win_table td {
+  background-color: #f2f2f200;
+  color: #333;
+  padding: 8px;
 }
-.Lose .Lose_table tr:nth-child(2) td:nth-child(3){
-  border-right: none;
+
+/* KDA, 死亡数和击杀数单元格特殊样式 */
+.deaths_value, .kills_value, .kda_value, .damage_value, .taken_value {
+  font-weight: bold;
 }
-.Lose .Lose_table tr:nth-child(2) td:nth-child(4){
-  border-left: none;
+
+/* 悬停效果 */
+.Win_table tr:hover {
+  background-color: #ddd;
 }
-.Lose .Lose_table tr:nth-child(2) td:nth-child(5){
-  border-right: none;
+
+/* 表格动画效果 */
+@keyframes tableAnimation {
+  0%   { opacity: 0; transform: translateY(-50px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
-.Lose .Lose_table tr:nth-child(2) td:nth-child(6){
-  border-left: none;
+
+/* 应用动画效果 */
+.Win_table {
+  animation: tableAnimation 1s;
 }
-.Lose .Lose_table tr:nth-child(3) td:nth-child(1),
-tr:nth-child(3) td:nth-child(2) {
-  border-right: none;
-  border-left: none;
+
+/* 表格数据行进入动画效果 */
+@keyframes rowEnterAnimation {
+  0%   { opacity: 0; transform: translateX(-50px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
-.Lose .Lose_table tr:nth-child(3) td:nth-child(3){
-  border-right: none;
+
+/* 应用动画效果 */
+.Win_table tr {
+  animation: rowEnterAnimation 0.5s forwards;
 }
-.Lose .Lose_table tr:nth-child(3) td:nth-child(4){
-  border-left: none;
+@keyframes flickerAnimation {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+
+.Win_table th i.animate-flicker,
+.Win_table th i.fa-skull-crossbones,
+.Win_table th i.fa-heartbeat,
+.Win_table th i.fa-shield-alt,
+.Win_table th i.fa-chart-line {
+  animation: flickerAnimation 1s infinite;
+}
+
+.Lose {
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  width: 40%;
+  height: 70%;
+  background: linear-gradient(to bottom, #f9c9c9,#faeeee, #ead6d605);
+  border: none;
+  text-align: center;
+  padding: 20px;
+}
+
+.Lose p {
+  position: absolute;
+  top: -3%;
+  left: 5%;
+  font-size: 40px;
+  color: #db6b6b;
+}
+
+.Lose .photo {
+  position: absolute;
+  top: 15%;
+  left: 35%;
+  width: 30%;
+  height: 25%;
+}
+
+/* 全局表格样式 */
+.Lose_table {
+  position: absolute;
+  top: 50%;
+  left: 25px;
+  width: 350px;
+  height: 40%;
+  border-collapse: collapse; /* 折叠边框 */
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+}
+
+/* 表头样式 */
+.Lose_table th {
+  background-color: #980300;
+  color: white;
+  height: 60px;
+  font-size: 16px;
+}
+
+/* 图标的动画和样式 */
+.Lose_table .animate-flicker {
+  animation: flickerAnimation 1s infinite;
+}
+
+/* 表格单元格样式 */
+.Lose_table td {
+  background-color: #f2f2f200;
+  color: #333;
+  padding: 8px;
+}
+
+/* KDA, 死亡数和击杀数单元格特殊样式 */
+.deaths_value, .kills_value, .kda_value, .damage_value, .taken_value {
+  font-weight: bold;
+}
+
+
+/* 悬停效果 */
+.Lose_table tr:hover {
+  background-color: #ddd;
+}
+
+/* 表格动画效果 */
+@keyframes tableAnimation {
+  0%   { opacity: 0; transform: translateY(-50px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 应用动画效果 */
+.Lose_table {
+  animation: tableAnimation 1s;
+}
+
+/* 表格数据行进入动画效果 */
+@keyframes rowEnterAnimation {
+  0%   { opacity: 0; transform: translateX(-50px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* 应用动画效果 */
+.Lose_table tr {
+  animation: rowEnterAnimation 0.5s forwards;
+}
+@keyframes flickerAnimation {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+
+.Lose_table th i.animate-flicker,
+.Lose_table th i.fa-skull-crossbones,
+.Lose_table th i.fa-heartbeat,
+.Lose_table th i.fa-shield-alt,
+.Lose_table th i.fa-chart-line {
+  animation: flickerAnimation 1s infinite;
+}
+
+/* 表格动画效果 */
+@keyframes tableAnimation {
+  0%   { opacity: 0; transform: translateY(-50px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 应用动画效果 */
+.Win_table .Lose_table{
+  animation: tableAnimation 1s;
 }

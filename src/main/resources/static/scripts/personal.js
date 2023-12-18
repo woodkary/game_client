@@ -2,22 +2,21 @@ let username = null;
 let soloRank = 0;
 let brawlRank = 0;
 preLoad();
-handleDataPersonal(1);
-handleDataPersonal(2);
-handleDataAll();
-handleDataMonth();
-//soloRank 和 brawlRank 在上面的函数里面处理了
 
+//soloRank 和 brawlRank 在上面的函数里面处理了
 window.onload = function () {
     let ID = document.getElementById("ID");
     ID.textContent = username;
-    getRanksInfo();
+    handleDataPersonal(1);
+    handleDataPersonal(2);
+    handleDataAll();
 }
 
 function preLoad() {
     let query = window.location.search;
     let params = new URLSearchParams(query);
     username = params.get("username");
+    getRanksInfo();
 }
 
 function handleRankScore() {
@@ -46,7 +45,7 @@ function handleDataPersonal(type) {
         console.log(data.portrait);
         if (xhr.status === 200) {
             if (type === 1) {
-                setInputDataPersonalSin(data);  
+                setInputDataPersonalSin(data);
                 soloRank = data.score;
             } if (type === 2) {
                 setInputDataPersonalBrawl(data);
@@ -133,6 +132,8 @@ function setInputDataPersonalSin(data) {
     document.getElementById("loseSin").textContent = data.lose;
     document.getElementById("winRateSin").textContent = toPercentageValue(data.winRate);
     document.getElementById("levelSin").textContent = data.level;
+    document.getElementById("winRate_solo").textContent = toPercentageValue(data.winRate);
+    document.getElementById("gameNum_solo").textContent = data.gameNums +"场";
 }
 function setInputDataPersonalBrawl(data) {
     document.getElementById("gameNumsBrawl").textContent = data.gameNums;
@@ -140,19 +141,15 @@ function setInputDataPersonalBrawl(data) {
     document.getElementById("loseBrawl").textContent = data.lose;
     document.getElementById("winRateBrawl").textContent = toPercentageValue(data.winRate);
     document.getElementById("levelBrawl").textContent = data.level;
+    document.getElementById("winRate_melee").textContent = toPercentageValue(data.winRate);
+    document.getElementById("gameNum_melee").textContent = data.gameNums + "场";
 }
 function setInputDataAll(data) {
-    document.getElementById("kdaAll").textContent = (data.kda).toFixed(2);
-    document.getElementById("winRateAll").textContent = toPercentageValue(data.winRate);
-    document.getElementById("totalKillsAll").textContent = data.totalKills;
+    document.getElementById("value_kda").textContent = (data.kda).toFixed(2);
+    document.getElementById("total_kills").textContent = data.totalKills;
     document.getElementById("gameNumsAll").textContent = data.gameNums;
 }
-function setInputDataMonth(data) {
-    document.getElementById("kdaMonth").textContent = (data.kda).toFixed(2);
-    document.getElementById("winRateMonth").textContent = toPercentageValue(data.winRate);
-    document.getElementById("totalKillsMonth").textContent = data.totalKills;
-    document.getElementById("gameNumsMonth").textContent = data.gameNums;
-}
+
 
 
 function toPercentageValue(value) {
@@ -293,4 +290,9 @@ function selectAvatar(portrait) {
 
 
     modal.style.display = "none";
+}
+
+async function runFunctions() {
+    await getRanksInfo();
+
 }
