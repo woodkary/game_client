@@ -4,8 +4,10 @@ import com.kary.hahaha3.exceptions.errorInput.GameNotFoundException;
 import com.kary.hahaha3.exceptions.errorInput.MatchTypeErrorException;
 import com.kary.hahaha3.mapper.GamesMapper;
 import com.kary.hahaha3.mapper.RecordMapper;
+import com.kary.hahaha3.mapper.UserGameMapper;
 import com.kary.hahaha3.pojo.Games;
 import com.kary.hahaha3.pojo.Record;
+import com.kary.hahaha3.pojo.UserGame;
 import com.kary.hahaha3.pojo.vo.RecordVO;
 import com.kary.hahaha3.service.RecordVOService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +28,14 @@ public class RecordVOServiceImpl implements RecordVOService {
     private RecordMapper recordMapper;
     @Autowired
     private GamesMapper gamesMapper;
+    @Autowired
+    private UserGameMapper userGameMapper;
     @Override
     //输入我自己的名字和比赛列表
     public List<RecordVO> getGamesByUsername(String username,Integer type) throws MatchTypeErrorException {
         List<RecordVO> records=new ArrayList<>();
         List<Record> recordList=recordMapper.selectRecordsByUsername(username);
+        Integer portrait=userGameMapper.getPortrait(username);
         for (Record record : recordList) {
             Games game;
             if(type==null){
@@ -57,6 +62,7 @@ public class RecordVOServiceImpl implements RecordVOService {
             recordVO.setDuration(game.getDuration());
             recordVO.setScoreGain(record.getScoreGain());
             recordVO.setUsername(username);
+            recordVO.setPortrait(portrait);
             recordVO.setMVP(isMVP);
             recordVO.setTakeDamage(record.getTakeDamage());
             recordVO.setTakenDamage(record.getTakenDamage());
@@ -116,8 +122,10 @@ public class RecordVOServiceImpl implements RecordVOService {
                 default:break;
             }
             boolean isMVP=username.equals(game.getMvpPlayer());
+            Integer portrait=userGameMapper.getPortrait(username);
             recordVO.setGameId(gameId);
             recordVO.setUsername(username);
+            recordVO.setPortrait(portrait);
             recordVO.setGameTime(gameTime);
             recordVO.setKills(kills);
             recordVO.setDeaths(deaths);
