@@ -1,14 +1,10 @@
 package com.kary.hahaha3.controller.rankInformation;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kary.hahaha3.controller.BaseController;
-import com.kary.hahaha3.exceptions.JsonException;
 import com.kary.hahaha3.exceptions.errorInput.GameNotFoundException;
 import com.kary.hahaha3.exceptions.errorInput.MatchTypeErrorException;
 import com.kary.hahaha3.exceptions.errorInput.UsernameErrorException;
 import com.kary.hahaha3.exceptions.expired.SessionExpireException;
-import com.kary.hahaha3.mapper.UserMapper;
 import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.pojo.vo.PersonalReport;
@@ -23,7 +19,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,6 +46,7 @@ public class UserRankInformationController extends BaseController {
     @Operation(summary = "统计别人的战绩信息，即全部场次部分，仅返回一个Records对象。请看Records类")
     public JsonResult getOthersAllGame(@RequestParam("username")String username,HttpSession session) throws SessionExpireException {
         User account= userService.selectUserByName(username);
+        System.out.println("____account____");
         if(account==null){
             throw new SessionExpireException("用户不存在");
         }
