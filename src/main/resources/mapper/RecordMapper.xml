@@ -9,4 +9,32 @@
     <select id="selectRecordsByGameId" resultType="com.kary.hahaha3.pojo.Record">
         select * from record where game_id=#{gameId}
     </select>
+    <insert id="addNewRecord">
+        insert into record (game_id,
+                            username,
+                            `kill`,
+                            death,
+                            assist,
+                            score_gain,
+                            take_damage,
+                            taken_damage)
+        values (#{gameId},
+                #{username},
+                #{kill},
+                #{death},
+                #{assist},
+                #{scoreGain},
+                #{takeDamage},
+                #{takenDamage})
+    </insert>
+    <update id="addGamesCount">
+        update user_game set games_count=games_count+1 where username=#{username}
+    </update>
+    <update id="addGamesCount1v1" parameterType="string">
+        update user_game set games_count_1v1=games_count_1v1+1 where username=#{username}
+    </update>
+
+    <update id="addGamesCountBrawl" parameterType="string">
+        update user_game set games_count_brawl=games_count_brawl+1 where username=#{username}
+    </update>
 </mapper>

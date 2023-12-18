@@ -43,6 +43,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public Integer addScore(String username, Integer type, Integer addScore) {
+        Integer num1=userGameMapper.addScore(username,type,addScore);
+        Integer num2=userGameMapper.updateMaxScore(username,type);
+        return num1==1&&num2==1?1:0;
+    }
+
+    @Override
+    @Transactional
     public Integer insertUser(String username, String pwd, String email) {
         Integer num1,num2,num3;
         num1= userMapper.insertUser(username,pwd,email);

@@ -16,4 +16,10 @@ public interface GamesMapper {
     Games getGameByIdAndType(@Param("gameId")Integer gameId,@Param("type")Integer type);
     Games getGameById(@Param("gameId")Integer gameId);
     Games getThisMonthGameById(@Param("gameId")Integer gameId);
+    Integer getMaxGameId();
+Integer addNewGame(@Param("type")Integer type,
+                       @Param("gameId")Integer gameId,
+                       @Param("duration")Long duration,
+                       @Param("mvpPlayer")String mvpPlayer);
+
 }

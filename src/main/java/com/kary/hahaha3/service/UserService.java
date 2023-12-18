@@ -16,4 +16,5 @@ public interface UserService {
     Integer updateUserPassword(String username,String pwd);
     Boolean emailIsRegistered(String email);
     Integer updateUserPortrait(String username,Integer portrait);
+    Integer addScore(String username,Integer type,Integer addScore);
 }

@@ -18,4 +18,9 @@ public interface UserGameMapper {
     Integer getPortrait(@Param(value = "username")String username);
     Integer getScoreByType(@Param(value = "username")String username,
                            @Param(value = "type")Integer type);
+    Integer addScore(@Param(value = "username")String username,
+                           @Param(value = "type")Integer type,
+                           @Param(value = "addScore")Integer addScore);
+    Integer updateMaxScore(@Param(value = "username")String username,
+                        @Param(value = "type")Integer type);
 }

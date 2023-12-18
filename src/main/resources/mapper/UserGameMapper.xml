@@ -10,8 +10,10 @@
                                score_total_brawl,
                                games_count_1v1,
                                games_count_brawl,
-                               portrait
-        )values (#{username},0,0,0,0,0,0)
+                               portrait,
+                               max_score_1v1,
+                               max_score_brawl
+        )values (#{username},0,0,0,0,0,0,0,0)
     </insert>
     <update id="updatePortrait">
         update user_game set portrait=#{portrait} where username=#{username}
@@ -32,5 +34,25 @@
             </if>
         from user_game where username=#{username}
     </select>
+    <update id="addScore">
+        update user_game set
+            <if test="type==1">
+                score_total_1v1=score_total_1v1+#{addScore}
+            </if>
+            <if test="type==2">
+                score_total_brawl=score_total_brawl+#{addScore}
+            </if>
+        where username=#{username}
+    </update>
+    <update id="updateMaxScore">
+        update user_game set
+            <if test="type==1 and max_score_1v1 &lt; score_total_1v1">
+                max_score_1v1=score_total_1v1
+            </if>
+            <if test="type==2 and max_score_brawl &lt; score_total_brawl">
+                max_score_brawl=score_total_brawl
+            </if>
+        where username=#{username}
+    </update>
 
 </mapper>
