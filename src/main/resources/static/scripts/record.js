@@ -6,21 +6,6 @@ let initGameMode;
 preLoad();
 window.onload = function () {
   initPageNum();
-  let cssFiles = document.querySelectorAll('link[rel="stylesheet"]');
-  let link = cssFiles[0];
-  if (gameMode === "大乱斗") {
-    if (link) {
-      console.log(link);
-      link.href = "../styles/record2.css";
-      console.log(link);
-    }
-  } else {
-    if (link) {
-      console.log(link);
-      link.href = "../styles/record.css";
-      console.log(link);
-    }
-  }
 }
 
 function preLoad() {
@@ -299,8 +284,8 @@ function updateDetailedInfo(gameid) {
         winKda.textContent = winner.kda;
         winDamage.textContent = Math.floor(winner.takeDamage);
         winTaken.textContent = Math.floor(winner.takenDamage);
-        winPhoto.src = "../images/portrait_" + winner.portrait + '.png';
-
+        winPhoto.src = "../images/portrait_" + winner.portrait + '.jpg';
+        console.log(winner.portrait);
         // Get the elements for the losing side
         const loseUsername = document.getElementById('lose_username');
         const loseKills = document.getElementById('lose_kills');
@@ -317,7 +302,7 @@ function updateDetailedInfo(gameid) {
         loseKda.textContent = loser.kda;
         loseDamage.textContent = Math.floor(loser.takeDamage);
         loseTaken.textContent = Math.floor(loser.takenDamage);
-        losePhoto.src = "../images/portrait_" + loser.portrait + '.png';
+        losePhoto.src = "../images/portrait_" + loser.portrait + '.jpg';
         //直接填数据上去
       }
     })
