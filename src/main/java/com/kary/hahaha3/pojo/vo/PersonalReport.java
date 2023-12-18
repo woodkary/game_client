@@ -23,5 +23,7 @@ public class PersonalReport {
     private double averageAssist;//场均助攻
     private double kda;//总kda
     private String level;
+    private int score;
+    private int portrait;
 }
 

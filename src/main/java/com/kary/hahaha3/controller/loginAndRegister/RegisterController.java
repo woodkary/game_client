@@ -42,7 +42,7 @@ public class RegisterController extends BaseController {
     @Autowired
     private UserService userService;
     @PostMapping("/register")
-    @Operation(summary = "用户注册",description = "user register")
+    @Operation(summary = "用户注册",description = "需要输入用户名和密码")
     public JsonResult userRegister(@RequestBody RegisterJSON registerJSON,
                                    HttpSession session)throws Exception{
         String username=registerJSON.getUsername();

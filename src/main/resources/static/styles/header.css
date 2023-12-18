@@ -3,6 +3,18 @@
     src: url("../fonts/点点像素体-方形.ttf") format("truetype");
 }
 
+.background {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../images/background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 0px;
+    position: absolute;
+    opacity: 0.8;
+    top:10vh;
+    z-index: -1;
+  }
 
 body {
     font-family: 'pixel';
@@ -129,4 +141,10 @@ li a:focus:after {
     width: 100%;
     visibility: visible;
     transition: width 0.3s;
+}
+
+#logout{
+    position: absolute;
+    right: 10px;
+    top:2px;
 }

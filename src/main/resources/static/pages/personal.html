@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>战绩主页面</title>
-    <link rel="stylesheet" href="../styles/personal.css">
+
     <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/personal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-<script src="../scripts/personal.js"></script>
 
 <body>
     <div class="background"></div>
     <nav>
         <span id="logo_nav">
-            <a href="../index.html"><img class="LOGO" src="../images/LOGO.png" , alt="LOGO"></a>
+            <a onclick="redirectToIndex(event)"><img class="LOGO" src="../images/LOGO.png" , alt="LOGO"></a>
         </span>
         <span class="header">
             <ul>
@@ -25,56 +25,68 @@
                 <li><a class="header" id="page2" onclick="redirectToPersonal(event)"><i class="fas fa-chart-bar"></i>
                         我的战绩</a>
                 </li>
-                <li><a class="header" id="page3" href="./forum-home.html"><i class="fas fa-users"></i> 社区</a></li>
+                <li><a class="header" id="page3" onclick="alert('Email:danqingyifan@gmail.com')"><i class="fas fa-users"></i> 联系我们</a></li>
             </ul>
+            <ul>
+                <li>
+                    <a class="header" id="logout" href="../pages/login.html"><i
+                            class="fas fa-power-off logout-icon"></i> 注销</a>
+                </li>
+            </ul>
+
         </span>
 
     </nav>
-    <div id="Rectangle">
-        <a href="personal.html" class="button1">战绩总览</a>
-        <a href="record.html" class="button2">历史战绩</a>
-        <hr class="HorizontalLine">
+
+    <div id="main">
+        <!-- <a href="personal.html" class="button1">战绩总览</a> -->
+        <a onclick="redirectToRecord(event)" class="button2">历史战绩</a>
+        <!-- <hr class="HorizontalLine"> -->
         <div id="Rectangle1">
-            <img class="Head0" src="../images/head-black.png" alt="Head0">
-            <div class="ID" id="ID">用户名:xxx</div>
-            <div class="Rank">Rank分</div>
+            <img class="Head0" style="border-color: darkmagenta;border-style: solid;" alt="Head0" id="portrait">
+            <div class="ID" id="ID">Cool Boy</div>
+            <!-- <img id="rankPhoto1" src="../images/wImage@1x.png">
+            <img id="rankPhoto2" src="../images/wImage@1x.png">
+            <img id="rankPhoto3" src="../images/wImage@1x.png"> -->
+            <div class="Rank" id="rank">Rank Points: 2345</div>
         </div>
+        
         <div id="Rectangle2">
-            <div class="all">全部场次</div>
-            <div class="month">本月</div>
-            <table class="table1">
-                <tr>
-                    <td>KDA</td>
-                    <td id="kdaAll"></td>
-                    <td>胜率</td>
-                    <td id="winRateAll"></td>
-                </tr>
-                <tr>
-                    <td>总击杀</td>
-                    <td id="totalKillsAll"></td>
-                    <td>场次</td>
-                    <td id="gameNumsAll"></td>
-                </tr>
-            </table>
-            <div class="vertical-line"></div>
-            <table class="table2">
-                <tr>
-                    <td>KDA</td>
-                    <td id="kdaMonth"></td>
-                    <td>胜率</td>
-                    <td id="winRateMonth"></td>
-                </tr>
-                <tr>
-                    <td>总击杀</td>
-                    <td id="totalKillsMonth"></td>
-                    <td>场次</td>
-                    <td id="gameNumsMonth"></td>
-                </tr>
-            </table>
+            <div class="Data_browser"
+            style="position: absolute; top: 6%; left: 3%; color: rgb(77, 77, 77); font-size: 18px;font-weight: 600;">
+            数据总览：</div>
+            <div class="container_kda">
+                <div class="text_kda" id="text_kda">KDA</div>
+                <div class="value_kda" id="value_kda">0.0</div>
+                <div class="fas fa-question-circle" id="help" style="color: #d7a455;">
+                    <span class="tooltiptext">KDA=(击杀数+助攻数x0.7)/死亡数</span>
+                </div>
+            </div>
+            <div class="container_1v1_win_percentage">
+                <div class="Game_Data_title" >单挑</div>
+                <div class="Game_Data_value" id="winRate_solo">63%</div>
+                <div class="Game_Data_description" id="gameNum_solo">35场</div>
+            </div>
+            <div class="container_1v1_kills">
+                <div class="Game_Data_title" >大乱斗</div>
+                <div class="Game_Data_value" id="winRate_melee">362</div>
+                <div class="Game_Data_description" id="gameNum_melee">62场</div>
+            </div>
+            <div class="container_scrimmage_win_percentage">
+                <div class="Game_Data_title" >总击杀数</div>
+                <div class="Game_Data_value" id="total_kills">200</div>
+                <div class="Game_Data_description" id="Game_Data_description"></div>
+            </div>
+            <div class="container_scrimmage_kills">
+                <div class="Game_Data_title" >最高段位</div>
+                <div class="Game_Data_value" id="Game_Data_value">青铜</div>
+                <div class="Game_Data_description" id="Game_Data_description"></div>
+            </div>
         </div>
+
         <div id="Rectangle3">
-            <div class="Report">个人战报</div>
-            <table>
+            <div class="Report">表格展示：</div>
+            <table class="Data_table">
                 <tr>
                     <th>类型</th>
                     <th>总场次</th>
@@ -101,53 +113,53 @@
                 </tr>
             </table>
         </div>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>更改你的头像</p>
+                <img src="../images/portrait_0.jpg" class="avatar" onclick="selectAvatar(0)">
+                <img src="../images/portrait_1.jpg" class="avatar" onclick="selectAvatar(1)">
+                <img src="../images/portrait_2.jpg" class="avatar" onclick="selectAvatar(2)">
+                <img src="../images/portrait_3.jpg" class="avatar" onclick="selectAvatar(3)">
+                <img src="../images/portrait_4.jpg" class="avatar" onclick="selectAvatar(4)">
+                <img src="../images/portrait_5.jpg" class="avatar" onclick="selectAvatar(5)">
+                <img src="../images/portrait_6.jpg" class="avatar" onclick="selectAvatar(6)">
+                <!-- Add more images as needed -->
+            </div>
+        </div>
+
+
         <div id="Rectangle4">
-            <div class="Recent">近期战绩</div>
-            <a class="button" onclick="redirectToRecord(event)">全部比赛></a>
-            <table class="table3" id="recentTable">
-                <tr>
-                    <td class="td3" id="result" width="20px">胜利</td>
-                    <td class="td3" id="type" width="20px">(单挑)</td>
-                    <td class="td3" id="gameTime" width="100px">时间</td>
-                </tr>
-                <tr>
-                    <td class="td3" width="20px">胜利</td>
-                    <td class="td3" width="20px">(单挑)</td>
-                    <td class="td3" width="100px">时间</td>
-                </tr>
-                <tr>
-                    <td class="td3" width="20px">失败</td>
-                    <td class="td3" width="20px">(单挑)</td>
-                    <td class="td3" width="100px">时间</td>
-                </tr>
-                <tr>
-                    <td class="td3" width="20px">失败</td>
-                    <td class="td3" width="20px">(单挑)</td>
-                    <td class="td3" width="100px">时间</td>
-                </tr>
-                <tr>
-                    <td class="td3" width="20px">胜利</td>
-                    <td class="td3" width="20px">(单挑)</td>
-                    <td class="td3" width="100px">时间</td>
-                </tr>
-                <tr>
-                    <td class="td3" width="20px">胜利</td>
-                    <td class="td3" width="20px">(单挑)</td>
-                    <td class="td3" width="100px">时间</td>
-                </tr>
-                <tr>
-                    <td class="td3" width="20px">胜利</td>
-                    <td class="td3" width="20px">(死斗)</td>
-                    <td class="td3" width="100px">时间</td>
-                </tr>
-                <tr>
-                    <td class="td3" width="20px">失败</td>
-                    <td class="td3" width="20px">(单挑)</td>
-                    <td class="td3" width="100px">时间</td>
-                </tr>
-            </table>
+            <!-- <div class="Recent">近期战绩</div> -->
+            <!-- <a class="button" onclick="redirectToRecord(event)">全部比赛></a> -->
+            <div class="table3" id="recordTable">
+                <div class="row">
+                    <img class="head_photo" src="../images/portrait_0.jpg" />
+                    <sapn class="info">
+                        <span class="type">1 VS 1</span>
+                        <span class="gametime">2023-10-31</span>
+                    </sapn>
+                    <span class="kda">
+                        <img class="kill" src="../images/strength.png">
+                        <span class="kills">
+                            <p>0</p>
+                        </span>
+                        <img class="death" src="../images/wither.png">
+                        <span class="deaths">
+                            <p>0</p>
+                        </span>
+                    </span>
+                    <span class="result_lose">
+                        <p>失败</p>
+                    </span>
+
+                </div>
+            </div>
         </div>
     </div>
+    </div>
+    <script src="../scripts/personal.js"></script>
 </body>
 
 </html>

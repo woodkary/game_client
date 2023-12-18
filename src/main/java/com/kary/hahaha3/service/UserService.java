@@ -15,4 +15,5 @@ public interface UserService {
     List<User> selectUserLimit(int x);
     Integer updateUserPassword(String username,String pwd);
     Boolean emailIsRegistered(String email);
+    Integer updateUserPortrait(String username,Integer portrait);
 }

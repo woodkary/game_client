@@ -28,7 +28,7 @@ public class LoginController extends BaseController {
     @Autowired
     private UserService userService;
     @GetMapping("/login")
-    @Operation(summary = "登录", description = "API to handle user login")
+    @Operation(summary = "登录", description = "需要输入用户名和密码")
     public JsonResult login(@RequestParam(value = "username")String username,
                             @RequestParam(value = "password")String password,
                             HttpSession session) throws ErrorInputException {

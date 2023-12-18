@@ -4,8 +4,10 @@ import com.kary.hahaha3.exceptions.errorInput.GameNotFoundException;
 import com.kary.hahaha3.exceptions.errorInput.MatchTypeErrorException;
 import com.kary.hahaha3.mapper.GamesMapper;
 import com.kary.hahaha3.mapper.RecordMapper;
+import com.kary.hahaha3.mapper.UserGameMapper;
 import com.kary.hahaha3.pojo.Games;
 import com.kary.hahaha3.pojo.Record;
+import com.kary.hahaha3.pojo.UserGame;
 import com.kary.hahaha3.pojo.vo.RecordVO;
 import com.kary.hahaha3.service.RecordVOService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +28,14 @@ public class RecordVOServiceImpl implements RecordVOService {
     private RecordMapper recordMapper;
     @Autowired
     private GamesMapper gamesMapper;
+    @Autowired
+    private UserGameMapper userGameMapper;
     @Override
     //输入我自己的名字和比赛列表
     public List<RecordVO> getGamesByUsername(String username,Integer type) throws MatchTypeErrorException {
         List<RecordVO> records=new ArrayList<>();
         List<Record> recordList=recordMapper.selectRecordsByUsername(username);
+        Integer portrait=userGameMapper.getPortrait(username);
         for (Record record : recordList) {
             Games game;
             if(type==null){
@@ -57,18 +62,28 @@ public class RecordVOServiceImpl implements RecordVOService {
             recordVO.setDuration(game.getDuration());
             recordVO.setScoreGain(record.getScoreGain());
             recordVO.setUsername(username);
+            recordVO.setPortrait(portrait);
             recordVO.setMVP(isMVP);
             recordVO.setTakeDamage(record.getTakeDamage());
             recordVO.setTakenDamage(record.getTakenDamage());
-            String typeString = switch (type) {
-                case 1 -> "1v1";
-                case 2 -> "大乱斗";
-                default -> "";
-            };
+            String typeString="";
+            switch (game.getType()){
+                case 1:typeString="1v1";break;
+                case 2:typeString="大乱斗";break;
+                default:break;
+            }
             recordVO.setType(typeString);
             records.add(recordVO);
         }
-
+        records.sort((o1, o2) -> {
+            if(o1.getGameTime().after(o2.getGameTime())){
+                return -1;
+            }else if(o1.getGameTime().before(o2.getGameTime())){
+                return 1;
+            }else{
+                return 0;
+            }
+        });
         return records;
     }
 
@@ -100,14 +115,17 @@ public class RecordVOServiceImpl implements RecordVOService {
             double kda=(kills*1.0+assists*0.7)/(deaths!=0?deaths:1);
             long duration=game.getDuration();
             int type=game.getType();
-            String typeString = switch (type) {
-                case 1 -> "1v1";
-                case 2 -> "大乱斗";
-                default -> "";
-            };
+            String typeString="";
+            switch (type){
+                case 1:typeString="1v1";break;
+                case 2:typeString="大乱斗";break;
+                default:break;
+            }
             boolean isMVP=username.equals(game.getMvpPlayer());
+            Integer portrait=userGameMapper.getPortrait(username);
             recordVO.setGameId(gameId);
             recordVO.setUsername(username);
+            recordVO.setPortrait(portrait);
             recordVO.setGameTime(gameTime);
             recordVO.setKills(kills);
             recordVO.setDeaths(deaths);
@@ -121,6 +139,15 @@ public class RecordVOServiceImpl implements RecordVOService {
             recordVO.setTakenDamage(record.getTakenDamage());
             res.add(recordVO);
         }
+        res.sort((o1, o2) -> {
+            if(o1.getGameTime().after(o2.getGameTime())){
+                return -1;
+            }else if(o1.getGameTime().before(o2.getGameTime())){
+                return 1;
+            }else{
+                return 0;
+            }
+        });
         return res;
     }
 
