@@ -25,6 +25,8 @@ public class GameRecordServiceImpl implements GameRecordService {
     @Override
     @Transactional
     public Integer recordNewMatch(Integer maxGameId, Long duration, String username, Integer kill, Integer death, Integer scoreGain, Integer assist, Double takeDamage, Double takenDamage, String mvpPlayer, Integer gameMode) {
+        Integer num1=userGameMapper.addScore(username,gameMode,scoreGain);//先给用户加分
+        //再更新用户的最高分数
         UserGame user=userGameMapper.getUserGame(username);//获取用户信息
         int scoreTotal1v1=user.getScoreTotal1v1();//用户现有分数
         int scoreTotalBrawl=user.getScoreTotalBrawl();
@@ -37,7 +39,6 @@ public class GameRecordServiceImpl implements GameRecordService {
         if(scoreTotalBrawl>maxScoreBrawl){
             userGameMapper.updateMaxScore(username,2);
         }
-        Integer num1=userGameMapper.addScore(username,gameMode,scoreGain);
         Integer num2=userGameMapper.updateMaxScore(username,gameMode);
         Integer num3=recordMapper.addGamesCount(username);
         Integer num4=0;
