@@ -7,7 +7,6 @@ import com.kary.hahaha3.mapper.RecordMapper;
 import com.kary.hahaha3.mapper.UserGameMapper;
 import com.kary.hahaha3.pojo.Games;
 import com.kary.hahaha3.pojo.Record;
-import com.kary.hahaha3.pojo.UserGame;
 import com.kary.hahaha3.pojo.vo.RecordVO;
 import com.kary.hahaha3.service.RecordVOService;
 import org.springframework.beans.factory.annotation.Autowired;

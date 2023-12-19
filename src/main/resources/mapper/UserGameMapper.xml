@@ -46,13 +46,16 @@
     </update>
     <update id="updateMaxScore">
         update user_game set
-            <if test="type==1 and max_score_1v1 &lt; score_total_1v1">
+            <if test="type==1">
                 max_score_1v1=score_total_1v1
             </if>
-            <if test="type==2 and max_score_brawl &lt; score_total_brawl">
+            <if test="type==2">
                 max_score_brawl=score_total_brawl
             </if>
         where username=#{username}
     </update>
+    <select id="getUserGame" resultType="com.kary.hahaha3.pojo.UserGame">
+        select * from user_game where username=#{username}
+    </select>
 
 </mapper>

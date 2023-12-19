@@ -30,4 +30,13 @@ public class UpdateGameController {
         }
         return JsonResult.ok(res,"更新成功");
     }
+    @PostMapping("/addNewGame")
+    @Operation(summary = "添加新的一场游戏",description = "无需使用，只是测试而已。插件里有这个功能")
+    public JsonResult addNewGame(Integer type,Integer gameId,Long duration,String mvpPlayer){
+        Integer res= gameRecordService.addNewGame(type,gameId,duration,mvpPlayer);
+        if(res!=1){
+            return JsonResult.error("添加失败");
+        }
+        return JsonResult.ok(res,"添加成功");
+    }
 }

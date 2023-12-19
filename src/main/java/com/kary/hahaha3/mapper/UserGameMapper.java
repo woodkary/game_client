@@ -1,5 +1,6 @@
 package com.kary.hahaha3.mapper;
 
+import com.kary.hahaha3.pojo.UserGame;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -23,4 +24,5 @@ public interface UserGameMapper {
                            @Param(value = "addScore")Integer addScore);
     Integer updateMaxScore(@Param(value = "username")String username,
                         @Param(value = "type")Integer type);
+    UserGame getUserGame(@Param(value = "username")String username);
 }

@@ -15,4 +15,5 @@ public interface GameRecordService {
                         Double takenDamage,
                         String mvpPlayer,
                         Integer gameMode);
+    Integer addNewGame(Integer type, Integer gameId, Long duration, String mvpPlayer);
 }
