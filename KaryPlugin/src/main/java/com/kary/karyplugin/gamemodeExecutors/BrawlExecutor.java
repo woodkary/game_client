@@ -62,10 +62,10 @@ public class BrawlExecutor extends BaseExecutor {
             return matchingPlayer;
         });
     }
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void respawn(PlayerRespawnEvent event){
         Player player=event.getPlayer();
-        if(players.containsKey(player)){
+        if(players.containsKey(player)) {
             event.setRespawnLocation(BRAWL_LOCATION);//让所有参加比赛的玩家重生在比赛现场
         }
     }

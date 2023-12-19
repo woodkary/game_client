@@ -55,8 +55,6 @@ public class SoloPVPExecutor extends BaseExecutor {
             double[] position=(double[])playerArray[4];
             //如果这个人还在游戏中，就把他传送回场地
             respawnEvent.setRespawnLocation(new Location(Bukkit.getWorld("world"),position[0],position[1],position[2]));
-        }else{
-            respawnEvent.setRespawnLocation(new Location(Bukkit.getWorld("world"),223,4,-345));
         }
     }
     public SoloPVPExecutor(KaryPlugin plugin,Map<Player,Integer> playersMatchingGamemode,RecordService recordService) {

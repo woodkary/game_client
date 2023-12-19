@@ -6,6 +6,7 @@ import com.kary.karyplugin.gamemodeExecutors.QuitMatchingExecutor;
 import com.kary.karyplugin.gamemodeExecutors.SoloPVPExecutor;
 import com.kary.karyplugin.service.impl.RecordServiceImpl;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -56,6 +57,7 @@ public class KaryPlugin extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         Bukkit.getServer().setIdleTimeout(3000);
+        Bukkit.getWorld("world").setSpawnLocation(new Location(Bukkit.getWorld("world"),223,4,-345));
         SoloPVPExecutor soloPVPExecutor=new SoloPVPExecutor(this,playersMatchingGamemode,recordService);
         BrawlExecutor brawlExecutor=new BrawlExecutor(recordService,playersMatchingGamemode,this);
         Bukkit.getPluginManager().registerEvents(soloPVPExecutor, this);
