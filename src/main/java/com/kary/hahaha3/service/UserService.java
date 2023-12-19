@@ -2,6 +2,7 @@ package com.kary.hahaha3.service;
 
 import com.kary.hahaha3.exceptions.connection.DatabaseConnectionException;
 import com.kary.hahaha3.pojo.User;
+import com.kary.hahaha3.pojo.UserGame;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -17,4 +18,7 @@ public interface UserService {
     Boolean emailIsRegistered(String email);
     Integer updateUserPortrait(String username,Integer portrait);
     Integer addScore(String username,Integer type,Integer addScore);
+    List<UserGame> getAllUserOrder1v1();
+    List<UserGame> getAllUserOrderBrawl();
+    List<UserGame> getAllUserOrderTotalScore();
 }

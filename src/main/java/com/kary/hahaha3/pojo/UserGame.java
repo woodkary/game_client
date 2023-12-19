@@ -20,4 +20,5 @@ public class UserGame {
     private int portrait;
     private int maxScore1v1;
     private int maxScoreBrawl;
+    private int onMatch;
 }

@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author:123
  */
@@ -25,4 +27,7 @@ public interface UserGameMapper {
     Integer updateMaxScore(@Param(value = "username")String username,
                         @Param(value = "type")Integer type);
     UserGame getUserGame(@Param(value = "username")String username);
+    List<UserGame> getAllUserOrder1v1();
+    List<UserGame> getAllUserOrderBrawl();
+    List<UserGame> getAllUserOrderTotalScore();
 }
