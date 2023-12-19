@@ -209,8 +209,8 @@ function updateDetailedInfo(gameid) {
           <td>${record.kills}</td>
           <td>${record.deaths}</td>
           <td>${record.kda}</td>
-          <td>${record.takeDamage}</td>
-          <td>${record.takenDamage}</td>
+          <td>${record.takeDamage.toFixed(0)}</td>
+          <td>${record.takenDamage.toFixed(0)}</td>
           `;
           table.appendChild(tr);
         }
@@ -228,7 +228,6 @@ function updateDetailedInfo(gameid) {
             <th class="damage_word" colspan="3">伤害 <i class="fas fa-heartbeat"></i></th>
             <th class="taken_word" colspan="3">承伤<i class="fas fa-shield-alt"></i></th>
             <th class="kda_word" colspan="2">KDA<i class="fas fa-chart-line"></i></th>
-
           </tr>
           <tr>
             <td class="kills_value" id="win_kills" colspan="2">用户名</td>

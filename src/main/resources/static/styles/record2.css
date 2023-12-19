@@ -387,6 +387,8 @@ body {
 }
 th,
 td {
+  
+  font-size: 20px;
   padding: 12px 15px;
   text-align: center;
 }
