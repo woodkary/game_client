@@ -62,7 +62,7 @@ public class BrawlExecutor extends BaseExecutor {
             return matchingPlayer;
         });
     }
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void respawn(PlayerRespawnEvent event){
         Player player=event.getPlayer();
         if(players.containsKey(player)) {
@@ -127,7 +127,7 @@ public class BrawlExecutor extends BaseExecutor {
         matchingPlayers.put(LevelUtil.MASTER, new CopyOnWriteArraySet<>());
         matchingPlayers.put(LevelUtil.KING, new CopyOnWriteArraySet<>());
     }
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void playerQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
         Long[] times=playerDuration.get(player);

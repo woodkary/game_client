@@ -60,13 +60,15 @@ public class KaryPlugin extends JavaPlugin {
         Bukkit.getWorld("world").setSpawnLocation(new Location(Bukkit.getWorld("world"),223,4,-345));
         SoloPVPExecutor soloPVPExecutor=new SoloPVPExecutor(this,playersMatchingGamemode,recordService);
         BrawlExecutor brawlExecutor=new BrawlExecutor(recordService,playersMatchingGamemode,this);
+        QuitMatchingExecutor quitMatchingExecutor = new QuitMatchingExecutor(playersMatchingGamemode, recordService, soloPVPExecutor, brawlExecutor);
         Bukkit.getPluginManager().registerEvents(soloPVPExecutor, this);
         Bukkit.getPluginManager().registerEvents(brawlExecutor,this);
+        Bukkit.getPluginManager().registerEvents(quitMatchingExecutor,this);
         Bukkit.getPluginManager().registerEvents(new BaseController(recordService),this);
         Bukkit.getPluginCommand("soloPVP").setExecutor(soloPVPExecutor);
         Bukkit.getPluginCommand("brawl").setExecutor(brawlExecutor);
         //加入新游戏模式，需要修改此处
-        Bukkit.getPluginCommand("quitMatching").setExecutor(new QuitMatchingExecutor(playersMatchingGamemode,recordService,soloPVPExecutor,brawlExecutor));
+        Bukkit.getPluginCommand("quitMatching").setExecutor(quitMatchingExecutor);
         Bukkit.getPluginCommand("testDatabase").setExecutor(new DatabaseTester(recordService));
     }
     @Override

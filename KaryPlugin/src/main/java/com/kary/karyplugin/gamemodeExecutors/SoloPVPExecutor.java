@@ -47,7 +47,7 @@ public class SoloPVPExecutor extends BaseExecutor {
             return (int) (o1[2] - o2[2]);
         }
     });
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void respawn(PlayerRespawnEvent respawnEvent){
         Player player=respawnEvent.getPlayer();
         Object[] playerArray=playersScoreGainAndMatchStartTime.get(player);
@@ -69,7 +69,7 @@ public class SoloPVPExecutor extends BaseExecutor {
         warFieldPosition.add(new double[]{385,55,-141});
         warFieldPosition.add(new double[]{405,77,-379});
     }
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void playerQuit(PlayerQuitEvent playerQuitEvent){
         //只需要统计三局没打完的比赛
         Player loser=playerQuitEvent.getPlayer();
