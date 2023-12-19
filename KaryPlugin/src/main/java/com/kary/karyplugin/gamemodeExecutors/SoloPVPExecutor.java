@@ -302,6 +302,9 @@ public class SoloPVPExecutor extends BaseExecutor {
         //TODO 传送回出生点
         winner.teleport(new Location(Bukkit.getWorld("world"),223,4,-345));
         loser.teleport(new Location(Bukkit.getWorld("world"),223,4,-345));//回到出生地
+        //把两人的状态都设为不在1v1游戏中
+        recordService.updateOnMatch(winner.getName(),1);
+        recordService.updateOnMatch(loser.getName(),1);
     }
 
     @Override
@@ -361,6 +364,9 @@ public class SoloPVPExecutor extends BaseExecutor {
                                 playersMatchingGamemode.remove(matchingPlayer);
                                 ((Player) commandSender).sendRawMessage("您已匹配对手"+matchingPlayer.getName()+",对局开始");
                                 matchingPlayer.sendRawMessage("您的对手是"+commandSender.getName()+",对局开始");
+                                //把两人的状态都设为正在1v1游戏中
+                                recordService.updateOnMatch(matchingPlayer.getName(),2);
+                                recordService.updateOnMatch(commandSender.getName(),2);
                                 matchingPlayers.remove(level);
                                 this.cancel();
                             }

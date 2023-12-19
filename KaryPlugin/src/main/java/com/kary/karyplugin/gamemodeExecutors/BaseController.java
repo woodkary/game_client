@@ -27,6 +27,8 @@ public class BaseController implements Listener {
         if(userGame==null){
             player.kickPlayer("您还没有注册账号，无法进入游戏");
         }
+        //把加入游戏的玩家设置为在线
+        recordService.updateOnMatch(player.getName(),1);
         player.sendRawMessage("请选择游戏模式");
         player.setOp(true);
         player.performCommand(CommandUtil.COMMAND_SOLO_PVP);

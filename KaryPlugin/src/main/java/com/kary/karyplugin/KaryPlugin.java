@@ -71,6 +71,10 @@ public class KaryPlugin extends JavaPlugin {
     }
     @Override
     public void onDisable() {
+        Bukkit.getServer().getOnlinePlayers().forEach(player -> {
+            //把所有玩家设置为不在线
+            recordService.updateOnMatch(player.getName(),0);
+        });
         recordService.session.close();
         // Plugin shutdown logic
     }

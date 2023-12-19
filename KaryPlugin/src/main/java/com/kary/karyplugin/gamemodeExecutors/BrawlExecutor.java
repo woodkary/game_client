@@ -252,6 +252,7 @@ public class BrawlExecutor extends BaseExecutor {
                             playersMatchingGamemode.remove(player);
                             player.teleport(BRAWL_LOCATION);
                             player.sendRawMessage("和您在同一局的对手为" + message + "对局开始");
+                            recordService.updateOnMatch(player.getName(), 3);
                         }
                         // 安排任务在主线程中每20个游戏刻执行一次（1秒 = 20游戏刻）
                         int delayInTicks = 0; // 延迟0个游戏刻
@@ -350,6 +351,8 @@ public class BrawlExecutor extends BaseExecutor {
                     player.performCommand(CommandUtil.COMMAND_SOLO_PVP);
                     player.performCommand(CommandUtil.COMMAND_BRAWL);
                     player.setOp(false);
+                    //把所有玩家设置为不在游戏中
+                    recordService.updateOnMatch(player.getName(),1);
                 }
                 players.clear();
                 //结束比赛线程以及助攻线程

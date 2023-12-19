@@ -67,6 +67,11 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
+    public void updateOnMatch(String username, Integer onMatch) {
+        recordMapper.updateOnMatch(username,onMatch);
+    }
+
+    @Override
     public Integer getScoreTotal(String username,Integer gameMode) {
         return recordMapper.getScoreTotal(username,gameMode);
     }

@@ -25,4 +25,5 @@ public interface RecordService {
 
     Integer getMaxGameId();
     Integer addNewGame(Integer type, Integer gameId, Long duration,String mvpPlayer);
+    void updateOnMatch(String username,Integer onMatch);
 }

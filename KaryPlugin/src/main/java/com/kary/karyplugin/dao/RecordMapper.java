@@ -48,5 +48,7 @@ public interface RecordMapper {
     UserGame selectUserByName(@Param(value = "username")String username);
     @UpdateProvider(type = RecordMapperProvider.class, method = "updateMaxScore")
     Integer updateMaxScore(@Param("username")String username,@Param("gameMode")Integer gameMode);
+    @Update("update user_game set on_match=#{onMatch} where username=#{username}")
+    void updateOnMatch(@Param("username")String username,@Param("onMatch")Integer onMatch);
 
 }
