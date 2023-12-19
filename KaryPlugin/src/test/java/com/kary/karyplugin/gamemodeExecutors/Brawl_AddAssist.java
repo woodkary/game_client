@@ -48,6 +48,7 @@ public class Brawl_AddAssist {
     public void setup() throws NoSuchFieldException, IllegalAccessException {
         Field privateField = Bukkit.class.getDeclaredField("server");
         privateField.setAccessible(true);
+        //模拟服务器
         Server server = mock(Server.class);
         BukkitScheduler scheduler= mock(BukkitScheduler.class);
         when(server.getScheduler()).thenReturn(scheduler);
@@ -63,6 +64,7 @@ public class Brawl_AddAssist {
         doNothing().when(plugin).onDisable();
         doNothing().when(plugin).onEnable();
 
+        //模拟命令
         command=mock(Command.class);
         when(command.getName()).thenReturn("brawl");//准备命令
         when(command.getLabel()).thenReturn("brawl");
@@ -75,6 +77,7 @@ public class Brawl_AddAssist {
     }
     @Test
     public void addAssistTest(){
+        //模拟玩家
         Player damager = mock(Player.class);
         when(damager.getName()).thenReturn("kary1");
         Player damagee = mock(Player.class);

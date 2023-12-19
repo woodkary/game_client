@@ -6,7 +6,6 @@ import com.kary.karyplugin.gamemodeExecutors.QuitMatchingExecutor;
 import com.kary.karyplugin.gamemodeExecutors.SoloPVPExecutor;
 import com.kary.karyplugin.service.impl.RecordServiceImpl;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,10 +16,12 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author karywoodOyo
  */
 //每有一个新游戏模式加入，都要继承BaseExecutor，插入到QuitMatchingExecutor,然后在onEnable里面注册事件和命令
+//TODO 不要用op发命令，用服务器发命令
+//TODO 禁用多余的输出，如命令的输出
+//TODO 看能否读取server.properties里面的配置,比如场地数量和位置
 public class KaryPlugin extends JavaPlugin {
     private static Map<Player,Integer> playersMatchingGamemode=new ConcurrentHashMap<>();
     private static  RecordServiceImpl recordService=new RecordServiceImpl();
-    public static final Location WORLD_SPAWN_POINT=new Location(Bukkit.getWorld("world"),223,4,-345);
     //更新数据库操作
     public static synchronized void updateDatabase(Integer maxGameId,
                                              Long duration,

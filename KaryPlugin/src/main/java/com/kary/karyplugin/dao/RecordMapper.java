@@ -43,7 +43,7 @@ public interface RecordMapper {
     @Update("update user_game set games_count_1v1=games_count_1v1+1 where username=#{username}")
     void addGamesCount1v1(@Param("username")String username);
     @Update("update user_game set games_count_brawl=games_count_brawl+1 where username=#{username}")
-    void addGamesCountDrawl(@Param("username")String username);
+    void addGamesCountBrawl(@Param("username")String username);
     @Select("select * from user_game where username=#{username}")
     UserGame selectUserByName(@Param(value = "username")String username);
 

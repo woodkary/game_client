@@ -74,6 +74,7 @@ public class Brawl_PlayerKill {
 
     @Test
     public void playerKillTest(){
+        //准备3个玩家
         Player killer = mock(Player.class);
         Player deadPlayer = mock(Player.class);
         Player assistPlayer1 = mock(Player.class);
@@ -100,6 +101,7 @@ public class Brawl_PlayerKill {
         players.put(assistPlayer3, new Record());
         brawlExecutor.players=players;//放入监测记录的数组
 
+        //准备助攻列表
         Map<Player, ConcurrentSkipListSet<BrawlExecutor.PlayerAndTime>> assistMap = spy(brawlExecutor.assistMap);
         ConcurrentSkipListSet<BrawlExecutor.PlayerAndTime> deadAssists = new ConcurrentSkipListSet<>();
         deadAssists.add(new BrawlExecutor.PlayerAndTime(assistPlayer1,System.currentTimeMillis()));

@@ -19,6 +19,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import static com.kary.karyplugin.utils.GameModeUtil.BRAWL_MODE;
 import static com.kary.karyplugin.utils.GameModeUtil.SOLOPVP_MODE;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 /**
@@ -61,6 +62,7 @@ public class Solo_Command {
 
         //开始执行
         soloPVPExecutor.onCommand(player,command,s,strings);
+        //检测有没有发消息
         verify(player).sendRawMessage("您已在单人PVP匹配中，无需再加入匹配");
     }
     @Test
@@ -124,5 +126,8 @@ public class Solo_Command {
         soloPVPExecutor.onCommand(player,command,s,strings);
         //验证是否已经去除了一个位置
         assertEquals(warFieldPosition.size(),5);
+        //验证两人是否已经加入了比赛列表
+        assertNotNull(playersScoreGainAndMatchStartTime.get(player));
+        assertNotNull(playersScoreGainAndMatchStartTime.get(matchingPlayer));
     }
 }

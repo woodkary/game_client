@@ -38,7 +38,7 @@ public class RecordServiceImpl implements RecordService {
             recordMapper.addGamesCount1v1(username);
         }
         if(gameMode==2){
-            recordMapper.addGamesCountDrawl(username);
+            recordMapper.addGamesCountBrawl(username);
         }
         recordMapper.addNewRecord(maxGameId,username,kill,death,(gameMode==1)?0:assists,scoreGain,takeDamage, takenDamage);
     }

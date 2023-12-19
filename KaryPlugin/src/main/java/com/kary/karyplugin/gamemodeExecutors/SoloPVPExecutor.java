@@ -55,7 +55,8 @@ public class SoloPVPExecutor extends BaseExecutor {
             double[] position=(double[])playerArray[4];
             //如果这个人还在游戏中，就把他传送回场地
             respawnEvent.setRespawnLocation(new Location(Bukkit.getWorld("world"),position[0],position[1],position[2]));
-
+        }else{
+            respawnEvent.setRespawnLocation(new Location(Bukkit.getWorld("world"),223,4,-345));
         }
     }
     public SoloPVPExecutor(KaryPlugin plugin,Map<Player,Integer> playersMatchingGamemode,RecordService recordService) {
@@ -175,7 +176,7 @@ public class SoloPVPExecutor extends BaseExecutor {
 
         Bukkit.getServer().broadcastMessage("玩家"+loser.getName()+"退出了游戏，"+winner.getName()+"获得了胜利");
         //胜利者传送回出生点
-        winner.teleport(KaryPlugin.WORLD_SPAWN_POINT);
+        winner.teleport(new Location(Bukkit.getWorld("world"),223,4,-345));
     }
     @EventHandler(priority = EventPriority.HIGH)
     public void figureDamage(EntityDamageByEntityEvent event){
@@ -300,8 +301,9 @@ public class SoloPVPExecutor extends BaseExecutor {
         loser.setOp(false);
         double[] position=(double[])winnerArray[4];
         warFieldPosition.add(position);//把场地还回去
-        winner.teleport(KaryPlugin.WORLD_SPAWN_POINT);
-        loser.teleport(KaryPlugin.WORLD_SPAWN_POINT);//回到出生地
+        //TODO 传送回出生点
+        winner.teleport(new Location(Bukkit.getWorld("world"),223,4,-345));
+        loser.teleport(new Location(Bukkit.getWorld("world"),223,4,-345));//回到出生地
     }
 
     @Override

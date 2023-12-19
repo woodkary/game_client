@@ -76,6 +76,7 @@ public class Brawl_OnCommand {
         Map<Player, Integer> playersMatchingGamemode = spy(brawlExecutor.playersMatchingGamemode);
         brawlExecutor.playersMatchingGamemode=playersMatchingGamemode;//监测匹配列表
 
+        //模拟各段位的匹配列表
         Map<Integer, Set<Player>> matchingPlayers = spy(brawlExecutor.matchingPlayers);
         matchingPlayers.put(LevelUtil.COPPER, mock(CopyOnWriteArraySet.class));
         matchingPlayers.put(LevelUtil.SILVER, mock(CopyOnWriteArraySet.class));
@@ -86,8 +87,9 @@ public class Brawl_OnCommand {
         matchingPlayers.put(LevelUtil.KING, mock(CopyOnWriteArraySet.class));
         brawlExecutor.matchingPlayers=matchingPlayers;//监测匹配列表
 
-
+        //执行操作
         brawlExecutor.onCommand(commandSender,command,s,strings);
+        //检测commandSender是否成功匹配
         verify(playersMatchingGamemode).put(commandSender,BRAWL_MODE);
         Set<Player> matchingPlayer=matchingPlayers.get(level);
         verify(matchingPlayer).add(commandSender);
@@ -100,7 +102,7 @@ public class Brawl_OnCommand {
         Player player1=mock(Player.class);
         when(player1.getName()).thenReturn("player1");
         Player player2=mock(Player.class);
-        when(player2.getName()).thenReturn("player2");
+        when(player2.getName()).thenReturn("player2");//
 
         int level= LevelUtil.getLevel(recordService.getScoreTotal(commandSender.getName(),gameMode));
         Map<Player, Integer> playersMatchingGamemode = spy(brawlExecutor.playersMatchingGamemode);
