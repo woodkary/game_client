@@ -69,6 +69,7 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public void updateOnMatch(String username, Integer onMatch) {
         recordMapper.updateOnMatch(username,onMatch);
+        session.commit();
     }
 
     @Override
