@@ -10,8 +10,11 @@
                                score_total_brawl,
                                games_count_1v1,
                                games_count_brawl,
-                               portrait
-        )values (#{username},0,0,0,0,0,0)
+                               portrait,
+                               max_score_1v1,
+                               max_score_brawl,
+                               on_match
+        )values (#{username},0,0,0,0,0,0,0,0,0)
     </insert>
     <update id="updatePortrait">
         update user_game set portrait=#{portrait} where username=#{username}
@@ -32,5 +35,36 @@
             </if>
         from user_game where username=#{username}
     </select>
-
+    <update id="addScore">
+        update user_game set
+            <if test="type==1">
+                score_total_1v1=score_total_1v1+#{addScore}
+            </if>
+            <if test="type==2">
+                score_total_brawl=score_total_brawl+#{addScore}
+            </if>
+        where username=#{username}
+    </update>
+    <update id="updateMaxScore">
+        update user_game set
+            <if test="type==1">
+                max_score_1v1=score_total_1v1
+            </if>
+            <if test="type==2">
+                max_score_brawl=score_total_brawl
+            </if>
+        where username=#{username}
+    </update>
+    <select id="getUserGame" resultType="com.kary.hahaha3.pojo.UserGame">
+        select * from user_game where username=#{username}
+    </select>
+    <select id="getAllUserOrder1v1" resultType="com.kary.hahaha3.pojo.UserGame">
+        select * from user_game order by score_total_1v1 desc
+    </select>
+    <select id="getAllUserOrderBrawl" resultType="com.kary.hahaha3.pojo.UserGame">
+        select * from user_game order by score_total_brawl desc
+    </select>
+    <select id="getAllUserOrderTotalScore" resultType="com.kary.hahaha3.pojo.UserGame">
+        select * from user_game order by score_total_1v1+score_total_brawl desc
+    </select>
 </mapper>

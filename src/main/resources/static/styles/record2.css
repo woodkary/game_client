@@ -353,7 +353,6 @@ body {
   top: -2%;
   left: 2%;
   font-size: 30px;
-  color: #3dbb68;
 }
 
 .melee table {
@@ -395,7 +394,7 @@ td {
 th {
   background-color: #009879;
   color: #ffffff;
-  text-align: center;
+  transition: transform 0.5s ease;
 }
 tr {
   border-bottom: 1px solid #dddddd;
@@ -406,34 +405,31 @@ tr:nth-of-type(even) {
 tr:last-of-type {
   border-bottom: 2px solid #009879;
 }
+
+th:hover{
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+th i{
+  transition: transform 0.5s ease;
+}
+
+th:hover{
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+th:hover i{
+  transform: rotate(360deg)  scale(1.2);
+}
+
 tr:hover {
   background-color: #f1f1f1;
+  cursor: pointer;
 }
 .fa {
   padding-right: 5px;
-}
-
-
-/* 表格动画效果 */
-@keyframes tableAnimation {
-  0%   { opacity: 0; transform: translateY(-50px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-/* 应用动画效果 */
-.melee table{
-  animation: tableAnimation 1s;
-}
-
-/* KDA, 死亡数和击杀数单元格特殊样式 */
-.deaths_value, .kills_value, .kda_value, .damage_value, .taken_value {
-  font-weight: bold;
-}
-
-
-/* 悬停效果 */
-.melee table tr:hover {
-  background-color: #ddd;
 }
 
 /* 表格动画效果 */
@@ -463,11 +459,7 @@ tr:hover {
   100% { opacity: 1; transform: scale(1); }
 }
 
-.melee table th i.fa-user,
-.melee table th i.animate-flicker,
-.melee table th i.fa-skull-crossbones,
-.melee table th i.fa-heartbeat,
-.melee table th i.fa-shield-alt,
-.melee table th i.fa-chart-line {
+
+.melee table th i{
   animation: flickerAnimation 1s infinite;
 }

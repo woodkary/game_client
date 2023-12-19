@@ -17,4 +17,16 @@ import java.util.List;
 public interface RecordMapper {
     List<Record> selectRecordsByUsername(@Param("username")String username);
     List<Record> selectRecordsByGameId(@Param("gameId")Integer gameId);
+    Integer addNewRecord(@Param("gameId")Integer gameId,
+                      @Param("username")String username,
+                      @Param("kill")Integer kill,
+                      @Param("death")Integer death,
+                      @Param("assist")Integer assist,
+                      @Param("scoreGain")Integer scoreGain,
+                      @Param("takeDamage")Double takeDamage,
+                      @Param("takenDamage")Double takenDamage);
+    Integer addGamesCount(@Param("username")String username);
+    Integer addGamesCount1v1(@Param("username")String username);
+    Integer addGamesCountBrawl(@Param("username")String username);
+
 }

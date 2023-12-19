@@ -5,6 +5,7 @@ import com.kary.hahaha3.mapper.UserArticleMapper;
 import com.kary.hahaha3.mapper.UserGameMapper;
 import com.kary.hahaha3.mapper.UserMapper;
 import com.kary.hahaha3.pojo.User;
+import com.kary.hahaha3.pojo.UserGame;
 import com.kary.hahaha3.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -43,6 +44,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public Integer addScore(String username, Integer type, Integer addScore) {
+        Integer num1=userGameMapper.addScore(username,type,addScore);
+        Integer num2=userGameMapper.updateMaxScore(username,type);
+        return num1==1&&num2==1?1:0;
+    }
+
+    @Override
+    @Transactional
     public Integer insertUser(String username, String pwd, String email) {
         Integer num1,num2,num3;
         num1= userMapper.insertUser(username,pwd,email);
@@ -65,5 +74,17 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Integer updateUserPassword(String username, String pwd) {
         return userMapper.updateUserPassword(username,pwd);
+    }
+    @Override
+    public List<UserGame> getAllUserOrder1v1(){
+        return userGameMapper.getAllUserOrder1v1();
+    }
+    @Override
+    public List<UserGame> getAllUserOrderBrawl(){
+        return userGameMapper.getAllUserOrderBrawl();
+    }
+    @Override
+    public List<UserGame> getAllUserOrderTotalScore(){
+        return userGameMapper.getAllUserOrderTotalScore();
     }
 }

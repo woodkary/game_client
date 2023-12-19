@@ -1,0 +1,182 @@
+body {
+  margin: 0;
+}
+
+.background {
+  background-image: url('../images/expedition.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+#main {
+  position: absolute;
+  left: 3%;
+  top: 13%;
+  width: 90vw;
+  height: 90vh;
+  background-color: #edf4e9ba;
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 20px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+}
+
+table {
+  border-spacing: 0;
+}
+
+.list_points,
+.list_kills,
+.list_demage {
+  position: relative;
+  height: 650px;
+  width: 450px;
+  background-color: #f2e9f470;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.title {
+  background-color: blueviolet;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 60px;
+  font-size: 30px;
+  color: white;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+
+}
+
+.ranking_list_points,
+.ranking_list_kills,
+.ranking_list_demage {
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  height: 600px;
+  width: 100%;
+}
+
+
+.ranking_list_points {
+  border: 2px solid blueviolet;
+}
+
+.ranking_list_kills {
+  border: 2px solid blueviolet;
+}
+
+.ranking_list_demage {
+  border: 2px solid blueviolet;
+}
+
+th {
+  color: rgba(75, 75, 75, 0.588);
+  background-color: #178c6b00;
+  height: 40px;
+  transition: transform 0.5s ease;
+}
+th i{
+  transition: transform 0.5s ease;
+}
+
+th:hover{
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+th:hover i{
+  transform: rotate(360deg)  scale(1.2);
+}
+
+tr {
+  
+  color: rgba(175, 101, 45, 0.689);
+  font-size: 20px;
+}
+
+.head_photo img {
+  border-radius: 50%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.list_demage,
+.list_kills,
+.list_points {
+  animation: fadeIn 0.5s ease-in-out;
+  /* 添加动画效果 */
+}
+
+.row {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards; /* 添加动画效果 */
+}
+
+.row:nth-child(odd) {
+  animation-delay: 0.1s; /* 添加延迟动画效果 */
+}
+
+/* 使用过渡属性来为表格行添加动画效果 */
+tr.row {
+  transition: background-color 0.5s ease;
+}
+
+tr.row:hover {
+  cursor: pointer;
+  background-color: rgb(255, 255, 255);
+}
+
+/* 使用动画属性来为排名添加动画效果 */
+td.ranking {
+  animation: fade-in 1s ease;
+}
+
+.left_button,
+.right_button{
+  background-color: rgba(52, 52, 52, 0.043);
+  position:absolute;
+  top: 50%;
+
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  color: rgba(255, 255, 255, 0.354);
+  transition: background-color 0.5s ease;
+}
+
+.left_button{
+  left: 20px;
+}
+
+.right_button{
+  right: 20px;
+}
+
+.right_button:hover,
+.left_button:hover{
+  cursor: pointer;
+  background-color: rgba(52, 52, 52, 0.413);
+}

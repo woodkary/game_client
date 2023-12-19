@@ -14,4 +14,12 @@
                                 year(game_time)=year(now()) and
                                 game_id=#{gameId}
     </select>
+    <select id="getMaxGameId" resultType="int">
+        select max(game_id) from games
+    </select>
+
+    <insert id="addNewGame">
+        insert into games (type,game_id,game_time,duration,mvp_player)
+        values (#{type},#{gameId},now(),#{duration},#{mvpPlayer})
+    </insert>
 </mapper>

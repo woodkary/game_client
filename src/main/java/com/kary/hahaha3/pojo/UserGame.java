@@ -12,8 +12,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserGame {
     private String username;
-    private String scoreTotal1v1;
-    private int gameCount;
+    private int scoreTotal1v1;
+    private int gamesCount;
+    private int gamesCount1v1;
+    private int gamesCountBrawl;
     private int scoreTotalBrawl;
     private int portrait;
+    private int maxScore1v1;
+    private int maxScoreBrawl;
+    private int onMatch;
 }

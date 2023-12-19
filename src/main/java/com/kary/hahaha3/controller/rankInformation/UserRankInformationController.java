@@ -12,6 +12,7 @@ import com.kary.hahaha3.exceptions.expired.SessionExpireException;
 import com.kary.hahaha3.mapper.UserMapper;
 import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.User;
+import com.kary.hahaha3.pojo.UserGame;
 import com.kary.hahaha3.pojo.vo.PersonalReport;
 import com.kary.hahaha3.pojo.vo.RecordVO;
 import com.kary.hahaha3.pojo.vo.Records;
@@ -117,4 +118,32 @@ public class UserRankInformationController extends BaseController {
             throw new DatabaseUpdateException("修改失败，请重试");
         }
     }
+    @GetMapping("/get1v1RankingOrder")
+    @Operation(summary = "获取1v1排行榜")
+    public JsonResult get1v1RankingOrder() throws JsonException {
+        List<UserGame> users=userService.getAllUserOrder1v1();
+        if(users==null){
+            throw new JsonException("获取失败");
+        }
+        return JsonResult.ok(users,"获取成功");
+    }
+    @GetMapping("/getBrawlRankingOrder")
+    @Operation(summary = "获取乱斗排行榜")
+    public JsonResult getBrawlRankingOrder() throws JsonException {
+        List<UserGame> users=userService.getAllUserOrderBrawl();
+        if(users==null){
+            throw new JsonException("获取失败");
+        }
+        return JsonResult.ok(users,"获取成功");
+    }
+    @GetMapping("/getTotalScoreRankingOrder")
+    @Operation(summary = "获取总分排行榜")
+    public JsonResult getTotalScoreRankingOrder() throws JsonException {
+        List<UserGame> users=userService.getAllUserOrderTotalScore();
+        if(users==null){
+            throw new JsonException("获取失败");
+        }
+        return JsonResult.ok(users,"获取成功");
+    }
+
 }
