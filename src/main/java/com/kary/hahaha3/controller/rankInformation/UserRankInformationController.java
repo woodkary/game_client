@@ -117,4 +117,5 @@ public class UserRankInformationController extends BaseController {
             throw new DatabaseUpdateException("修改失败，请重试");
         }
     }
+
 }
