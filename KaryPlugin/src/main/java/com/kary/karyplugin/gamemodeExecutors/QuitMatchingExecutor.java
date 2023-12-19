@@ -1,5 +1,6 @@
 package com.kary.karyplugin.gamemodeExecutors;
 
+import com.kary.karyplugin.service.RecordService;
 import com.kary.karyplugin.utils.CommandUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,15 +16,20 @@ import java.util.Map;
 public class QuitMatchingExecutor implements CommandExecutor, Listener {
     private Map<Player,Integer> playersMatchingGamemode;
     private BaseExecutor[] executors;
+    RecordService recordService;
 
-    public QuitMatchingExecutor(Map<Player, Integer> playersMatchingGamemode,BaseExecutor... executors) {
+    public QuitMatchingExecutor(Map<Player, Integer> playersMatchingGamemode,RecordService recordService,BaseExecutor... executors) {
         this.playersMatchingGamemode = playersMatchingGamemode;
         this.executors=executors;
+        this.recordService=recordService;
     }
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerQuit(PlayerQuitEvent event){
         Player player=event.getPlayer();
         playersMatchingGamemode.remove(player);
+        //把退出游戏的玩家设置为不在线
+        recordService.updateOnMatch(player.getName(),0);
+
     }
 
     @Override

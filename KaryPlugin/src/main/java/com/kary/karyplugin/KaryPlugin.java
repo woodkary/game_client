@@ -66,7 +66,7 @@ public class KaryPlugin extends JavaPlugin {
         Bukkit.getPluginCommand("soloPVP").setExecutor(soloPVPExecutor);
         Bukkit.getPluginCommand("brawl").setExecutor(brawlExecutor);
         //加入新游戏模式，需要修改此处
-        Bukkit.getPluginCommand("quitMatching").setExecutor(new QuitMatchingExecutor(playersMatchingGamemode,soloPVPExecutor,brawlExecutor));
+        Bukkit.getPluginCommand("quitMatching").setExecutor(new QuitMatchingExecutor(playersMatchingGamemode,recordService,soloPVPExecutor,brawlExecutor));
         Bukkit.getPluginCommand("testDatabase").setExecutor(new DatabaseTester(recordService));
     }
     @Override
