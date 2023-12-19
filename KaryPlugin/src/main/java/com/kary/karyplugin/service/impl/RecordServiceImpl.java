@@ -33,6 +33,19 @@ public class RecordServiceImpl implements RecordService {
                                Double takeDamage,
                                Double takenDamage,
                                String mvpPlayer) {
+        //更新用户的最高分数
+        UserGame user=recordMapper.selectUserByName(username);//获取用户信息
+        int scoreTotal1v1=user.getScoreTotal1v1();//用户现有分数
+        int scoreTotalBrawl=user.getScoreTotalBrawl();
+        int maxScore1v1=user.getMaxScore1v1();//用户最高分数
+        int maxScoreBrawl=user.getMaxScoreBrawl();
+        //更新用户的最高分数
+        if(scoreTotal1v1>maxScore1v1){
+            recordMapper.updateMaxScore(username,1);
+        }
+        if(scoreTotalBrawl>maxScoreBrawl){
+            recordMapper.updateMaxScore(username,2);
+        }
         recordMapper.addGamesCount(username);
         if(gameMode==1){
             recordMapper.addGamesCount1v1(username);

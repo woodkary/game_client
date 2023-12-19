@@ -34,6 +34,7 @@ public class KaryPlugin extends JavaPlugin {
                                              Double takenDamage,
                                              String mvpPlayer,
                                              Integer gameMode){
+        //先给用户加分
         recordService.addScore(username,gameMode,scoreGain);
         recordService.recordNewMatch(
                 maxGameId,

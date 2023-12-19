@@ -31,4 +31,16 @@ public class RecordMapperProvider {
             WHERE("username=#{username}");
         }}.toString();
     }
+    public String updateMaxScore(@Param("username")String username,@Param("gameMode")Integer gameMode){
+        return new SQL(){{
+            UPDATE("user_game");
+            if (gameMode == 1){
+                SET("max_score_1v1=score_total_1v1");
+            }
+            if (gameMode == 2){
+                SET("max_score_brawl=score_total_brawl");
+            }
+            WHERE("username=#{username}");
+        }}.toString();
+    }
 }

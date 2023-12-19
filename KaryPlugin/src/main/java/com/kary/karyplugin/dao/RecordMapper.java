@@ -46,5 +46,7 @@ public interface RecordMapper {
     void addGamesCountBrawl(@Param("username")String username);
     @Select("select * from user_game where username=#{username}")
     UserGame selectUserByName(@Param(value = "username")String username);
+    @UpdateProvider(type = RecordMapperProvider.class, method = "updateMaxScore")
+    Integer updateMaxScore(@Param("username")String username,@Param("gameMode")Integer gameMode);
 
 }
