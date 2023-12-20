@@ -47,8 +47,12 @@ function redirectToIndex(event) {
   window.location.href = "index.html?username=" + encodeURIComponent(username);
 }
 
-function toMyRecord(event) {
+function redirectToMyRecord(event) {
   event.preventDefault();
   window.location.href = "pages/personal.html?username=" + encodeURIComponent(username);
 }
 
+function redirectToSquare(event) {
+  event.preventDefault();
+  window.location.href = "pages/square.html?username=" + encodeURIComponent(username);
+}
