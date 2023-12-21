@@ -145,5 +145,21 @@ public class UserRankInformationController extends BaseController {
         }
         return JsonResult.ok(users,"获取成功");
     }
+    @GetMapping("/getRankPosition")
+    @Operation(summary = "获取用户排名",description = "请输入用户名username")
+    public JsonResult getRankPosition(@RequestParam("username")String username) throws JsonException {
+        List<UserGame> users=userService.getAllUserOrderTotalScore();
+        if(users==null){
+            throw new JsonException("获取失败");
+        }
+        int i=0;
+        for(UserGame user:users){
+            i++;
+            if(user.getUsername().equals(username)){
+                break;
+            }
+        }
+        return JsonResult.ok(i,"获取成功");
+    }
 
 }
