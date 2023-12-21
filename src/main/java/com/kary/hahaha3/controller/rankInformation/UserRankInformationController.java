@@ -147,7 +147,7 @@ public class UserRankInformationController extends BaseController {
     }
     @GetMapping("/getRankPosition")
     @Operation(summary = "获取用户排名",description = "请输入用户名username")
-    public JsonResult getRankPosition(@RequestParam("username")String username) throws JsonException {
+    public JsonResult getRankPosition(@RequestParam("username")String username) throws JsonException, SessionExpireException {
         List<UserGame> users=userService.getAllUserOrderTotalScore();
         if(users==null){
             throw new JsonException("获取失败");
@@ -158,6 +158,9 @@ public class UserRankInformationController extends BaseController {
             if(user.getUsername().equals(username)){
                 break;
             }
+        }
+        if(i>=users.size()){
+            throw new SessionExpireException("用户不存在");
         }
         return JsonResult.ok(i,"获取成功");
     }
