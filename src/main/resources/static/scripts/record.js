@@ -65,6 +65,12 @@ function redirectToRecord(event) {
   window.location.href = "../pages/record.html?username=" + encodeURIComponent(username);
 }
 
+function redirectToSquare(event) {
+  event.preventDefault();
+  window.location.href = "../pages/square.html?username=" + encodeURIComponent(username);
+}
+
+
 function getRanksInfo(pageNum) {
   console.log(username);
   fetch(`http://localhost:8080/ranks/getRanks?username=${username}`)
@@ -183,7 +189,6 @@ function updateDetailedInfo(gameid) {
       }
 
       let melee = document.getElementById("melee1");
-      melee.className = 'melee';
 
       if (gameMode === "大乱斗") {
         melee.className = 'melee';
@@ -216,7 +221,8 @@ function updateDetailedInfo(gameid) {
         }
       } else {
         melee.innerHTML = "";
-        melee.innerHTML = `        <div class="Win">
+        melee.innerHTML = `
+        <div class="Win">
         <p>WIN</p>
         <img class="photo" id="win_photo" src="../images/portrait_2.jpg" style="border: 2px solid blueviolet;">
         <div class="username" id="win_username" colspan="12"

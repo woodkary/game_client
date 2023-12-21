@@ -296,3 +296,8 @@ async function runFunctions() {
     await getRanksInfo();
 
 }
+
+function redirectToSquare(event) {
+    event.preventDefault();
+    window.location.href = "../pages/square.html?username=" + encodeURIComponent(username);
+}
