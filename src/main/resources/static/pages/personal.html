@@ -13,7 +13,6 @@
 </head>
 
 <body>
-    <div class="background"></div>
     <nav>
         <span id="logo_nav">
             <a onclick="redirectToIndex(event)"><img class="LOGO" src="../images/LOGO.png" , alt="LOGO"></a>
@@ -25,7 +24,8 @@
                 <li><a class="header" id="page2" onclick="redirectToPersonal(event)"><i class="fas fa-chart-bar"></i>
                         我的战绩</a>
                 </li>
-                <li><a class="header" id="page3" onclick="redirectToSquare(event)"><i class="fas fa-users"></i> 排行榜</a></li>
+                <li><a class="header" id="page3" onclick="redirectToSquare(event)"><i class="fas fa-users"></i> 广场</a>
+                </li>
             </ul>
             <ul>
                 <li>
@@ -39,126 +39,130 @@
     </nav>
 
     <div id="main">
-        <!-- <a href="personal.html" class="button1">战绩总览</a> -->
-        <a onclick="redirectToRecord(event)" class="button2">历史战绩</a>
-        <!-- <hr class="HorizontalLine"> -->
-        <div id="Rectangle1">
-            <img class="Head0" style="border-color: darkmagenta;border-style: solid;" alt="Head0" id="portrait">
-            <div class="ID" id="ID">Cool Boy</div>
-            <!-- <img id="rankPhoto1" src="../images/wImage@1x.png">
-            <img id="rankPhoto2" src="../images/wImage@1x.png">
-            <img id="rankPhoto3" src="../images/wImage@1x.png"> -->
-            <div class="Rank" id="rank">Rank Points: 2345</div>
-        </div>
-        
-        <div id="Rectangle2">
-            <div class="Data_browser"
-            style="position: absolute; top: 6%; left: 3%; color: rgb(77, 77, 77); font-size: 18px;font-weight: 600;">
-            数据总览：</div>
-            <div class="container_kda">
-                <div class="text_kda" id="text_kda">KDA</div>
-                <div class="value_kda" id="value_kda">0.0</div>
-                <div class="fas fa-question-circle" id="help" style="color: #d7a455;">
-                    <span class="tooltiptext">KDA=(击杀数+助攻数x0.7)/死亡数</span>
+        <div class="container" style="height: 107%;">
+            <!-- <a href="personal.html" class="button1">战绩总览</a> -->
+            <a onclick="redirectToRecord(event)" class="button2">历史战绩</a>
+            <!-- <hr class="HorizontalLine"> -->
+            <div id="Rectangle1">
+                <img class="Head0" style="border-color: darkmagenta;border-style: solid;" alt="Head0" id="portrait">
+                <div class="ID" id="ID">Cool Boy</div>
+                <!-- <img id="rankPhoto1" src="../images/wImage@1x.png">
+    <img id="rankPhoto2" src="../images/wImage@1x.png">
+    <img id="rankPhoto3" src="../images/wImage@1x.png"> -->
+                <div class="Rank" id="rank">Rank Points: 2345</div>
+            </div>
+
+            <div id="Rectangle2">
+                <div class="Data_browser"
+                    style="position: absolute; top: 6%; left: 3%; color: rgb(77, 77, 77); font-size: 18px;font-weight: 600;">
+                    数据总览：</div>
+                <div class="container_kda">
+                    <div class="text_kda" id="text_kda">KDA</div>
+                    <div class="value_kda" id="value_kda">0.0</div>
+                    <div class="fas fa-question-circle" id="help" style="color: #d7a455;">
+                        <span class="tooltiptext">KDA=(击杀数+助攻数x0.7)/死亡数</span>
+                    </div>
+                </div>
+                <div class="container_1v1_win_percentage">
+                    <div class="Game_Data_title">单挑</div>
+                    <div class="Game_Data_value" id="winRate_solo">63%</div>
+                    <div class="Game_Data_description" id="gameNum_solo">35场</div>
+                </div>
+                <div class="container_1v1_kills">
+                    <div class="Game_Data_title">大乱斗</div>
+                    <div class="Game_Data_value" id="winRate_melee">362</div>
+                    <div class="Game_Data_description" id="gameNum_melee">62场</div>
+                </div>
+                <div class="container_scrimmage_win_percentage">
+                    <div class="Game_Data_title">总击杀数</div>
+                    <div class="Game_Data_value" id="total_kills">200</div>
+                    <div class="Game_Data_description" id="Game_Data_description"></div>
+                </div>
+                <div class="container_scrimmage_kills">
+                    <div class="Game_Data_title">最高段位</div>
+                    <div class="Game_Data_value" id="Game_Data_value">青铜</div>
+                    <div class="Game_Data_description" id="Game_Data_description"></div>
                 </div>
             </div>
-            <div class="container_1v1_win_percentage">
-                <div class="Game_Data_title" >单挑</div>
-                <div class="Game_Data_value" id="winRate_solo">63%</div>
-                <div class="Game_Data_description" id="gameNum_solo">35场</div>
-            </div>
-            <div class="container_1v1_kills">
-                <div class="Game_Data_title" >大乱斗</div>
-                <div class="Game_Data_value" id="winRate_melee">362</div>
-                <div class="Game_Data_description" id="gameNum_melee">62场</div>
-            </div>
-            <div class="container_scrimmage_win_percentage">
-                <div class="Game_Data_title" >总击杀数</div>
-                <div class="Game_Data_value" id="total_kills">200</div>
-                <div class="Game_Data_description" id="Game_Data_description"></div>
-            </div>
-            <div class="container_scrimmage_kills">
-                <div class="Game_Data_title" >最高段位</div>
-                <div class="Game_Data_value" id="Game_Data_value">青铜</div>
-                <div class="Game_Data_description" id="Game_Data_description"></div>
-            </div>
-        </div>
 
-        <div id="Rectangle3">
-            <div class="Report">表格展示：</div>
-            <table class="Data_table">
-                <tr>
-                    <th>类型</th>
-                    <th>总场次</th>
-                    <th>胜场</th>
-                    <th>负场</th>
-                    <th>胜率</th>
-                    <th>当前段位</th>
-                </tr>
-                <tr>
-                    <td>单挑</td>
-                    <td id="gameNumsSin"></td>
-                    <td id="winSin"></td>
-                    <td id="loseSin"></td>
-                    <td id="winRateSin"></td>
-                    <td id="levelSin"></td>
-                </tr>
-                <tr>
-                    <td>死斗</td>
-                    <td id="gameNumsBrawl"></td>
-                    <td id="winBrawl"></td>
-                    <td id="loseBrawl"></td>
-                    <td id="winRateBrawl"></td>
-                    <td id="levelBrawl"></td>
-                </tr>
-            </table>
-        </div>
-
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>更改你的头像</p>
-                <img src="../images/portrait_0.jpg" class="avatar" onclick="selectAvatar(0)">
-                <img src="../images/portrait_1.jpg" class="avatar" onclick="selectAvatar(1)">
-                <img src="../images/portrait_2.jpg" class="avatar" onclick="selectAvatar(2)">
-                <img src="../images/portrait_3.jpg" class="avatar" onclick="selectAvatar(3)">
-                <img src="../images/portrait_4.jpg" class="avatar" onclick="selectAvatar(4)">
-                <img src="../images/portrait_5.jpg" class="avatar" onclick="selectAvatar(5)">
-                <img src="../images/portrait_6.jpg" class="avatar" onclick="selectAvatar(6)">
-                <!-- Add more images as needed -->
+            <div id="Rectangle3">
+                <div class="Report">表格展示：</div>
+                <table class="Data_table">
+                    <tr>
+                        <th>类型</th>
+                        <th>总场次</th>
+                        <th>胜场</th>
+                        <th>负场</th>
+                        <th>胜率</th>
+                        <th>当前段位</th>
+                    </tr>
+                    <tr>
+                        <td>单挑</td>
+                        <td id="gameNumsSin"></td>
+                        <td id="winSin"></td>
+                        <td id="loseSin"></td>
+                        <td id="winRateSin"></td>
+                        <td id="levelSin"></td>
+                    </tr>
+                    <tr>
+                        <td>死斗</td>
+                        <td id="gameNumsBrawl"></td>
+                        <td id="winBrawl"></td>
+                        <td id="loseBrawl"></td>
+                        <td id="winRateBrawl"></td>
+                        <td id="levelBrawl"></td>
+                    </tr>
+                </table>
             </div>
-        </div>
+
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>更改你的头像</p>
+                    <img src="../images/portrait_0.jpg" class="avatar" onclick="selectAvatar(0)">
+                    <img src="../images/portrait_1.jpg" class="avatar" onclick="selectAvatar(1)">
+                    <img src="../images/portrait_2.jpg" class="avatar" onclick="selectAvatar(2)">
+                    <img src="../images/portrait_3.jpg" class="avatar" onclick="selectAvatar(3)">
+                    <img src="../images/portrait_4.jpg" class="avatar" onclick="selectAvatar(4)">
+                    <img src="../images/portrait_5.jpg" class="avatar" onclick="selectAvatar(5)">
+                    <img src="../images/portrait_6.jpg" class="avatar" onclick="selectAvatar(6)">
+                    <!-- Add more images as needed -->
+                </div>
+            </div>
 
 
-        <div id="Rectangle4">
-            <!-- <div class="Recent">近期战绩</div> -->
-            <!-- <a class="button" onclick="redirectToRecord(event)">全部比赛></a> -->
-            <div class="table3" id="recordTable">
-                <div class="row">
-                    <img class="head_photo" src="../images/portrait_0.jpg" />
-                    <sapn class="info">
-                        <span class="type">1 VS 1</span>
-                        <span class="gametime">2023-10-31</span>
-                    </sapn>
-                    <span class="kda">
-                        <img class="kill" src="../images/strength.png">
-                        <span class="kills">
-                            <p>0</p>
+            <div id="Rectangle4">
+                <!-- <div class="Recent">近期战绩</div> -->
+                <!-- <a class="button" onclick="redirectToRecord(event)">全部比赛></a> -->
+                <div class="table3" id="recordTable">
+                    <div class="row">
+                        <img class="head_photo" src="../images/portrait_0.jpg" />
+                        <sapn class="info">
+                            <span class="type">1 VS 1</span>
+                            <span class="gametime">2023-10-31</span>
+                        </sapn>
+                        <span class="kda">
+                            <img class="kill" src="../images/strength.png">
+                            <span class="kills">
+                                <p>0</p>
+                            </span>
+                            <img class="death" src="../images/wither.png">
+                            <span class="deaths">
+                                <p>0</p>
+                            </span>
                         </span>
-                        <img class="death" src="../images/wither.png">
-                        <span class="deaths">
-                            <p>0</p>
+                        <span class="result_lose">
+                            <p>失败</p>
                         </span>
-                    </span>
-                    <span class="result_lose">
-                        <p>失败</p>
-                    </span>
 
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
-    </div>
+
+
     <script src="../scripts/personal.js"></script>
 </body>
 

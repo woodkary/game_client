@@ -13,7 +13,6 @@
 </head>
 
 <body>
-  <div id="Background"></div>
   <nav>
     <span id="logo_nav">
       <a href="../index.html"><img class="LOGO" src="../images/LOGO.png" , alt="LOGO"></a>
@@ -35,225 +34,227 @@
   </nav>
 
   <div id="main">
+    <div class="container" style="height: 107%;">
+      <a onclick="redirectToPersonal(event)" class="button1">战绩总览</a>
+      <a onclick="redirectToRecord(event)" class="button2">历史战绩</a>
+      <!-- <hr class="HorizontalLine"> -->
+      <!-- <p class="Text">历史战绩</p> -->
+      <!-- <form>  
+    <select id="Select" name="Select">  
+      <option value="choice1" selected>单挑</option>  
+      <option value="choice2">死斗</option>  
+    </select>  
+  </form> -->
+      <hr class="HorizontalLine">
+      <p class="Text">历史战绩</p>
+      <div id="Rectangle1">
+        <button class="record-button">
+          <img class="head_photo" src="../images/Creepe.jpg" />
+          <sapn class="info">
+            <span class="type">1 VS 1</span>
+            <span class="gametime">2023-10-31</span>
+          </sapn>
+          <span class="kda">
+            <img class="kill" src="../images/strength.png">
+            <span class="kills">
+              <p>0</p>
+            </span>
+            <img class="death" src="../images/wither.png">
+            <span class="deaths">
+              <p>0</p>
+            </span>
+          </span>
+          <span class="result_win">
+            <p>WIN</p>
+          </span>
+        </button>
+        <button class="record-button">
+          <img class="head_photo" src="../images/Steve.png" />
+          <sapn class="info">
+            <span class="type">1 VS 1</span>
+            <span class="gametime">2023-10-31</span>
+          </sapn>
+          <span class="kda">
+            <img class="kill" src="../images/strength.png">
+            <span class="kills">
+              <p>0</p>
+            </span>
+            <img class="death" src="../images/wither.png">
+            <span class="deaths">
+              <p>0</p>
+            </span>
+          </span>
+          <span class="result_lose">
+            <p>LOSE</p>
+          </span>
+        </button>
+        <button class="record-button">
+          <img class="head_photo" src="../images/Creepe.jpg" />
+          <sapn class="info">
+            <span class="type">1 VS 1</span>
+            <span class="gametime">2023-10-31</span>
+          </sapn>
+          <span class="kda">
+            <img class="kill" src="../images/strength.png">
+            <span class="kills">
+              <p>0</p>
+            </span>
+            <img class="death" src="../images/wither.png">
+            <span class="deaths">
+              <p>0</p>
+            </span>
+          </span>
+          <span class="result_lose">
+            <p>LOSE</p>
+          </span>
+        </button>
+        <button class="record-button">
+          <img class="head_photo" src="../images/Steve.png" />
+          <sapn class="info">
+            <span class="type">1 VS 1</span>
+            <span class="gametime">2023-10-31</span>
+          </sapn>
+          <span class="kda">
+            <img class="kill" src="../images/strength.png">
+            <span class="kills">
+              <p>0</p>
+            </span>
+            <img class="death" src="../images/wither.png">
+            <span class="deaths">
+              <p>0</p>
+            </span>
+          </span>
+          <span class="result_lose">
+            <p>LOSE</p>
+          </span>
+        </button>
+        <button class="record-button">
+          <img class="head_photo" src="../images/Steve.png" />
+          <sapn class="info">
+            <span class="type">1 VS 1</span>
+            <span class="gametime">2023-10-31</span>
+          </sapn>
+          <span class="kda">
+            <img class="kill" src="../images/strength.png">
+            <span class="kills">
+              <p>0</p>
+            </span>
+            <img class="death" src="../images/wither.png">
+            <span class="deaths">
+              <p>0</p>
+            </span>
+          </span>
+          <span class="result_win">
+            <p>LOSE</p>
+          </span>
+        </button>
+        <button class="record-button">
+          <img class="head_photo" src="../images/Steve.png" />
+          <sapn class="info">
+            <span class="type">1 VS 1</span>
+            <span class="gametime">2023-10-31</span>
+          </sapn>
+          <span class="kda">
+            <img class="kill" src="../images/strength.png">
+            <span class="kills">
+              <p>0</p>
+            </span>
+            <img class="death" src="../images/wither.png">
+            <span class="deaths">
+              <p>0</p>
+            </span>
+          </span>
+          <span class="result_lose">
+            <p>LOSE</p>
+          </span>
+        </button>
+        <button class="record-button">
+          <img class="head_photo" src="../images/Creepe.jpg" />
+          <sapn class="info">
+            <span class="type">1 VS 1</span>
+            <span class="gametime">2023-10-31</span>
+          </sapn>
+          <span class="kda">
+            <img class="kill" src="../images/strength.png">
+            <span class="kills">
+              <p>0</p>
+            </span>
+            <img class="death" src="../images/wither.png">
+            <span class="deaths">
+              <p>0</p>
+            </span>
+          </span>
+          <span class="result_win">
+            <p>WIN</p>
+          </span>
+        </button>
 
-    <a onclick="redirectToPersonal(event)" class="button1">战绩总览</a>
-    <a onclick="redirectToRecord(event)" class="button2">历史战绩</a>
-    <!-- <hr class="HorizontalLine"> -->
-    <!-- <p class="Text">历史战绩</p> -->
-    <!-- <form>  
-      <select id="Select" name="Select">  
-        <option value="choice1" selected>单挑</option>  
-        <option value="choice2">死斗</option>  
-      </select>  
-    </form> -->
-    <hr class="HorizontalLine">
-    <p class="Text">历史战绩</p>
-    <div id="Rectangle1">
-      <button class="record-button">
-        <img class="head_photo" src="../images/Creepe.jpg" />
-        <sapn class="info">
-          <span class="type">1 VS 1</span>
-          <span class="gametime">2023-10-31</span>
-        </sapn>
-        <span class="kda">
-          <img class="kill" src="../images/strength.png">
-          <span class="kills">
-            <p>0</p>
-          </span>
-          <img class="death" src="../images/wither.png">
-          <span class="deaths">
-            <p>0</p>
-          </span>
-        </span>
-        <span class="result_win">
-          <p>WIN</p>
-        </span>
-      </button>
-      <button class="record-button">
-        <img class="head_photo" src="../images/Steve.png" />
-        <sapn class="info">
-          <span class="type">1 VS 1</span>
-          <span class="gametime">2023-10-31</span>
-        </sapn>
-        <span class="kda">
-          <img class="kill" src="../images/strength.png">
-          <span class="kills">
-            <p>0</p>
-          </span>
-          <img class="death" src="../images/wither.png">
-          <span class="deaths">
-            <p>0</p>
-          </span>
-        </span>
-        <span class="result_lose">
-          <p>LOSE</p>
-        </span>
-      </button>
-      <button class="record-button">
-        <img class="head_photo" src="../images/Creepe.jpg" />
-        <sapn class="info">
-          <span class="type">1 VS 1</span>
-          <span class="gametime">2023-10-31</span>
-        </sapn>
-        <span class="kda">
-          <img class="kill" src="../images/strength.png">
-          <span class="kills">
-            <p>0</p>
-          </span>
-          <img class="death" src="../images/wither.png">
-          <span class="deaths">
-            <p>0</p>
-          </span>
-        </span>
-        <span class="result_lose">
-          <p>LOSE</p>
-        </span>
-      </button>
-      <button class="record-button">
-        <img class="head_photo" src="../images/Steve.png" />
-        <sapn class="info">
-          <span class="type">1 VS 1</span>
-          <span class="gametime">2023-10-31</span>
-        </sapn>
-        <span class="kda">
-          <img class="kill" src="../images/strength.png">
-          <span class="kills">
-            <p>0</p>
-          </span>
-          <img class="death" src="../images/wither.png">
-          <span class="deaths">
-            <p>0</p>
-          </span>
-        </span>
-        <span class="result_lose">
-          <p>LOSE</p>
-        </span>
-      </button>
-      <button class="record-button">
-        <img class="head_photo" src="../images/Steve.png" />
-        <sapn class="info">
-          <span class="type">1 VS 1</span>
-          <span class="gametime">2023-10-31</span>
-        </sapn>
-        <span class="kda">
-          <img class="kill" src="../images/strength.png">
-          <span class="kills">
-            <p>0</p>
-          </span>
-          <img class="death" src="../images/wither.png">
-          <span class="deaths">
-            <p>0</p>
-          </span>
-        </span>
-        <span class="result_win">
-          <p>LOSE</p>
-        </span>
-      </button>
-      <button class="record-button">
-        <img class="head_photo" src="../images/Steve.png" />
-        <sapn class="info">
-          <span class="type">1 VS 1</span>
-          <span class="gametime">2023-10-31</span>
-        </sapn>
-        <span class="kda">
-          <img class="kill" src="../images/strength.png">
-          <span class="kills">
-            <p>0</p>
-          </span>
-          <img class="death" src="../images/wither.png">
-          <span class="deaths">
-            <p>0</p>
-          </span>
-        </span>
-        <span class="result_lose">
-          <p>LOSE</p>
-        </span>
-      </button>
-      <button class="record-button">
-        <img class="head_photo" src="../images/Creepe.jpg" />
-        <sapn class="info">
-          <span class="type">1 VS 1</span>
-          <span class="gametime">2023-10-31</span>
-        </sapn>
-        <span class="kda">
-          <img class="kill" src="../images/strength.png">
-          <span class="kills">
-            <p>0</p>
-          </span>
-          <img class="death" src="../images/wither.png">
-          <span class="deaths">
-            <p>0</p>
-          </span>
-        </span>
-        <span class="result_win">
-          <p>WIN</p>
-        </span>
-      </button>
+      </div>
+      <div class="pagination">
+        <button onclick="prevPage()" id="left" style="background-color: white;">&lt;</button>
+        <span id="pageNum">1</span>
+        <button onclick="nextPage()" id="right" style="background-color: white;">&gt;</button>
+      </div>
+      <el-button></el-button>
+      <div id="Rectangle2">
+        <span id="date">时间</span>
+        <span id="date-value">10-31 20:46</span>
+        <span id="type">类型</span>
+        <span id="type-value">单挑</span>
+        <span id="duration">比赛时长</span>
+        <span id="duration-value">26分钟</span>
+        <div class="melee" id="melee1">
+          <div class="Win">
+            <p>WIN</p>
+            <img class="photo" id="win_photo" src="../images/portrait_2.jpg" style="border: 2px solid blueviolet;">
+            <div class="username" id="win_username" colspan="12"
+              style="text-align: center; position: absolute; top:200px; left: 185px;">小帅</div>
+            <table class="Win_table">
+              <tr>
+                <th class="kills_word" colspan="2">击杀数<i class="fas fa-star animate-flicker"></i></th>
+                <th class="deaths_word" colspan="2">死亡数<i class="fas fa-skull-crossbones"></i></th>
+                <th class="damage_word" colspan="3">伤害 <i class="fas fa-heartbeat"></i></th>
+                <th class="taken_word" colspan="3">承伤<i class="fas fa-shield-alt"></i></th>
+                <th class="kda_word" colspan="2">KDA<i class="fas fa-chart-line"></i></th>
 
-    </div>
-    <div class="pagination">
-      <button onclick="prevPage()" id="left" style="background-color: white;">&lt;</button>
-      <span id="pageNum">1</span>
-      <button onclick="nextPage()" id="right" style="background-color: white;">&gt;</button>
-    </div>
-    <el-button></el-button>
-    <div id="Rectangle2">
-      <span id="date">时间</span>
-      <span id="date-value">10-31 20:46</span>
-      <span id="type">类型</span>
-      <span id="type-value">单挑</span>
-      <span id="duration">比赛时长</span>
-      <span id="duration-value">26分钟</span>
-      <div class="melee" id="melee1">
-        <div class="Win">
-          <p>WIN</p>
-          <img class="photo" id="win_photo" src="../images/portrait_2.jpg" style="border: 2px solid blueviolet;">
-          <div class="username" id="win_username" colspan="12"
-            style="text-align: center; position: absolute; top:200px; left: 185px;">小帅</div>
-          <table class="Win_table">
-            <tr>
-              <th class="kills_word" colspan="2">击杀数<i class="fas fa-star animate-flicker"></i></th>
-              <th class="deaths_word" colspan="2">死亡数<i class="fas fa-skull-crossbones"></i></th>
-              <th class="damage_word" colspan="3">伤害 <i class="fas fa-heartbeat"></i></th>
-              <th class="taken_word" colspan="3">承伤<i class="fas fa-shield-alt"></i></th>
-              <th class="kda_word" colspan="2">KDA<i class="fas fa-chart-line"></i></th>
+              </tr>
+              <tr>
+                <td class="kills_value" id="win_kills" colspan="2">用户名</td>
+                <td class="deaths_value" id="win_deaths" colspan="2">用户名</td>
+                <td class="damage_value" id="win_damage" colspan="3">用户名</td>
+                <td class="taken_value" id="win_taken" colspan="3">用户名</td>
+                <td class="kda_value" id="win_kda" colspan="2">用户名</td>
+              </tr>
+            </table>
+          </div>
+          <div class="Lose">
+            <p>LOSE</p>
+            <img class="photo" id="lose_photo" src="../images/portrait_3.jpg" style="border: 2px solid blueviolet;">
+            <div class="username" id="lose_username" colspan="12"
+              style="text-align: center; position: absolute; top:200px; left: 185px;">小美</div>
+            <table class="Lose_table">
+              <tr>
+                <th class="kills_word" colspan="2">击杀数<i class="fas fa-star animate-flicker"></i></th>
+                <th class="deaths_word" colspan="2">死亡数<i class="fas fa-skull-crossbones"></i></th>
+                <th class="damage_word" colspan="3">伤害 <i class="fas fa-heartbeat"></i></th>
+                <th class="taken_word" colspan="3">承伤<i class="fas fa-shield-alt"></i></th>
+                <th class="kda_word" colspan="2">KDA<i class="fas fa-chart-line"></i></th>
 
-            </tr>
-            <tr>
-              <td class="kills_value" id="win_kills" colspan="2">用户名</td>
-              <td class="deaths_value" id="win_deaths" colspan="2">用户名</td>
-              <td class="damage_value" id="win_damage" colspan="3">用户名</td>
-              <td class="taken_value" id="win_taken" colspan="3">用户名</td>
-              <td class="kda_value" id="win_kda" colspan="2">用户名</td>
-            </tr>
-          </table>
-        </div>
-        <div class="Lose">
-          <p>LOSE</p>
-          <img class="photo" id="lose_photo" src="../images/portrait_3.jpg" style="border: 2px solid blueviolet;">
-          <div class="username" id="lose_username" colspan="12"
-            style="text-align: center; position: absolute; top:200px; left: 185px;">小美</div>
-          <table class="Lose_table">
-            <tr>
-              <th class="kills_word" colspan="2">击杀数<i class="fas fa-star animate-flicker"></i></th>
-              <th class="deaths_word" colspan="2">死亡数<i class="fas fa-skull-crossbones"></i></th>
-              <th class="damage_word" colspan="3">伤害 <i class="fas fa-heartbeat"></i></th>
-              <th class="taken_word" colspan="3">承伤<i class="fas fa-shield-alt"></i></th>
-              <th class="kda_word" colspan="2">KDA<i class="fas fa-chart-line"></i></th>
+              </tr>
+              <tr>
 
-            </tr>
-            <tr>
-
-              <td class="kills_value" id="lose_kills" colspan="2">用户名</td>
-              <td class="deaths_value" id="lose_deaths" colspan="2">用户名</td>
-              <td class="damage_value" id="lose_damage" colspan="3">用户名</td>
-              <td class="taken_value" id="lose_taken" colspan="3">用户名</td>
-              <td class="kda_value" id="lose_kda" colspan="2">用户名</td>
-            </tr>
-          </table>
+                <td class="kills_value" id="lose_kills" colspan="2">用户名</td>
+                <td class="deaths_value" id="lose_deaths" colspan="2">用户名</td>
+                <td class="damage_value" id="lose_damage" colspan="3">用户名</td>
+                <td class="taken_value" id="lose_taken" colspan="3">用户名</td>
+                <td class="kda_value" id="lose_kda" colspan="2">用户名</td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
   <!-- import JavaScript -->
   <script src="../scripts/record.js"></script>

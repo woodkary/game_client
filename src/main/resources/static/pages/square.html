@@ -13,7 +13,6 @@
 </head>
 
 <body>
-    <div class="background"></div>
     <nav>
         <span id="logo_nav">
             <a onclick="redirectToIndex(event)"><img class="LOGO" src="../images/LOGO.png" , alt="LOGO"></a>
@@ -36,227 +35,322 @@
             </ul>
         </span>
     </nav>
+    <div class="container_all">
 
-    <div id="main">
-        <div class="container">
-            <div class="list_kills">
-                <div class="title">Kills</div>
-                <table class="ranking_list_kills">
-                    <tr class="header">
-                        <th>名次 <i class="fas fa-sort-numeric-up"></i></th>
-                        <th colspan="2">玩家 <i class="fas fa-user"></i></th>
-                        <th>击杀数 <i class="fas fa-skull-crossbones"></i></th>
-                        <th>死亡数 <i class="fas fa-heart-broken"></i></th>
-                        <th>KDA <i class="fas fa-chart-line"></i></th>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">1</td>
-                        <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="kills">10</td>
-                        <td class="deads">3</td>
-                        <td class="kda">3.33</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">2</td>
-                        <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="kills">10</td>
-                        <td class="deads">3</td>
-                        <td class="kda">3.33</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">3</td>
-                        <td class="head_photo"><img src="../images/portrait_1.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="kills">10</td>
-                        <td class="deads">3</td>
-                        <td class="kda">3.33</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">4</td>
-                        <td class="head_photo"><img src="../images/portrait_2.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="kills">10</td>
-                        <td class="deads">3</td>
-                        <td class="kda">3.33</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">5</td>
-                        <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="kills">10</td>
-                        <td class="deads">3</td>
-                        <td class="kda">3.33</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">6</td>
-                        <td class="head_photo"><img src="../images/portrait_3.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="kills">10</td>
-                        <td class="deads">3</td>
-                        <td class="kda">3.33</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">7</td>
-                        <td class="head_photo"><img src="../images/portrait_5.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="kills">10</td>
-                        <td class="deads">3</td>
-                        <td class="kda">3.33</td>
-                    </tr>
-                </table>
-                <div class="pagination">
-                    <button class="left_button" onclick="prevPage()" id="left">&lt;</button>
-                    <button class="right_button" onclick="nextPage()" id="right">&gt;</button>
+        <div id="main">
+            <div class="live_game_updates">
+                <div class="match-card">
+                    <div class="player" id="player1">
+                        <img src="../images/portrait_3.jpg" alt="Player 1">
+                        <span>玩家1名字</span>
+                    </div>
+            
+                    <div class="score">
+                        3 : 1
+                    </div>
+            
+                    <div class="player" id="player2">
+                        <img src="../images/portrait_5.jpg" alt="Player 2">
+                        <span>玩家2名字</span>
+                    </div>
                 </div>
-                <el-button></el-button>
+                <div class="match-card">
+                    <div class="player" id="player1">
+                        <img src="../images/portrait_3.jpg" alt="Player 1">
+                        <span>玩家1名字</span>
+                    </div>
+            
+                    <div class="score">
+                        3 : 1
+                    </div>
+            
+                    <div class="player" id="player2">
+                        <img src="../images/portrait_5.jpg" alt="Player 2">
+                        <span>玩家2名字</span>
+                    </div>
+                </div>
+                <div class="match-card">
+                    <div class="player" id="player1">
+                        <img src="../images/portrait_3.jpg" alt="Player 1">
+                        <span>玩家1名字</span>
+                    </div>
+            
+                    <div class="score">
+                        3 : 1
+                    </div>
+            
+                    <div class="player" id="player2">
+                        <img src="../images/portrait_5.jpg" alt="Player 2">
+                        <span>玩家2名字</span>
+                    </div>
+                </div>
+                <div class="match-card">
+                    <div class="player" id="player1">
+                        <img src="../images/portrait_3.jpg" alt="Player 1">
+                        <span>玩家1名字</span>
+                    </div>
+            
+                    <div class="score">
+                        3 : 1
+                    </div>
+            
+                    <div class="player" id="player2">
+                        <img src="../images/portrait_5.jpg" alt="Player 2">
+                        <span>玩家2名字</span>
+                    </div>
+                </div>
+                <div class="match-card">
+                    <div class="player" id="player1">
+                        <img src="../images/portrait_3.jpg" alt="Player 1">
+                        <span>玩家1名字</span>
+                    </div>
+            
+                    <div class="score">
+                        3 : 1
+                    </div>
+            
+                    <div class="player" id="player2">
+                        <img src="../images/portrait_5.jpg" alt="Player 2">
+                        <span>玩家2名字</span>
+                    </div>
+                </div>
+                <div class="match-card">
+                    <div class="player" id="player1">
+                        <img src="../images/portrait_3.jpg" alt="Player 1">
+                        <span>玩家1名字</span>
+                    </div>
+            
+                    <div class="score">
+                        3 : 1
+                    </div>
+            
+                    <div class="player" id="player2">
+                        <img src="../images/portrait_5.jpg" alt="Player 2">
+                        <span>玩家2名字</span>
+                    </div>
+                </div>
             </div>
-            <div class="list_points">
-                <div class="title">Ranking</div>
-                <table class="ranking_list_points">
-                    <tr class="header">
-                        <th>名次 <i class="fas fa-sort-numeric-up"></i></th>
-                        <th colspan="2">玩家 <i class="fas fa-user"></i></th>
-                        <th>排位分 <i class="fas fa-coins"></i></th>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">1</td>
-                        <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="points">2555</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">2</td>
-                        <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="points">2555</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">3</td>
-                        <td class="head_photo"><img src="../images/portrait_1.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="points">2555</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">4</td>
-                        <td class="head_photo"><img src="../images/portrait_2.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="points">2555</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">5</td>
-                        <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="points">2555</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">6</td>
-                        <td class="head_photo"><img src="../images/portrait_3.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="points">2555</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">7</td>
-                        <td class="head_photo"><img src="../images/portrait_5.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="points">2555</td>
-                    </tr>
-                </table>
-                <div class="pagination">
-                    <button class="left_button" onclick="prevPage()" id="left">&lt;</button>
-                    <button class="right_button" onclick="nextPage()" id="right">&gt;</button>
+            <div class="container">
+                <div class="list_kills">
+                    <div class="title">Kills</div>
+                    <table class="ranking_list_kills">
+                        <tr class="header">
+                            <th>名次 <i class="fas fa-sort-numeric-up"></i></th>
+                            <th colspan="2">玩家 <i class="fas fa-user"></i></th>
+                            <th>击杀数 <i class="fas fa-skull-crossbones"></i></th>
+                            <th>死亡数 <i class="fas fa-heart-broken"></i></th>
+                            <th>KDA <i class="fas fa-chart-line"></i></th>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">1</td>
+                            <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="kills">10</td>
+                            <td class="deads">3</td>
+                            <td class="kda">3.33</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">2</td>
+                            <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="kills">10</td>
+                            <td class="deads">3</td>
+                            <td class="kda">3.33</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">3</td>
+                            <td class="head_photo"><img src="../images/portrait_1.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="kills">10</td>
+                            <td class="deads">3</td>
+                            <td class="kda">3.33</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">4</td>
+                            <td class="head_photo"><img src="../images/portrait_2.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="kills">10</td>
+                            <td class="deads">3</td>
+                            <td class="kda">3.33</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">5</td>
+                            <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="kills">10</td>
+                            <td class="deads">3</td>
+                            <td class="kda">3.33</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">6</td>
+                            <td class="head_photo"><img src="../images/portrait_3.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="kills">10</td>
+                            <td class="deads">3</td>
+                            <td class="kda">3.33</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">7</td>
+                            <td class="head_photo"><img src="../images/portrait_5.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="kills">10</td>
+                            <td class="deads">3</td>
+                            <td class="kda">3.33</td>
+                        </tr>
+                    </table>
+                    <div class="pagination">
+                        <button class="left_button" onclick="prevPage()" id="left">&lt;</button>
+                        <button class="right_button" onclick="nextPage()" id="right">&gt;</button>
+                    </div>
+                    <el-button></el-button>
                 </div>
-                <el-button></el-button>
-            </div>
-            <div class="list_demage">
-                <div class="title">Damage</div>
-                <table class="ranking_list_demage">
-                    <tr class="header">
-                        <th>名次 <i class="fas fa-sort-numeric-up"></i></th>
-                        <th colspan="2">玩家 <i class="fas fa-user"></i></th>
-                        <th>总伤害 <i class="fas fa-bomb"></i></th>
-                        <th>总承伤 <i class="fas fa-shield-alt"></i></th>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">1</td>
-                        <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="demage">5000</td>
-                        <td class="demage_taken">2000</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">2</td>
-                        <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="demage">5000</td>
-                        <td class="demage_taken">2000</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">3</td>
-                        <td class="head_photo"><img src="../images/portrait_1.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="demage">5000</td>
-                        <td class="demage_taken">2000</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">4</td>
-                        <td class="head_photo"><img src="../images/portrait_2.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="demage">5000</td>
-                        <td class="demage_taken">2000</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">5</td>
-                        <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="demage">5000</td>
-                        <td class="demage_taken">2000</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">6</td>
-                        <td class="head_photo"><img src="../images/portrait_3.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="demage">5000</td>
-                        <td class="demage_taken">2000</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="ranking">7</td>
-                        <td class="head_photo"><img src="../images/portrait_5.jpg" alt="头像1" width="50" height="50">
-                        </td>
-                        <td class="username">玩家1</td>
-                        <td class="demage">5000</td>
-                        <td class="demage_taken">2000</td>
-                    </tr>
-                </table>
-                <div class="pagination">
-                    <button class="left_button" onclick="prevPage()" id="left">&lt;</button>
-                    <button class="right_button" onclick="nextPage()" id="right">&gt;</button>
+                <div class="list_points">
+                    <div class="title">Ranking</div>
+                    <table class="ranking_list_points">
+                        <tr class="header">
+                            <th>名次 <i class="fas fa-sort-numeric-up"></i></th>
+                            <th colspan="2">玩家 <i class="fas fa-user"></i></th>
+                            <th>排位分 <i class="fas fa-coins"></i></th>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">1</td>
+                            <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="points">2555</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">2</td>
+                            <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="points">2555</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">3</td>
+                            <td class="head_photo"><img src="../images/portrait_1.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="points">2555</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">4</td>
+                            <td class="head_photo"><img src="../images/portrait_2.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="points">2555</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">5</td>
+                            <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="points">2555</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">6</td>
+                            <td class="head_photo"><img src="../images/portrait_3.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="points">2555</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">7</td>
+                            <td class="head_photo"><img src="../images/portrait_5.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="points">2555</td>
+                        </tr>
+                    </table>
+                    <div class="pagination">
+                        <button class="left_button" onclick="prevPage()" id="left">&lt;</button>
+                        <button class="right_button" onclick="nextPage()" id="right">&gt;</button>
+                    </div>
+                    <el-button></el-button>
                 </div>
-                <el-button></el-button>
+                <div class="list_demage">
+                    <div class="title">Damage</div>
+                    <table class="ranking_list_demage">
+                        <tr class="header">
+                            <th>名次 <i class="fas fa-sort-numeric-up"></i></th>
+                            <th colspan="2">玩家 <i class="fas fa-user"></i></th>
+                            <th>总伤害 <i class="fas fa-bomb"></i></th>
+                            <th>总承伤 <i class="fas fa-shield-alt"></i></th>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">1</td>
+                            <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="demage">5000</td>
+                            <td class="demage_taken">2000</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">2</td>
+                            <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="demage">5000</td>
+                            <td class="demage_taken">2000</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">3</td>
+                            <td class="head_photo"><img src="../images/portrait_1.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="demage">5000</td>
+                            <td class="demage_taken">2000</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">4</td>
+                            <td class="head_photo"><img src="../images/portrait_2.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="demage">5000</td>
+                            <td class="demage_taken">2000</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">5</td>
+                            <td class="head_photo"><img src="../images/portrait_4.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="demage">5000</td>
+                            <td class="demage_taken">2000</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">6</td>
+                            <td class="head_photo"><img src="../images/portrait_3.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="demage">5000</td>
+                            <td class="demage_taken">2000</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="ranking">7</td>
+                            <td class="head_photo"><img src="../images/portrait_5.jpg" alt="头像1" width="50" height="50">
+                            </td>
+                            <td class="username">玩家1</td>
+                            <td class="demage">5000</td>
+                            <td class="demage_taken">2000</td>
+                        </tr>
+                    </table>
+                    <div class="pagination">
+                        <button class="left_button" onclick="prevPage()" id="left">&lt;</button>
+                        <button class="right_button" onclick="nextPage()" id="right">&gt;</button>
+                    </div>
+                    <el-button></el-button>
+                </div>
             </div>
         </div>
     </div>
+
     <script src="../scripts/square.js"></script>
 </body>
 
