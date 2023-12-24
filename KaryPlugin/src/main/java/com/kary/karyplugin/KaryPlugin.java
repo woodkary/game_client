@@ -9,7 +9,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import okhttp3.*;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -34,7 +36,8 @@ public class KaryPlugin extends JavaPlugin {
                                              Double takeDamage,
                                              Double takenDamage,
                                              String mvpPlayer,
-                                             Integer gameMode){
+                                             Integer gameMode) {
+        /*
         //先给用户加分
         recordService.addScore(username,gameMode,scoreGain);
         recordService.recordNewMatch(
@@ -51,6 +54,46 @@ public class KaryPlugin extends JavaPlugin {
                 mvpPlayer
         );
         recordService.session.commit();
+
+         */
+        OkHttpClient client = new OkHttpClient();
+
+        // 构建 JSON 请求体
+        MediaType mediaType = MediaType.parse("application/json");
+        String jsonData = "{\"maxGameId\":" + maxGameId +
+                ",\"duration\":" + duration +
+                ",\"username\":\"" + username +
+                "\",\"kill\":" + kill +
+                ",\"death\":" + death +
+                ",\"scoreGain\":" + scoreGain +
+                ",\"assist\":" + assist +
+                ",\"takeDamage\":" + takeDamage +
+                ",\"takenDamage\":" + takenDamage +
+                ",\"mvpPlayer\":\"" + mvpPlayer +
+                "\",\"gameMode\":" + gameMode + "}";
+
+        RequestBody requestBody = RequestBody.create(mediaType, jsonData);
+
+        // 构建 HTTP 请求
+        Request request = new Request.Builder()
+                .url("http://your-spring-boot-api-url/data-endpoint")
+                .post(requestBody)
+                .build();
+
+        try {
+            // 发送 HTTP 请求
+            Response response = client.newCall(request).execute();
+
+            // 处理响应，可以根据需要进行错误处理或其他操作
+            if (!response.isSuccessful()) {
+                throw new IOException("Unexpected code " + response);
+            }
+
+            // 关闭响应
+            response.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     //1=Solo
     @Override
