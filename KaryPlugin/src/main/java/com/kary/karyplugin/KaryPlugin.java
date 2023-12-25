@@ -5,11 +5,12 @@ import com.kary.karyplugin.gamemodeExecutors.BrawlExecutor;
 import com.kary.karyplugin.gamemodeExecutors.QuitMatchingExecutor;
 import com.kary.karyplugin.gamemodeExecutors.SoloPVPExecutor;
 import com.kary.karyplugin.service.impl.RecordServiceImpl;
+import okhttp3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import okhttp3.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Map;
@@ -72,26 +73,45 @@ public class KaryPlugin extends JavaPlugin {
                 ",\"mvpPlayer\":\"" + mvpPlayer +
                 "\",\"gameMode\":" + gameMode + "}";
 
-        RequestBody requestBody = RequestBody.create(mediaType, jsonData);
+        RequestBody requestBody = RequestBody.create(mediaType,jsonData);
 
         // 构建 HTTP 请求
         Request request = new Request.Builder()
-                .url("http://your-spring-boot-api-url/data-endpoint")
+                .url("http://localhost:8080/games/recordNewMatch")
                 .post(requestBody)
                 .build();
 
         try {
             // 发送 HTTP 请求
-            Response response = client.newCall(request).execute();
+            client.newCall(request).enqueue(new Callback() {
+                // 请求失败的回调方法
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    e.printStackTrace();
+                    //重新发送请求
+                    client.newCall(request).enqueue(this);
 
-            // 处理响应，可以根据需要进行错误处理或其他操作
+                }
+
+                // 请求成功的回调方法
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    // 获取响应体的字符串
+                    String string = null;
+                    if (response.body() != null) {
+                        string = response.body().string();
+                    }
+                    System.out.println(string);
+                }
+            });
+            /*// 处理响应，可以根据需要进行错误处理或其他操作
             if (!response.isSuccessful()) {
                 throw new IOException("Unexpected code " + response);
             }
 
             // 关闭响应
-            response.close();
-        } catch (IOException e) {
+            response.close();*/
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
