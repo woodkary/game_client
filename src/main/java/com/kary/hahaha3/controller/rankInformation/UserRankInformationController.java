@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kary.hahaha3.controller.BaseController;
 import com.kary.hahaha3.exceptions.DatabaseUpdateException;
 import com.kary.hahaha3.exceptions.JsonException;
+import com.kary.hahaha3.exceptions.errorInput.ErrorInputException;
 import com.kary.hahaha3.exceptions.errorInput.GameNotFoundException;
 import com.kary.hahaha3.exceptions.errorInput.MatchTypeErrorException;
 import com.kary.hahaha3.exceptions.errorInput.UsernameErrorException;
@@ -22,6 +23,7 @@ import com.kary.hahaha3.service.RecordVOService;
 import com.kary.hahaha3.service.RecordsService;
 import com.kary.hahaha3.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -33,6 +35,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -68,6 +72,38 @@ public class UserRankInformationController extends BaseController {
         @Schema(name = "data",description = "战报信息",implementation = PersonalReport.class)
         private PersonalReport data;
         @Schema(name = "message",description = "战报信息",example = "你的战报信息")
+        private String message;
+    }
+    private class RecordVOResult extends JsonResult{
+        @Schema(name = "code",description = "状态码",example = "200")
+        private int code;
+        @Schema(name = "data",description = "比赛信息",example = "[{\"gameId\":1,\"username\":\"kary\",\"gameTime\":\"2021/12/24\",\"portrait\":1,\"kills\":10,\"deaths\":15,\"assists\":20,\"scoreGain\":15,\"kda\":2.5,\"duration\":300000,\"isMVP\":true,\"type\":\"大乱斗\",\"takeDamage\":15.89,\"takenDamage\":21.89}]")
+        private List<RecordVO> data;
+        @Schema(name = "message",description = "提示消息",example = "这是比赛")
+        private String message;
+    }
+    private class PortraitResult extends JsonResult{
+        @Schema(name = "code",description = "状态码",example = "200")
+        private int code;
+        @Schema(name = "data",description = "头像id",example = "1")
+        private Integer data;
+        @Schema(name = "message",description = "提示消息",example = "修改成功")
+        private String message;
+    }
+    private class UserGameResult extends JsonResult{
+        @Schema(name = "code",description = "状态码",example = "200")
+        private int code;
+        @Schema(name = "data",description = "用户信息",example = "[{\"username\":\"kary\",\"scoreTotal1v1\":10,\"gamesCount\":14,\"gamesCount1v1\":15,\"gamesCountBrawl\":12,\"scoreTotalBrawl\":10,\"portrait\":3,\"maxScore1v1\":156,\"maxScoreBrawl\":255,\"onMatch\":2}]")
+        private List<UserGame> data;
+        @Schema(name = "message",description = "提示消息",example = "获取成功")
+        private String message;
+    }
+    private class RankPositionResult extends JsonResult{
+        @Schema(name = "code",description = "状态码",example = "200")
+        private int code;
+        @Schema(name = "data",description = "排名",example = "1")
+        private Integer data;
+        @Schema(name = "message",description = "提示消息",example = "获取成功")
         private String message;
     }
     @GetMapping("/othersAllRecords")
@@ -114,6 +150,17 @@ public class UserRankInformationController extends BaseController {
     }
     @GetMapping("/othersReport/{type}")
     @Operation(summary = "统计战报",description="仅返回一个PersonalReport对象。个人主页中需要调用两次")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "你的本月战绩信息",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = PersonalReportResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "用户不存在",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    )
+            })
     public JsonResult getPersonalReport(@RequestParam("username")String username,@PathVariable int type,HttpSession session) throws SessionExpireException, UsernameErrorException, MatchTypeErrorException {
         User account= userService.selectUserByName(username);
         if(account==null){
@@ -133,25 +180,93 @@ public class UserRankInformationController extends BaseController {
         return true;
     }
     @GetMapping("/getRanks/{page}")
-    @Operation(summary = "获取我自己或别人的比赛记录信息，返回List<RecordVO>")
+    @Operation(summary = "根据页数获取我自己或别人的比赛记录信息，返回List<RecordVO>")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "你的比赛记录信息",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = RecordVOResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "用户不存在",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    )
+            }
+    )
     public JsonResult myRankInformation(@RequestParam("username")String username,@PathVariable int page) throws SessionExpireException, MatchTypeErrorException {
         List<RecordVO> recordVOS=recordVOService.getGamesByUsername(username, null,page);
         return JsonResult.ok(recordVOS,"这是比赛");
     }
     @GetMapping("/getRanks")
     @Operation(summary = "获取我自己或别人的所有比赛记录信息，返回List<RecordVO>",description = "共64个RecordVO")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "你的比赛记录信息",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = RecordVOResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "用户不存在",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    )
+            }
+    )
     public JsonResult myAllRankInformation(@RequestParam("username")String username) throws SessionExpireException, MatchTypeErrorException {
         List<RecordVO> recordVOS=recordVOService.getGamesByUsername(username, null,1);
         return JsonResult.ok(recordVOS,"这是比赛");
     }
     @GetMapping("/getGamesByGameId")
     @Operation(summary = "通过id获取比赛记录信息，返回List<RecordVO>")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "你的比赛记录信息",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = RecordVOResult.class)) }
+                    )
+            }
+    )
     public JsonResult getGamesByGameId(@RequestParam("gameId")Integer gameId) throws GameNotFoundException {
         List<RecordVO> recordVOS=recordVOService.getGamesByGameId(gameId);
         return JsonResult.ok(recordVOS,"这是比赛");
     }
+    @GetMapping("/getGamesByDate")
+    @Operation(summary = "通过日期获取比赛记录信息，格式为2021/12/24")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "你的比赛记录信息",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = RecordVOResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "日期格式错误",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    )
+            }
+    )
+    public JsonResult getGamesByDate(@RequestParam("date")String dateStr) throws ErrorInputException {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+            Date date = format.parse(dateStr);
+            List<RecordVO> recordVOS = recordVOService.getGamesByDate(date);
+            return JsonResult.ok(recordVOS, "这是比赛");
+        }catch (Exception e){
+            throw new ErrorInputException("日期格式错误",e);
+        }
+    }
     @PostMapping("/portrait")
     @Operation(summary = "修改头像",description = "请输入用户名username和头像id portrait")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "修改成功",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = PortraitResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "修改失败",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    )
+            }
+    )
     public JsonResult updatePortrait(@RequestBody SetPortraitJSON setPortraitJSON) throws DatabaseUpdateException {
         Integer num=userService.updateUserPortrait(setPortraitJSON.getUsername(),setPortraitJSON.getPortrait());
         if(num==1){
@@ -162,6 +277,18 @@ public class UserRankInformationController extends BaseController {
     }
     @GetMapping("/get1v1RankingOrder")
     @Operation(summary = "获取1v1排行榜")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "获取成功",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = UserGameResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "获取失败",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    )
+            }
+    )
     public JsonResult get1v1RankingOrder() throws JsonException {
         List<UserGame> users=userService.getAllUserOrder1v1();
         if(users==null){
@@ -171,6 +298,18 @@ public class UserRankInformationController extends BaseController {
     }
     @GetMapping("/getBrawlRankingOrder")
     @Operation(summary = "获取乱斗排行榜")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "获取成功",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = UserGameResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "获取失败",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    )
+            }
+    )
     public JsonResult getBrawlRankingOrder() throws JsonException {
         List<UserGame> users=userService.getAllUserOrderBrawl();
         if(users==null){
@@ -180,6 +319,18 @@ public class UserRankInformationController extends BaseController {
     }
     @GetMapping("/getTotalScoreRankingOrder")
     @Operation(summary = "获取总分排行榜")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "获取成功",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = UserGameResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "获取失败",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    )
+            }
+    )
     public JsonResult getTotalScoreRankingOrder() throws JsonException {
         List<UserGame> users=userService.getAllUserOrderTotalScore();
         if(users==null){
@@ -189,6 +340,18 @@ public class UserRankInformationController extends BaseController {
     }
     @GetMapping("/getRankPosition")
     @Operation(summary = "获取用户排名",description = "请输入用户名username")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "获取成功",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = RankPositionResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "获取失败",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    )
+            }
+    )
     public JsonResult getRankPosition(@RequestParam("username")String username) throws JsonException, SessionExpireException {
         List<UserGame> users=userService.getAllUserOrderTotalScore();
         if(users==null){
