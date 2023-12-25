@@ -15,6 +15,10 @@ import com.kary.hahaha3.service.UserService;
 import com.kary.hahaha3.utils.AESUtil;
 import com.kary.hahaha3.utils.MailUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +36,32 @@ public class ForgetPasswordController extends BaseController {
     AESUtil aesEncoder;
     @Autowired
     private UserService userService;
+    private class ForgetPasswordResult extends JsonResult{
+        @Schema(name = "code",description = "状态码",example = "200")
+        private int code;
+        @Schema(name = "data",description = "数据",example = "")
+        private String data;
+        @Schema(name = "message",description = "消息",example = "修改密码成功")
+        private String message;
+    }
 
     @PostMapping("/resetPassword")
     @Operation(summary = "重置密码",description = "仅需要输入密码")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "修改密码成功",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ForgetPasswordResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "用户不存在",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "401",description = "输入邮箱不合法",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    )
+            })
     public JsonResult resetPassword(@RequestBody String password,
                                     HttpSession session) throws Exception {
         User userGetByEmail= (User) session.getAttribute("userGetByEmail");
