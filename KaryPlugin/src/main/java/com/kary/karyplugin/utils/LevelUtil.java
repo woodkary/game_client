@@ -12,6 +12,6 @@ public class LevelUtil {
     public static final int MASTER=6;
     public static final int KING=7;
     public static int getLevel(int score){
-        return score/300+1;
+        return (Math.max(score, 0))/300+1;
     }
 }
