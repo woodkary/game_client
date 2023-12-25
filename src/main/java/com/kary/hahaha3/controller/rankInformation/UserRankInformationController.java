@@ -11,6 +11,7 @@ import com.kary.hahaha3.exceptions.errorInput.MatchTypeErrorException;
 import com.kary.hahaha3.exceptions.errorInput.UsernameErrorException;
 import com.kary.hahaha3.exceptions.expired.SessionExpireException;
 import com.kary.hahaha3.mapper.UserMapper;
+import com.kary.hahaha3.pojo.Games;
 import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.pojo.UserGame;
@@ -106,6 +107,14 @@ public class UserRankInformationController extends BaseController {
         @Schema(name = "message",description = "提示消息",example = "获取成功")
         private String message;
     }
+    private class GamesResult extends JsonResult{
+        @Schema(name = "code",description = "状态码",example = "200")
+        private int code;
+        @Schema(name = "data",description = "比赛信息",example = "[{\"type\":1,\"gameId\":\"33\",\"gameTime\":\"2021/12/24\",\"duration\":7711,\"mvpPlayer\":\"kary\"}]")
+        private List<Games> data;
+        @Schema(name = "message",description = "提示消息",example = "这是比赛")
+        private String message;
+    }
     @GetMapping("/othersAllRecords")
     @Operation(summary = "统计别人的战绩信息，即全部场次部分",description="仅返回一个Records对象。请看Records类")
     @ApiResponses(
@@ -180,7 +189,7 @@ public class UserRankInformationController extends BaseController {
         return true;
     }
     @GetMapping("/getRanks/{page}")
-    @Operation(summary = "根据页数获取我自己或别人的比赛记录信息，返回List<RecordVO>")
+    @Operation(summary = "根据页数获取我自己或别人的比赛记录信息")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200",description = "你的比赛记录信息",
@@ -198,7 +207,7 @@ public class UserRankInformationController extends BaseController {
         return JsonResult.ok(recordVOS,"这是比赛");
     }
     @GetMapping("/getRanks")
-    @Operation(summary = "获取我自己或别人的所有比赛记录信息，返回List<RecordVO>",description = "共64个RecordVO")
+    @Operation(summary = "获取我自己或别人的所有比赛记录信息",description = "请输入用户名username")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200",description = "你的比赛记录信息",
@@ -216,12 +225,16 @@ public class UserRankInformationController extends BaseController {
         return JsonResult.ok(recordVOS,"这是比赛");
     }
     @GetMapping("/getGamesByGameId")
-    @Operation(summary = "通过id获取比赛记录信息，返回List<RecordVO>")
+    @Operation(summary = "通过id获取比赛记录信息，返回所有比赛记录信息",description = "请输入比赛id")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200",description = "你的比赛记录信息",
                             content = { @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = RecordVOResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "这局游戏不存在",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
                     )
             }
     )
@@ -230,12 +243,12 @@ public class UserRankInformationController extends BaseController {
         return JsonResult.ok(recordVOS,"这是比赛");
     }
     @GetMapping("/getGamesByDate")
-    @Operation(summary = "通过日期获取比赛记录信息，格式为2021/12/24")
+    @Operation(summary = "通过日期获取比赛记录信息，格式为2021/12/24",description = "输入日期，返回所有游戏记录信息")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200",description = "你的比赛记录信息",
                             content = { @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = RecordVOResult.class)) }
+                                    schema = @Schema(implementation = GamesResult.class)) }
                     ),
                     @ApiResponse(responseCode = "400",description = "日期格式错误",
                             content = { @Content(mediaType = "application/json",
@@ -247,8 +260,8 @@ public class UserRankInformationController extends BaseController {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
             Date date = format.parse(dateStr);
-            List<RecordVO> recordVOS = recordVOService.getGamesByDate(date);
-            return JsonResult.ok(recordVOS, "这是比赛");
+            List<Games> games = recordVOService.getGamesByDate(date);
+            return JsonResult.ok(games, "这是比赛");
         }catch (Exception e){
             throw new ErrorInputException("日期格式错误",e);
         }

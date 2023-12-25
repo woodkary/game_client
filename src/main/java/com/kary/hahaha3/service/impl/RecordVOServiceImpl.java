@@ -161,56 +161,9 @@ public class RecordVOServiceImpl implements RecordVOService {
     }
 
     @Override
-    public List<RecordVO> getGamesByDate(Date date) {
-        List<RecordVO> res=new ArrayList<>();
+    public List<Games> getGamesByDate(Date date) {
         List<Games> games=gamesMapper.getGamesByDate(date);
-        games.forEach(game -> {
-            List<Record> records=recordMapper.selectRecordsByGameId(game.getGameId());
-            records.forEach(record -> {
-                RecordVO recordVO=new RecordVO();
-                String username=record.getUsername();
-                Date gameTime=game.getGameTime();
-                int kills=record.getKill();
-                int deaths=record.getDeath();
-                int assists=record.getAssist();
-                double kda=(kills*1.0+assists*0.7)/(deaths!=0?deaths:1);
-                long duration=game.getDuration();
-                int type=game.getType();
-                String typeString="";
-                switch (type){
-                    case 1:typeString="1v1";break;
-                    case 2:typeString="大乱斗";break;
-                    default:break;
-                }
-                boolean isMVP=username.equals(game.getMvpPlayer());
-                Integer portrait=userGameMapper.getPortrait(username);
-                recordVO.setGameId(game.getGameId());
-                recordVO.setUsername(username);
-                recordVO.setPortrait(portrait);
-                recordVO.setGameTime(gameTime);
-                recordVO.setKills(kills);
-                recordVO.setDeaths(deaths);
-                recordVO.setAssists(assists);
-                recordVO.setKda(kda);
-                recordVO.setScoreGain(record.getScoreGain());
-                recordVO.setDuration(duration);
-                recordVO.setType(typeString);
-                recordVO.setMVP(isMVP);
-                recordVO.setTakeDamage(record.getTakeDamage());
-                recordVO.setTakenDamage(record.getTakenDamage());
-                res.add(recordVO);
-            });
-        });
-        res.sort((o1, o2) -> {
-            if(o1.getGameTime().after(o2.getGameTime())){
-                return -1;
-            }else if(o1.getGameTime().before(o2.getGameTime())){
-                return 1;
-            }else{
-                return 0;
-            }
-        });
-        return res;
+        return games;
     }
 
 }
