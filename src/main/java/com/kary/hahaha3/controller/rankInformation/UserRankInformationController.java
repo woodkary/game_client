@@ -116,7 +116,7 @@ public class UserRankInformationController extends BaseController {
         private String message;
     }
     @GetMapping("/othersAllRecords")
-    @Operation(summary = "统计别人的战绩信息，即全部场次部分",description="仅返回一个Records对象。请看Records类")
+    @Operation(summary = "统计总战绩信息，即全部场次部分",description="仅返回一个Records对象。请看Records类")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200",description = "你的所有战绩信息",
