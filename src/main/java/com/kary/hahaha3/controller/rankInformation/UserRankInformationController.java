@@ -180,7 +180,7 @@ public class UserRankInformationController extends BaseController {
         return true;
     }
     @GetMapping("/getRanks/{page}")
-    @Operation(summary = "根据页数获取我自己或别人的比赛记录信息，返回List<RecordVO>")
+    @Operation(summary = "根据页数获取我自己或别人的比赛记录信息")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200",description = "你的比赛记录信息",
@@ -198,7 +198,7 @@ public class UserRankInformationController extends BaseController {
         return JsonResult.ok(recordVOS,"这是比赛");
     }
     @GetMapping("/getRanks")
-    @Operation(summary = "获取我自己或别人的所有比赛记录信息，返回List<RecordVO>",description = "共64个RecordVO")
+    @Operation(summary = "获取我自己或别人的所有比赛记录信息",description = "请输入用户名username")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200",description = "你的比赛记录信息",
@@ -216,12 +216,16 @@ public class UserRankInformationController extends BaseController {
         return JsonResult.ok(recordVOS,"这是比赛");
     }
     @GetMapping("/getGamesByGameId")
-    @Operation(summary = "通过id获取比赛记录信息，返回List<RecordVO>")
+    @Operation(summary = "通过id获取比赛记录信息，返回所有比赛记录信息",description = "请输入比赛id")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200",description = "你的比赛记录信息",
                             content = { @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = RecordVOResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "这局游戏不存在",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
                     )
             }
     )
@@ -230,7 +234,7 @@ public class UserRankInformationController extends BaseController {
         return JsonResult.ok(recordVOS,"这是比赛");
     }
     @GetMapping("/getGamesByDate")
-    @Operation(summary = "通过日期获取比赛记录信息，格式为2021/12/24")
+    @Operation(summary = "通过日期获取比赛记录信息，格式为2021/12/24",description = "输入日期，返回所有游戏记录信息")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200",description = "你的比赛记录信息",
