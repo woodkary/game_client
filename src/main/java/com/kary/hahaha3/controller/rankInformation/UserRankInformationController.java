@@ -22,6 +22,10 @@ import com.kary.hahaha3.service.RecordVOService;
 import com.kary.hahaha3.service.RecordsService;
 import com.kary.hahaha3.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +54,35 @@ public class UserRankInformationController extends BaseController {
     @Autowired
     @Qualifier("UserService")
     private UserService userService;
+    private class RecordsResult extends JsonResult{
+        @Schema(name = "code",description = "状态码",example = "200")
+        private int code;
+        @Schema(name = "data",description = "总战绩信息",implementation = Records.class)
+        private Records data;
+        @Schema(name = "message",description = "战绩信息",example = "你的战绩信息")
+        private String message;
+    }
+    private class PersonalReportResult extends JsonResult{
+        @Schema(name = "code",description = "状态码",example = "200")
+        private int code;
+        @Schema(name = "data",description = "战报信息",implementation = PersonalReport.class)
+        private PersonalReport data;
+        @Schema(name = "message",description = "战报信息",example = "你的战报信息")
+        private String message;
+    }
     @GetMapping("/othersAllRecords")
     @Operation(summary = "统计别人的战绩信息，即全部场次部分",description="仅返回一个Records对象。请看Records类")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "你的所有战绩信息",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = RecordsResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "用户不存在",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    )
+            })
     public JsonResult getOthersAllGame(@RequestParam("username")String username,HttpSession session) throws SessionExpireException {
         User account= userService.selectUserByName(username);
         if(account==null){
@@ -62,6 +93,17 @@ public class UserRankInformationController extends BaseController {
     }
     @GetMapping("/othersMonthRecords")
     @Operation(summary = "统计本月战绩信息，即本月场次部分，仅返回一个Records对象。请看Records类")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "你的本月战绩信息",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = RecordsResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "用户不存在",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    )
+            })
     public JsonResult getOthersMonthGame(@RequestParam("username")String username,HttpSession session) throws SessionExpireException {
         User account= userService.selectUserByName(username);
         if(account==null){

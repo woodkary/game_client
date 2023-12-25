@@ -1,6 +1,7 @@
 package com.kary.hahaha3.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,8 +18,11 @@ import java.io.Serializable;
 @JsonIgnoreProperties(value ={"hibernateLazyInitializer","handler","fieldHandler"})
 @EqualsAndHashCode
 public class JsonResult implements Serializable {
+    @Schema(name = "code",description = "状态码",example = "400")
     private int code;
+    @Schema(name = "data",description = "数据",example = "\"\"")
     private Object data;
+    @Schema(name = "message",description = "消息",example = "错误，请重试")
     private String message;
     public static JsonResult ok(Object data,String message){
         return new JsonResult(200,data,message);

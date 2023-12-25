@@ -52,6 +52,7 @@ public class GameRecordServiceImpl implements GameRecordService {
         return (num1==1&&num2==1&&num3==1&&num4==1&&num5==1)?1:0;
     }
     @Override
+    @Transactional
     public Integer addNewGame(Integer type, Integer gameId, Long duration, String mvpPlayer) {
         return gamesMapper.addNewGame(type,gameId,duration,mvpPlayer);
     }

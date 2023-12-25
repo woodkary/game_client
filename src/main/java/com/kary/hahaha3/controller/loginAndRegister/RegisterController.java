@@ -12,6 +12,10 @@ import com.kary.hahaha3.service.UserService;
 import com.kary.hahaha3.utils.AESUtil;
 import com.kary.hahaha3.utils.MailUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -41,8 +45,29 @@ public class RegisterController extends BaseController {
     private AESUtil aesEncoder;
     @Autowired
     private UserService userService;
+    private class SendResult extends JsonResult{
+        @Schema(name = "code",description = "状态码",example = "200")
+        private int code;
+        @Schema(name = "data",description = "数据",example = "")
+        private String data;
+        @Schema(name = "message",description = "消息",example = "请准备发验证码")
+        private String message;
+    }
     @PostMapping("/register")
     @Operation(summary = "用户注册",description = "需要输入用户名和密码")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "等待输入验证码",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = SendResult.class)) }
+                    ),
+
+                    @ApiResponse(responseCode = "401",description = "该用户已注册",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    )
+            }
+    )
     public JsonResult userRegister(@RequestBody RegisterJSON registerJSON,
                                    HttpSession session)throws Exception{
         String username=registerJSON.getUsername();

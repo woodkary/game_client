@@ -10,6 +10,10 @@ import com.kary.hahaha3.pojo.User;
 import com.kary.hahaha3.service.UserService;
 import com.kary.hahaha3.utils.AESUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +31,31 @@ public class LoginController extends BaseController {
     AESUtil aesEncoder;
     @Autowired
     private UserService userService;
+    private class LoginResult extends JsonResult{
+        @Schema(name = "code",description = "状态码",example = "200")
+        private int code;
+        @Schema(name = "data",description = "用户数据",implementation = User.class)
+        private User data;
+        @Schema(name = "message",description = "消息",example = "登录成功")
+        private String message;
+    }
     @GetMapping("/login")
     @Operation(summary = "登录", description = "需要输入用户名和密码")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200",description = "登录成功",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = LoginResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "400",description = "用户不存在",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    ),
+                    @ApiResponse(responseCode = "401",description = "密码错误",
+                            content = { @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = JsonResult.class)) }
+                    )
+            })
     public JsonResult login(@RequestParam(value = "username")String username,
                             @RequestParam(value = "password")String password,
                             HttpSession session) throws ErrorInputException {
