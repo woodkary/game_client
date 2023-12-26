@@ -11,7 +11,6 @@ let dateString = `${year}/${month < 10 ? '0' + month : month}/${day < 10 ? '0' +
 
 window.onload = function () {
     getGamesByDate(dateString);
-    createMatchCard();
     soloRank();
     brawlRank();
     scoreRank();
