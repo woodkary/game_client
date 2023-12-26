@@ -5,57 +5,23 @@ let day = today.getDate();
 
 let dateString = `${year}/${month < 10 ? '0' + month : month}/${day < 10 ? '0' + day : day}`;
 
+let dateStrTemp = "2023/12/25";
+
+
 // setInterval(function() {
 //     location.reload();
 // }, 20000);
 
 window.onload = function () {
-    getGamesByDate(dateString);
+    getGamesByDate(dateStrTemp);
     soloRank();
     brawlRank();
     scoreRank();
 }
 
-function redirectToIndex(event) {
-    event.preventDefault();
-    let myUsername = sessionStorage.getItem('myUsername');
-    console.log(myUsername);
-    window.location.href = "../index.html?username=" + encodeURIComponent(myUsername);
-}
-
-function redirectToMyPersonal(event) {
-    event.preventDefault();
-    let myUsername = sessionStorage.getItem('myUsername');
-    console.log(myUsername);
-    window.location.href = "../pages/personal.html?username=" + encodeURIComponent(myUsername);
-}
-
-function redirectToSquare(event) {
-    event.preventDefault();
-    let myUsername = sessionStorage.getItem('myUsername');
-    console.log(myUsername);
-    window.location.href = "../pages/square.html?username=" + encodeURIComponent(myUsername);
-}
-
-function createMatchCard() {
-    const liveUpdate = document.getElementById("live_game_updates");
-    liveUpdate.innerHTML = "";
-    liveUpdate.innerHTML = `
-    <div class="match-card">
-        <div class="player" id="player1">
-            <img src="../images/portrait_3.jpg" alt="Player 1">
-            <span>玩家1名字</span>
-        </div>
-        <div class="score">3 : 1</div>
-        <div class="player" id="player2">
-            <img src="../images/portrait_5.jpg" alt="Player 2">
-            <span>玩家2名字</span>
-        </div>
-    </div>`;
-}
-
 function getGamesByDate(dateString) {
-    const liveUpdate = document.getElementById("live_game_updates");
+    let liveUpdate = document.getElementById("live_game_updates");
+    liveUpdate.innerHTML = ``;
     const url = `http://localhost:8080/ranks/getGamesByDate?date=${encodeURIComponent(dateString)}`;
     fetch(url)
         .then(response => response.json())
@@ -64,41 +30,38 @@ function getGamesByDate(dateString) {
             // Replace the HTML content with the received data
             for (let i = 0; i < data.data.length; i++) {
                 console.log(data.data[i]);
+                console.log(data.data.length);
+                console.log(data.data[i].gameId);
                 let gameId = data.data[i].gameId;
                 let type = data.data[i].type;
                 fetch(`http://localhost:8080/ranks/getGamesByGameId?gameId=${gameId}`)
                     .then(response => response.json())
-                    .then(data => {
-                        console.log(data.data);
-                    })
-                    .catch(error => console.log(error));
-                if (type == 1) {
-                    liveUpdate.innerHTML = "";
-                    liveUpdate.innerHTML = `
-                    <div class="match-card">
+                    .then(matchData => {
+                        console.log(matchData.data);
+                        let matchCard = document.createElement("div");
+                        if (type == 1) {
+                            matchCard.innerHTML = `
+                        <div class="match-card">
                         <div class="player" id="player1">
-                            <img src="../images/portrait_3.jpg" alt="Player 1">
-                            <span>玩家1名字</span>
+                            <img src="../images/portrait_${matchData.data[0].portrait}.jpg" alt="Player 1">
+                            <span>${matchData.data[0].username}</span>
                         </div>
-                        <div class="score">3 : 1</div>
+                        <div class="score">${matchData.data[0].kills} : ${matchData.data[0].deaths}</div>
                         <div class="player" id="player2">
-                            <img src="../images/portrait_5.jpg" alt="Player 2">
-                            <span>玩家2名字</span>
+                            <img src="../images/portrait_${matchData.data[1].portrait}.jpg" alt="Player 2">
+                            <span>${matchData.data[0].username}</span>
                         </div>
                     </div>`;
-                } else {
+                        } else {
 
-                }
-                liveUpdate.appendChild(matchCard);
+                        }
+                        liveUpdate.appendChild(matchCard);
+                    })
+                    .catch(error => console.log(error));
+
             }
         })
         .catch(error => console.log(error));
-}
-
-function createMatchCard(game) {
-    console.log(game);
-
-
 }
 
 function allRanks() {
@@ -124,7 +87,7 @@ function soloRank() {
                 <th colspan="2">玩家 <i class="fas fa-user"></i></th>
                 <th>排位分 <i class="fas fa-coins"></i></th>
                 </tr>`;
-            for (let i = 0; i < 7; i++) {
+            for (let i = 0; i < data.data.length; i++) {
                 let rankItem = document.createElement("tr");
                 rankItem.innerHTML = `
                 <tr class="row">
@@ -156,7 +119,7 @@ function brawlRank() {
                 <th colspan="2">玩家 <i class="fas fa-user"></i></th>
                 <th>排位分 <i class="fas fa-coins"></i></th>
                 </tr>`;
-            for (let i = 0; i < 7; i++) {
+            for (let i = 0; i < data.data.length; i++) {
                 let rankItem = document.createElement("tr");
                 rankItem.innerHTML = `
                 <tr class="row">
@@ -188,7 +151,7 @@ function scoreRank() {
                 <th colspan="2">玩家 <i class="fas fa-user"></i></th>
                 <th>排位分 <i class="fas fa-coins"></i></th>
                 </tr>`;
-            for (let i = 0; i < 7; i++) {
+            for (let i = 0; i < data.data.length; i++) {
                 let rankItem = document.createElement("tr");
                 rankItem.innerHTML = `
                 <tr class="row">
@@ -202,4 +165,25 @@ function scoreRank() {
             }
         })
         .catch(error => console.log(error));
+}
+
+function redirectToIndex(event) {
+    event.preventDefault();
+    let myUsername = sessionStorage.getItem('myUsername');
+    console.log(myUsername);
+    window.location.href = "../index.html?username=" + encodeURIComponent(myUsername);
+}
+
+function redirectToMyPersonal(event) {
+    event.preventDefault();
+    let myUsername = sessionStorage.getItem('myUsername');
+    console.log(myUsername);
+    window.location.href = "../pages/personal.html?username=" + encodeURIComponent(myUsername);
+}
+
+function redirectToSquare(event) {
+    event.preventDefault();
+    let myUsername = sessionStorage.getItem('myUsername');
+    console.log(myUsername);
+    window.location.href = "../pages/square.html?username=" + encodeURIComponent(myUsername);
 }
