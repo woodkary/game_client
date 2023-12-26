@@ -12,7 +12,7 @@ public class LevelUtil {
         }else if(score>=1500){
             return levels[5];
         }
-        int i=score/300;
+        int i=Math.max(score,0)/300;
         return levels[i+1];
     }
 }
