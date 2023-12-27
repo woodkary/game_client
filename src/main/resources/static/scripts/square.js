@@ -49,7 +49,7 @@ function getGamesByDate(dateString) {
                         <div class="score">${matchData.data[0].kills} : ${matchData.data[0].deaths}</div>
                         <div class="player" id="player2">
                             <img src="../images/portrait_${matchData.data[1].portrait}.jpg" alt="Player 2">
-                            <span>${matchData.data[0].username}</span>
+                            <span>${matchData.data[1].username}</span>
                         </div>
                     </div>`;
                         } else {
