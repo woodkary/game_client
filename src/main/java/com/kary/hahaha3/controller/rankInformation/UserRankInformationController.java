@@ -62,7 +62,7 @@ public class UserRankInformationController extends BaseController {
     private class RecordsResult extends JsonResult{
         @Schema(name = "code",description = "状态码",example = "200")
         private int code;
-        @Schema(name = "data",description = "总战绩信息",implementation = Records.class)
+        @Schema(name = "data",description = "总战绩信息",example = "{\"kda\":4.12341,\"winRate\":0.424,\"totalKills\":53,\"gameNums\":33}")
         private Records data;
         @Schema(name = "message",description = "战绩信息",example = "你的战绩信息")
         private String message;
@@ -70,7 +70,7 @@ public class UserRankInformationController extends BaseController {
     private class PersonalReportResult extends JsonResult{
         @Schema(name = "code",description = "状态码",example = "200")
         private int code;
-        @Schema(name = "data",description = "战报信息",implementation = PersonalReport.class)
+        @Schema(name = "data",description = "战报信息",example = "{\"type\":1,\"gameNums\":53,\"win\":10,\"lose\":5,\"winRate\":0.424,\"averageTakeDamage\":23.4,\"averageTakenDamage\":41.4,\"averageKill\":2.4,\"averageDeath\":1.5,\"averageAssist\":1.5,\"kda\":0.145,\"level\":\"钻石\",\"score\":100,\"portrait\":1}")
         private PersonalReport data;
         @Schema(name = "message",description = "战报信息",example = "你的战报信息")
         private String message;
