@@ -115,15 +115,15 @@ public class EmailVerificationController extends BaseController {
                             content = { @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = TypeResult.class)) }
                     ),
-                    @ApiResponse(responseCode = "400",description = "发送验证码错误",
+                    @ApiResponse(responseCode = "401",description = "验证码过期",
                             content = { @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = JsonResult.class)) }
                     ),
-                    @ApiResponse(responseCode = "401",description = "注册操作，该邮箱已注册",
+                    @ApiResponse(responseCode = "402",description = "验证码错误",
                             content = { @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = JsonResult.class)) }
                     ),
-                    @ApiResponse(responseCode = "402",description = "登录、重置密码：该邮箱未注册",
+                    @ApiResponse(responseCode = "400",description = "其他错误",
                             content = { @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = JsonResult.class)) }
                     )
