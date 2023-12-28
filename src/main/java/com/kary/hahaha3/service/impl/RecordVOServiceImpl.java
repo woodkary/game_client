@@ -157,7 +157,13 @@ public class RecordVOServiceImpl implements RecordVOService {
         if(fromIndex>=res.size()){
             return new ArrayList<>();
         }
-        return res.subList(fromIndex,toIndex< res.size()?toIndex: res.size());
+        return res.subList(fromIndex, Math.min(toIndex, res.size()));
+    }
+
+    @Override
+    public List<Games> getGamesByDate(Date date) {
+        List<Games> games=gamesMapper.getGamesByDate(date);
+        return games;
     }
 
 }

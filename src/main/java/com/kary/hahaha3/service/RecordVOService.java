@@ -2,8 +2,10 @@ package com.kary.hahaha3.service;
 
 import com.kary.hahaha3.exceptions.errorInput.GameNotFoundException;
 import com.kary.hahaha3.exceptions.errorInput.MatchTypeErrorException;
+import com.kary.hahaha3.pojo.Games;
 import com.kary.hahaha3.pojo.vo.RecordVO;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,4 +16,5 @@ public interface RecordVOService {
     List<RecordVO> getGamesByUsername(String username,Integer type,int page) throws MatchTypeErrorException;
     List<RecordVO> getGamesByGameId(Integer gameId) throws GameNotFoundException;
     List<RecordVO> getGamesByGameId(Integer gameId,int page) throws GameNotFoundException;
+    List<Games> getGamesByDate(Date date);
 }

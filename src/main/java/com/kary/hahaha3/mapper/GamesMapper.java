@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * @author:123
  */
@@ -17,9 +20,10 @@ public interface GamesMapper {
     Games getGameById(@Param("gameId")Integer gameId);
     Games getThisMonthGameById(@Param("gameId")Integer gameId);
     Integer getMaxGameId();
-Integer addNewGame(@Param("type")Integer type,
+    Integer addNewGame(@Param("type")Integer type,
                        @Param("gameId")Integer gameId,
                        @Param("duration")Long duration,
                        @Param("mvpPlayer")String mvpPlayer);
+    List<Games> getGamesByDate(@Param("date")Date date);
 
 }

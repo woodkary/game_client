@@ -22,4 +22,7 @@
         insert into games (type,game_id,game_time,duration,mvp_player)
         values (#{type},#{gameId},now(),#{duration},#{mvpPlayer})
     </insert>
+    <select id="getGamesByDate" resultType="com.kary.hahaha3.pojo.Games">
+        select * from games where DATE(game_time) = #{date}
+    </select>
 </mapper>

@@ -1,11 +1,8 @@
 body {
-  margin: 0;
-}
-
-.background {
   background-image: url('../images/expedition.jpg');
-  background-size: 100%;
-  background-repeat: no-repeat;
+  margin: 0;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 #main {
