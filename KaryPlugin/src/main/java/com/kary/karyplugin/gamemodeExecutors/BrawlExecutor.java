@@ -281,7 +281,7 @@ public class BrawlExecutor extends BaseExecutor {
     class BrawlMatch extends BukkitRunnable {
         Map<Player, Record> players;//Concurrent
         int second=0;
-        int gameLimitTime=30;//5分钟
+        int gameLimitTime=300;//5分钟
         Integer maxGameId;
         BukkitRunnable assistTimer;
         //TODO 改为5分钟
