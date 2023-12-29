@@ -161,7 +161,7 @@ public class UserRankInformationController extends BaseController {
     @Operation(summary = "统计战报",description="仅返回一个PersonalReport对象。个人主页中需要调用两次")
     @ApiResponses(
             value = {
-                    @ApiResponse(responseCode = "200",description = "你的本月战绩信息",
+                    @ApiResponse(responseCode = "200",description = "你的战绩信息",
                             content = { @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = PersonalReportResult.class)) }
                     ),
