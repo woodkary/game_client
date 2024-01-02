@@ -1,6 +1,5 @@
 package com.kary.hahaha3.controller.rankInformation;
 
-import com.kary.hahaha3.controller.loginAndRegister.RegisterController;
 import com.kary.hahaha3.exceptions.DatabaseUpdateException;
 import com.kary.hahaha3.pojo.JsonResult;
 import com.kary.hahaha3.pojo.vo.AddNewGameJSON;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.sql.SQLException;
 
 /**
  * @author:123
@@ -58,7 +55,18 @@ public class UpdateGameController {
         int attempt=0;
         while(attempt<10){
             try {
-                Integer res = gameRecordService.recordNewMatch(json.getMaxGameId(), json.getDuration(), json.getUsername(), json.getKill(), json.getDeath(), json.getScoreGain(), json.getAssist(), json.getTakeDamage(), json.getTakenDamage(), json.getMvpPlayer(), json.getGameMode());
+                Integer res = gameRecordService.recordNewMatch(
+                        json.getMaxGameId(),
+                        json.getDuration(),
+                        json.getUsername(),
+                        json.getKill(),
+                        json.getDeath(),
+                        json.getScoreGain(),
+                        json.getAssist(),
+                        json.getTakeDamage(),
+                        json.getTakenDamage(),
+                        json.getMvpPlayer(),
+                        json.getGameMode());
                 if (res != 1) {
                     return JsonResult.error("更新失败");
                 }

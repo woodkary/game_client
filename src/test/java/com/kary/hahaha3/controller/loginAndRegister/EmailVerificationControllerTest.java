@@ -53,7 +53,9 @@ public class EmailVerificationControllerTest {
 
         when(userService.emailIsRegistered("834479572@qq.com")).thenReturn(true);
         // 模拟发送GET请求到"/sendVeriCode/{operation}"，并验证响应状态码为400，响应内容为JSON格式的对象
-        mockMvc.perform(MockMvcRequestBuilders.get("/sendVeriCode/{operation}",1).session(session).param("email","834479572@qq.com"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/sendVeriCode/{operation}",1)
+                        .session(session)
+                        .param("email","834479572@qq.com"))
                 .andExpect(status().is(400))
                 .andExpect(content().json("{\"code\":400,\"data\":\"EmailErrorException\",\"message\":\"该邮箱已注册\"}"));
 
@@ -64,7 +66,9 @@ public class EmailVerificationControllerTest {
         List<User> users = new ArrayList<>();
         when(userMapper.selectUserByEmail("2452826804@qq.com")).thenReturn(users);
         // 模拟发送GET请求到"/sendVeriCode/{operation}"，并验证响应状态码为200，响应内容为JSON格式的对象
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/sendVeriCode/{operation}",1).session(session).param("email","2452826804@qq.com"))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/sendVeriCode/{operation}",1)
+                        .session(session)
+                        .param("email","2452826804@qq.com"))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.message").value("等待输入验证码"))
                 .andExpect(jsonPath("code").value(200))
@@ -88,6 +92,21 @@ public class EmailVerificationControllerTest {
                 .andReturn();
         HttpSession httpSession =  result.getRequest().getSession();
         assertEquals(user,httpSession.getAttribute("userGetByEmail"));
+    }
+    @Test
+    public void testSendVeriCodeChangePwdOrLoginError() throws Exception {
+
+        List<User>users = new ArrayList<>();
+        when(userMapper.selectUserByEmail("czg2012@outlook.com")).thenReturn(users);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/sendVeriCode/{operation}",2)
+                        .session(session)
+                        .param("email","czg2012@outlook.com"))
+                .andExpect(status().is4xxClientError())
+                .andExpect(jsonPath("$.message").value("该邮箱未注册"))
+                .andExpect(jsonPath("code").value(400))
+                .andExpect(jsonPath("data").value("EmailErrorException"))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn();
     }
     @Test
     public void testTypeVeriCodeError() throws Exception {

@@ -54,6 +54,8 @@ public class LoginControllerTest {
         verify(session).setAttribute("myAccount",myAccount);
     }
     //未注册登录
+    //用例username = NotRegisteredName，userPWD = NotRegisterPwd
+    //目的:测试登录用户名未注册
     @Test
     public void testLoginWithoutRegister(){
         User user = new User();
