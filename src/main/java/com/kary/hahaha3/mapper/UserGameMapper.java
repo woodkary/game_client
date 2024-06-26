@@ -1,5 +1,6 @@
 package com.kary.hahaha3.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.kary.hahaha3.pojo.UserGame;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,7 +15,7 @@ import java.util.List;
 @Repository
 @Mapper
 @Tag(name = "UserGameMapper")
-public interface UserGameMapper {
+public interface UserGameMapper extends BaseMapper<UserGame> {
     Integer insertUser(@Param(value = "username")String username);
     Integer deleteUser(@Param(value = "username")String username);
     Integer updatePortrait(@Param(value = "username")String username,@Param("portrait")Integer portrait);

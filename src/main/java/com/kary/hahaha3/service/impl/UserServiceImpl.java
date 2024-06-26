@@ -1,5 +1,6 @@
 package com.kary.hahaha3.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.kary.hahaha3.exceptions.connection.DatabaseConnectionException;
 import com.kary.hahaha3.mapper.UserArticleMapper;
 import com.kary.hahaha3.mapper.UserGameMapper;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,7 +56,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Integer insertUser(String username, String pwd, String email) {
         Integer num1,num2,num3;
-        num1= userMapper.insertUser(username,pwd,email);
+        //根据用户名、密码和邮箱插入用户
+        num1= userMapper.insert(new User(username,pwd,email,new Date(),""));
+        //根据用户名插入用户文章
         num2 = userArticleMapper.insertUser(username);
         num3 = userGameMapper.insertUser(username);
 
@@ -77,14 +81,14 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public List<UserGame> getAllUserOrder1v1(){
-        return userGameMapper.getAllUserOrder1v1();
+        return userGameMapper.selectList(new QueryWrapper<UserGame>().orderByDesc("score_total_1v1"));
     }
     @Override
     public List<UserGame> getAllUserOrderBrawl(){
-        return userGameMapper.getAllUserOrderBrawl();
+        return userGameMapper.selectList(new QueryWrapper<UserGame>().orderByDesc("score_total_brawl"));
     }
     @Override
     public List<UserGame> getAllUserOrderTotalScore(){
-        return userGameMapper.getAllUserOrderTotalScore();
+        return userGameMapper.selectList(new QueryWrapper<UserGame>().orderByDesc("score_total_1v1+score_total_brawl"));
     }
 }

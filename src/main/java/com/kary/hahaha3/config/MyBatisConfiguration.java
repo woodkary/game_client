@@ -1,6 +1,6 @@
 package com.kary.hahaha3.config;
 
-import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
+import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

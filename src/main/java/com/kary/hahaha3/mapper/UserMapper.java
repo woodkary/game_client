@@ -1,5 +1,6 @@
 package com.kary.hahaha3.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.kary.hahaha3.pojo.User;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,7 +15,7 @@ import java.util.List;
 @Repository
 @Mapper
 @Tag(name = "UserMapper")
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User> {
     User selectUserByName(@Param(value = "username")String username);
     List<User> selectUserByEmail(@Param(value = "email")String email);
     Integer insertUser(@Param(value = "username")String username,@Param(value = "pwd")String pwd,@Param(value = "email")String email);

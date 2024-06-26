@@ -1,9 +1,12 @@
 package com.kary.hahaha3.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 /**
  * @author:123
@@ -11,8 +14,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Accessors(chain = true)
+@ToString
 public class UserGame {
     @Schema(name = "username",description = "用户名",example = "kary")
+    @TableId("username")
     private String username;
     @Schema(name = "scoreTotal1v1",description = "1v1比分",example = "10")
     private int scoreTotal1v1;
