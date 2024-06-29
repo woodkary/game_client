@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kary.hahaha3.mapper.GamesMapper">
+    <select id="getGameByIdAndType" resultType="com.kary.hahaha3.pojo.Games">
+        select * from games where game_id=#{gameId} and type=#{type}
+    </select>
+    <select id="getGameById" resultType="com.kary.hahaha3.pojo.Games">
+        select * from games where game_id=#{gameId}
+    </select>
+    <select id="getThisMonthGameById" resultType="com.kary.hahaha3.pojo.Games">
+        select * from games where month(game_time)=month(now()) and
+                                year(game_time)=year(now()) and
+                                game_id=#{gameId}
+    </select>
+    <select id="getMaxGameId" resultType="int">
+        select max(game_id) from games
+    </select>
+
+    <insert id="addNewGame">
+        insert into games (type,game_id,game_time,duration,mvp_player)
+        values (#{type},#{gameId},now(),#{duration},#{mvpPlayer})
+    </insert>
+    <select id="getGamesByDate" resultType="com.kary.hahaha3.pojo.Games">
+        select * from games where DATE(game_time) = #{date}
+    </select>
+</mapper>

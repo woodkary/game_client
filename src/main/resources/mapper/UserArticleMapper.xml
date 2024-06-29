@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kary.hahaha3.mapper.UserArticleMapper">
+    <insert id="insertUser">
+        insert into user_article (
+                                  username,
+                                  follow_article_count,
+                                  follow_article,
+                                  follow_theme_count,
+                                  follow_theme,
+                                  publish_article_count,
+                                  publish_article
+        ) values
+              (#{username},0,'',0,'',0,'')
+    </insert>
+    <delete id="deleteUser">
+        delete from user_article where username=#{username}
+    </delete>
+    <update id="publishArticle">
+        update user_article set publish_article_count=publish_article_count+1,
+                                publish_article=concat(publish_article,concat(#{newArticleId},","))
+        where username=#{username}
+    </update>
+</mapper>

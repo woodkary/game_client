@@ -1,0 +1,91 @@
+body {
+  margin: 0;
+}
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("images/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  opacity: 0.8;
+  z-index: -1;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'pixel';
+  font-weight: bold;
+  /* 更改字体样式 */
+}
+
+.line {
+  position: fixed;
+  top: 1%;
+  left: 92%;
+  height: 30px;
+}
+
+.head-photo {
+  position: fixed;
+  top: 1%;
+  left: 93%;
+  height: 30px;
+}
+
+.head-photo:hover {
+  cursor: pointer;
+}
+
+/* 图片样式 */
+#big-logo {
+  position: absolute;
+  top: 15%;
+  left: 35%;
+  width: 450px;
+  height: 70px;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.search-box {
+  display: flex;
+  position: absolute;
+  top: 40%;
+  left: 28%;
+  width: 650px;
+  height: 50px;
+  border-radius: 42px;
+  border: 2px solid #324B4E;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding-left: 15px;
+}
+
+.search-box input {
+  width: 550px;
+  height: 50px;
+  flex: 1;
+  font-size: 19px;
+  font-family: 'pixel';
+  font-weight: bold;
+  border: none;
+  outline: none;
+  margin-left: 5px;
+  background-color: rgba(255, 255, 255, 0.0);
+}
+
+.search-box #search-button {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  float: right;
+  margin-right: 10px;
+  margin-top: 4px;
+}

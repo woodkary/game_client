@@ -1,0 +1,133 @@
+@font-face {
+    font-family: "pixel";
+    src: url("../fonts/点点像素体-方形.ttf") format("truetype");
+}
+
+
+
+nav {
+    background-color: #2F2E2D;
+    /* 更改导航栏的背景颜色 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* 添加阴影效果 */
+    position: fixed;
+    /* 固定导航栏在页面顶部 */
+    width: 100%;
+    /* 导航栏宽度 */
+    height: 10vh;
+    top: 0;
+    z-index: 1000;
+    /* 保证导航栏在最顶层 */
+}
+
+.LOGO {
+    width: 255px;
+    margin-bottom: 13px;
+    margin-left: 16px;
+}
+
+.header {
+    margin-left: 20px;
+}
+
+ul {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    text-align: center;
+    /* 让菜单项在导航栏中居中 */
+}
+
+li {
+    display: inline-block;
+    /* 使用inline-block取代float */
+}
+
+li a {
+    margin-top: 5px;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 20px 30px;
+    /* 调整导航项的内边距让导航栏更高 */
+    text-decoration: none;
+    transition: background-color 0.3s;
+    /* 添加过渡动画效果 */
+}
+
+li a:hover,
+li a:focus {
+    cursor: pointer;
+    background-color: #474646;
+    /* 鼠标悬停和聚焦时的背景颜色 */
+    color: #fff;
+    /* 鼠标悬停和聚焦时的文字颜色 */
+    transition: background-color 0.3s;
+}
+
+
+/* 当屏幕宽度小于600像素时，优化导航项的展示 */
+@media screen and (max-width: 600px) {
+    li {
+        display: block;
+        /* 将导航项堆放起来而不是并排显示 */
+    }
+
+    li a {
+        padding: 10px;
+        /* 调整内边距以适应更小的屏幕 */
+    }
+}
+
+/* 在链接中的图标样式 */
+li a i {
+    margin-right: 5px;
+    /* 让图标和链接文本之间留下一点空隙 */
+    transition: transform 0.3s;
+    /* 添加transform属性的过渡效果 */
+}
+
+/* 鼠标悬停或者聚焦时的动画效果 */
+li a:hover i,
+li a:focus i {
+    transform: scale(1.2);
+    /* 鼠标悬停或者聚焦时图标放大 */
+}
+
+/* 添加一些动画效果来增强用户体验 */
+nav {
+    transition: background-color 0.3s, box-shadow 0.3s;
+    /* 添加背景颜色和阴影的过渡效果 */
+}
+
+li a {
+    position: relative;
+    overflow: hidden;
+}
+
+li a:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+    visibility: hidden;
+    transition: width 0.3s, visibility 0s ease 0.3s;
+}
+
+li a:hover:after,
+li a:focus:after {
+    width: 100%;
+    visibility: visible;
+    transition: width 0.3s;
+}
+
+#logout {
+    position: absolute;
+    right: 10px;
+    top: 2px;
+}

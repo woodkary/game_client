@@ -1,9 +1,0 @@
-name: KaryPlugin
-version: '1.0-SNAPSHOT'
-main: com.kary.karyplugin.KaryPlugin
-api-version: '1.20'
-commands:
-  joinGame:
-    usage: /<command>
-  quitMatching:
-    usage: /<command>

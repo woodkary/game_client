@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="./styles/header.css">
+  <link rel="stylesheet" href="./styles/output.css">
+</head>
+
+
+<body>
+  <div class="background"></div>
+
+  <nav>
+    <span id="logo_nav">
+      <a onclick="redirectToIndex(event)"><img class="LOGO" src="./images/LOGO.png" , alt="LOGO"></a>
+    </span>
+    <span class="header">
+      <ul>
+        <li><a class="header" id="page1" onclick="redirectToIndex(event)"><i class="fas fa-home"></i> 主页面</a></li>
+        <li><a class="header" id="page2" onclick="redirectToMyRecord(event)"><i class="fas fa-chart-bar"></i> 我的战绩</a></li>
+        <li><a class="header" id="page3" onclick="redirectToSquare(event)"><i class="fas fa-users">广场</i> </a></li>
+      </ul>
+
+      <ul>
+        <li>
+            <a class="header" id="logout" href="./pages/login.html"><i
+                    class="fas fa-power-off logout-icon"></i> 注销</a>
+        </li>
+    </ul>
+    </span>
+
+  </nav>
+
+
+  <img class="items" id="big-logo" src="images/LOGO.png" alt="big-logo">
+
+  <div class="search">
+    <div class="search-box">
+      <input type="text" id="username" placeholder="请输入想搜索用户名" oninput="this.setCustomValidity('')">
+      <img src="./images/search_new.png" onclick="search()" id="search-button"></img>
+
+
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+
+</body>
+
+</html>
